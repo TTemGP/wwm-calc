@@ -51,6 +51,11 @@ input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);margin:0}
 .season{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
 .season label{display:flex;gap:8px;align-items:center}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
+.sklist{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.sklist-h{width:100%;font-size:12px;color:var(--muted)}
+.sk{display:inline-flex;gap:6px;align-items:baseline;padding:3px 10px;border-radius:8px;background:var(--sunk);border:1px solid var(--line);font-size:12.5px;white-space:nowrap}
+.sk b{font-weight:600}
+.sk span{color:var(--muted)}
 .chip{display:inline-flex;align-items:baseline;gap:6px;padding:4px 11px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);font-size:13px}
 .chip b{font-family:var(--f-num)}
 
@@ -119,7 +124,7 @@ footer{font-size:13px;color:var(--muted)}
       <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
         <h2 id="h-season" class="muted small" style="font-family:var(--f-body);font-size:13px;letter-spacing:.06em">다음 시즌까지</h2>
         <p class="big" id="verdict">계산 중</p>
-        <p class="muted small" id="verdictSub" style="margin:0"></p>
+        <div id="verdictSub" class="sklist"></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
         <div class="season">
@@ -397,7 +402,7 @@ function render() {
   if (!active.length) { v.textContent = '키울 비결을 체크해 주세요'; v.className = 'big'; }
   else if (!lacking.length) { v.textContent = S.season ? '다음 시즌까지 재료가 충분해요' : '지금 가진 재료로 충분해요'; v.className = 'big ok'; }
   else { v.textContent = `재료 ${lacking.length}종이 모자라요`; v.className = 'big bad'; }
-  $('verdictSub').textContent = active.length ? `비결 ${active.length}개 · ` + active.map(s => `${s[1]} ${label(sk(s[0]).cur)}→${label(sk(s[0]).tgt)}`).join(', ') : '';
+  $('verdictSub').innerHTML = active.length ? `<span class="sklist-h">키우는 비결 ${active.length}개</span>` + active.map(s => { const t = sk(s[0]); return `<span class="sk"><b>${s[1]}</b>${t.tgt > t.cur ? `<span>${label(t.cur)} → ${label(t.tgt)}</span>` : ''}${s[3] && t.form ? '<span>2번째 형태</span>' : ''}</span>`; }).join('') : '';
   const herbNeed = HERBS.reduce((a,[k]) => a + (need[k]||0), 0), ironNeed = IRON.reduce((a,[k]) => a + (need[k]||0), 0);
   $('chips').innerHTML = `<span class="chip">돌파 재료 <b>${fmt(herbNeed)}</b></span><span class="chip">오금철 <b>${fmt(ironNeed)}</b></span>` +
     (need.pill ? `<span class="chip">묘오단 <b>${need.pill}</b></span>` : '') +
