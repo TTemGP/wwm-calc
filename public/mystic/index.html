@@ -148,6 +148,14 @@ footer{font-size:13px;color:var(--muted)}
     </table></div>
   </section>
 
+  <section class="panel" aria-labelledby="h-box">
+    <div class="ph"><h2 id="h-box">비결 지원 상자 주간 구매</h2><span class="muted small">체크한 곳의 개수를 더해서 재료 현황의 상자 "1주 획득"에 넣어요.</span></div>
+    <div class="tbl"><table class="boxsrc">
+      <thead><tr><th></th><th>구매처</th><th class="r">1주 개수</th><th>비용</th></tr></thead>
+      <tbody id="boxBody"></tbody>
+    </table></div>
+  </section>
+
   <section class="panel" aria-labelledby="h-sk">
     <div class="ph"><h2 id="h-sk">비결 목록</h2><span class="muted small">체크한 비결만 계산해요. 공격 비결(오금철을 쓰는 비결)만 있어요.</span></div>
     <div class="bulk">
@@ -169,11 +177,12 @@ footer{font-size:13px;color:var(--muted)}
     <h2 id="h-src">계산 기준</h2>
     <ul class="notes">
       <li><b>1~5중</b>은 0~9단이에요. 한 단 올릴 때 그 중 등급 오금철이 1중 2개, 2중 4개, 3중 10개, 4중 20개, 5중 32개 들어요. 9단에서 다음 중으로 돌파할 때도 같은 양의 오금철에 돌파 재료가 5·15·18·28·35개 더 들어요(합계 101개).</li>
-      <li><b>6중</b>은 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 신념의 여정, 21~30단은 계승을 써요. 중국 서버는 8월에 50단까지 열려서 31~40단 협종의 선율, 41~50단 유빈의 연주로 넣었어요(6중 40→41단 강화 화면에서 유빈의 연주 48개 확인, 31~40단 등급은 순서로 맞춘 것).</li>
+      <li><b>6중</b>은 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 신념의 여정, 21~30단은 계승을 써요. 중국 서버는 8월에 50단까지 열려서 31~40단 협종의 선율, 41~50단 유빈의 연주로 넣었어요(6중 40→41단 강화 화면에서 유빈의 연주 48개 확인, 31~40단 등급은 순서로 맞춘 것). 글로벌은 지금 6중 25단까지라 그 위 단계는 목록에 (중국)이라고 붙였어요.</li>
+      <li><b>6중 안에서는 돌파 재료가 안 들어요.</b> 6중 30단 초기화 때 돌려받는 돌파 재료가 1~6중 돌파 합계(101개)와 딱 맞고, 6중 40→41단 강화 화면에도 오금철 한 가지만 있어요. 31~50단의 모든 단을 화면으로 본 건 아니에요.</li>
       <li>6중 30단까지 다 올리면 오금철 Lv.1 20 · Lv.2 40 · Lv.3 100 · Lv.4 200 · Lv.5 320 · Lv.6 432 · 신념의 여정 528 · 계승 480개, 돌파 재료 101개예요. 중국 서버 비결 초기화 화면(전부 돌려받기)과 맞춰 봤어요.</li>
       <li><b>2번째 형태</b>(용의 진노-겹쳐진 파도, 음양의 조화-그림자)는 용의 진노 초기화 화면 기준으로 신념의 여정 48개와 비결 묘오단 1개를 더 넣었어요. 음양의 조화는 확인 못 해서 같은 값으로 뒀어요.</li>
-      <li>비결 지원 상자 1개는 돌파 재료 3개로 쳐요. 상자 종류마다 고를 수 있는 재료가 달라서 실제로는 조금 다를 수 있어요.</li>
-      <li>글로벌 서버에서 지금 몇 중 몇 단까지 열려 있는지는 확인 중이에요. 초기화 화면에 안 나오는 비용(동전 등)은 계산에 없어요.</li>
+      <li>비결 지원 상자 1개는 돌파 재료 3개로 쳐요. 전승 교환·강호령 상점 개수는 직접 확인해 주신 글로벌 값이고, 옥어패 상점은 중국 서버 不肝商店(같은 화폐 幺玉) 화면 기준이에요. 상자 종류마다 고를 수 있는 재료가 달라서 실제로는 조금 다를 수 있어요.</li>
+      <li>초기화 화면에 안 나오는 비용(동전 등)은 계산에 없어요.</li>
       <li>출처: 샤오홍슈 可樂搖一搖 「奇术突破材料表」, 达尹 「奇术升满级六重三十段所需材料一览」(2026-03), 茶茗 「奇术升级用的乌金？」(2026-09, 6중 40→41단 화면), Game8 1~5중 돌파표, 한국어 명칭은 th.gl 연운 데이터베이스.</li>
     </ul>
     <button class="reset" id="resetBtn">모든 입력 지우기</button>
@@ -216,7 +225,13 @@ const HERB_GROUP = Object.fromEntries(HERBS);
 const PER = [2,4,10,20,32];      // 1~5중 한 단(돌파 포함) 오금철
 const BT = [5,15,18,28,35];      // 1→2 … 5→6 돌파 재료
 const MAX = 100;                 // 6중 50단(중국 서버 기준)
-const DEF = 80;                  // 6중 30단
+const GLOBAL = 75;               // 글로벌 현재 상한 6중 25단(10/20)
+const DEF = GLOBAL;
+const BOX_SRC = [
+  ['inherit','전승 교환',5,'깨달음의 원석 10개'],
+  ['pass','강호령 상점',3,'강호령패 15개'],
+  ['season','옥어패 상점(시즌 상점)',10,'1개에 옥어패 500 · 중국 서버 기준 매주 10개 보충, 안 사면 최대 20개까지 쌓여요'],
+];
 const label = i => i < 50 ? `${Math.floor(i/10)+1}중 ${i%10}단` : `6중 ${i-50}단`;
 const stepCost = (i, herb, add) => {
   if (i < 50) {
@@ -244,19 +259,21 @@ const SAMPLE = () => ({
   sample: true,
   season: iso(new Date(today.getTime() + 42*864e5)),
   skills: {
-    poet:{on:true,cur:47,tgt:80}, dragon:{on:true,cur:50,tgt:80,form:true}, soar:{on:true,cur:38,tgt:59},
+    poet:{on:true,cur:47,tgt:75}, dragon:{on:true,cur:50,tgt:75,form:true}, soar:{on:true,cur:38,tgt:59},
     flute:{on:true,cur:42,tgt:59}, steps:{on:true,cur:29,tgt:49},
   },
   have: {fruit:12,pearl:30,plume:4,root:9,jasmine:6,frost:2,foxtail:0,storm:20,
     i1:40,i2:60,i3:120,i4:160,i5:210,i6:300,i7:95,i8:0,pill:0,box:4},
-  week: {i4:20,i5:30,i6:40,i7:24,box:1,jasmine:3},
+  week: {i4:20,i5:30,i6:40,i7:24,box:18,jasmine:3},
   done: {}, custom: [],
 });
+const boxDefault = () => Object.fromEntries(BOX_SRC.map(b => [b[0], {on:true, n:b[2]}]));
 const EMPTY = () => ({sample:false, season:'', skills:{}, have:{}, week:{}, done:{}, custom:[]});
 let S;
 try { S = JSON.parse(localStorage.getItem(KEY)) || SAMPLE(); } catch { S = SAMPLE(); }
 for (const k of ['skills','have','week','done']) S[k] ||= {};
 S.custom ||= [];
+S.boxSrc ||= boxDefault();
 const save = () => { try { if (!S.sample) localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 const touch = () => { if (S.sample) { S.sample = false; } save(); };
 const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:DEF});
@@ -264,7 +281,17 @@ const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:DEF});
 // ---------- 그리기 ----------
 const $ = id => document.getElementById(id);
 const fmt = n => n.toLocaleString('ko-KR');
-const opts = (sel, from = 0) => { let h = ''; for (let i = from; i <= MAX; i++) h += `<option value="${i}"${i===sel?' selected':''}>${label(i)}</option>`; return h; };
+const opts = (sel, from = 0) => { let h = ''; for (let i = from; i <= MAX; i++) h += `<option value="${i}"${i===sel?' selected':''}>${label(i)}${i>GLOBAL?' (중국)':''}</option>`; return h; };
+
+function buildBox() {
+  $('boxBody').innerHTML = BOX_SRC.map(([k, n, , cost]) => {
+    const b = S.boxSrc[k] ||= {on:true, n:0};
+    return `<tr><td><input type="checkbox" id="bx-on-${k}" data-bx="${k}" data-f="on"${b.on?' checked':''} aria-label="${n} 포함"></td>
+      <td><label for="bx-on-${k}" class="mname">${n}</label></td>
+      <td class="r"><input type="number" min="0" inputmode="numeric" id="bx-n-${k}" data-bx="${k}" data-f="n" value="${b.n}" aria-label="${n} 1주 개수"></td>
+      <td class="small muted">${cost}</td></tr>`;
+  }).join('');
+}
 
 function buildSkills() {
   let h = '', last = '';
@@ -422,6 +449,14 @@ $('addTodo').addEventListener('submit', e => {
   const v = $('todoText').value.trim(); if (!v) return;
   S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
 });
+$('boxBody').addEventListener('input', e => {
+  const t = e.target, k = t.dataset.bx; if (!k) return;
+  if (t.dataset.f === 'on') S.boxSrc[k].on = t.checked;
+  else S.boxSrc[k].n = Math.max(0, Math.floor(+t.value || 0));
+  S.week.box = BOX_SRC.reduce((a, [id]) => a + (S.boxSrc[id].on ? S.boxSrc[id].n : 0), 0);
+  $('week-box').value = S.week.box;
+  touch(); render();
+});
 $('bulkTarget').innerHTML = opts(DEF);
 $('bulkCur').innerHTML = opts(50);
 $('bulkCurApply').addEventListener('click', () => {
@@ -434,7 +469,7 @@ $('bulkApply').addEventListener('click', () => {
   for (const s of SKILLS) { const st = sk(s[0]); if (st.on) st.tgt = Math.max(v, st.cur); }
   touch(); buildSkills(); render();
 });
-const wipe = () => { S = EMPTY(); save(); buildSkills(); buildMats(); render(); };
+const wipe = () => { S = EMPTY(); S.boxSrc = Object.fromEntries(BOX_SRC.map(b => [b[0], {on:false, n:b[2]}])); save(); buildSkills(); buildMats(); buildBox(); render(); };
 $('clearSample').addEventListener('click', wipe);
 let armed = 0;
 $('resetBtn').addEventListener('click', e => {
@@ -443,6 +478,6 @@ $('resetBtn').addEventListener('click', e => {
   setTimeout(() => { if (armed && Date.now() - armed >= 4000) { e.target.textContent = '모든 입력 지우기'; armed = 0; } }, 4100);
 });
 
-buildSkills(); buildMats(); render();
+buildSkills(); buildMats(); buildBox(); render();
 })();
 </script>
