@@ -1,0 +1,26 @@
+{
+  "Exhausted": {
+    "name": "Exhausted",
+    "badgeColor": "red",
+    "shortName": "Exh",
+    "description": "Increases global damage taken by 10%.",
+    "duration": 10,
+    "maxStack": 1,
+    "shared": true,
+    "effect": [{ "effect": { "globalDmgBonus": 0.1 } }],
+    "action": [{ "type": "setQi", "targetQiRatio": 1, "time": "expire" }],
+    "refresh": true
+  },
+  "Controlled": {
+    "name": "Controlled",
+    "badgeColor": "red",
+    "shortName": "Ctl",
+    "description": "Marks a target as controlled for conditional effects.",
+    "duration": 3,
+    "maxStack": 1,
+    "shared": true,
+    "refresh": true
+  },
+  "Immobilized": { "name": "Immobilized", "badgeColor": "red", "maxStack": 1, "showCoverage": true },
+  "Airborne": { "name": "Airborne", "badgeColor": "red", "maxStack": 1, "showCoverage": true }
+}

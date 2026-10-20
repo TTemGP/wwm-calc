@@ -1,0 +1,94 @@
+@layer ui {
+  .button {
+    /* The block size an icon-only button of this size takes. See `.icon-only`. */
+    --button-block-size: calc(1.2em + 20px);
+
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    padding: 10px 15px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 650;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    text-align: center;
+    white-space: normal;
+    transition:
+      background-color var(--transition-normal),
+      border-color var(--transition-normal),
+      color var(--transition-normal);
+  }
+
+  .button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  .small {
+    --button-block-size: calc(1.2em + 10px);
+
+    padding: 5px 9px;
+    border-color: var(--border);
+    background: var(--surface-alt);
+    color: var(--text);
+    font-size: inherit;
+  }
+
+  .small:hover:not(:disabled) {
+    border-color: var(--primary);
+  }
+
+  /*
+   * An icon-only button is square: it has no label to give it an intrinsic inline size, so it
+   * takes the block size of the size variant it is combined with. The size is written out as
+   * the padding plus the line box rather than taken from `aspect-ratio`, because the box is
+   * centre-aligned and therefore has a content-derived block size, which leaves a ratio with
+   * no definite axis to resolve from and collapses the button to the width of its glyph.
+   *
+   * The em is the same line box a labelled button of this size gets, so the two stay the same
+   * height in whatever context they are used.
+   */
+  .icon-only {
+    display: inline-grid;
+    flex: 0 0 auto;
+    align-self: center;
+    padding-inline: 0;
+    place-items: center;
+    block-size: var(--button-block-size);
+    inline-size: var(--button-block-size);
+  }
+
+  .primary {
+    background: var(--primary);
+    color: var(--primary-contrast);
+  }
+
+  .primary:hover:not(:disabled) {
+    background: var(--primary-hover);
+  }
+
+  .secondary {
+    border-color: var(--border);
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .secondary:hover:not(:disabled) {
+    border-color: var(--primary);
+  }
+
+  .danger {
+    border-color: var(--error-border);
+    background: var(--error-soft);
+    color: var(--error);
+  }
+
+  .danger:hover:not(:disabled) {
+    border-color: var(--error);
+    background: oklch(from var(--error) l c h / 22%);
+  }
+}

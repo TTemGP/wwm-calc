@@ -1,0 +1,47 @@
+{
+  "name": "Gourd Toss",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "GourdTossT0": {},
+    "GourdTossT1": {},
+    "GourdTossT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "precision": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.014,
+                0.019,
+                0.025,
+                0.031,
+                0.037,
+                0.037,
+                0.037,
+                0.043,
+                0.051,
+                0.059,
+                0.065,
+                0.069,
+                0.072,
+                0.078,
+                0.084,
+                0.09,
+                0.098
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "GourdTossT3": {},
+    "GourdTossT4": {},
+    "GourdTossT5": { "effect": [{ "rawStat": { "silkbindPenetration": 6 } }] },
+    "GourdTossT6": {}
+  }
+}

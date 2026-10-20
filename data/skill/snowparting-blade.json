@@ -1,0 +1,325 @@
+{
+  "SnowpartingLightCharged": {
+    "name": "Grave Frost",
+    "shortName": "Heng LC",
+    "castTime": 1.605,
+    "action": [
+      { "type": "consume", "target": "self", "value": "Forgetfulness", "stack": 1, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "ForgetfulnessCooldown",
+        "requirement": { "resolveAt": "skillStart", "operand": [{ "target": "self", "value": "Forgetfulness" }] },
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.4899,
+        "phyBonus": 135.333,
+        "attrBonus": 73.667,
+        "time": 0.833,
+        "attrCoef": 0.4899
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.4899,
+        "phyBonus": 135.333,
+        "attrBonus": 73.667,
+        "time": 1.05,
+        "attrCoef": 0.4899
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.4899,
+        "phyBonus": 135.333,
+        "attrBonus": 73.667,
+        "time": 1.171,
+        "attrCoef": 0.4899
+      },
+      { "type": "damage", "phyCoef": 0.9798, "phyBonus": 271, "attrBonus": 147, "time": 1.596, "attrCoef": 0.9798 }
+    ],
+    "modifier": [
+      { "requirement": [{ "target": "self", "value": "Forgetfulness" }], "effect": { "castTimeModifier": -0.65 } }
+    ],
+    "tags": ["DirectDamage", "MartialArts", "Light", "Charged", "HengBlade", "SnowpartingBlade", "GraveFrost"],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "SnowpartingHeavyVC": {
+    "name": "Snowbreak Spring",
+    "shortName": "Heng VC",
+    "castTime": 0.857,
+    "action": [
+      { "type": "damage", "phyCoef": 2.07686, "phyBonus": 575, "attrBonus": 313, "time": 0.565, "attrCoef": 2.07686 },
+      { "type": "consume", "target": "self", "value": "InnerPassion", "stack": 1, "time": 0.565 },
+      {
+        "type": "trigger",
+        "requirement": [
+          { "target": "self", "value": "FrostCladNightT1" },
+          { "target": "self", "value": "IronGuard" }
+        ],
+        "value": "AnxiSoldierSnowbreakSpring",
+        "time": 0.565
+      },
+      {
+        "type": "extend",
+        "requirement": [
+          { "target": "self", "value": "FrostCladNightT6" },
+          { "target": "target", "value": "Exhausted" }
+        ],
+        "target": "target",
+        "value": "Dread",
+        "duration": 2,
+        "time": 0.565
+      },
+      {
+        "type": "consume",
+        "requirement": [
+          { "target": "self", "value": "FrostCladNightT6" },
+          { "target": "target", "value": "Exhausted" }
+        ],
+        "target": "self",
+        "value": "ForgetfulnessCooldown",
+        "time": 0.565,
+        "stack": "all"
+      },
+      {
+        "type": "apply",
+        "requirement": [
+          { "target": "self", "value": "FrostCladNightT6" },
+          { "operator": "not", "operand": [{ "target": "self", "value": "ForgetfulnessCooldown" }] }
+        ],
+        "target": "self",
+        "value": "Forgetfulness",
+        "stack": 1,
+        "time": 0.565
+      }
+    ],
+    "modifier": [{ "effect": { "baseDMGBonus": 0.36 } }],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "Heavy",
+      "VariedCombo",
+      "HengBlade",
+      "SnowpartingBlade",
+      "SnowbreakSpring",
+      "TriggerAnxiSolder"
+    ],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "SnowpartingSpecial": {
+    "name": "Fleeting Trace",
+    "shortName": "Heng Special",
+    "castTime": 2.066,
+    "cooldown": 20,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 0.633,
+        "attrCoef": 0.377968
+      },
+      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1, "attrCoef": 0.377968 },
+      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.1, "attrCoef": 0.377968 },
+      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.2, "attrCoef": 0.377968 },
+      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.3, "attrCoef": 0.377968 },
+      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.6, "attrCoef": 0.377968 },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.666,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.733,
+        "attrCoef": 0.377968
+      },
+      { "type": "damage", "phyCoef": 0.755936, "phyBonus": 209.2, "attrBonus": 114, "time": 1.8, "attrCoef": 0.755936 },
+      { "type": "apply", "requirement": [], "target": "self", "value": "InnerPassion", "stack": 3, "time": 2.066 },
+      {
+        "type": "apply",
+        "requirement": [{ "target": "self", "value": "FrostCladNightT4" }],
+        "target": "self",
+        "value": "InnerPassion",
+        "stack": 1,
+        "time": 2.066
+      },
+      { "type": "apply", "requirement": [], "target": "target", "value": "Dread", "stack": 1, "time": 2.066 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Special", "HengBlade", "SnowpartingBlade", "FleetingTrace"],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "SnowpartingQ": {
+    "name": "General's Bane",
+    "shortName": "Heng Q",
+    "castTime": 0.692,
+    "cooldown": 12,
+    "cooldownUses": 2,
+    "action": [
+      { "type": "damage", "phyCoef": 1.2338, "phyBonus": 342, "attrBonus": 186, "time": 0.526, "attrCoef": 1.2338 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MartialArt", "HengBlade", "SnowpartingBlade", "General's Bane"],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "SnowpartingQ2": {
+    "name": "General's Bane 2",
+    "shortName": "Heng Q2",
+    "castTime": 0.708,
+    "cooldown": 12,
+    "cooldownUses": 2,
+    "action": [
+      { "type": "damage", "phyCoef": 1.2338, "phyBonus": 342, "attrBonus": 186, "time": 0.611, "attrCoef": 1.2338 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MartialArt", "HengBlade", "SnowpartingBlade", "General's Bane"],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade",
+    "cooldownGroup": "SnowpartingQ"
+  },
+  "SnowpartingQSlash": {
+    "name": "General's Bane: Slash",
+    "shortName": "Heng Q",
+    "castTime": 0.654,
+    "cooldown": 12,
+    "cooldownUses": 2,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.596352,
+        "phyBonus": 165.2,
+        "attrBonus": 90,
+        "time": 0.234,
+        "attrCoef": 0.596352
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.894528,
+        "phyBonus": 247.8,
+        "attrBonus": 135,
+        "time": 0.491,
+        "attrCoef": 0.894528
+      }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MartialArt",
+      "HengBlade",
+      "SnowpartingBlade",
+      "General's Bane",
+      "General's Bane: Slash"
+    ],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "SnowpartingQStab": {
+    "name": "General's Bane: Stab",
+    "shortName": "Heng Q Stab",
+    "castTime": 1.15,
+    "cooldown": 12,
+    "cooldownUses": 2,
+    "action": [
+      { "type": "damage", "phyCoef": 0.85296, "phyBonus": 236, "attrBonus": 128.8, "time": 0.228, "attrCoef": 0.85296 },
+      { "type": "damage", "phyCoef": 1.27944, "phyBonus": 354, "attrBonus": 193.2, "time": 0.799, "attrCoef": 1.27944 },
+      { "type": "apply", "requirement": [], "target": "target", "value": "FearfulBlade", "stack": 1, "time": 0.799 },
+      { "type": "extend", "requirement": [], "target": "target", "value": "Dread", "duration": 6, "time": 0.799 },
+      {
+        "type": "trigger",
+        "requirement": [
+          { "target": "self", "value": "FrostCladNightT1" },
+          { "target": "self", "value": "IronGuard" }
+        ],
+        "value": "AnxiSoldierGeneralsBaneStab",
+        "time": 0.799
+      }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MartialArt",
+      "HengBlade",
+      "SnowpartingBlade",
+      "General's Bane",
+      "General's Bane: Stab",
+      "TriggerAnxiSolder"
+    ],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "SnowpartingConversion": {
+    "name": "Snowparting Conversion",
+    "shortName": "Heng Tab",
+    "cooldown": 3,
+    "castTime": 0.56,
+    "action": [
+      { "type": "damage", "phyCoef": 0.64861, "phyBonus": 180, "attrBonus": 98, "time": 0.498, "attrCoef": 0.64861 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Conversion", "HengBlade", "SnowpartingBlade", "General's Bane"],
+    "martialArt": "snowparting",
+    "weapon": "HengBlade"
+  },
+  "AnxiSoldierSnowbreakSpring": {
+    "name": "Anxi Soldier Snowbreak Spring",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.16, "attrCoef": 0.35 },
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.4, "attrCoef": 0.35 },
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.46, "attrCoef": 0.35 },
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.7, "attrCoef": 0.35 }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MartialArtTrigger",
+      "Heavy",
+      "VariedCombo",
+      "HengBlade",
+      "SnowpartingBlade",
+      "AnxiSoldier",
+      "MartialArtEffect",
+      "Triggered"
+    ],
+    "skillBreakdownCategory": "Heng Blade Anxi Soldier"
+  },
+  "AnxiSoldierGeneralsBaneStab": {
+    "name": "Anxi Soldier General's Bane: Stab",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.16, "attrCoef": 0.35 },
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.4, "attrCoef": 0.35 },
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.46, "attrCoef": 0.35 },
+      { "type": "damage", "phyCoef": 0.35, "phyBonus": 0, "attrBonus": 0, "time": 0.7, "attrCoef": 0.35 }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MartialArtTrigger",
+      "MartialArt",
+      "HengBlade",
+      "SnowpartingBlade",
+      "AnxiSoldier",
+      "MartialArtEffect",
+      "Triggered"
+    ],
+    "skillBreakdownCategory": "Heng Blade Anxi Soldier"
+  }
+}

@@ -1,0 +1,2 @@
+/* The import order lives in main.tsx; primitives override base normalization but remain below application layers. */
+@layer tokens, base, ui, layout, components, utilities;

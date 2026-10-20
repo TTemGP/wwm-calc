@@ -1,0 +1,77 @@
+{
+  "name": "Light Anew",
+  "altersTimeline": true,
+  "tags": ["BamboocutDust"],
+  "effect": {
+    "LightAnewT0": {
+      "trigger": [
+        {
+          "target": "target",
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "enemyCount", "comparison": ">=", "amount": 3 },
+                [
+                  { "target": "self", "value": "LightAnewT4" },
+                  { "target": "enemyCount", "comparison": ">=", "amount": 2 }
+                ]
+              ]
+            }
+          ],
+          "action": [{ "type": "apply", "target": "target", "value": "Candlelight", "stack": 1, "reapply": true }]
+        }
+      ]
+    },
+    "LightAnewT1": { "effect": [{ "target": "Candlelight", "modify": { "duration": 5 } }] },
+    "LightAnewT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minBamboocut": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                7.6,
+                10.3,
+                13.6,
+                17.3,
+                20.2,
+                20.2,
+                20.2,
+                24,
+                28,
+                32.6,
+                36.2,
+                38,
+                39.8,
+                42.9,
+                46.3,
+                49.9,
+                53.9
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "LightAnewT3": {},
+    "LightAnewT4": {},
+    "LightAnewT5": { "effect": [{ "rawStat": { "bamboocutPenetration": 6 } }] },
+    "LightAnewT6": {
+      "effect": [
+        { "requirement": [{ "target": "target", "value": "Candlelight", "stack": 5 }], "effect": { "dmgBonus": 0.03 } },
+        {
+          "requirement": [
+            { "target": "target", "value": "Candlelight", "stack": 5 },
+            { "target": "distance", "comparison": ">", "amount": 8 }
+          ],
+          "effect": { "dmgBonus": 0.03 }
+        }
+      ]
+    }
+  }
+}

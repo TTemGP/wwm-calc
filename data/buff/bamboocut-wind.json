@@ -1,0 +1,182 @@
+{
+  "InfernalLightAttackPveBonus": {
+    "name": "Infernal Light Attack PvE Bonus",
+    "global": { "equippedMartialArt": "infernalTwinblades" },
+    "effect": [
+      {
+        "requirement": [
+          { "target": "martialArt", "value": "InfernalTwinblades" },
+          { "target": "skillTag", "value": "Light" }
+        ],
+        "effect": { "hpDMGBonus": 0.1 }
+      }
+    ]
+  },
+  "RodentRampageEnhancement": {
+    "name": "Rodent Rampage Enhancement",
+    "shortName": "RRE",
+    "description": "RD Special consumes one stack to apply Enhanced Rodent Rampage instead of Rodent Rampage.",
+    "maxStack": 2,
+    "showCoverage": true
+  },
+  "Flamelash": {
+    "name": "Flamelash",
+    "shortName": "Fla",
+    "maxStack": 1,
+    "showCoverage": true,
+    "effect": [{ "effect": { "effectiveStat": { "effectiveCritBonus": 0.1 }, "critDmgBonus": 0.2 } }],
+    "refresh": true,
+    "action": [
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "Flamelash",
+        "stack": "all",
+        "requirement": [{ "target": "resource", "value": "Hellfire", "comparison": "<=", "amount": 0 }],
+        "time": 0
+      }
+    ],
+    "periodic": {
+      "interval": 0.132,
+      "resetOnRefresh": true,
+      "action": [
+        { "type": "consumeResource", "value": "Hellfire", "amount": 1, "amountPerTick": 0.05 },
+        {
+          "type": "consume",
+          "target": "self",
+          "value": "Flamelash",
+          "stack": "all",
+          "requirement": [{ "target": "resource", "value": "Hellfire", "comparison": "<=", "amount": 0 }]
+        }
+      ]
+    }
+  },
+  "Disintegration": {
+    "name": "Disintegration",
+    "shortName": "Dis",
+    "showCoverage": true,
+    "description": "Increase physical penetraion by 5 and critical damage by 5% per stack.",
+    "duration": 3,
+    "maxStack": 3,
+    "stackEffects": [
+      [{ "effect": { "physicalPenetration": 5, "critDmgBonus": 0.05 } }],
+      [{ "effect": { "physicalPenetration": 10, "critDmgBonus": 0.1 } }],
+      [{ "effect": { "physicalPenetration": 15, "critDmgBonus": 0.15 } }],
+      [{ "effect": { "physicalPenetration": 20, "critDmgBonus": 0.2 } }],
+      [{ "effect": { "physicalPenetration": 25, "critDmgBonus": 0.25 } }]
+    ],
+    "refresh": true
+  },
+  "Samsara": {
+    "name": "Samsara",
+    "shortName": "Sam",
+    "description": "Increases HP damage dealt by 5%. Echoes of Oblivion T6 adds another 5%.",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "effect": [{ "effect": { "hpDMGBonus": 0.05 } }]
+  },
+  "RodentRampage": {
+    "name": "Rodent Rampage",
+    "shortName": "RR",
+    "duration": 10,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "action": [{ "type": "consume", "target": "self", "value": "EnhancedRodentRampage", "stack": "all", "time": 0 }],
+    "trigger": {
+      "event": "damage",
+      "oncePerSkill": true,
+      "requirement": [
+        { "target": "skillTag", "value": "MartialArts" },
+        { "target": "skillTag", "value": "Light" }
+      ],
+      "action": {
+        "type": "apply",
+        "target": "self",
+        "value": "RodentRampageCount",
+        "stack": 1,
+        "additionalStack": {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "currentMartialArt", "value": "infernalTwinblades" },
+                { "target": "currentMartialArt", "value": "mortalRopeDart" }
+              ]
+            }
+          ],
+          "stack": 1
+        }
+      }
+    }
+  },
+  "EnhancedRodentRampage": {
+    "name": "Enhanced Rodent Rampage",
+    "shortName": "ERR",
+    "duration": 10,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "description": "Retains coordinated Rodent attacks. Automatic Rodents launch at +0.5s, then every second, and land 0.5s later. Lasts 10 seconds, 15 with Vendetta, or 20 at Vendetta T4.",
+    "action": [{ "type": "consume", "target": "self", "value": "RodentRampage", "stack": "all", "time": 0 }],
+    "periodic": {
+      "interval": 1,
+      "firstTick": 0.5,
+      "resetOnRefresh": false,
+      "tickOnExpire": true,
+      "action": [
+        {
+          "type": "trigger",
+          "value": "Rodent",
+          "requirement": [{ "target": "distance", "comparison": "<", "amount": 12 }]
+        }
+      ]
+    },
+    "trigger": {
+      "event": "damage",
+      "oncePerSkill": true,
+      "requirement": [
+        { "target": "skillTag", "value": "MartialArts" },
+        { "target": "skillTag", "value": "Light" }
+      ],
+      "action": {
+        "type": "apply",
+        "target": "self",
+        "value": "EnhancedRodentRampageCount",
+        "stack": 1,
+        "additionalStack": {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "currentMartialArt", "value": "infernalTwinblades" },
+                { "target": "currentMartialArt", "value": "mortalRopeDart" }
+              ]
+            }
+          ],
+          "stack": 1
+        }
+      }
+    }
+  },
+  "RodentRampageCount": {
+    "name": "Rodent Rampage Attack Count",
+    "hidden": true,
+    "parentEffect": "RodentRampage",
+    "maxStack": 2,
+    "refresh": true,
+    "onMaxStack": { "consume": "all", "trigger": "Rodent" }
+  },
+  "EnhancedRodentRampageCount": {
+    "name": "Enhanced Rodent Rampage Attack Count",
+    "hidden": true,
+    "parentEffect": "EnhancedRodentRampage",
+    "maxStack": 2,
+    "refresh": true,
+    "onMaxStack": { "consume": "all", "trigger": "Rodent" }
+  },
+  "InfernalFlamelashCombo": { "name": "Blade of Heaven's Wrath Combo", "hidden": true, "maxStack": 5, "refresh": true },
+  "InfernalLightCombo": { "name": "Infernal Light Attack Combo", "hidden": true, "maxStack": 4, "refresh": true }
+}

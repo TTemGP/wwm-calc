@@ -1,0 +1,49 @@
+{
+  "name": "Adaptive Steel",
+  "altersTimeline": true,
+  "tags": ["StonesplitMight"],
+  "effect": {
+    "AdaptiveSteelT0": {
+      "effect": [{ "requirement": [{ "target": "skillTag", "value": "Charged" }], "effect": { "critDmgBonus": 0.2 } }]
+    },
+    "AdaptiveSteelT1": {},
+    "AdaptiveSteelT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxBellstrike": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                7.6,
+                10.3,
+                13.6,
+                17.3,
+                20.2,
+                20.2,
+                20.2,
+                24,
+                28,
+                32.6,
+                36.2,
+                38,
+                39.8,
+                42.9,
+                46.3,
+                49.9,
+                53.9
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "AdaptiveSteelT3": {},
+    "AdaptiveSteelT4": {},
+    "AdaptiveSteelT5": { "effect": [{ "rawStat": { "bellstrikeDmgBonus": 0.03 } }] },
+    "AdaptiveSteelT6": {}
+  }
+}

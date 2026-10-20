@@ -1,0 +1,47 @@
+{
+  "name": "Steadfast Stance",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "SteadfastStanceT0": {},
+    "SteadfastStanceT1": {},
+    "SteadfastStanceT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                6,
+                8.1,
+                10.7,
+                13.5,
+                15.8,
+                15.8,
+                15.8,
+                18.8,
+                21.9,
+                25.5,
+                28.3,
+                29.7,
+                31.2,
+                33.6,
+                36.2,
+                39.1,
+                42.2
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "SteadfastStanceT3": {},
+    "SteadfastStanceT4": {},
+    "SteadfastStanceT5": { "effect": [{ "rawStat": { "physicalResistance": 4.5 } }] },
+    "SteadfastStanceT6": {}
+  }
+}

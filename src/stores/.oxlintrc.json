@@ -1,0 +1,49 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../.oxlintrc.json"],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest",
+    "promise"
+  ],
+  "categories": { "correctness": "error", "suspicious": "error", "pedantic": "error", "perf": "error" },
+  "rules": {
+    "import/no-duplicates": "error",
+    "eslint/no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["**/App", "**/App.*", "**/main", "**/main.*", "@/App", "@/App.*", "@/main", "@/main.*"],
+            "message": "Stores must not import the application entrypoint."
+          },
+          {
+            "group": [
+              "../features",
+              "../features/**",
+              "../application/results",
+              "../application/results/**",
+              "../ui",
+              "../ui/**",
+              "@/features",
+              "@/features/**",
+              "@/application/results",
+              "@/application/results/**",
+              "@/ui",
+              "@/ui/**"
+            ],
+            "message": "Stores must not import feature or presentation modules; a store holds state, not a view."
+          }
+        ]
+      }
+    ]
+  },
+  "env": { "builtin": true, "browser": true }
+}

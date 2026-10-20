@@ -1,0 +1,49 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../.oxlintrc.json"],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest",
+    "promise"
+  ],
+  "categories": { "correctness": "error", "perf": "error" },
+  "rules": {
+    "import/no-duplicates": "error",
+    "eslint/no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": [
+              "**/App",
+              "**/App.*",
+              "**/main",
+              "**/main.*",
+              "**/application",
+              "**/application/**",
+              "**/features",
+              "**/features/**",
+              "@/App",
+              "@/App.*",
+              "@/main",
+              "@/main.*",
+              "@/application",
+              "@/application/**",
+              "@/features",
+              "@/features/**"
+            ],
+            "message": "Schemas must remain independent of application and feature modules."
+          }
+        ]
+      }
+    ]
+  },
+  "env": { "builtin": true, "browser": true }
+}

@@ -1,0 +1,121 @@
+{
+  "SoulShaken": {
+    "name": "Soul-Shaken",
+    "shortName": "SS",
+    "description": "Ordinary DoT damage taken increases by 5% per stack, plus 5% for Strategic Sword or Heavenquaker Spear. High Bleed instead receives 10% per stack; these bonuses do not stack.",
+    "duration": 18,
+    "maxStack": 5,
+    "shared": true,
+    "stackEffects": [
+      [
+        {
+          "effect": { "dotDamage": 0.05 },
+          "requirement": [{ "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }]
+        },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "martialArt", "value": "HeavenQuakerSpear" },
+                { "target": "martialArt", "value": "StrategicSword" }
+              ]
+            },
+            { "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }
+          ],
+          "effect": { "dotDamage": 0.05 }
+        },
+        { "requirement": [{ "target": "skillTag", "value": "HighBleed" }], "effect": { "highBleedDamage": 0.1 } }
+      ],
+      [
+        {
+          "effect": { "dotDamage": 0.1 },
+          "requirement": [{ "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }]
+        },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "martialArt", "value": "HeavenQuakerSpear" },
+                { "target": "martialArt", "value": "StrategicSword" }
+              ]
+            },
+            { "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }
+          ],
+          "effect": { "dotDamage": 0.1 }
+        },
+        { "requirement": [{ "target": "skillTag", "value": "HighBleed" }], "effect": { "highBleedDamage": 0.2 } }
+      ],
+      [
+        {
+          "effect": { "dotDamage": 0.15 },
+          "requirement": [{ "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }]
+        },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "martialArt", "value": "HeavenQuakerSpear" },
+                { "target": "martialArt", "value": "StrategicSword" }
+              ]
+            },
+            { "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }
+          ],
+          "effect": { "dotDamage": 0.15 }
+        },
+        { "requirement": [{ "target": "skillTag", "value": "HighBleed" }], "effect": { "highBleedDamage": 0.3 } }
+      ],
+      [
+        {
+          "effect": { "dotDamage": 0.2 },
+          "requirement": [{ "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }]
+        },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "martialArt", "value": "HeavenQuakerSpear" },
+                { "target": "martialArt", "value": "StrategicSword" }
+              ]
+            },
+            { "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }
+          ],
+          "effect": { "dotDamage": 0.2 }
+        },
+        { "requirement": [{ "target": "skillTag", "value": "HighBleed" }], "effect": { "highBleedDamage": 0.4 } }
+      ],
+      [
+        {
+          "effect": { "dotDamage": 0.25 },
+          "requirement": [{ "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }]
+        },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "martialArt", "value": "HeavenQuakerSpear" },
+                { "target": "martialArt", "value": "StrategicSword" }
+              ]
+            },
+            { "operator": "not", "operand": [{ "target": "skillTag", "value": "HighBleed" }] }
+          ],
+          "effect": { "dotDamage": 0.25 }
+        },
+        { "requirement": [{ "target": "skillTag", "value": "HighBleed" }], "effect": { "highBleedDamage": 0.5 } }
+      ]
+    ],
+    "refresh": true
+  },
+  "WineGu": {
+    "name": "Wine Gu",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [{ "effect": { "dmgBonus": 0.05 } }],
+    "shortName": "WG"
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "initialResources": {
+    "HeavensWill": 2,
+    "BladeMomentum": 4,
+    "BattleWill": 4,
+    "Hellfire": 0,
+    "NobleWill": 100,
+    "SwordsZenith": 40
+  },
+  "resourceMaximums": { "HeavensWill": 4, "Hellfire": 80, "NobleWill": 100, "SwordsZenith": 100 },
+  "resourceRegeneration": { "Endurance": 10 },
+  "resourceSpendRegenDelay": { "Endurance": 1.2 },
+  "resourceEvents": [
+    {
+      "event": "damage",
+      "resource": "Vitality",
+      "amount": { "function": "switch", "param1": "FuryHarvestT3", "param2": { "true": 2.1 }, "fallback": 2 },
+      "cooldown": 2
+    },
+    { "event": "takeDamage", "resource": "Vitality", "amount": 4, "perMaxHPRatio": 0.1 }
+  ],
+  "baseStats": {
+    "rawStat": {
+      "precision": 0.65,
+      "minPhys": 263,
+      "maxPhys": 505,
+      "maxHp": 101929,
+      "heavensWillRegen": 0.1,
+      "criticalHealingBonus": 0.5,
+      "critDmgBonus": 0.35,
+      "affinityDmgBonus": 0.2,
+      "maxEndurance": 80,
+      "maxVitality": 40
+    }
+  },
+  "enhancementStats": [
+    {
+      "id": "enhancement-total",
+      "rawStat": {
+        "minPhys": {
+          "bySoloLevel": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            240,
+            258,
+            276
+          ]
+        },
+        "maxPhys": {
+          "bySoloLevel": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            480,
+            516,
+            552
+          ]
+        },
+        "maxHp": {
+          "bySoloLevel": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            40070,
+            43147,
+            46223
+          ]
+        },
+        "physicalDefense": {
+          "bySoloLevel": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            120,
+            130,
+            138
+          ]
+        }
+      }
+    }
+  ],
+  "talentStatsBySoloLevel": {
+    "17": {
+      "rawStat": {
+        "maxHp": 7000,
+        "minPhys": 105.6,
+        "maxPhys": 105.6,
+        "physicalDefense": 92.4,
+        "agility": 19,
+        "power": 19,
+        "momentum": 19,
+        "body": 19,
+        "defense": 19,
+        "precision": 0.165,
+        "crit": 0.24,
+        "affinity": 0.12,
+        "critDmgBonus": 0.15,
+        "affinityDmgBonus": 0.15,
+        "minVoidAttack": 13.2,
+        "maxVoidAttack": 13.2
+      }
+    },
+    "18": {
+      "rawStat": {
+        "maxHp": 8000,
+        "minPhys": 105.6,
+        "maxPhys": 105.6,
+        "physicalDefense": 105.6,
+        "agility": 23,
+        "power": 23,
+        "momentum": 23,
+        "body": 23,
+        "defense": 23,
+        "precision": 0.165,
+        "crit": 0.24,
+        "affinity": 0.12,
+        "critDmgBonus": 0.15,
+        "affinityDmgBonus": 0.15,
+        "minVoidAttack": 26.4,
+        "maxVoidAttack": 26.4
+      }
+    },
+    "19": {
+      "rawStat": {
+        "maxHp": 8500,
+        "minPhys": 118.8,
+        "maxPhys": 118.8,
+        "physicalDefense": 112.2,
+        "agility": 27,
+        "power": 27,
+        "momentum": 27,
+        "body": 27,
+        "defense": 27,
+        "precision": 0.165,
+        "crit": 0.24,
+        "affinity": 0.12,
+        "critDmgBonus": 0.15,
+        "affinityDmgBonus": 0.15,
+        "minVoidAttack": 39.6,
+        "maxVoidAttack": 39.6
+      }
+    }
+  },
+  "baseAttributes": {
+    "body": { "maxHp": 60 },
+    "power": { "minPhys": 0.22, "maxPhys": 1.36 },
+    "defense": { "maxHp": 17, "physicalDefense": 0.57 },
+    "agility": { "minPhys": 0.9, "crit": 0.00076 },
+    "momentum": { "maxPhys": 0.9, "affinity": 0.00038 }
+  },
+  "oddityStats": {
+    "qinghe": {
+      "rawStat": {
+        "maxHp": 1500,
+        "minPhys": 8,
+        "maxPhys": 16,
+        "physicalDefense": 12,
+        "maxEndurance": 20,
+        "maxVitality": 30
+      }
+    },
+    "kaifeng": {
+      "rawStat": {
+        "maxHp": 2400,
+        "minPhys": 16,
+        "maxPhys": 24,
+        "physicalDefense": 16,
+        "maxEndurance": 10,
+        "maxVitality": 30
+      }
+    },
+    "hexi": { "rawStat": { "maxHp": 1650, "minPhys": 8, "maxPhys": 16, "physicalDefense": 10, "maxEndurance": 10 } },
+    "hiddenMountain": { "rawStat": { "maxHp": 2100, "minPhys": 8, "maxPhys": 16, "physicalDefense": 8 } },
+    "imperialPalace": { "rawStat": { "maxHp": 500, "minPhys": 4, "maxPhys": 8, "physicalDefense": 4 } },
+    "qingzhou": { "minBreakthrough": 18, "rawStat": { "maxHp": 500, "minPhys": 4, "maxPhys": 8, "physicalDefense": 4 } }
+  }
+}

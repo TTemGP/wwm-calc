@@ -1,0 +1,169 @@
+{
+  "name": "Ink and Strings",
+  "altersTimeline": false,
+  "tags": ["SilkbindWing"],
+  "effect": {
+    "InkAndStringsT0": {
+      "effect": [
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "Tailwind" },
+                { "target": "self", "value": "RadiantDrum" },
+                { "target": "self", "value": "FloatingGrace" },
+                { "target": "self", "value": "FloatingGraceDeluge" }
+              ]
+            },
+            { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+            { "operator": "not", "operand": [{ "target": "self", "value": "InkAndStringsT4" }] }
+          ],
+          "effect": { "stat": { "formlessPenetration": 5 } }
+        }
+      ]
+    },
+    "InkAndStringsT1": {},
+    "InkAndStringsT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                4.5,
+                6.1,
+                8,
+                10.1,
+                11.9,
+                11.9,
+                11.9,
+                14.1,
+                16.5,
+                19.1,
+                21.3,
+                22.3,
+                23.3,
+                25.2,
+                27.2,
+                29.3,
+                31.7,
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                8.9,
+                12.1,
+                16,
+                20.3,
+                23.7,
+                23.7,
+                23.7,
+                28.3,
+                32.9,
+                38.3,
+                42.5,
+                44.7,
+                46.7,
+                50.4,
+                54.4,
+                58.7,
+                63.3,
+                null,
+                null,
+                null,
+                null
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "InkAndStringsT3": {
+      "effect": [
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "Tailwind" },
+                { "target": "self", "value": "RadiantDrum" },
+                { "target": "self", "value": "FloatingGrace" },
+                { "target": "self", "value": "FloatingGraceDeluge" }
+              ]
+            },
+            { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+            { "operator": "not", "operand": [{ "target": "self", "value": "InkAndStringsT4" }] }
+          ],
+          "effect": { "stat": { "formlessPenetration": 3 } }
+        }
+      ]
+    },
+    "InkAndStringsT4": {
+      "effect": [
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "Tailwind" },
+                { "target": "self", "value": "RadiantDrum" },
+                { "target": "self", "value": "FloatingGrace" },
+                { "target": "self", "value": "FloatingGraceDeluge" }
+              ]
+            },
+            { "operator": "not", "operand": [{ "target": "self", "value": "InkAndStringsT6" }] }
+          ],
+          "effect": { "stat": { "formlessPenetration": 8 } }
+        }
+      ]
+    },
+    "InkAndStringsT5": { "effect": [{ "rawStat": { "physDmgBonus": 0.025 } }] },
+    "InkAndStringsT6": {
+      "effect": [
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "Tailwind" },
+                { "target": "self", "value": "RadiantDrum" },
+                { "target": "self", "value": "FloatingGrace" },
+                { "target": "self", "value": "FloatingGraceDeluge" }
+              ]
+            }
+          ],
+          "effect": { "stat": { "physicalPenetration": 8, "formlessPenetration": 8 } }
+        },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "Tailwind" },
+                { "target": "self", "value": "RadiantDrum" },
+                { "target": "self", "value": "FloatingGrace" },
+                { "target": "self", "value": "FloatingGraceDeluge" }
+              ]
+            },
+            { "target": "skillTag", "value": "DrumSeries" }
+          ],
+          "effect": { "stat": { "physicalPenetration": 12, "formlessPenetration": 12 } }
+        }
+      ]
+    }
+  }
+}

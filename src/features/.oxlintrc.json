@@ -1,0 +1,66 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../.oxlintrc.json"],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest",
+    "promise"
+  ],
+  "categories": { "correctness": "error", "perf": "error" },
+  "rules": {
+    "import/no-duplicates": "error",
+    "eslint/no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["**/App", "**/App.*", "**/main", "**/main.*", "@/App", "@/App.*", "@/main", "@/main.*"],
+            "message": "Features must not import the application entrypoint."
+          },
+          {
+            "group": [
+              "../analysis",
+              "../analysis/**",
+              "../build",
+              "../build/**",
+              "../character",
+              "../character/**",
+              "../rotations",
+              "../rotations/**",
+              "../settings",
+              "../settings/**",
+              "../simulation",
+              "../simulation/**",
+              "../skills",
+              "../skills/**",
+              "@/analysis",
+              "@/analysis/**",
+              "@/build",
+              "@/build/**",
+              "@/character",
+              "@/character/**",
+              "@/rotations",
+              "@/rotations/**",
+              "@/settings",
+              "@/settings/**",
+              "@/simulation",
+              "@/simulation/**",
+              "@/skills",
+              "@/skills/**"
+            ],
+            "message": "Features must not import sibling features."
+          }
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": ["**/*.css"],
+  "env": { "builtin": true, "browser": true }
+}

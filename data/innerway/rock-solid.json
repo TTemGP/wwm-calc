@@ -1,0 +1,47 @@
+{
+  "name": "Rock Solid",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "RockSolidT0": {},
+    "RockSolidT1": {},
+    "RockSolidT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                510,
+                693,
+                913,
+                1158,
+                1354,
+                1354,
+                1354,
+                1608,
+                1875,
+                2184,
+                2423,
+                2543,
+                2663,
+                2872,
+                3099,
+                3344,
+                3608
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "RockSolidT3": {},
+    "RockSolidT4": {},
+    "RockSolidT5": { "effect": [{ "rawStat": { "physicalDmgReduction": 0.025 } }] },
+    "RockSolidT6": {}
+  }
+}

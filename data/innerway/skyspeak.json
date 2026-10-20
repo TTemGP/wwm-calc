@@ -1,0 +1,47 @@
+{
+  "name": "Skyspeak",
+  "altersTimeline": true,
+  "tags": ["BamboocutDraught"],
+  "effect": {
+    "SkyspeakT0": {},
+    "SkyspeakT1": {},
+    "SkyspeakT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.015,
+                0.021,
+                0.028,
+                0.035,
+                0.041,
+                0.041,
+                0.041,
+                0.049,
+                0.057,
+                0.066,
+                0.073,
+                0.077,
+                0.081,
+                0.087,
+                0.094,
+                0.101,
+                0.109
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "SkyspeakT3": {},
+    "SkyspeakT4": {},
+    "SkyspeakT5": { "effect": [{ "rawStat": { "critDmgBonus": 0.04 } }] },
+    "SkyspeakT6": {}
+  }
+}

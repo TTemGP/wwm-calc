@@ -1,0 +1,171 @@
+import { describe, expect, it } from "vitest"
+
+import { emptyAttunementStats } from "@/calculations/attunementStats"
+
+import { effectState } from "../src/calculations/trackedEffectState"
+import { probeLoad } from "./helpers/probe-loader.js"
+import { asEffectDefinitions } from "./helpers/shippedData"
+import { rowWithId } from "./helpers/timelineRows"
+
+// Ported from script/probe/check-script.mjs.
+describe("setup timeline selection", () => {
+  it.each([
+    ["Plain", "Timed", true],
+    ["Timed", "Plain", true],
+    ["Plain", "OtherPlain", false],
+    ["Timed", "Timed", false],
+    ["Plain", "Plain", false],
+  ])("%s -> %s rebuilds=%s", async (current, replacement, expected) => {
+    const { setupSelectionChangesTimeline } = await import("../src/data/scriptDefinitions")
+    expect(
+      setupSelectionChangesTimeline(current, replacement, {
+        Plain: {},
+        OtherPlain: { altersTimeline: false },
+        Timed: { altersTimeline: true },
+      }),
+    ).toBe(expected)
+  })
+})
+
+describe("script", () => {
+  it("Script thresholds, absolute self HP, Take Damage, and Revelry checks passed", async () => {
+    const { buildRotationTimeline, requirementsPass } = await probeLoad<
+      typeof import("../src/calculations/rotationTimeline")
+    >("/src/calculations/rotationTimeline.ts")
+    const { calculateRotationBaseline } = await import("../src/calculations/rotationCalculator.ts")
+    const { calculateDerivedStats } = await import("../src/calculations/effectiveStats.ts")
+    const { emptyStats } = await import("../src/data/statDefinitions.ts")
+    const scripts = (await import("../data/script.json")).default
+    const generalBuffs = (await import("../data/buff/general.json")).default
+
+    expect(
+      requirementsPass(
+        scripts.Wraithstrike.effect.requirement,
+        effectState([]),
+        effectState([]),
+        [],
+        new Set(),
+        [],
+        {},
+        { targetQiPercentage: 39 },
+      ),
+      "Wraithstrike must activate below 40% target Qi.",
+    ).toBeTruthy()
+    expect(
+      !requirementsPass(
+        scripts.Insight.effect.requirement,
+        effectState([]),
+        effectState([]),
+        ["MartialArts"],
+        new Set(),
+        [],
+        {},
+        { targetHPPercentage: 80 },
+      ),
+      "Insight must require the Mystic skill tag.",
+    ).toBeTruthy()
+
+    const timeline = buildRotationTimeline({
+      rotation: {
+        name: "Revelry probe",
+        steps: [
+          { type: "event", event: "SelfHP", before: { action: 1 }, currentHP: 200 },
+          { type: "event", event: "TakeDamage", before: { action: 1 }, damage: 1 },
+          { type: "skill", skill: "Hit" },
+        ],
+        start: { step: 2 },
+      },
+      skills: {
+        Hit: {
+          name: "Hit",
+          castTime: 1,
+          action: [
+            { type: "damage", phyCoef: 1, attrCoef: 1, time: 0 },
+            { type: "damage", phyCoef: 1, attrCoef: 1, time: 1 },
+          ],
+          tags: [],
+        },
+      },
+      eventDefinitions: {
+        SelfHP: { name: "Self HP", castTime: 0, action: [{ type: "setHP", time: 0 }], tags: ["Event"] },
+        TakeDamage: { name: "Take Damage", castTime: 0, action: [{ type: "takeDamage", time: 0 }], tags: ["Event"] },
+      },
+      dots: {},
+      effectDefinitions: asEffectDefinitions(generalBuffs),
+      innerWayConditions: [],
+      innerWayRules: [],
+      setupEffects: [scripts.Revelry.effect],
+      weapons: [],
+      maxHP: 1000,
+    })
+    const hit = rowWithId(timeline, "rotation-2")
+    const takeDamageRow = rowWithId(timeline, "rotation-1")
+    expect(
+      takeDamageRow?.sourceRowId === hit?.id && takeDamageRow?.startTime === 1,
+      "Take Damage must remain attached to its selected skill action.",
+    ).toBeTruthy()
+    expect(
+      hit?.actionStates[0].currentHP === 1000 && hit?.actionStates[1].currentHP === 199,
+      "Self HP and Take Damage must affect only their attached action and later state.",
+    ).toBeTruthy()
+    expect(
+      !hit?.actionStates[0].buffs.has("Revelry") && hit?.actionStates[1].buffs.has("Revelry"),
+      "Revelry Script must apply Revelry when Take Damage leaves self HP at 30% or below.",
+    ).toBeTruthy()
+
+    const stats = { ...emptyStats, minPhys: 1000, maxPhys: 1000, precision: 1, critical: 1, critDmgBonus: 0.35 }
+    const thresholdResult = calculateRotationBaseline({
+      timeline: {
+        rotation: {
+          name: "Target HP Script probe",
+          targetHP: 2500,
+          steps: [{ type: "skill", skill: "DoubleHit" }],
+          start: { step: 0 },
+        },
+        skills: {
+          DoubleHit: {
+            name: "Double Hit",
+            castTime: 1,
+            action: [
+              { type: "damage", phyCoef: 1, attrCoef: 1, time: 0 },
+              { type: "damage", phyCoef: 1, attrCoef: 1, time: 1 },
+            ],
+            tags: ["Mystic"],
+          },
+        },
+        eventDefinitions: {},
+        dots: {},
+        effectDefinitions: asEffectDefinitions(generalBuffs),
+        innerWayConditions: [],
+        innerWayRules: [],
+        setupEffects: [scripts.Insight.effect],
+        weapons: [],
+        maxHP: 1000,
+      },
+      startAnchor: { rowId: "rotation-0" },
+      stats,
+      attunement: emptyAttunementStats,
+      enemy: {
+        name: "Probe",
+        level: 96,
+        defense: 0,
+        physicalResistance: 0,
+        bellstrikeResistance: 0,
+        stonesplitResistance: 0,
+        silkbindResistance: 0,
+        bamboocutResistance: 0,
+        judgementResistance: 0,
+      },
+      derivedStats: calculateDerivedStats(stats, 0),
+      weapons: [],
+      statPriority: [],
+      attunementPriority: [],
+      innerWayPriority: [],
+      setupComparisons: {},
+    })
+    expect(
+      thresholdResult.actionBreakdowns["rotation-0:0"].total > thresholdResult.actionBreakdowns["rotation-0:1"].total,
+      `Target-HP Script requirements must be reevaluated after preceding calculated damage (${thresholdResult.actionBreakdowns["rotation-0:0"].total} -> ${thresholdResult.actionBreakdowns["rotation-0:1"].total}).`,
+    ).toBeTruthy()
+  })
+})

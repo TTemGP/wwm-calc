@@ -1,0 +1,47 @@
+@layer ui {
+  /*
+   * A real box, so the floating box has a rectangle to be placed against and the reveal has
+   * something to hang on. It hugs its trigger, so adding it to a row changes nothing about that
+   * row.
+   */
+  .anchor {
+    display: inline-flex;
+    min-inline-size: 0;
+  }
+
+  .tooltip {
+    position: fixed;
+    z-index: 40;
+    inline-size: max-content;
+    max-inline-size: min(28rem, calc(100vw - 16px));
+    padding: 9px 11px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 8px 22px var(--shadow-color);
+    animation: tooltip-reveal var(--transition-fast) ease-out;
+  }
+
+  .align-end {
+    max-inline-size: min(360px, calc(100vw - 16px));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tooltip {
+      animation: none;
+    }
+  }
+
+  @keyframes tooltip-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,850 @@
+{
+  "Formbend": {
+    "name": "Formbend",
+    "altersTimeline": true,
+    "tags": [
+      "StonesplitStrength",
+      "StonesplitMight",
+      "SnowpartingBlade",
+      "PhalanxbaneBlade",
+      "ThundercryBlade",
+      "StormbreakerSpear"
+    ],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "condition": "FormBend4",
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Moonflare": {
+    "name": "Moonflare",
+    "altersTimeline": true,
+    "tags": ["SilkbindDeluge", "PanaceaFan", "SoulshadeUmbrella"],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Calmwaters": {
+    "name": "Calmwaters",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Eaglerise": {
+    "name": "Eaglerise",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "RippleStep": {
+    "name": "Ripple Step",
+    "altersTimeline": true,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "FlawlessGuardian": {
+    "name": "Flawless Guardian",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "BeyondtheChill": {
+    "name": "Beyond the Chill",
+    "altersTimeline": true,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Whirlsnow": {
+    "name": "Whirlsnow",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Jadeclasp": {
+    "name": "Jadeclasp",
+    "altersTimeline": true,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                2960,
+                3440,
+                3440
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Ebonward": {
+    "name": "Ebonward",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Honorbound": {
+    "name": "Honorbound",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Brimflow": {
+    "name": "Brimflow",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                39,
+                45.4,
+                45.4
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

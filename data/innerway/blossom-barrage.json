@@ -1,0 +1,47 @@
+{
+  "name": "Blossom Barrage",
+  "altersTimeline": true,
+  "tags": ["SilkbindJade"],
+  "effect": {
+    "BlossomBarrageT0": {},
+    "BlossomBarrageT1": {},
+    "BlossomBarrageT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.017,
+                0.023,
+                0.031,
+                0.039,
+                0.046,
+                0.046,
+                0.046,
+                0.054,
+                0.063,
+                0.074,
+                0.082,
+                0.086,
+                0.09,
+                0.097,
+                0.104,
+                0.113,
+                0.121
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "BlossomBarrageT3": {},
+    "BlossomBarrageT4": {},
+    "BlossomBarrageT5": { "effect": [{ "rawStat": { "directCrit": 0.046 } }] },
+    "BlossomBarrageT6": {}
+  }
+}

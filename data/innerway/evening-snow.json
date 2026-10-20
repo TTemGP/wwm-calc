@@ -1,0 +1,47 @@
+{
+  "name": "Evening Snow",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "EveningSnowT0": {},
+    "EveningSnowT1": {},
+    "EveningSnowT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                453,
+                616,
+                812,
+                1029,
+                1204,
+                1204,
+                1204,
+                1429,
+                1667,
+                1941,
+                2154,
+                2261,
+                2367,
+                2553,
+                2755,
+                2973,
+                3207
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "EveningSnowT3": {},
+    "EveningSnowT4": {},
+    "EveningSnowT5": { "effect": [{ "rawStat": { "physicalResistance": 4.5 } }] },
+    "EveningSnowT6": {}
+  }
+}

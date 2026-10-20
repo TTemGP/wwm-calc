@@ -1,0 +1,283 @@
+{
+  "TangMelody": {
+    "name": "Tang Melody",
+    "shortName": "TM",
+    "duration": 4,
+    "cooldown": 1,
+    "maxStack": 5,
+    "refresh": true,
+    "showCoverage": true,
+    "stackEffects": [
+      [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.02 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            { "target": "self", "value": "SongOfTangT3" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.01 }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.04 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            { "target": "self", "value": "SongOfTangT3" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.02 }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.06 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            { "target": "self", "value": "SongOfTangT3" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.03 }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.08 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            { "target": "self", "value": "SongOfTangT3" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.04 }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.1 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "MartialArts" },
+            { "target": "self", "value": "SongOfTangT3" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "selfHPPercentage", "comparison": ">", "amount": 50 },
+                { "target": "self", "value": "SongOfTangT5" }
+              ]
+            }
+          ],
+          "effect": { "critDmgBonus": 0.05 }
+        }
+      ]
+    ]
+  },
+  "FallingBlossoms": {
+    "name": "Falling Blossoms",
+    "shortName": "FB",
+    "duration": 5,
+    "maxStack": 3,
+    "refresh": true,
+    "onMaxStack": { "consume": "all", "trigger": "FragrantSongGrant" }
+  },
+  "FragrantSong": { "name": "Fragrant Song", "duration": 10, "maxStack": 1 },
+  "FragrantSongDelicate": { "name": "Fragrant Song - Delicate", "shortName": "FSD", "duration": 10, "maxStack": 4 },
+  "FragrantSongResonance": {
+    "name": "Fragrant Song - Resonance",
+    "shortName": "FSR",
+    "hidden": true,
+    "description": "Marks the Scarlet Spin throw that spent Fragrant Song, so the Resonances that throw summons crit with it. Every throw clears and re-primes this at its own start, which scopes it to one throw even though the next throw starts before this one's Resonances land. The duration only has to outlive the throw's own Resonances; scoping comes from the clear, not the expiry.",
+    "duration": 2,
+    "maxStack": 1,
+    "refresh": false
+  },
+  "SoulReturn": { "name": "Soul Return", "shortName": "SR", "maxStack": 1, "refresh": true, "duration": 12 },
+  "FlowerBurial": { "name": "Flower Burial", "duration": 12, "maxStack": 1, "refresh": false },
+  "PhantomUmbrella": {
+    "name": "Phantom Umbrella",
+    "shortName": "PU",
+    "description": "A summoned world object, not a stat buff. One exists per player: a new summon replaces the previous one rather than accumulating, and it expires after five seconds.",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true
+  },
+  "PhantomUmbrellaThrow": {
+    "name": "Phantom Umbrella Summon Cadence",
+    "shortName": "Cad",
+    "hidden": true,
+    "description": "Counts returning umbrella throws since the last summon. Scarlet Spin primes this to two, so the first returning throw reaches the cap of three and summons, and the next summons fall on the fourth, seventh, tenth and thirteenth throw of that cast. Reaching the cap consumes the count so the next three throws are counted again.",
+    "maxStack": 3,
+    "refresh": true,
+    "onMaxStack": { "consume": "all", "trigger": "PhantomUmbrellaSummon" }
+  },
+  "Soulbound": {
+    "name": "Soulbound",
+    "shortName": "SB",
+    "maxStack": 1,
+    "description": "Lasts until Piercing Dart is cast. Charging does not consume it."
+  },
+  "Starweave": {
+    "name": "Starweave",
+    "shortName": "Sw",
+    "showCoverage": true,
+    "description": "Martial Art Skills deal 3% increased damage per stack, plus distance-scaled bonus damage beyond 4 meters, up to 1% at 8 meters. Stacks up to 5 times, one stack is removed when you take damage, and at most 2 stacks can be gained per second.",
+    "duration": 5,
+    "maxStack": 5,
+    "refresh": true,
+    "stackEffects": [
+      [
+        { "requirement": [{ "target": "skillTag", "value": "MartialArt" }], "effect": { "dmgBonus": 0.03 } },
+        {
+          "requirement": [{ "target": "skillTag", "value": "MartialArt" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "distance",
+              "param2": [4, 5, 6, 7, 8],
+              "param3": [0, 0.0025, 0.005, 0.0075, 0.01, 0.01]
+            }
+          }
+        }
+      ],
+      [
+        { "requirement": [{ "target": "skillTag", "value": "MartialArt" }], "effect": { "dmgBonus": 0.06 } },
+        {
+          "requirement": [{ "target": "skillTag", "value": "MartialArt" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "distance",
+              "param2": [4, 5, 6, 7, 8],
+              "param3": [0, 0.005, 0.01, 0.015, 0.02, 0.02]
+            }
+          }
+        }
+      ],
+      [
+        { "requirement": [{ "target": "skillTag", "value": "MartialArt" }], "effect": { "dmgBonus": 0.09 } },
+        {
+          "requirement": [{ "target": "skillTag", "value": "MartialArt" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "distance",
+              "param2": [4, 5, 6, 7, 8],
+              "param3": [0, 0.0075, 0.015, 0.0225, 0.03, 0.03]
+            }
+          }
+        }
+      ],
+      [
+        { "requirement": [{ "target": "skillTag", "value": "MartialArt" }], "effect": { "dmgBonus": 0.12 } },
+        {
+          "requirement": [{ "target": "skillTag", "value": "MartialArt" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "distance",
+              "param2": [4, 5, 6, 7, 8],
+              "param3": [0, 0.01, 0.02, 0.03, 0.04, 0.04]
+            }
+          }
+        }
+      ],
+      [
+        { "requirement": [{ "target": "skillTag", "value": "MartialArt" }], "effect": { "dmgBonus": 0.15 } },
+        {
+          "requirement": [{ "target": "skillTag", "value": "MartialArt" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "distance",
+              "param2": [4, 5, 6, 7, 8],
+              "param3": [0, 0.0125, 0.025, 0.0375, 0.05, 0.05]
+            }
+          }
+        }
+      ]
+    ]
+  }
+}

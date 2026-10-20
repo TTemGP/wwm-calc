@@ -1,0 +1,76 @@
+{
+  "name": "Exquisite Scenery",
+  "altersTimeline": true,
+  "tags": ["StonesplitMight"],
+  "effect": {
+    "ExquisiteSceneryT0": {},
+    "ExquisiteSceneryT1": {},
+    "ExquisiteSceneryT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.017,
+                0.023,
+                0.031,
+                0.039,
+                0.046,
+                0.046,
+                0.046,
+                0.054,
+                0.063,
+                0.074,
+                0.082,
+                0.086,
+                0.09,
+                0.097,
+                0.104,
+                0.113,
+                0.121
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ExquisiteSceneryT3": {},
+    "ExquisiteSceneryT4": { "effect": [{ "target": "Riposte", "modify": { "cooldown": 5 } }] },
+    "ExquisiteSceneryT5": { "effect": [{ "rawStat": { "critDmgBonus": 0.044 } }] },
+    "ExquisiteSceneryT6": {
+      "effect": [
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "Charged" }
+                ],
+                [
+                  { "target": "skillTag", "value": "Heavy" },
+                  { "target": "skillTag", "value": "Charged" }
+                ],
+                [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ],
+                [
+                  { "target": "skillTag", "value": "Heavy" },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ]
+              ]
+            }
+          ],
+          "effect": { "baseDMGBonus": 0.5 }
+        }
+      ]
+    }
+  }
+}

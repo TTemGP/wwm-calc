@@ -1,0 +1,51 @@
+{
+  "PhantomChime": {
+    "name": "Phantom Chime",
+    "shortName": "PC",
+    "description": "Reduces Physical Resistance by 2 per stack.",
+    "duration": 5,
+    "maxStack": 5,
+    "shared": true,
+    "stackEffects": [
+      [{ "effect": { "physicalResistance": -2 } }],
+      [{ "effect": { "physicalResistance": -4 } }],
+      [{ "effect": { "physicalResistance": -6 } }],
+      [{ "effect": { "physicalResistance": -8 } }],
+      [{ "effect": { "physicalResistance": -10 } }]
+    ],
+    "refresh": true
+  },
+  "Soulbreak": {
+    "name": "Soulbreak",
+    "shortName": "SB",
+    "maxStack": 1,
+    "showCoverage": true,
+    "refresh": true,
+    "duration": 12,
+    "effect": [{ "effect": { "dmgBonus": 0.05 } }]
+  },
+  "Candlelight": {
+    "name": "Candlelight",
+    "duration": 3,
+    "cooldown": 0.5,
+    "maxStack": 5,
+    "refresh": true,
+    "showCoverage": true,
+    "shared": true,
+    "stackEffects": [
+      [{ "effect": { "globalDmgBonus": 0.02 } }],
+      [{ "effect": { "globalDmgBonus": 0.04 } }],
+      [{ "effect": { "globalDmgBonus": 0.06 } }],
+      [{ "effect": { "globalDmgBonus": 0.08 } }],
+      [{ "effect": { "globalDmgBonus": 0.1 } }]
+    ]
+  },
+  "SoulLoss": {
+    "name": "Soul Loss",
+    "shortName": "SL",
+    "duration": 5,
+    "maxStack": 7,
+    "refresh": true,
+    "onMaxStack": { "consume": "all", "trigger": "SoulbreakGrant" }
+  }
+}

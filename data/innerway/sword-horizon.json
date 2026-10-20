@@ -1,0 +1,57 @@
+{
+  "name": "Sword Horizon",
+  "altersTimeline": true,
+  "tags": ["BellstrikeUmbra"],
+  "effect": {
+    "SwordHorizonT0": {},
+    "SwordHorizonT1": {},
+    "SwordHorizonT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                14.9,
+                20.3,
+                26.7,
+                33.8,
+                39.6,
+                39.6,
+                39.6,
+                47,
+                54.8,
+                63.9,
+                70.9,
+                74.4,
+                77.9,
+                84,
+                90.6,
+                97.8,
+                105.5
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "SwordHorizonT3": {},
+    "SwordHorizonT4": {
+      "effect": [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "HighBleed" },
+            { "target": "resource", "value": "SwordsZenith", "comparison": ">=", "amount": 20 }
+          ],
+          "effect": { "dmgBonus": 0.15 }
+        }
+      ]
+    },
+    "SwordHorizonT5": { "effect": [{ "rawStat": { "directAffinity": 0.023 } }] },
+    "SwordHorizonT6": {}
+  }
+}

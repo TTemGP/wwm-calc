@@ -1,0 +1,420 @@
+/*
+ * 연운 딜 계산기 테마. greydust/where-builds-meet 의 화면을 그대로 쓰되 색·글꼴·머리글만 바꿔요.
+ * 밝은 화면이 기본이고, 시스템이 어두우면(또는 data-theme="dark") 어두운 화면이에요.
+ */
+@layer tokens {
+  :root {
+    color-scheme: light;
+
+    --font-latin: "IBM Plex Sans", "Noto Sans Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "Noto Sans KR Variable", var(--font-latin), sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+    --font-display: "Nanum Myeongjo", "Noto Serif KR", serif;
+    --radius-lg: 0.625rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 0.875rem;
+    --radius-3xl: 1rem;
+    --bg: oklch(0.965 0.006 160);
+    --bg-gradient-top: oklch(0.94 0.018 165);
+    --surface: oklch(1 0 0);
+    --surface-alt: oklch(0.975 0.005 160);
+    --surface-sunken: oklch(0.95 0.007 160);
+    --surface-header: oklch(0.955 0.012 165);
+    --border: oklch(0.88 0.01 160);
+    --text: oklch(0.24 0.02 165);
+    --text-muted: oklch(0.47 0.02 165);
+    --primary: oklch(0.5 0.1 172);
+    --primary-contrast: oklch(0.99 0 0);
+    --secondary: oklch(0.48 0.11 255);
+    --error: oklch(0.55 0.17 28);
+    --success: oklch(0.52 0.13 150);
+    --healing-negative: oklch(0.52 0.15 310);
+    --damage-physical: var(--text);
+    --damage-bellstrike: oklch(0.5 0.12 255);
+    --damage-stonesplit: oklch(0.53 0.13 35);
+    --damage-silkbind: oklch(0.5 0.1 165);
+    --damage-bamboocut: oklch(0.5 0.12 305);
+    --event-take-damage: oklch(0.88 0.06 25);
+    --backdrop: oklch(0.25 0.02 165 / 0.45);
+    --shadow-color: oklch(0.3 0.03 165 / 0.12);
+    --shadow-strong: oklch(0.2 0.03 165 / 0.3);
+  }
+
+  :root:lang(ko),
+  :root:lang(zh-Hant) {
+    --font-sans: "Noto Sans KR Variable", "Noto Sans TC Variable", var(--font-latin), sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+
+      --bg: oklch(0.19 0.012 170);
+      --bg-gradient-top: oklch(0.23 0.022 170);
+      --surface: oklch(0.225 0.014 170);
+      --surface-alt: oklch(0.205 0.012 170);
+      --surface-sunken: oklch(0.175 0.01 170);
+      --surface-header: oklch(0.245 0.016 170);
+      --border: oklch(0.33 0.016 170);
+      --text: oklch(0.95 0.006 165);
+      --text-muted: oklch(0.73 0.016 165);
+      --primary: oklch(0.78 0.11 172);
+      --primary-contrast: oklch(0.18 0.02 172);
+      --secondary: oklch(0.76 0.09 250);
+      --error: oklch(0.72 0.15 25);
+      --success: oklch(0.78 0.13 150);
+      --healing-negative: oklch(0.66 0.14 310);
+      --damage-bellstrike: oklch(0.76 0.09 250);
+      --damage-stonesplit: oklch(0.76 0.09 35);
+      --damage-silkbind: oklch(0.78 0.07 165);
+      --damage-bamboocut: oklch(0.76 0.08 305);
+      --event-take-damage: oklch(0.32 0.08 25);
+      --backdrop: oklch(0.1 0.012 170 / 0.78);
+      --shadow-color: oklch(0 0 0 / 0.25);
+      --shadow-strong: oklch(0 0 0 / 0.62);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg: oklch(0.19 0.012 170);
+    --bg-gradient-top: oklch(0.23 0.022 170);
+    --surface: oklch(0.225 0.014 170);
+    --surface-alt: oklch(0.205 0.012 170);
+    --surface-sunken: oklch(0.175 0.01 170);
+    --surface-header: oklch(0.245 0.016 170);
+    --border: oklch(0.33 0.016 170);
+    --text: oklch(0.95 0.006 165);
+    --text-muted: oklch(0.73 0.016 165);
+    --primary: oklch(0.78 0.11 172);
+    --primary-contrast: oklch(0.18 0.02 172);
+    --secondary: oklch(0.76 0.09 250);
+    --error: oklch(0.72 0.15 25);
+    --success: oklch(0.78 0.13 150);
+    --healing-negative: oklch(0.66 0.14 310);
+    --damage-bellstrike: oklch(0.76 0.09 250);
+    --damage-stonesplit: oklch(0.76 0.09 35);
+    --damage-silkbind: oklch(0.78 0.07 165);
+    --damage-bamboocut: oklch(0.76 0.08 305);
+    --event-take-damage: oklch(0.32 0.08 25);
+    --backdrop: oklch(0.1 0.012 170 / 0.78);
+    --shadow-color: oklch(0 0 0 / 0.25);
+    --shadow-strong: oklch(0 0 0 / 0.62);
+  }
+}
+
+@layer utilities {
+  /* 머리글: 붓글씨 느낌 제목 + 한 줄 소개, 아래 얇은 선 */
+  .page-header {
+    padding-block-end: 14px;
+    border-block-end: 1px solid var(--border);
+  }
+
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: 0;
+    color: var(--primary);
+  }
+
+  .page-header .intro {
+    color: var(--text-muted);
+  }
+
+  .brand-credit {
+    margin: 2px 0 10px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .brand-credit a {
+    color: inherit;
+  }
+
+  /* 유파 고르기: 둥근 알약 대신 각진 카드 */
+  .path-selector-options button {
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .path-selector-options button.selected {
+    background: var(--primary-soft);
+    border-color: var(--primary);
+    box-shadow: inset 0 0 0 1px var(--primary);
+  }
+
+  /* 큰 탭: 밑줄 대신 칸 탭 */
+  .main-tabs {
+    gap: 4px;
+    border-block-end: 0;
+  }
+
+  .main-tabs button {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+
+  .main-tabs button.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-contrast);
+  }
+
+  /* 빌드 비교: 보고 있는 빌드와 다른 빌드 하나를 나란히 */
+  .build-compare {
+    margin-block-end: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--surface-alt);
+  }
+
+  .build-compare-summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .build-compare-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-block-start: 10px;
+  }
+
+  .build-compare-picker,
+  .build-compare-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+  }
+
+  .build-compare-picker select {
+    max-inline-size: 16rem;
+  }
+
+  .build-compare-hint,
+  .build-compare-empty {
+    margin: 8px 0 0;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .build-compare-table-wrap {
+    margin-block-start: 8px;
+    overflow-x: auto;
+  }
+
+  .build-compare-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .build-compare-table th,
+  .build-compare-table td {
+    padding: 5px 8px;
+    border-block-end: 1px solid var(--border);
+    text-align: end;
+    white-space: nowrap;
+  }
+
+  .build-compare-table th[scope="row"],
+  .build-compare-table thead th:first-child {
+    text-align: start;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .build-compare-table thead th {
+    font-weight: 700;
+  }
+
+  .build-compare-section th {
+    padding-block-start: 12px;
+    text-align: start;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--primary);
+  }
+
+  .build-compare-differs td:nth-child(3) {
+    font-weight: 600;
+  }
+
+  .build-compare-line {
+    display: block;
+  }
+
+  .build-compare-gear th,
+  .build-compare-gear td {
+    vertical-align: top;
+    white-space: normal;
+  }
+
+  .build-compare-gear td {
+    min-inline-size: 11rem;
+    text-align: start;
+  }
+
+  /* 상대 쪽에 없는 줄(옵션·조율이 다른 줄)은 강조해요. */
+  .build-compare-gear td .build-compare-line.build-compare-line-changed {
+    color: var(--secondary);
+    font-weight: 600;
+  }
+
+  .build-compare-gear .build-compare-line:first-child {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .build-compare-gear .build-compare-line + .build-compare-line {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .build-compare-gear .build-compare-line:last-child {
+    color: var(--primary);
+  }
+
+  /* 삭제 확인: X를 한 번 누르면 "삭제" 확인 버튼으로 바뀌고, 한 번 더 누르면 지워요. */
+  .build-remove-button.remove-armed,
+  .rotation-remove-button.remove-armed {
+    display: inline-flex;
+    inline-size: auto;
+    align-items: center;
+    gap: 3px;
+    padding-inline: 6px;
+    border: 1px solid var(--error-border);
+    background: var(--error-soft);
+    color: var(--error);
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .build-compare-counts .build-compare-line + .build-compare-line {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  .build-hidden-presets-button {
+    margin: 6px 10px;
+  }
+
+  .bis-image-dialog {
+    width: min(1100px, calc(100vw - 32px));
+  }
+
+  .bis-image-review {
+    display: grid;
+    gap: 10px;
+  }
+
+  .bis-image-field {
+    display: grid;
+    gap: 4px;
+    max-width: 420px;
+    font-weight: 600;
+  }
+
+  .bis-image-table {
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  .bis-image-table th,
+  .bis-image-table td {
+    padding: 4px;
+    border: 1px solid var(--border);
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  .bis-image-table select {
+    max-width: 150px;
+  }
+
+  .bis-image-table td.bis-image-guessed {
+    background: color-mix(in oklch, var(--warning, oklch(0.8 0.15 85)) 25%, transparent);
+  }
+
+  .bis-image-table td.bis-image-missing,
+  .bis-image-table td.bis-image-problem {
+    background: var(--error-soft);
+    color: var(--error);
+  }
+
+  .bis-export-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-block: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .set-combo-select {
+    width: 100%;
+    min-height: 2.5rem;
+    font-weight: 600;
+  }
+
+  .bis-export-status {
+    margin-inline-end: auto;
+    color: var(--secondary);
+    font-weight: 600;
+  }
+
+  .bis-image-error {
+    color: var(--error);
+    font-weight: 600;
+  }
+
+  .official-import-target {
+    display: grid;
+    gap: 4px;
+    margin-block: 8px;
+    font-weight: 600;
+  }
+
+  .build-select-button small.build-list-dps {
+    color: var(--secondary);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+
+  input[type="number"],
+  output,
+  td {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/*
+ * 레이어 밖 규칙: 미리보기(아티팩트)처럼 바깥에서 레이어 없는 초기화 CSS를 넣는 곳에서도
+ * 바탕색과 color-scheme 이 우리 토큰을 따르게 해요. (레이어 안 규칙은 레이어 밖 규칙에 져요.)
+ */
+:root {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: radial-gradient(circle at top, var(--bg-gradient-top) 0, var(--bg) 42rem) var(--bg);
+  color: var(--text);
+}

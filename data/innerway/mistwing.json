@@ -1,0 +1,148 @@
+{
+  "name": "Mistwing",
+  "altersTimeline": true,
+  "tags": ["BamboocutDraught", "BamboocutWind"],
+  "effect": {
+    "MistwingT0": {
+      "effect": [
+        {
+          "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "MistwingT6" }] }],
+          "effect": {
+            "physicalPenetration": {
+              "function": "segment",
+              "param1": "missingTargetHPPercentage",
+              "mode": "UpperBoundInclusive",
+              "param2": [20, 40, 60, 80],
+              "param3": [1, 2, 3, 4, 4]
+            }
+          }
+        }
+      ]
+    },
+    "MistwingT1": { "effect": [{ "effect": { "physicalPenetration": 3 } }] },
+    "MistwingT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                4.5,
+                6.1,
+                8,
+                10.1,
+                11.9,
+                11.9,
+                11.9,
+                14.1,
+                16.5,
+                19.1,
+                21.3,
+                22.3,
+                23.3,
+                25.2,
+                27.2,
+                29.3,
+                31.7
+              ]
+            },
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                8.9,
+                12.1,
+                16,
+                20.3,
+                23.7,
+                23.7,
+                23.7,
+                28.3,
+                32.9,
+                38.3,
+                42.5,
+                44.7,
+                46.7,
+                50.4,
+                54.4,
+                58.7,
+                63.3
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "MistwingT3": {
+      "effect": [
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "Inebriate" },
+                { "target": "self", "value": "Flamelash" },
+                { "target": "self", "value": "FlowerBurial" }
+              ]
+            }
+          ],
+          "effect": {
+            "physicalPenetration": {
+              "function": "segment",
+              "param1": "missingTargetHPPercentage",
+              "mode": "UpperBoundInclusive",
+              "param2": [10, 20, 30, 40, 50, 60, 70, 80],
+              "param3": [2, 4, 6, 8, 8, 8, 8, 8, 8]
+            }
+          }
+        }
+      ]
+    },
+    "MistwingT4": {
+      "effect": [
+        {
+          "effect": {
+            "physicalPenetration": 6,
+            "bellstrikePenetration": 6,
+            "stonesplitPenetration": 6,
+            "silkbindPenetration": 6,
+            "bamboocutPenetration": 6
+          }
+        }
+      ]
+    },
+    "MistwingT5": { "effect": [{ "rawStat": { "physDmgBonus": 0.025 } }] },
+    "MistwingT6": {
+      "effect": [
+        {
+          "effect": {
+            "physicalPenetration": {
+              "function": "segment",
+              "param1": "missingTargetHPPercentage",
+              "mode": "UpperBoundInclusive",
+              "param2": [10, 20, 30, 40],
+              "param3": [1, 2, 3, 4, 4]
+            }
+          }
+        },
+        {
+          "requirement": [{ "target": "self", "value": "Inebriate" }],
+          "effect": {
+            "physicalPenetration": 6,
+            "bellstrikePenetration": 6,
+            "stonesplitPenetration": 6,
+            "silkbindPenetration": 6,
+            "bamboocutPenetration": 6
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,446 @@
+# Gear data and inventory
+
+The Build tab is driven by `data/gear.json` and `data/attunement.json`. Gear
+defines the eight gear slots, fixed base stats by level and rarity, selectable
+affixes, and attunement source tags. Attunement definitions contain their
+display names, percentage units, source tags, stat targets, and skill-match
+tags. UI code should not hard-code slot-specific option lists.
+
+## Definitions
+
+Every `affixes` object key is directly a `CharacterStats` key. Attunement IDs
+are defined in `data/attunement.json`. Equipped values remain keyed by their
+definition ID so multiple armor attunements retain their individual skill-match
+tags. Each definition's `effect.stat` maps that value to Physical Penetration,
+Formless Penetration, or the shared `attunementDMGBonus` formula input. Entries marked `percentage` are entered as percentage
+points in the UI and stored as decimal ratios: an input of `6.2` is stored as
+`0.062`.
+
+An attunement whose game effect is known but not simulated remains selectable
+with an empty `effect.stat` object. This preserves the
+gear data without silently applying an invented calculation.
+
+The supplied PvE attunement catalog maps all 45 official IDs through
+`data/official/affix-map.json` to the stable keys in `data/attunement.json`.
+Twenty definitions are added: eighteen use tagged damage bonuses,
+and two preserve only identity until their effects are clarified. The five
+Tier 96 Deluge IDs reuse existing healing definitions. Confirmed matching
+corrections cover Inkwell Special/Pursuit, Heavenwill Light/Heavy Varied Combo,
+and Panacea/Soulshade Martial Art healing. Names and older ID aliases are preserved.
+Source `min` and `format`
+are not imported; armor maximum rolls remain level-based in `data/stat.json`
+(Tier 96 uses `0.06`). See [deferred attunements](attunement-audit.md) for
+unresolved effects and proposed changes to existing definitions.
+
+Each record in `gear` contains:
+
+- `name` and compatible `slots`
+- optional `weapon` mapping for weapon definitions
+- `baseStats` keyed by level and rarity
+- `baseAffixes` keyed by level
+- `additionalAffixes` keyed by level
+- `attunements` selectors, currently `Weapon` or `Armor`
+
+`universalAdditionalAffixes` holds rolls available to every gear definition at
+a level. Body and Defense use this shared pool, avoiding repeated option lists
+while keeping their availability explicit in data. Body, Defense, Max HP, and
+Physical Defense are visible calculated fields in the Main stat grid. Equipped
+values enter the shared derived-stat pipeline, so Body affects Max HP and any
+mechanic that scales from it. Defensive affixes have `pickable: false`: imported
+or saved rolls remain supported, but the editor does not offer them as new choices.
+An existing defensive roll displays as a disabled selected option and keeps its value.
+Tier 96 also supports Max HP and Physical Defense as universal additional rolls,
+and as armor base rolls; Greaves and Bracer additionally support Body base rolls.
+Their Tier 96 maximums are 2960 HP and 39 Physical Defense from the item catalog.
+
+An attunement selector is matched against each definition's `tags` in
+`data/attunement.json`. Weapons, Disc, and Pendant select `Weapon`; Helmet,
+Chestpiece, Greaves, and Bracer select `Armor`. Path and martial-art filtering
+is applied afterward by the UI, so adding a tagged attunement does not require
+copying its ID into every compatible gear record.
+
+The current level keys are `91` and `96`; rarities are `Purple` and `Gold`.
+Helmet, Chestpiece, Greaves, and Bracer define fixed Max HP and Physical Defense
+for every supported level and rarity. Chestpiece has the doubled HP profile;
+Greaves uses the higher Physical Defense profile. These fixed values are shown
+on gear cards and summed through the same equipped-stat effect as weapon and
+accessory base attacks.
+An optional `${level}Relayed` entry adds relay-only choices to the matching
+level. A key listed there is excluded from non-relayed gear even if an older
+level list also contains it, which keeps existing preset data compatible while
+making the relay list authoritative for selection and validation. Tier 96
+weapons use `96Relayed` for min/max Bellstrike, Stonesplit, Silkbind, and
+Bamboocut Attack. These stats share the Tier 96 min/max Void Attack roll in
+`data/stat.json`. Tier 91 weapons expose min/max Bellstrike, Stonesplit,
+Silkbind, and Bamboocut Attack as ordinary additional affixes without requiring
+relay.
+Tier 96 Trial weapon IDs `9620001`–`9620014` cover the shared weapon base
+rolls and elemental relay base rolls. Weapon `96Relayed` base choices reuse
+the existing relay selection and import inference mechanism.
+All weapon definitions share the same fixed base-stat and base-affix tables.
+Their additional-affix pools also share the ordinary weapon affixes, with each
+definition including only its own weapon-family damage boost. Both Rope Dart
+definitions use `ropeDartDmgBoost`.
+Martial arts that share a physical weapon family resolve to the same gear
+definition. Snowparting Blade selects Heng Blade; Phalanxbane and Thundercry
+select Mo Blade; Nameless and Strategic select Sword; Nameless and HeavenQuaker
+select Spear; Vernal, Soulshade, and Everspring select Umbrella; Inkwell and
+Panacea select Fan; Mortal and Unfettered select Rope Dart; Heavenwill selects
+Gauntlet; and Infernal selects Dual Blades. The first configured martial art maps
+to Left Weapon and the second maps to Right Weapon. Weapon items are identified
+by this definition ID and do not store a left/right slot, so the same saved
+weapon can move between the two positions when the martial-art order changes.
+
+## Builds and persisted inventory
+
+Build data is stored in `localStorage` under `wwm-build-list-v1`, with the active
+build ID in `wwm-active-build-v1`. The stored payload uses schema version 8 and
+contains one shared `gearItems` array plus the build entries. Each custom build
+stores a `martialArts` eligibility list, an `equipped` map from its eight slots
+to shared item IDs, plus its gear
+sets, bow/ring set, and arsenal selection. The same
+gear item can therefore be equipped by any number of builds, while changing one
+build's loadout does not change another build's equipped choices. Only the
+active build contributes to character and rotation calculations.
+
+Each shared item stores its definition ID, level, rarity, optional `relayed`
+status, one required base affix, zero to four additional affixes, and an optional
+attunement. Non-weapon items also store their armor
+slot; weapon items leave positioning to the build's `equipped.leftWeapon` and
+`equipped.rightWeapon` references. Editing an item updates it for every build
+that equips it. Deleting an item removes it from the shared inventory and
+unequips it from every build.
+
+The loader migrates the previous array payload, where each build owned a full
+inventory, into shared gear plus per-build loadouts. All items are retained;
+colliding item IDs are remapped and their original build's equipped references
+are updated. The older `wwm-gear-inventory-v1` single-inventory value is also
+migration-only. When no build data exists and legacy gear is present, it becomes
+shared gear equipped by an active custom build named `My Build`, without
+changing or deleting the old value. Loading older slot-bound Heng Blade and Mo
+Blade records removes their `slot` field while preserving their definition,
+values, IDs, and build references. Builds from older schemas receive the former
+standalone setup selections when available, then persist those choices with
+the build. Records using the former `weapons` eligibility field are normalized
+to `martialArts`; new persistence never writes the legacy field.
+
+Load validation rejects malformed items, options that are not allowed by the
+current definition, more than four additional affixes, and duplicate additional
+affixes. Missing additional affixes and attunement are preserved as empty rather
+than filled with invented values. Changing weapon settings
+does not delete incompatible saved items; they become available again if the
+matching martial art is selected later.
+
+Duplicating a custom build creates another editable build that references the
+same shared equipped item IDs and copies its Inner Ways and setup selections.
+Duplicating a preset converts its synthetic loadout into an editable build. For
+each preset slot, an exactly matching shared item is reused when available;
+otherwise, a concrete shared item is created from the preset values. A single
+physical item is never equipped into two slots of the duplicate.
+
+Saved gear can be equipped, edited in place, or deleted from the shared slot
+inventory. Editing keeps the item's ID, so it remains equipped in every build
+that uses it. Deletion is a two-step action: the first click arms a red `Confirm
+Delete` button and the second click removes the item globally.
+
+Relayed items display an upward arrow on equipped and inventory cards. The gear
+editor's Max action fills every currently selected affix and attunement from
+the gear level in `data/stat.json` without changing attribute selections. Normal affixes
+use 100% of the saved max roll; relayed base and additional affixes use 94%.
+Attunements always use 100%. Max writes those concrete values into the item, so
+calculation never depends on an implicit multiplier. Manual value entry uses
+the same values as hard upper limits. Turning Relayed on immediately clamps any
+base or additional affix above its new 94% limit; turning it off preserves the
+current rolls. Attunement values remain capped at 100% in either state. Save
+also applies these limits defensively so non-UI imports cannot persist an
+over-cap roll.
+
+Weapon attunement caps use their definition IDs in the `attunement` priority
+map. Every attunement definition tagged `Armor` instead shares the generic
+`attunement.armor` cap, so new path-specific armor attunements do not require a
+new priority key.
+
+## Image import
+
+The add-gear editor can populate a draft from a selected, dropped, or
+clipboard-pasted gear details screenshot. OCR is
+performed entirely in the browser with Tesseract; its worker, English language
+model, and WebAssembly core are served from `public/ocr`, so the static GitHub
+Pages build does not depend on an OCR service or upload user images. The bundled
+Mo Blade screenshot is displayed only as a composition example.
+
+OCR supplies the definition, tier, fixed base stats, relaying marker, affix rows,
+attunement, and their displayed values. Rarity is inferred by matching the fixed
+base stats against the selected gear tier when the title's rarity color cannot
+be read. A focused pixel scan beside the first title word recognizes Gold and
+Purple markers; attribute colors farther down the page do not determine rarity. Labels
+are normalized to the existing IDs in `data/gear.json` and
+`data/attunement.json`; percentage points are converted to decimal ratios at
+this UI boundary. Sparse-layout recognition is preferred; if it misses a row,
+the importer also checks the block-layout result already produced during the same
+scan. Unclear metadata defaults to Tier 96 Gold. Unclear, duplicate, unavailable,
+or missing affix and attunement rows remain empty for manual correction instead
+of rejecting the entire image. The current editor slot supplies the gear type
+when its label is unreadable. A successful import fills the ordinary gear draft
+and still requires the user to review it and press Save.
+
+The progression detail page is also supported: its values follow each label
+inline rather than aligning at the right edge. Adjacent numeric OCR fragments
+are joined before parsing, including split decimals. If the tier is missed,
+a focused line scan reads the banner above the first attribute. These pages
+show an item name instead of a gear type. `data/ocr-item-names.json` maps
+unambiguous item names from the local Tier 91, Tier 96, and Tier 100 catalogs to existing
+gear definitions, using equipment slots and explicit weapon types. Ambiguous
+names and weapon types are excluded. Recognized item names take priority over
+the editor slot; the modal still rejects gear belonging to a different slot.
+The Tier 91 catalog identifies Vanguard Ward as a Pendant. Unknown names retain
+the editor-slot fallback. With no readable title marker or fixed base stats,
+rarity defaults to Gold. Existing gear
+eligibility still applies; unsupported defensive attunements such as Physical
+Resistance remain empty for manual correction.
+
+## Export and import
+
+The Build sidebar can export the complete shared gear inventory and all custom
+build records as a formatted JSON file. Export files use the
+`where-builds-meet-builds` format identifier and schema version 7. Bundled
+default builds are reconstructed from `data/build/**/*.json`, so they are omitted
+from browser persistence and exports. Versions 1 through 6 remain importable,
+with legacy `weapons` eligibility renamed to `martialArts`, slot-bound weapon
+gear normalized, and missing setup data migrated.
+
+Import merges into the current browser state rather than replacing it. Valid
+gear items are appended, custom builds are appended, and the current active
+build is left unchanged. Gear and build ID collisions are remapped. All imported
+build references use the remapped IDs, so a gear item shared by multiple builds
+in the export remains shared after import. Bundled default builds are skipped to
+avoid duplicating them. Importing the same file again therefore creates another
+independent copy of its custom builds and gear.
+
+### Official dashboard import
+
+`Import from Official` opens a modal containing a draggable bookmarklet and a
+link to the official Where Winds Meet dashboard. The bookmarklet runs in the
+dashboard origin, reads its cached `getAreaServer` role data or requests
+`/role/roleInfo` with the dashboard's existing login token, and copies a small
+`wwm-dashboard` JSON envelope. The login token is never included. The user
+returns to Where Builds Meet and explicitly pastes that envelope for import.
+
+`officialGearImport.ts` translates dashboard slot IDs and affix IDs before
+passing the result through the ordinary versioned build-import validator. Slot
+IDs 1, 2, 3, 4, 5, 8, 10, and 11 map to the site's eight gear slots; dashboard
+bow and ring records are ignored. `exVo.baseAffixes` contains the base affix,
+up to four additional affixes, and an optional final attunement. The final row
+is treated as an attunement only when its mapped ID is allowed by that gear
+definition. Percent values are converted to decimal ratios at this
+boundary. `data/official/affix-map.json` maps each supported dashboard ID
+directly to this project's canonical stat or attunement key. Base signatures
+remain in `data/official/import-map.json`. Maintain these checked-in mappings
+using this project's datamine source in `local/datamine/`; the legacy extractor
+based on the reference site has been retired.
+
+Tier 100 dashboard affix IDs are mapped from the interpreted initial affixes,
+tuning affixes, and nested attunement entries in
+`local/datamine/wwm-items-tier-100.json`. Named entries reuse the canonical
+keys established by identically named Tier 96 entries, including defensive
+stats and PvE armor attunements. Tuning metadata, PvP-only mechanics, and
+unnamed entries without an independently confirmed mapping remain unsupported;
+ID prefixes alone do not establish meaning. Imports preserve the reported roll
+values and use the existing percentage conversion and slot validation.
+
+The Tier 96 Kite armor-attunement family uses IDs `279751` through `279755` in
+charged/martial/third-type order for Heavenwill Gauntlets, followed by Heavy and
+Special for Skygrasp Rope Dart. Dashboard Body and Defense IDs are mapped as
+ordinary universal additional affixes rather than discarded as non-offensive data.
+The Tier 96 Art of Gauntlet additional affix uses IDs `9793031` and `9794031`.
+Art of Sword, Spear, Fan, and Dual Blades IDs also map to their existing
+weapon-specific affix keys, including the Tier 91 `9293`/`9294` and Tier 96
+`9793`/`9794` families. In particular, `9793015` is `swordDmgBoost`;
+dashboard values already expressed as decimal ratios are preserved.
+The Tier 96 item catalog is authoritative for defensive ID meanings: `9793001`
+is Body, `9793003` is Defense, and `9793006` is Max HP. The corresponding
+accessory/armor and alternate families use the same meanings. Older imported
+items retain their saved stat keys and values; their original dashboard IDs were
+not stored, so ambiguous past misidentifications cannot be migrated reliably.
+
+The import creates a new `{character name} Import` build even when no gear can
+be imported. Missing gear details, missing or unsupported base affixes, invalid
+base-affix values, and explicitly unsupported gear levels skip only that item.
+Supported martial arts, Inner Ways, and set selections are still imported; set
+counts use the dashboard records even when their gear items are skipped.
+Malformed, unsupported, negative, duplicate, or excess additional affixes are
+skipped individually, retaining the first four distinct valid additional affixes.
+Invalid optional attunements are omitted. Malformed rows keep their original
+positions so an additional affix cannot become a missing base affix.
+Warnings describe skipped data without blocking the import. An unrecognized
+export or missing `wearEquipsDetailed` object remains an input error.
+
+The import adds supported gear
+to the shared inventory, and equips it without replacing existing data. Before
+adding a piece, the importer compares its definition, level, rarity, relayed
+state, base affix, available additional affixes, and optional attunement with shared gear.
+Additional-affix order is ignored. An exact match is reused by the new build;
+only unmatched gear creates a new inventory item. Weapon-specific affixes such
+as Art of Mo or Art of Heng identify the imported weapon. When the imported and
+current weapon pairs match, weapon gear is placed into the corresponding
+current slot instead of changing the global left/right order. This keeps the
+new build visible without hiding the user's other weapon-filtered builds. Gear
+level and rarity are inferred from official base-attribute signatures when
+possible. If the payload does not expose or identify rarity, the item defaults
+to Gold with a non-blocking import notice. Unmapped or slot-invalid affixes
+are skipped rather than silently assigned to a different stat. Level 96 armor signatures distinguish Gold and Purple using the
+dashboard's fixed HP and Physical Defense values. Helmet and Bracer share one
+signature, Chestpiece uses doubled HP, and Greaves uses the Helmet/Bracer HP
+with its own higher Physical Defense value.
+
+The official payload does not consistently expose a separate relayed flag. If
+an imported piece contains an affix listed by its definition under
+`${level}Relayed`, the importer treats the piece as relayed before validating
+its affix pool. This preserves relay-only attribute attack rows such as official
+ID `9793026` (`maxStonesplit`) instead of discarding them as unsupported normal
+gear.
+
+Current-season weapon attribute IDs `9793003` and `9793006` represent Defense
+and Body respectively. Their order differs from the manually inferred mapping
+used before dashboard payloads exposed both rolls, so the official-ID map must
+not derive these meanings from numeric adjacency alone.
+
+Version 2 of the bookmarklet envelope carries the complete dashboard `roleInfo`
+object for inspecting additional profile fields. Known official martial-art and
+Inner Way IDs are recorded in `data/official/profile-map.json`. Its martial-art
+map includes all 20 numeric IDs, names, and internal weapon keys from
+`local/datamine/wwm-martial-arts-normal.json`; entries do not imply that every
+martial art's combat skills and talents are already implemented. `kongfuMain`
+and `kongfuSub` identify the equipped martial-art pair and are preferred over
+affix inference when both are supported. Import first matches that unordered
+pair to a path in `data/path.json`, then uses the path's canonical left/right
+order and each imported item's physical gear definition to assign weapon slots.
+This supports dashboard exports whose main/sub order differs from the path order
+and martial arts such as Thundercry Blade that share a Mo Blade gear definition.
+
+`passiveSlots` contains the four ordered Inner Way IDs. Those IDs are the Inner
+Way `id` values in `local/datamine/wwm-inner-way-normal.json`, so the Inner Way
+map covers all 57 of them, not only the ones seen in a dashboard export; only
+`651` Song of Harmony lacks an application definition and therefore an
+`innerWay` key. The payload does not expose tiers, so recognized complete
+four-slot selections import at T6 by policy. A slot holding an ID outside that
+table imports empty, which is also how a path-ineligible or unfilled (`0`) slot
+is represented; a payload without a four-entry `passiveSlots` retains the
+application's default Inner Ways.
+
+Bow slot 21 and ring slot 9 use suffix IDs `44`, `45`, and `46` for
+Precision, Critical, and Affinity respectively. Matching known suffixes select
+that bow/ring set; different suffixes explicitly select `None`. Missing or
+unknown suffix data retains the application's default selection. Recognized suffix IDs on
+Left Weapon, Right Weapon, Disc, and Pendant determine weapon-set piece counts:
+two recognized matching pieces select the two-piece tier and four select the
+four-piece tier. Armor slots use the same piece-count rule through the armor-set
+map. Both maps cover every official suffix ID found in
+`local/datamine/items/**/*.json`, where each item lists `sets` entries whose
+`https://wwmdb.vlt.fyi/sets/<id>` URL is that suffix ID. Every item lists only
+sets of its own category, so the suffix IDs already confirmed from dashboard
+exports label the rest of each category, and the application set names come
+from `local/datamine/wwm-item-sets-weapon.json` and
+`local/datamine/wwm-item-sets-armor.json`, whose entries are ordered by ascending
+suffix ID. The datamine spells some sets differently from the application
+(`Rainwhisper`, `Shattered Ridge`, `Agile Steps`, `Flawless Defense`,
+`Jade Embrace`, `Obsidian Armor`), so the generated map uses the application
+names. Weapon suffixes are `1` Jadeware, `3` Hawkwing, `7` RainWhisper, `9`
+SwiftGale, `11` SwayingHeights, `23` Swallowcall, `25` Mistwillow, `29`
+Ivorybloom, `34` Starweave, `50` Cleftpeak, and `56` Etherwrath. Armor suffixes
+are `2` Formbend, `4` Eaglerise, `8` Moonflare, `10` RippleStep, `12`
+FlawlessGuardian, `24` Calmwaters, `26` BeyondtheChill, `30` Whirlsnow, `35`
+Jadeclasp, and `51` Ebonward. Tiltrim, Honorbound, and Brimflow have no suffix
+ID in the snapshot. Calmwaters remains importable but has no path eligibility.
+A recognized suffix replaces the whole set selection, so an imported set never
+coexists with an application default set. Unknown weapon-set and armor-set data
+continues using the application's default setup values.
+
+The payload identifies no arsenal, so the imported build takes the `arsenal`
+recorded on the resolved path in `data/path.json`: the arsenal covering that
+path's attribute, such as Bamboocut for every `bamboocut*` path. The Mixed
+path has no attribute and keeps the application default.
+
+Tier 96 Stonesplit Might armor attunements use IDs `280201` through `280205`:
+Thundercry Blade Shield, Charged Skill DMG, and Special Skill DMG Boost followed
+by Stormbreaker Spear Charged Skill DMG and Special Skill DMG Boost. ID `280202`
+is directly observed in a dashboard export; the remaining ordering follows the
+confirmed category sequence. Stonesplit Might has no Stormbreaker Spear Martial
+Art Skill DMG Boost attunement.
+
+For Tier 91 armor, dashboard ID `9293029` is Area Mystic Skill DMG Boost and
+attunement ID `270204` is Stormbreaker Spear Charged Skill DMG Boost. These IDs
+are confirmed independently from the Tier 96 sequence and must not be inferred
+by merely replacing the tier prefix.
+
+The observed Silkbind - Deluge profile maps martial-art IDs `10301` and `20602`
+to Panacea Fan and Soulshade Umbrella. Inner Way IDs `351`, `44`, and `82` map to
+Royal Remedy, Fury Harvest, and Seasonal Edge. Their definitions are intentionally
+effectless until their mechanics are recorded. Tier 91 affix ID `9293032` maps to Single-Target
+Mystic Skill DMG Boost. Attunement IDs `270401` and `270404` are the Panacea Fan
+and Soulshade Umbrella Martial Art Skill Healing Boosts; their values are retained
+on imported gear, but healing is not simulated.
+
+Tier 96 Bamboocut Dust armor attunement ID `280601` maps to Everspring Umbrella
+Martial Art Skill DMG Boost. Together with the previously observed IDs `280602`
+through `280605`, this completes the Dust category mapping.
+
+The dashboard can report Physical Resistance as an accessory attunement. It is
+preserved on imported gear and shown in the gear editor, but is marked
+defensive and excluded from offensive character/priority controls because it
+does not affect outgoing damage.
+
+## Default build presets
+
+Default builds live in path-grouped `data/build/**/*.json` files. Vite eagerly discovers every JSON
+file beneath that root, so adding a preset does not require a TypeScript import. Presets
+are grouped by path (for example, `stonesplit-strength/` and `stonesplit-might/`), while the
+Empty Build remains at the root because it is eligible for every martial-art pair.
+Each path's `buildGroup` in `data/path.json` selects the matching directory.
+The source module path is retained as preset metadata at build time, so preset
+visibility does not depend on duplicating the path ID inside every build file.
+The optional numeric `order` field controls display order. Presets marked with
+`"test": true` are bundled in every environment and shown only while the persisted
+header-level Dev toggle is enabled. A preset contains
+its `setup` selections and exact gear choices, not persisted `GearItem` records. Missing
+slots are allowed for presets such as `Empty Build`; populated slots resolve to
+synthetic items at runtime. The UI disables gear switching and prevents removal
+of a default build. Its setup is also fixed by the preset. Its display name may
+still be changed locally. Presets declare their eligible martial-art IDs in
+`martialArts`.
+
+Preset gear records use the same value shape as editor-created gear: every base
+affix, additional affix, and attunement stores an explicit `{ "key", "value" }`
+object. A preset therefore records the exact build values and does not depend on
+the matching level in `data/stat.json` or a roll multiplier. A preset-level `relayed: true`
+marks all of its synthetic gear as relayed for display without altering those
+explicit values. Preset weapon definitions are
+fixed, but build filtering treats the two-weapon combination as an unordered
+pair. When the selected martial arts use the same pair in the opposite order,
+the equipped weapon records are aligned to the matching left and right weapon
+definitions before calculation.
+
+Default presets from other path build groups remain hidden in the Build tab. Custom
+builds remain listed in a dimmed state when they do not match the current pair.
+Selecting one changes to the enabled locked path for that pair, or to Mixed with
+the build's saved weapon pair when no enabled locked path is available.
+
+## Calculation behavior
+
+Fixed base stats and all five affixes from the active build are summed directly
+by their saved keys into one `CharacterStats` effect and passed through the
+shared character/derived-stat pipeline. Equipped attunements are summed by
+definition ID into the centralized `AttunementStats` input. Damage calculation
+resolves each definition's stat target and requires every configured skill tag
+before applying it. The active build's gear
+sets, bow/ring set, and arsenal form the setup baseline. Main-tab changes to
+those selections are session overrides and can be reset individually or with
+the global Reset control. The Build tab does not
+calculate effective stats, rates, or DPS.
+
+The two Mystic affixes use existing skill tags:
+
+- `singleTargetMysticDmgBoost` applies to `SingleTargetMystic`
+- `areaMysticDmgBoost` applies to `AreaMystic`
+
+Both are Category 1 damage bonuses and are stored as decimal ratios.

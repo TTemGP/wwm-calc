@@ -1,0 +1,35 @@
+@layer ui {
+  .status {
+    --calculation-progress: 0%;
+
+    inline-size: fit-content;
+    min-block-size: 1.4em;
+    margin-block-start: 0.2rem;
+    border-radius: 0.35rem;
+    padding-inline: 0.45rem;
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--primary) 24%, transparent) 0 var(--calculation-progress),
+      transparent var(--calculation-progress) 100%
+    );
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  /* Work that reports no progress has no fraction to fill to, so it reads as under way
+     rather than as a stalled zero. A static stripe keeps that honest and needs no motion. */
+  .indeterminate {
+    background: repeating-linear-gradient(
+      115deg,
+      color-mix(in oklab, var(--primary) 24%, transparent) 0 8px,
+      transparent 8px 16px
+    );
+  }
+
+  .idle {
+    display: none;
+  }
+}

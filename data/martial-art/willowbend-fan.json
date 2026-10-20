@@ -1,0 +1,849 @@
+{
+  "name": "Willowbend Fan",
+  "weapon": "Fan",
+  "tag": "WillowbendFan",
+  "talent": [
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.004256 } } } }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.007600000000000001 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.015200000000000002 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 4 } }
+            },
+            "rawStat": { "maxSilkbind": 38, "minSilkbind": 19 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0228 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 5.6 } }
+            },
+            "rawStat": { "maxSilkbind": 52, "minSilkbind": 26 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.030400000000000003 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.04 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 7.6 } }
+            },
+            "rawStat": { "maxSilkbind": 68, "minSilkbind": 34 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.038 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.08 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.08 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 9.6 } }
+            },
+            "rawStat": { "maxSilkbind": 86, "minSilkbind": 43 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0456 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.08 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.08 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 11.2 } }
+            },
+            "rawStat": { "maxSilkbind": 100, "minSilkbind": 50 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0456 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 11.2 } }
+            },
+            "rawStat": { "maxSilkbind": 100, "minSilkbind": 50 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0456 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 11.2 } }
+            },
+            "rawStat": { "maxSilkbind": 100, "minSilkbind": 50 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.053200000000000004 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 13.2 } }
+            },
+            "rawStat": { "maxSilkbind": 118, "minSilkbind": 59 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.06080000000000001 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 15.2 } }
+            },
+            "rawStat": { "maxSilkbind": 138, "minSilkbind": 69 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0684 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 18 } }
+            },
+            "rawStat": { "maxSilkbind": 160, "minSilkbind": 80 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.08512 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 22 } }
+            },
+            "rawStat": { "maxSilkbind": 196, "minSilkbind": 98 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0912 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 23.6 } }
+            },
+            "rawStat": { "maxSilkbind": 212, "minSilkbind": 106 }
+          }
+        ]
+      },
+      { "effect": [] },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "WillowbendFan" }],
+            "effect": { "flatAttackBonus": 0.0725 }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          { "target": "Tailwind", "modify": { "duration": 24 } },
+          {
+            "requirement": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "equippedMartialArt", "value": "museflowWaistDrum" }
+            ],
+            "effect": {
+              "bellstrikeAttackBonus": 0.06,
+              "stonesplitAttackBonus": 0.06,
+              "silkbindAttackBonus": 0.06,
+              "bamboocutAttackBonus": 0.06
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          { "stat": { "crit": { "formula": { "source": "agility", "multiplier": 0.000304, "max": 0.0988 } } } }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              }
+            ],
+            "effect": {
+              "stat": {
+                "physDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } },
+                "silkbindDmgBonus": { "formula": { "source": "minPhys", "multiplier": 0.00016, "max": 0.12 } }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindPenetration": { "formula": { "source": "minSilkbind", "multiplier": 0.0672, "max": 25.2 } }
+            },
+            "rawStat": { "maxSilkbind": 228, "minSilkbind": 114 }
+          }
+        ]
+      },
+      { "effect": [] },
+      {
+        "effect": [
+          { "requirement": [{ "target": "skillTag", "value": "WillowbendFan" }], "effect": { "flatAttackBonus": 0.15 } }
+        ]
+      }
+    ]
+  ]
+}

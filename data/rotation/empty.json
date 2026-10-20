@@ -1,0 +1,29 @@
+{
+  "name": "Empty Rotation",
+  "martialArts": [
+    "snowparting",
+    "phalanxbane",
+    "thundercry",
+    "stormbreaker",
+    "everspring",
+    "unfettered",
+    "heavenwill",
+    "skygrasp",
+    "namelessSword",
+    "namelessSpear",
+    "strategicSword",
+    "heavenquakerSpear",
+    "vernalUmbrella",
+    "inkwellFan",
+    "panaceaFan",
+    "soulshadeUmbrella",
+    "infernalTwinblades",
+    "mortalRopeDart",
+    "skystrikeGauntlets",
+    "rivenTwinblades"
+  ],
+  "test": true,
+  "eventTimeReference": "battleStart",
+  "steps": [],
+  "ping": 40
+}

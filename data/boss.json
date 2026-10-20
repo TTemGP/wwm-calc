@@ -1,0 +1,10 @@
+[
+  { "id": "Dummy", "name": "Dummy", "type": "Dummy", "attackPattern": [] },
+  {
+    "id": "DummyAttack",
+    "name": "Dummy (Attack)",
+    "type": "Dummy",
+    "attackPattern": [{ "firstDelay": 5.5, "interval": 6, "count": 2, "damage": 200 }]
+  },
+  { "id": "Boss", "name": "Boss", "type": "Boss", "attackPattern": [] }
+]

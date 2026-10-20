@@ -1,0 +1,140 @@
+{
+  "name": "Bitter Seasons",
+  "altersTimeline": true,
+  "tags": ["SilkbindJade", "BamboocutWind", "BamboocutDust", "BellstrikeUmbra"],
+  "effect": {
+    "BitterSeasonsT0": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "BitterSeasonsT1" }] },
+            { "target": "skillTag", "value": "DirectDamage" }
+          ],
+          "action": [
+            {
+              "type": "apply",
+              "target": "target",
+              "value": ["QingyisPoison", "QingyisCharmT0"],
+              "chance": {
+                "function": "switch",
+                "param1": "BitterSeasonsT4",
+                "param2": { "true": 0.15 },
+                "fallback": 0.1
+              }
+            }
+          ]
+        },
+        {
+          "event": "takeDamage",
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "BitterSeasonsT1" }] },
+            { "target": "self", "value": "BitterSeasonsT3" }
+          ],
+          "action": [
+            { "type": "apply", "target": "target", "value": ["QingyisPoison", "QingyisCharmT0"], "chance": 0.1 }
+          ]
+        }
+      ]
+    },
+    "BitterSeasonsT1": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "BitterSeasonsT6" }] },
+            { "target": "skillTag", "value": "DirectDamage" }
+          ],
+          "action": [
+            {
+              "type": "apply",
+              "target": "target",
+              "value": ["QingyisPoison", "QingyisCharmT1"],
+              "chance": {
+                "function": "switch",
+                "param1": "BitterSeasonsT4",
+                "param2": { "true": 0.15 },
+                "fallback": 0.1
+              }
+            }
+          ]
+        },
+        {
+          "event": "takeDamage",
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "BitterSeasonsT6" }] },
+            { "target": "self", "value": "BitterSeasonsT3" }
+          ],
+          "action": [
+            { "type": "apply", "target": "target", "value": ["QingyisPoison", "QingyisCharmT1"], "chance": 0.1 }
+          ]
+        }
+      ]
+    },
+    "BitterSeasonsT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "precision": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.014,
+                0.019,
+                0.025,
+                0.031,
+                0.037,
+                0.037,
+                0.037,
+                0.043,
+                0.051,
+                0.059,
+                0.065,
+                0.069,
+                0.072,
+                0.078,
+                0.084,
+                0.09,
+                0.098
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "BitterSeasonsT3": {},
+    "BitterSeasonsT4": {},
+    "BitterSeasonsT5": { "effect": [{ "rawStat": { "physDmgBonus": 0.025 } }] },
+    "BitterSeasonsT6": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "action": [
+            {
+              "type": "apply",
+              "target": "target",
+              "value": ["QingyisPoison", "QingyisCharmT6"],
+              "chance": {
+                "function": "switch",
+                "param1": "BitterSeasonsT4",
+                "param2": { "true": 0.15 },
+                "fallback": 0.1
+              }
+            }
+          ]
+        },
+        {
+          "event": "takeDamage",
+          "requirement": [{ "target": "self", "value": "BitterSeasonsT3" }],
+          "action": [
+            { "type": "apply", "target": "target", "value": ["QingyisPoison", "QingyisCharmT6"], "chance": 0.1 }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "innerWays": [
+    { "innerWay": "FrostCladNight", "tier": "T6" },
+    { "innerWay": "MoraleChant", "tier": "T6" },
+    { "innerWay": "SteadfastDevotion", "tier": "T6" },
+    { "innerWay": "ThroatPiercingArt", "tier": "T6" }
+  ],
+  "weaponSets": { "Cleftpeak": 4, "RainWhisper": 0 },
+  "armorSets": { "Formbend": 0 },
+  "bowRingSet": "Precision",
+  "arsenal": "Stonesplit",
+  "food": "SimmeringFishSlices",
+  "divinecraft": "Fire"
+}

@@ -1,0 +1,15 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "keyframes-name-pattern": null,
+    "import-notation": null,
+    "value-keyword-case": null,
+    "no-descending-specificity": null,
+    "alpha-value-notation": "number",
+    "hue-degree-notation": "number",
+    "lightness-notation": "number",
+    "media-feature-range-notation": "prefix"
+  }
+}

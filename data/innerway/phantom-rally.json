@@ -1,0 +1,59 @@
+{
+  "name": "Phantom Rally",
+  "altersTimeline": true,
+  "tags": ["BamboocutDust"],
+  "effect": {
+    "PhantomRallyT0": {},
+    "PhantomRallyT1": {},
+    "PhantomRallyT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.017,
+                0.023,
+                0.031,
+                0.039,
+                0.046,
+                0.046,
+                0.046,
+                0.054,
+                0.063,
+                0.074,
+                0.082,
+                0.086,
+                0.09,
+                0.097,
+                0.104,
+                0.113,
+                0.121
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "PhantomRallyT3": {
+      "trigger": [
+        {
+          "target": "target",
+          "requirement": [{ "target": "skillTag", "value": "PhantomResonance" }],
+          "action": [{ "type": "apply", "target": "target", "value": "PhantomChime", "stack": 1, "reapply": true }]
+        }
+      ]
+    },
+    "PhantomRallyT4": {
+      "effect": [
+        { "requirement": [{ "target": "skillTag", "value": "PhantomResonance" }], "effect": { "dmgBonus": 0.2 } }
+      ]
+    },
+    "PhantomRallyT5": { "effect": [{ "rawStat": { "physDmgBonus": 0.028 } }] },
+    "PhantomRallyT6": {}
+  }
+}

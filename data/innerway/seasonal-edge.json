@@ -1,0 +1,133 @@
+{
+  "name": "Seasonal Edge",
+  "altersTimeline": true,
+  "tags": ["BamboocutKite", "SilkbindDeluge"],
+  "effect": {
+    "SeasonalEdgeT0": {
+      "trigger": [
+        {
+          "event": "skillEndRandomBuff",
+          "requirement": [{ "target": "skillTag", "value": "Conversion" }],
+          "duration": 10,
+          "cooldown": 30,
+          "outcome": [
+            { "value": "Bloom", "weight": 0.25 },
+            { "value": "Flare", "weight": 0.25 },
+            { "value": "Yield", "weight": 0.25 },
+            { "value": "Frost", "weight": 0.25 }
+          ]
+        }
+      ]
+    },
+    "SeasonalEdgeT1": { "effect": [{ "target": "SeasonalEdgeRandomBuff", "modify": { "duration": 12 } }] },
+    "SeasonalEdgeT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                5,
+                6.7,
+                8.9,
+                11.3,
+                13.2,
+                13.2,
+                13.2,
+                15.7,
+                18.3,
+                21.3,
+                23.6,
+                24.8,
+                25.9,
+                28,
+                30.2,
+                32.6,
+                35.2
+              ]
+            },
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                10,
+                13.5,
+                17.9,
+                22.5,
+                26.4,
+                26.4,
+                26.4,
+                31.3,
+                36.5,
+                42.5,
+                47.2,
+                49.6,
+                51.9,
+                56,
+                60.4,
+                65.2,
+                70.4
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "SeasonalEdgeT3": {
+      "effect": [
+        {
+          "target": "SeasonalEdgeRandomBuff",
+          "modify": {
+            "count": [
+              { "value": 1, "weight": 0.7 },
+              { "value": 2, "weight": 0.3 }
+            ]
+          }
+        }
+      ]
+    },
+    "SeasonalEdgeT4": {
+      "effect": [
+        {
+          "target": "SeasonalEdgeRandomBuff",
+          "modify": {
+            "outcome": [
+              { "value": "Bloom", "weight": 0.1 },
+              { "value": "Flare", "weight": 0.4 },
+              { "value": "Yield", "weight": 0.4 },
+              { "value": "Frost", "weight": 0.1 }
+            ],
+            "additionalSkills": ["SereneBreeze"]
+          }
+        }
+      ]
+    },
+    "SeasonalEdgeT5": { "effect": [{ "rawStat": { "physDmgBonus": 0.028 } }] },
+    "SeasonalEdgeT6": {
+      "effect": [
+        {
+          "target": "SeasonalEdgeRandomBuff",
+          "modify": {
+            "count": [
+              { "value": 1, "weight": 0.5 },
+              { "value": 2, "weight": 0.3 },
+              { "value": 3, "weight": 0.2 }
+            ],
+            "outcome": [
+              { "value": "Bloom", "weight": 0.1 },
+              { "value": "Flare", "weight": 0.4 },
+              { "value": "Yield", "weight": 0.4 }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

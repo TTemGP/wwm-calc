@@ -1,0 +1,85 @@
+import { assert, describe, it } from "vitest"
+
+import { emptyAttunementStats } from "@/calculations/attunementStats"
+import type { TimelineBuildInput } from "@/calculations/rotationTimeline"
+
+// Ported from script/probe/check-single-damage-resolution.mjs.
+describe("single-damage-resolution", () => {
+  it("Single deterministic damage-resolution checks passed", async () => {
+    const { calculateRotationBaseline } = await import("../src/calculations/rotationCalculator.ts")
+    const { calculateDerivedStats } = await import("../src/calculations/effectiveStats.ts")
+    const { emptyStats } = await import("../src/data/statDefinitions.ts")
+    const rawStats = { ...emptyStats, minPhys: 100, maxPhys: 100, precision: 1 }
+    const enemy = {
+      name: "Single damage resolution probe",
+      level: 96,
+      defense: 0,
+      physicalResistance: 0,
+      bellstrikeResistance: 0,
+      stonesplitResistance: 0,
+      silkbindResistance: 0,
+      bamboocutResistance: 0,
+      judgementResistance: 0,
+    }
+    const skill = {
+      name: "Probe Hit",
+      castTime: 0.1,
+      action: [{ type: "damage", phyCoef: 1, attrCoef: 1, time: 0.1 }],
+      modifier: [],
+      tags: ["DirectDamage"],
+    }
+    const inertDamageListener = {
+      source: "ProbeListener",
+      tier: 0,
+      effect: {},
+      listen: { event: "damage", requirement: [], action: { type: "noop" } },
+    }
+
+    const runCase = ({ listener = false, targetHP }: { listener?: boolean; targetHP?: number } = {}) => {
+      let damageEvaluations = 0
+      const stats = new Proxy(rawStats, {
+        get(target, property, receiver) {
+          if (property === "vsBossDmg") damageEvaluations += 1
+          return Reflect.get(target, property, receiver)
+        },
+      })
+      const timeline: TimelineBuildInput = {
+        rotation: {
+          name: "Single damage resolution probe",
+          ...(typeof targetHP === "number" ? { targetHP } : {}),
+          steps: [{ type: "skill", skill: "ProbeHit" }],
+        },
+        skills: { ProbeHit: skill },
+        eventDefinitions: {},
+        dots: {},
+        effectDefinitions: {},
+        innerWayConditions: [],
+        innerWayRules: listener ? [inertDamageListener] : [],
+        setupEffects: [],
+        weapons: [],
+      }
+      const result = calculateRotationBaseline({
+        timeline,
+        startAnchor: { rowId: "rotation-0" },
+        stats,
+        attunement: emptyAttunementStats,
+        enemy,
+        derivedStats: calculateDerivedStats(rawStats, 0),
+        weapons: [],
+        statPriority: [],
+        attunementPriority: [],
+        innerWayPriority: [],
+        setupComparisons: {},
+      })
+      assert(result.metrics.totalDamage > 0, "The probe hit must deal damage.")
+      assert(
+        damageEvaluations === 1,
+        `Each deterministic hit must resolve once; observed ${damageEvaluations} evaluations.`,
+      )
+    }
+
+    runCase()
+    runCase({ listener: true })
+    runCase({ targetHP: 10000 })
+  })
+})

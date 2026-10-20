@@ -1,0 +1,355 @@
+{
+  "MorningDrizzle": {
+    "name": "Morning Drizzle",
+    "shortName": "Fan Special",
+    "castTime": 0.7625,
+    "action": [
+      { "type": "apply", "target": "player", "value": "MorningDrizzle", "stack": 1, "reapply": true, "time": 0.55 }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "Special", "Fan", "PanaceaFan", "MorningDrizzle"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "CloudburstHealing": {
+    "name": "Cloudburst Healing",
+    "shortName": "Fan Q",
+    "group": true,
+    "castTime": 0.9125,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 0.125,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 1.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 2.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 3.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 4.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 5.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 6.9,
+        "silkbindCoef": 2.1705
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "HOT", "MartialArts", "MartialArt", "Fan", "PanaceaFan", "CloudburstHealing"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "CloudburstHealingCancel": {
+    "name": "Cloudburst Healing [Cancel]",
+    "shortName": "Fan Q [Cancel]",
+    "group": true,
+    "castTime": 0,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 0.125,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 1.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 2.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 3.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 4.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 5.9,
+        "silkbindCoef": 2.1705
+      },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.1705,
+        "phyBonus": 600,
+        "attrBonus": 327,
+        "time": 6.9,
+        "silkbindCoef": 2.1705
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "HOT", "MartialArts", "MartialArt", "Fan", "PanaceaFan", "CloudburstHealing"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "EndlessCloud": {
+    "name": "Endless Cloud",
+    "shortName": "Fan QQ",
+    "group": true,
+    "castTime": 0.9375,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 11.7766,
+        "phyBonus": 3259,
+        "attrBonus": 1776,
+        "time": 0.3125,
+        "silkbindCoef": 11.7766
+      },
+      { "type": "apply", "target": "player", "value": "MorningDrizzle", "stack": 1, "reapply": true, "time": 0.3125 },
+      { "type": "apply", "target": "player", "value": "MorningDrizzle", "stack": 1, "reapply": true, "time": 0.3125 },
+      {
+        "type": "trigger",
+        "value": "EchoesOfAThousandPlantsFanQQ",
+        "time": 0.9375,
+        "requirement": [{ "target": "equippedMartialArt", "value": "soulshadeUmbrella" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "MartialArt", "Fan", "PanaceaFan", "EndlessCloud"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "EndlessCloudCancel": {
+    "name": "Endless Cloud [Cancel]",
+    "shortName": "Fan QQ [Cancel]",
+    "group": true,
+    "castTime": 0.3125,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 11.7766,
+        "phyBonus": 3259,
+        "attrBonus": 1776,
+        "time": 0.3125,
+        "silkbindCoef": 11.7766
+      },
+      { "type": "apply", "target": "player", "value": "MorningDrizzle", "stack": 1, "reapply": true, "time": 0.3125 },
+      { "type": "apply", "target": "player", "value": "MorningDrizzle", "stack": 1, "reapply": true, "time": 0.3125 }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "MartialArt", "Fan", "PanaceaFan", "EndlessCloud"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "FourfoldInquiry1": {
+    "name": "Fourfold Inquiry 1st Hit",
+    "shortName": "Fan A1",
+    "castTime": 0.5625,
+    "action": [
+      { "type": "damage", "phyCoef": 0.3955, "phyBonus": 109, "attrBonus": 59, "time": 0.5625, "attrCoef": 0.3955 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "FourfoldInquiry2": {
+    "name": "Fourfold Inquiry 2nd Hit",
+    "shortName": "Fan A2",
+    "castTime": 0.45,
+    "action": [
+      { "type": "damage", "phyCoef": 0.2967, "phyBonus": 82, "attrBonus": 44, "time": 0.45, "attrCoef": 0.2967 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "FourfoldInquiry3": {
+    "name": "Fourfold Inquiry 3rd Hit",
+    "shortName": "Fan A3",
+    "castTime": 0.4875,
+    "action": [
+      { "type": "damage", "phyCoef": 0.3955, "phyBonus": 109, "attrBonus": 59, "time": 0.4875, "attrCoef": 0.3955 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "FourfoldInquiry4": {
+    "name": "Fourfold Inquiry 4th Hit",
+    "shortName": "Fan A4",
+    "castTime": 0.4625,
+    "action": [
+      { "type": "damage", "phyCoef": 0.89, "phyBonus": 246, "attrBonus": 134, "time": 0.4625, "attrCoef": 0.89 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "EmeraldDewtouch1": {
+    "name": "Emerald Dewtouch 1st Hit",
+    "shortName": "Fan H1",
+    "castTime": 0.4,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 1.8767,
+        "phyBonus": 519,
+        "attrBonus": 283,
+        "time": 0.325,
+        "silkbindCoef": 1.8767
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "Heavy", "Fan", "PanaceaFan", "EmeraldDewtouch"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "EmeraldDewtouch2": {
+    "name": "Emerald Dewtouch 2nd Hit",
+    "shortName": "Fan H2",
+    "castTime": 0.8,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.4129,
+        "phyBonus": 668,
+        "attrBonus": 364,
+        "time": 0.25,
+        "silkbindCoef": 2.4129
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "Heavy", "Fan", "PanaceaFan", "EmeraldDewtouch"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "EmeraldDewtouch2Cancel": {
+    "name": "Emerald Dewtouch 2nd Hit [Cancel]",
+    "shortName": "Fan H2 [Cancel]",
+    "castTime": 0.25,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 2.4129,
+        "phyBonus": 668,
+        "attrBonus": 364,
+        "time": 0.25,
+        "silkbindCoef": 2.4129
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "Heavy", "Fan", "PanaceaFan", "EmeraldDewtouch"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "EmeraldDewtouch3Cancel": {
+    "name": "Emerald Dewtouch 3rd Hit [Cancel]",
+    "shortName": "Fan H3 [Cancel]",
+    "castTime": 0.3375,
+    "action": [
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 3.3512,
+        "phyBonus": 928,
+        "attrBonus": 506,
+        "time": 0.3375,
+        "silkbindCoef": 3.3512
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "Heavy", "Fan", "PanaceaFan", "EmeraldDewtouch"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  },
+  "JumpHeavy": {
+    "name": "Jump Heavy",
+    "castTime": 1.3125,
+    "action": [
+      { "type": "damage", "phyCoef": 1.8408, "phyBonus": 510, "attrBonus": 278, "time": 1.025, "attrCoef": 1.841 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Heavy", "Fan", "PanaceaFan", "JumpHeavy"],
+    "martialArt": "panaceaFan",
+    "weapon": "Fan"
+  }
+}

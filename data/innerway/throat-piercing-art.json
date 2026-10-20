@@ -1,0 +1,111 @@
+{
+  "name": "Throat-Piercing Art",
+  "altersTimeline": true,
+  "tags": ["StonesplitStrength", "StonesplitMight", "SilkbindJade"],
+  "effect": {
+    "ThroatPiercingArtT0": {
+      "trigger": [
+        {
+          "target": "self",
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ],
+                [
+                  { "target": "skillTag", "value": "Heavy" },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ]
+              ]
+            }
+          ],
+          "action": [{ "type": "apply", "target": "self", "value": "ThroatPierced", "stack": 1, "reapply": true }]
+        }
+      ]
+    },
+    "ThroatPiercingArtT1": { "effect": [{ "target": "ThroatPierced", "modify": { "duration": 15 } }] },
+    "ThroatPiercingArtT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minStonesplit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                2.5,
+                3.5,
+                4.5,
+                5.7,
+                6.7,
+                6.7,
+                6.7,
+                8,
+                9.3,
+                10.9,
+                12.1,
+                12.7,
+                13.3,
+                14.3,
+                15.4,
+                16.7,
+                17.9
+              ]
+            },
+            "maxStonesplit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                5.1,
+                6.9,
+                9.1,
+                11.5,
+                13.5,
+                13.5,
+                13.5,
+                16,
+                18.7,
+                21.7,
+                24.1,
+                25.3,
+                26.5,
+                28.5,
+                30.8,
+                33.3,
+                35.9
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ThroatPiercingArtT3": {},
+    "ThroatPiercingArtT4": { "effect": [{ "target": "ThroatPierced", "modify": { "maxStack": 5 } }] },
+    "ThroatPiercingArtT5": { "effect": [{ "rawStat": { "stonesplitPenetration": 6 } }] },
+    "ThroatPiercingArtT6": {
+      "trigger": [
+        {
+          "target": "self",
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "skillTag", "value": "AnxiSoldier" },
+                { "target": "skillTag", "value": "TriggerAnxiSolder" }
+              ]
+            }
+          ],
+          "action": [{ "type": "apply", "target": "self", "value": "ThroatPierced", "stack": 1, "reapply": true }]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "default": "en",
+  "locales": ["en", "zh-Hant", "ko"],
+  "completion": {
+    "zh-Hant": 82,
+    "ko": 100
+  }
+}

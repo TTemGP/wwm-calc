@@ -1,0 +1,53 @@
+{
+  "QingyisCharmT0": {
+    "name": "Bitter Seasons",
+    "shortName": "BS",
+    "description": "Reduces Physical Defense by 0.6% per stack.",
+    "duration": 10,
+    "maxStack": 5,
+    "shared": true,
+    "stackEffects": [
+      [{ "effect": { "defenseBonus": -0.006, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.012, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.018, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.024, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.03, "reductionGroup": "BitterSeasons" } }]
+    ],
+    "refresh": true,
+    "showCoverage": true
+  },
+  "QingyisCharmT1": {
+    "name": "Bitter Seasons",
+    "shortName": "BS",
+    "description": "Reduces Physical Defense by 1.2% per stack.",
+    "duration": 10,
+    "maxStack": 5,
+    "shared": true,
+    "stackEffects": [
+      [{ "effect": { "defenseBonus": -0.012, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.024, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.036, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.048, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.06, "reductionGroup": "BitterSeasons" } }]
+    ],
+    "refresh": true,
+    "showCoverage": true
+  },
+  "QingyisCharmT6": {
+    "name": "Bitter Seasons",
+    "shortName": "BS",
+    "description": "Reduces Physical Defense by 1.2% per stack. At 5 stacks, additionally reduces Physical Resistance by 10.",
+    "duration": 10,
+    "maxStack": 5,
+    "shared": true,
+    "stackEffects": [
+      [{ "effect": { "defenseBonus": -0.012, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.024, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.036, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.048, "reductionGroup": "BitterSeasons" } }],
+      [{ "effect": { "defenseBonus": -0.06, "physicalResistance": -10, "reductionGroup": "BitterSeasons" } }]
+    ],
+    "refresh": true,
+    "showCoverage": true
+  }
+}

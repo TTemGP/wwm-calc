@@ -1,0 +1,85 @@
+@layer ui {
+  /*
+   * Option shadows fill the one pixel gaps with dividers. Unoccupied grid cells stay
+   * transparent so incomplete rows show the containing panel's background.
+   *
+   * Tracks are `auto-fit` with an `fr` maximum, so the options share the available width
+   * equally and fill it, rather than a fixed column count that leaves a group of two
+   * occupying two thirds of its panel while the group above it fills all of it.
+   */
+  .group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--button-group-cell, 8rem), 100%), 1fr));
+    gap: 1px;
+    padding: 1px;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    color: var(--text-muted);
+
+    /* Clips the square option corners to the group's radius. Focus rings are drawn inside
+       the option, so clipping cannot hide one. */
+    overflow: clip;
+  }
+
+  .option {
+    display: grid;
+    align-content: start;
+    gap: 3px;
+    min-inline-size: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 0 0 1px var(--border);
+    padding: var(--space-2xs);
+    background: var(--surface-alt);
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    line-height: 1.2;
+    text-align: start;
+    overflow-wrap: anywhere;
+
+    /* An option is a target the reader moves onto deliberately and then reads, so it eases
+       at the normal duration rather than snapping under the pointer. */
+    transition: background-color var(--transition-normal);
+  }
+
+  /* Focus and disabled come before hover so no later rule raises specificity over them. */
+  .option:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+  }
+
+  .option:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+
+  .option:hover:not(:disabled) {
+    background: var(--primary-soft);
+  }
+
+  .option[data-selected] {
+    background: var(--primary-soft);
+  }
+
+  /*
+   * The option's name is what the option is, so it carries the weight and, once chosen, the
+   * full text colour. Notes use the same inherited size as script and divinecraft statuses;
+   * their lighter weight and colour distinguish them without shrinking nested small text twice.
+   */
+  .label {
+    font-weight: 650;
+  }
+
+  .option[data-selected] .label {
+    color: var(--text);
+  }
+
+  .note {
+    display: grid;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--text-dim);
+  }
+}

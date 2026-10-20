@@ -1,0 +1,86 @@
+{
+  "name": "Fivefold Bleed",
+  "altersTimeline": true,
+  "tags": ["SilkbindDeluge", "BamboocutWind"],
+  "effect": {
+    "FivefoldBleedT0": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "action": [
+            {
+              "type": "apply",
+              "target": "target",
+              "value": "WeepingBlood",
+              "chance": {
+                "function": "switch",
+                "param1": "FivefoldBleedT4",
+                "param2": { "true": 0.15 },
+                "fallback": 0.1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "FivefoldBleedT1": {
+      "effect": [
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDamage" }], "effect": { "baseDMGBonus": 1 } }
+      ]
+    },
+    "FivefoldBleedT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                11.9,
+                16.2,
+                21.4,
+                27.1,
+                31.7,
+                31.7,
+                31.7,
+                37.6,
+                43.9,
+                51.1,
+                56.7,
+                59.5,
+                62.3,
+                67.2,
+                72.5,
+                78.2,
+                84.4
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "FivefoldBleedT3": {
+      "effect": [
+        {
+          "target": "WeepingBlood",
+          "modify": { "action": [{ "type": "trigger", "value": "PiercingDamage", "chance": 0.2, "time": "expire" }] }
+        }
+      ]
+    },
+    "FivefoldBleedT4": {},
+    "FivefoldBleedT5": { "effect": [{ "rawStat": { "critDmgBonus": 0.035 } }] },
+    "FivefoldBleedT6": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "target": "skillTag", "value": "WeepingBloodMaxStack" }],
+          "action": [{ "type": "apply", "target": "target", "value": "WeepingBlood", "stack": 1 }]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "Wildstride": {
+    "name": "Wildstride",
+    "shortName": "WS",
+    "description": "While Strayhunt (Draught) is active, increases Replayed skill damage by 20%.",
+    "duration": 20,
+    "maxStack": 1,
+    "shared": true,
+    "effect": [
+      {
+        "requirement": [
+          { "target": "target", "value": "Strayhunt" },
+          { "target": "skillTag", "value": "Replayed" }
+        ],
+        "effect": { "replayDmgBonus": 0.2 }
+      }
+    ],
+    "refresh": true
+  },
+  "Strayhunt": {
+    "name": "Strayhunt",
+    "shortName": "SH",
+    "description": "Increases Physical DMG Bonus and all four attribute DMG Bonuses by 2%.",
+    "duration": 20,
+    "maxStack": 1,
+    "shared": true,
+    "effect": [
+      {
+        "stat": {
+          "physDmgBonus": 0.02,
+          "bellstrikeDmgBonus": 0.02,
+          "stonesplitDmgBonus": 0.02,
+          "silkbindDmgBonus": 0.02,
+          "bamboocutDmgBonus": 0.02
+        }
+      }
+    ],
+    "refresh": true
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "HeavensMight": {
+    "name": "Heaven's Might",
+    "shortName": "Might",
+    "showCoverage": true,
+    "description": "Increases HP damage from Falcon and Vile Condemned skills by 10%.",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "skillTag", "value": "Falcon" },
+              { "target": "skillTag", "value": "VileCondemned" }
+            ]
+          }
+        ],
+        "effect": { "hpDMGBonus": 0.1 }
+      }
+    ]
+  },
+  "VileCondemnedEndCooldown": {
+    "name": "Vile Condemned End Cooldown",
+    "shortName": "End CD",
+    "description": "Prevents Vile Condemned from selecting End Hit.",
+    "duration": 18,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": []
+  }
+}

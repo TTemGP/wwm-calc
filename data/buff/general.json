@@ -1,0 +1,457 @@
+{
+  "Turnaround": {
+    "name": "Turnaround",
+    "shortName": "Turn",
+    "description": "Refunds 30% of a Mystic skill's Vitality cost, up to 10 Vitality.",
+    "duration": 5,
+    "maxStack": 1,
+    "effect": [],
+    "refresh": true
+  },
+  "Shield": {
+    "name": "Shield",
+    "shortName": "Shield",
+    "description": "A general player shield.",
+    "duration": 8,
+    "maxStack": 1,
+    "refresh": true
+  },
+  "Revelry": {
+    "name": "Revelry",
+    "shortName": "Revelry",
+    "description": "Increases damage dealt by 20%.",
+    "duration": 20,
+    "cooldown": 60,
+    "maxStack": 1,
+    "effect": [{ "effect": { "dmgBonus": 0.2 } }],
+    "refresh": true
+  },
+  "Jadeware": {
+    "name": "Jadeware",
+    "duration": 10,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      { "effect": { "affinityDmgBonus": 0.1 } },
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "target", "value": "QiImbalance" },
+              { "target": "targetQiPercentage", "comparison": "<", "amount": 100 }
+            ]
+          }
+        ],
+        "stat": { "directAffinity": 0.075 }
+      }
+    ]
+  },
+  "Hawkwing": {
+    "name": "Hawkwing",
+    "showCoverage": true,
+    "shortName": "Hawk",
+    "description": "Increases Physical Attack and Bellstrike Attack by 1.8% per stack.",
+    "duration": 5,
+    "maxStack": 5,
+    "stackEffects": [
+      [{ "effect": { "physicalAttackBonus": 0.018, "bellstrikeAttackBonus": 0.018 } }],
+      [{ "effect": { "physicalAttackBonus": 0.036, "bellstrikeAttackBonus": 0.036 } }],
+      [{ "effect": { "physicalAttackBonus": 0.054, "bellstrikeAttackBonus": 0.054 } }],
+      [{ "effect": { "physicalAttackBonus": 0.072, "bellstrikeAttackBonus": 0.072 } }],
+      [{ "effect": { "physicalAttackBonus": 0.09, "bellstrikeAttackBonus": 0.09 } }]
+    ],
+    "refresh": true
+  },
+  "Bloom": {
+    "name": "Bloom",
+    "shortName": "Bloom",
+    "description": "The spring outcome of Seasonal Edge.",
+    "duration": 8,
+    "maxStack": 1,
+    "refresh": true
+  },
+  "Flare": {
+    "name": "Flare",
+    "shortName": "Flare",
+    "description": "Increases All Martial Arts by 10%, plus another 10% above 75% HP.",
+    "duration": 8,
+    "maxStack": 1,
+    "effect": [
+      { "stat": { "allMartialArts": 0.1 } },
+      {
+        "requirement": [{ "target": "selfHPPercentage", "comparison": ">", "amount": 75 }],
+        "stat": { "allMartialArts": 0.1 }
+      }
+    ],
+    "refresh": true
+  },
+  "Yield": {
+    "name": "Yield",
+    "shortName": "Yield",
+    "description": "Increases Mystic Skill damage by 10% and restores 2 Vitality per second.",
+    "duration": 8,
+    "maxStack": 1,
+    "effect": [{ "requirement": [{ "target": "skillTag", "value": "Mystic" }], "effect": { "dmgBonus": 0.1 } }],
+    "refresh": true
+  },
+  "Frost": {
+    "name": "Frost",
+    "shortName": "Frost",
+    "description": "The winter outcome of Seasonal Edge.",
+    "duration": 8,
+    "maxStack": 1,
+    "refresh": true
+  },
+  "BreakingPointCooldown": {
+    "name": "Breakpoint Cooldown",
+    "shortName": "BP CD",
+    "description": "Breaking Point's Tier VI dodge effect is on cooldown. Ordinary Disintegration stacks remain available.",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": false
+  },
+  "SeasonalEdgeCooldown": {
+    "name": "Seasonal Edge Cooldown",
+    "shortName": "SE CD",
+    "description": "Seasonal Edge cannot trigger while this effect is active.",
+    "duration": 30,
+    "maxStack": 1,
+    "refresh": false
+  },
+  "RisingMomentum": {
+    "name": "Rising Momentum",
+    "shortName": "Rising",
+    "description": "A successful deflection increases HP damage by 2% per stack for 5 seconds, up to 10 stacks. Only available against a boss.",
+    "duration": 5,
+    "maxStack": 10,
+    "stackEffects": [
+      [{ "effect": { "dmgBonus": 0.02 } }],
+      [{ "effect": { "dmgBonus": 0.04 } }],
+      [{ "effect": { "dmgBonus": 0.06 } }],
+      [{ "effect": { "dmgBonus": 0.08 } }],
+      [{ "effect": { "dmgBonus": 0.1 } }],
+      [{ "effect": { "dmgBonus": 0.12 } }],
+      [{ "effect": { "dmgBonus": 0.14 } }],
+      [{ "effect": { "dmgBonus": 0.16 } }],
+      [{ "effect": { "dmgBonus": 0.18 } }],
+      [{ "effect": { "dmgBonus": 0.2 } }]
+    ],
+    "refresh": true
+  },
+  "DivinecraftFireEmber": {
+    "name": "Divinecraft - Fire Ember Count",
+    "hidden": true,
+    "description": "Counts direct hits since the last Solid Foundation. Five hits consume the count and grant Solid Foundation, which is re-granted at most once every 10 seconds.",
+    "duration": 5,
+    "maxStack": 5,
+    "refresh": true,
+    "onMaxStack": { "consume": "all", "trigger": "DivinecraftSolidFoundationGrant" }
+  },
+  "DivinecraftSolidFoundation": {
+    "name": "Divinecraft - Fire Solid Foundation",
+    "shortName": "SF",
+    "showCoverage": true,
+    "description": "The next direct hit unleashes Solid Foundation. Re-granted at most once every 10 seconds.",
+    "duration": 5,
+    "cooldown": 10,
+    "maxStack": 1,
+    "refresh": true,
+    "trigger": {
+      "event": "damage",
+      "requirement": [
+        { "target": "battleStarted" },
+        { "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }
+      ],
+      "action": [
+        { "type": "consume", "target": "self", "value": "DivinecraftSolidFoundation", "stack": "all" },
+        { "type": "trigger", "value": "DivinecraftSolidFoundationStrike" }
+      ]
+    }
+  },
+  "YiRiver": {
+    "name": "Yi River",
+    "shortName": "Yi",
+    "showCoverage": true,
+    "description": "Increases damage and healing by 1% per stack; T1 adds 2 Physical Penetration per stack. T3 doubles the damage/healing bonus against controlled targets.",
+    "duration": 8,
+    "cooldown": 2,
+    "maxStack": 5,
+    "stackEffects": [
+      [
+        { "effect": { "healingBonus": 0.01 } },
+        {
+          "requirement": [
+            { "target": "target", "value": "Controlled" },
+            { "target": "self", "value": "MoraleChantT3" }
+          ],
+          "effect": { "dmgBonus": 0.01, "healingBonus": 0.01 }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "physicalPenetration": 2 } },
+        {
+          "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "MoraleChantT1" }] }],
+          "effect": { "stat": { "physDmgBonus": 0.01 } }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "dmgBonus": 0.01 } }
+      ],
+      [
+        { "effect": { "healingBonus": 0.02 } },
+        {
+          "requirement": [
+            { "target": "target", "value": "Controlled" },
+            { "target": "self", "value": "MoraleChantT3" }
+          ],
+          "effect": { "dmgBonus": 0.02, "healingBonus": 0.02 }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "physicalPenetration": 4 } },
+        {
+          "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "MoraleChantT1" }] }],
+          "effect": { "stat": { "physDmgBonus": 0.02 } }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "dmgBonus": 0.02 } }
+      ],
+      [
+        { "effect": { "healingBonus": 0.03 } },
+        {
+          "requirement": [
+            { "target": "target", "value": "Controlled" },
+            { "target": "self", "value": "MoraleChantT3" }
+          ],
+          "effect": { "dmgBonus": 0.03, "healingBonus": 0.03 }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "physicalPenetration": 6 } },
+        {
+          "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "MoraleChantT1" }] }],
+          "effect": { "stat": { "physDmgBonus": 0.03 } }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "dmgBonus": 0.03 } }
+      ],
+      [
+        { "effect": { "healingBonus": 0.04 } },
+        {
+          "requirement": [
+            { "target": "target", "value": "Controlled" },
+            { "target": "self", "value": "MoraleChantT3" }
+          ],
+          "effect": { "dmgBonus": 0.04, "healingBonus": 0.04 }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "physicalPenetration": 8 } },
+        {
+          "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "MoraleChantT1" }] }],
+          "effect": { "stat": { "physDmgBonus": 0.04 } }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "dmgBonus": 0.04 } }
+      ],
+      [
+        { "effect": { "healingBonus": 0.05 } },
+        {
+          "requirement": [
+            { "target": "target", "value": "Controlled" },
+            { "target": "self", "value": "MoraleChantT3" }
+          ],
+          "effect": { "dmgBonus": 0.05, "healingBonus": 0.05 }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "physicalPenetration": 10 } },
+        {
+          "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "MoraleChantT1" }] }],
+          "effect": { "stat": { "physDmgBonus": 0.05 } }
+        },
+        { "requirement": [{ "target": "self", "value": "MoraleChantT1" }], "effect": { "dmgBonus": 0.05 } }
+      ]
+    ],
+    "refresh": true
+  },
+  "RighteousLight": {
+    "name": "Light",
+    "description": "Increases Righteous Return by 10% per stack.",
+    "duration": 5,
+    "maxStack": 5,
+    "refresh": true,
+    "stackEffects": [
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "targetHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.005, 0.0045, 0.004, 0.0035, 0.003],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "targetHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.01, 0.009, 0.008, 0.007, 0.006],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "targetHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.015, 0.0135, 0.012, 0.0105, 0.009],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "targetHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.02, 0.018, 0.016, 0.014, 0.012],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "targetHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.025, 0.0225, 0.02, 0.0175, 0.015],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ]
+    ]
+  },
+  "RighteousDarkness": {
+    "name": "Darkness",
+    "description": "Increases Relentless Combat by 10% per stack.",
+    "duration": 5,
+    "maxStack": 5,
+    "refresh": true,
+    "stackEffects": [
+      [
+        {
+          "requirement": [],
+          "effect": {
+            "healingBonus": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.005, 0.0045, 0.004, 0.0035, 0.003],
+              "mode": "UpperBoundInclusive"
+            },
+            "directDamageReduction": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.005, 0.0045, 0.004, 0.0035, 0.003],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [],
+          "effect": {
+            "healingBonus": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.01, 0.009, 0.008, 0.007, 0.006],
+              "mode": "UpperBoundInclusive"
+            },
+            "directDamageReduction": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.01, 0.009, 0.008, 0.007, 0.006],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [],
+          "effect": {
+            "healingBonus": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.015, 0.0135, 0.012, 0.0105, 0.009],
+              "mode": "UpperBoundInclusive"
+            },
+            "directDamageReduction": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.015, 0.0135, 0.012, 0.0105, 0.009],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [],
+          "effect": {
+            "healingBonus": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.02, 0.018, 0.016, 0.014, 0.012],
+              "mode": "UpperBoundInclusive"
+            },
+            "directDamageReduction": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.02, 0.018, 0.016, 0.014, 0.012],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [],
+          "effect": {
+            "healingBonus": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.025, 0.0225, 0.02, 0.0175, 0.015],
+              "mode": "UpperBoundInclusive"
+            },
+            "directDamageReduction": {
+              "function": "segment",
+              "param1": "currentHPPercentage",
+              "param2": [40, 55, 70, 85],
+              "param3": [0.025, 0.0225, 0.02, 0.0175, 0.015],
+              "mode": "UpperBoundInclusive"
+            }
+          }
+        }
+      ]
+    ]
+  }
+}

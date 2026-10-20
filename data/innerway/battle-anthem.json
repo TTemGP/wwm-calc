@@ -1,0 +1,84 @@
+{
+  "name": "Battle Anthem",
+  "altersTimeline": true,
+  "tags": ["StonesplitMight", "BellstrikeSplendor"],
+  "effect": {
+    "BattleAnthemT0": {
+      "effect": [{ "requirement": [{ "target": "skillTag", "value": "Charged" }], "effect": { "dmgBonus": 0.1 } }]
+    },
+    "BattleAnthemT1": {},
+    "BattleAnthemT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "affinity": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.008,
+                0.011,
+                0.014,
+                0.018,
+                0.021,
+                0.021,
+                0.021,
+                0.024,
+                0.028,
+                0.033,
+                0.037,
+                0.039,
+                0.04,
+                0.044,
+                0.047,
+                0.051,
+                0.055
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "BattleAnthemT3": {
+      "trigger": [
+        {
+          "event": "damageOutcome",
+          "outcome": ["critical", "affinity"],
+          "requirement": [{ "target": "skillTag", "value": "Charged" }],
+          "cooldown": 12,
+          "action": [{ "type": "addResource", "value": "Endurance", "amount": 10 }]
+        }
+      ]
+    },
+    "BattleAnthemT4": {
+      "effect": [
+        { "requirement": [{ "target": "skillTag", "value": "Charged" }], "effect": { "dmgBonus": 0.05 } },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "Charged" },
+            { "operator": "not", "operand": [{ "target": "self", "value": "BattleAnthemT6" }] }
+          ],
+          "effect": { "resourceCostBonus": { "Endurance": 0.1 } }
+        }
+      ]
+    },
+    "BattleAnthemT5": { "effect": [{ "rawStat": { "affinityDmgBonus": 0.052 } }] },
+    "BattleAnthemT6": {
+      "effect": [
+        {
+          "effect": {
+            "dmgBonus": {
+              "function": "segment",
+              "param1": "enduranceLost",
+              "param2": [10, 20, 30, 40, 50],
+              "param3": [0, 0.02, 0.04, 0.06, 0.08, 0.1]
+            }
+          },
+          "requirement": [{ "target": "skillTag", "value": "Charged" }]
+        }
+      ]
+    }
+  }
+}

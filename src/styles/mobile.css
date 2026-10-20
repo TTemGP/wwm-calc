@@ -1,0 +1,513 @@
+@layer components {
+  /*
+   * Mobile is an explicit presentation mode selected by App. Keeping every
+   * rule under .layout-mobile preserves the established PC layout verbatim.
+   */
+  .layout-mobile {
+    --shell-gutter: 0.5rem;
+
+    min-block-size: 100dvh;
+
+    /* No bottom padding, for the same reason the PC shell has none: the footer's own background
+       has to reach the bottom edge, and the footer is what stands the page off the window. */
+    padding-block: 0.75rem 0;
+    overflow: visible;
+  }
+
+  /* The cap the mobile shell used to carry as its own width, now on the content area it holds. */
+  .layout-mobile .page-content {
+    max-inline-size: calc(32rem + var(--shell-gutter) * 2);
+  }
+
+  .layout-mobile .page-header {
+    display: grid;
+    gap: 0.75rem;
+    margin-block-end: 0.75rem;
+  }
+
+  .layout-mobile .page-header h1 {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .layout-mobile .intro {
+    margin-block-start: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  /* Mobile stacks the controls above the links and keeps both full width. */
+  .layout-mobile .page-header-end {
+    align-items: stretch;
+  }
+
+  .layout-mobile .page-header-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    justify-content: stretch;
+    gap: 0.6rem;
+    margin-block-start: 0;
+  }
+
+  .layout-mobile .locale-selector {
+    display: grid;
+    gap: 0.25rem;
+    min-inline-size: 0;
+  }
+
+  .layout-mobile .notice-area {
+    inset-block-start: calc(100% + 0.75rem);
+    inset-inline-end: 0;
+    inline-size: min(28rem, calc(100vw - 2rem));
+  }
+
+  .layout-mobile .locale-selector select {
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: 2.75rem;
+  }
+
+  .layout-mobile .dev-mode-button {
+    inline-size: 100%;
+  }
+
+  .layout-mobile .path-selector-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+
+  .layout-mobile .path-selector-options button {
+    min-inline-size: 0;
+    justify-content: start;
+    padding-inline: 0.5rem;
+  }
+
+  .layout-mobile .path-selector-options img {
+    inline-size: 1.6rem;
+    block-size: 1.6rem;
+  }
+
+  .layout-mobile .path-status-badge {
+    margin-inline-start: auto;
+  }
+
+  .layout-mobile .main-tabs {
+    position: sticky;
+    z-index: 20;
+    inset-block-start: 0;
+    margin-block-end: 0.75rem;
+    padding-block-start: 0.2rem;
+    background: var(--bg);
+    scrollbar-width: thin;
+  }
+
+  .layout-mobile .main-tabs button {
+    min-block-size: 2.75rem;
+    padding-inline: 0.75rem;
+  }
+
+  .layout-mobile :is(button, select, input:not([type="hidden"])) {
+    min-block-size: 2.75rem;
+  }
+
+  .layout-mobile :is(.viewport-tab-content, .build-page, .rotation-table) > * {
+    min-inline-size: 0;
+  }
+
+  .layout-mobile .app-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .layout-mobile .results-column {
+    order: -1;
+  }
+
+  .layout-mobile .character-stats-column,
+  .layout-mobile .middle-stats-column,
+  .layout-mobile .results-column {
+    inline-size: 100%;
+    max-inline-size: none;
+  }
+
+  .layout-mobile .character-secondary-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-mobile .character-stats-heading,
+  .layout-mobile .character-profile-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .layout-mobile .character-profile-controls {
+    inline-size: 100%;
+    flex-wrap: wrap;
+    justify-content: start;
+  }
+
+  .layout-mobile .character-profile-controls select {
+    flex: 1 1 10rem;
+  }
+
+  .layout-mobile .stats-panel .stats-grid {
+    grid-template-columns: minmax(0, 1fr) 6rem;
+    gap: 0.3rem 0.45rem;
+  }
+
+  .layout-mobile .stats-panel .stat-row,
+  .layout-mobile .stats-panel .field,
+  .layout-mobile .stats-panel .stat-row > .field:nth-child(2) {
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+
+  .layout-mobile .stats-panel .stat-row > span:empty {
+    display: none;
+  }
+
+  .layout-mobile .stats-panel .input-wrap {
+    inline-size: 100%;
+  }
+
+  .layout-mobile .priority-panel {
+    overflow-x: auto;
+  }
+
+  .layout-mobile .priority-header,
+  .layout-mobile .priority-row {
+    grid-template-columns: var(--priority-columns);
+    min-inline-size: 21rem;
+    gap: 0.65rem;
+  }
+
+  .layout-mobile .priority-list-with-roll .priority-header,
+  .layout-mobile .priority-list-with-roll .priority-row {
+    grid-template-columns: var(--priority-columns);
+    min-inline-size: 27rem;
+  }
+
+  .layout-mobile .priority-list-with-healing .priority-header,
+  .layout-mobile .priority-list-with-healing .priority-row {
+    grid-template-columns: var(--priority-columns);
+    min-inline-size: 34rem;
+  }
+
+  .layout-mobile .priority-list-with-roll.priority-list-with-healing .priority-header,
+  .layout-mobile .priority-list-with-roll.priority-list-with-healing .priority-row {
+    grid-template-columns: var(--priority-columns);
+    min-inline-size: 39.625rem;
+  }
+
+  .layout-mobile .script-option-list,
+  .layout-mobile .divinecraft-option-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout-mobile .dps-value {
+    margin-block-start: 0.5rem;
+    font-size: clamp(2.25rem, 14vw, 3rem);
+  }
+
+  /* Build: horizontal build chooser followed by the full editor flow. */
+  .layout-mobile .viewport-tab-content,
+  .layout-mobile .build-manager-panel,
+  .layout-mobile .build-manager-layout,
+  .layout-mobile .build-editor-content {
+    block-size: auto;
+    min-block-size: 0;
+    overflow: visible;
+  }
+
+  .layout-mobile .build-manager-panel {
+    padding: 0;
+  }
+
+  .layout-mobile .build-manager-layout {
+    display: block;
+  }
+
+  .layout-mobile .build-list {
+    display: block;
+    block-size: auto;
+    max-block-size: none;
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--border);
+  }
+
+  .layout-mobile .build-list-entries {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+  }
+
+  .layout-mobile .build-list-create {
+    inline-size: auto;
+    min-inline-size: 9rem;
+    flex: 0 0 auto;
+    border-inline-end: 1px solid var(--border-muted);
+    scroll-snap-align: start;
+  }
+
+  .layout-mobile .build-list-item {
+    min-inline-size: min(78vw, 15rem);
+    border-inline-end: 1px solid var(--border-muted);
+    scroll-snap-align: start;
+  }
+
+  .layout-mobile .build-transfer-actions {
+    margin-block-start: 0;
+  }
+
+  .layout-mobile .build-editor-content {
+    padding: 0.75rem;
+    padding-block-start: 0;
+  }
+
+  .layout-mobile .build-detail-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .layout-mobile .detail-active-actions {
+    inline-size: 100%;
+    max-inline-size: 100%;
+    justify-content: start;
+  }
+
+  .layout-mobile .build-overview-grid,
+  .layout-mobile .build-management-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-mobile .gear-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .layout-mobile .gear-base-stat {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .layout-mobile .gear-card--select {
+    min-block-size: 0;
+    padding: var(--space-xs);
+  }
+
+  .layout-mobile .gear-additional-affixes,
+  .layout-mobile .gear-ocr-grid,
+  .layout-mobile .gear-editor-grid,
+  .layout-mobile .gear-editor-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-mobile .gear-value-editor,
+  .layout-mobile .attunement-field {
+    grid-template-columns: minmax(0, 1fr) 6rem;
+  }
+
+  /* Rotation: chooser becomes horizontal and each timeline row becomes a card. */
+  .layout-mobile .rotation-editor-panel {
+    padding: 0;
+  }
+
+  .layout-mobile .rotation-editor-layout {
+    display: block;
+    block-size: auto;
+    min-block-size: 0;
+    max-block-size: none;
+    overflow: visible;
+  }
+
+  .layout-mobile .rotation-list {
+    display: block;
+    block-size: auto;
+    max-block-size: none;
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--border);
+  }
+
+  .layout-mobile .rotation-list-entries {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+  }
+
+  .layout-mobile .rotation-list-create {
+    inline-size: auto;
+    min-inline-size: 9rem;
+    flex: 0 0 auto;
+    border-inline-end: 1px solid var(--border-muted);
+    scroll-snap-align: start;
+  }
+
+  .layout-mobile .rotation-list-item {
+    min-inline-size: min(78vw, 15rem);
+    border-inline-end: 1px solid var(--border-muted);
+    scroll-snap-align: start;
+  }
+
+  .layout-mobile .rotation-transfer-actions {
+    margin-block-start: 0;
+  }
+
+  .layout-mobile .rotation-editor-content {
+    display: block;
+    overflow: visible;
+    padding: 0.75rem;
+  }
+
+  .layout-mobile .skill-detail-heading {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .layout-mobile .rotation-default-note {
+    white-space: normal;
+  }
+
+  .layout-mobile .rotation-heading-actions {
+    display: flex;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    inline-size: 100%;
+    flex-wrap: wrap;
+    justify-content: start;
+  }
+
+  .layout-mobile .rotation-heading-actions [data-button] {
+    flex: 1 1 7.5rem;
+  }
+
+  .layout-mobile .rotation-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .layout-mobile .rotation-scroll-content {
+    overflow: visible;
+    padding-inline-end: 0;
+  }
+
+  .layout-mobile .rotation-table-header,
+  .layout-mobile .rotation-table-row,
+  .layout-mobile .rotation-action-row {
+    grid-template-columns:
+      18px 1.25rem 3.25rem 3.25rem minmax(0, 1.5fr) var(--rotation-state-columns,) minmax(0, 0.9fr)
+      minmax(0, 1.25fr) minmax(0, 1.25fr) minmax(0, 0.8fr);
+    gap: 0.15rem;
+    padding-inline: 0.2rem;
+  }
+
+  .layout-mobile .rotation-table-header {
+    font-size: 0.55rem;
+  }
+
+  .layout-mobile .rotation-table-row {
+    min-block-size: 48px;
+    font-size: 0.7rem;
+  }
+
+  /* Skill Editor and Settings use a horizontal chooser plus stacked fields. */
+  .layout-mobile .skill-editor-panel {
+    min-block-size: 0;
+  }
+
+  .layout-mobile .skill-editor-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .layout-mobile .skill-category-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .layout-mobile .category-tab {
+    min-block-size: 2.75rem;
+    flex: 0 0 auto;
+  }
+
+  .layout-mobile .skill-editor-layout {
+    display: block;
+    min-block-size: 0;
+    overflow: visible;
+  }
+
+  .layout-mobile .skill-list {
+    display: flex;
+    max-block-size: none;
+    overflow-x: auto;
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--border);
+  }
+
+  .layout-mobile .skill-list-item {
+    min-inline-size: min(72vw, 14rem);
+    border-inline-end: 1px solid var(--border-muted);
+  }
+
+  .layout-mobile .skill-detail {
+    padding: 0.75rem;
+  }
+
+  .layout-mobile .skill-basic-fields,
+  .layout-mobile .structured-editor-grid,
+  .layout-mobile .json-editor-grid,
+  .layout-mobile .effect-value-editor,
+  .layout-mobile .settings-weapon-row {
+    grid-template-columns: 1fr;
+  }
+
+  .layout-mobile .editor-field-wide {
+    grid-column: auto;
+  }
+
+  /* Data-heavy views retain comparison semantics through local scrolling. */
+  .layout-mobile :is(.breakdown-table-scroll, .simulation-results) {
+    max-inline-size: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+
+  .layout-mobile .breakdown-totals,
+  .layout-mobile .simulation-controls,
+  .layout-mobile .simulation-percentile-heading,
+  .layout-mobile .simulation-record-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .layout-mobile .simulation-controls {
+    max-inline-size: none;
+  }
+
+  .layout-mobile .simulation-controls [data-button] {
+    inline-size: 100%;
+  }
+
+  .layout-mobile dialog {
+    inline-size: calc(100% - 1rem);
+    max-inline-size: 32rem;
+    max-block-size: calc(100dvh - 1rem);
+  }
+
+  .layout-mobile .page-footer {
+    align-items: flex-start;
+    flex-flow: row wrap;
+    gap: 0.35rem 1rem;
+  }
+
+  .layout-mobile .page-footer > span:first-child {
+    flex: 1 0 100%;
+  }
+
+  .layout-mobile .page-footer-accuracy {
+    margin-inline-start: auto;
+    text-align: end;
+  }
+}
