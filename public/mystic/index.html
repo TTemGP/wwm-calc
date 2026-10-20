@@ -151,9 +151,13 @@ footer{font-size:13px;color:var(--muted)}
   <section class="panel" aria-labelledby="h-sk">
     <div class="ph"><h2 id="h-sk">비결 목록</h2><span class="muted small">체크한 비결만 계산해요. 공격 비결(오금철을 쓰는 비결)만 있어요.</span></div>
     <div class="bulk">
-      <label for="bulkTarget">체크한 비결 목표를 한 번에</label>
+      <span>체크한 비결 한 번에</span>
+      <label for="bulkCur">지금</label>
+      <select id="bulkCur"></select>
+      <button id="bulkCurApply">지금 단계 적용</button>
+      <label for="bulkTarget">목표</label>
       <select id="bulkTarget"></select>
-      <button id="bulkApply">적용</button>
+      <button id="bulkApply">목표 적용</button>
     </div>
     <div class="tbl"><table class="skills">
       <thead><tr><th><span class="sr" aria-label="키우기">✓</span></th><th>비결</th><th>지금</th><th>목표</th><th>남은 재료</th></tr></thead>
@@ -417,6 +421,12 @@ $('addTodo').addEventListener('submit', e => {
   S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
 });
 $('bulkTarget').innerHTML = opts(MAX);
+$('bulkCur').innerHTML = opts(50);
+$('bulkCurApply').addEventListener('click', () => {
+  const v = +$('bulkCur').value;
+  for (const s of SKILLS) { const st = sk(s[0]); if (st.on) { st.cur = v; st.tgt = Math.max(st.tgt, v); } }
+  touch(); buildSkills(); render();
+});
 $('bulkApply').addEventListener('click', () => {
   const v = +$('bulkTarget').value;
   for (const s of SKILLS) { const st = sk(s[0]); if (st.on) st.tgt = Math.max(v, st.cur); }
