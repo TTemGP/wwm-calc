@@ -169,12 +169,12 @@ footer{font-size:13px;color:var(--muted)}
     <h2 id="h-src">계산 기준</h2>
     <ul class="notes">
       <li><b>1~5중</b>은 0~9단이에요. 한 단 올릴 때 그 중 등급 오금철이 1중 2개, 2중 4개, 3중 10개, 4중 20개, 5중 32개 들어요. 9단에서 다음 중으로 돌파할 때도 같은 양의 오금철에 돌파 재료가 5·15·18·28·35개 더 들어요(합계 101개).</li>
-      <li><b>6중</b>은 0~30단이고 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 오금철-신념의 여정, 21~30단은 오금철-계승을 써요.</li>
+      <li><b>6중</b>은 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 신념의 여정, 21~30단은 계승을 써요. 중국 서버는 8월에 50단까지 열려서 31~40단 협종의 선율, 41~50단 유빈의 연주로 넣었어요(6중 40→41단 강화 화면에서 유빈의 연주 48개 확인, 31~40단 등급은 순서로 맞춘 것).</li>
       <li>6중 30단까지 다 올리면 오금철 Lv.1 20 · Lv.2 40 · Lv.3 100 · Lv.4 200 · Lv.5 320 · Lv.6 432 · 신념의 여정 528 · 계승 480개, 돌파 재료 101개예요. 중국 서버 비결 초기화 화면(전부 돌려받기)과 맞춰 봤어요.</li>
       <li><b>2번째 형태</b>(용의 진노-겹쳐진 파도, 음양의 조화-그림자)는 용의 진노 초기화 화면 기준으로 신념의 여정 48개와 비결 묘오단 1개를 더 넣었어요. 음양의 조화는 확인 못 해서 같은 값으로 뒀어요.</li>
       <li>비결 지원 상자 1개는 돌파 재료 3개로 쳐요. 상자 종류마다 고를 수 있는 재료가 달라서 실제로는 조금 다를 수 있어요.</li>
       <li>글로벌 서버에서 지금 몇 중 몇 단까지 열려 있는지는 확인 중이에요. 초기화 화면에 안 나오는 비용(동전 등)은 계산에 없어요.</li>
-      <li>출처: 샤오홍슈 可樂搖一搖 「奇术突破材料表」, 达尹 「奇术升满级六重三十段所需材料一览」(2026-03), 한국어 명칭은 th.gl 연운 데이터베이스.</li>
+      <li>출처: 샤오홍슈 可樂搖一搖 「奇术突破材料表」, 达尹 「奇术升满级六重三十段所需材料一览」(2026-03), 茶茗 「奇术升级用的乌金？」(2026-09, 6중 40→41단 화면), Game8 1~5중 돌파표, 한국어 명칭은 th.gl 연운 데이터베이스.</li>
     </ul>
     <button class="reset" id="resetBtn">모든 입력 지우기</button>
   </section>
@@ -191,10 +191,11 @@ const HERBS = [
 const IRON = [
   ['i1','Lv.1 오금철'],['i2','Lv.2 오금철'],['i3','Lv.3 오금철'],['i4','Lv.4 오금철'],
   ['i5','오금철-Lv.5'],['i6','오금철 Lv.6'],['i7','오금철-신념의 여정'],['i8','오금철-계승'],
+  ['i9','오금철-협종의 선율'],['i10','오금철-유빈의 연주'],
 ];
 const EXTRA = [['pill','비결 묘오단'],['box','비결 지원 상자']];
 const NAME = Object.fromEntries([...HERBS, ...IRON, ...EXTRA]);
-const IRON_USE = {i1:'1중',i2:'2중',i3:'3중',i4:'4중',i5:'5중',i6:'6중 1~9단',i7:'6중 10~20단',i8:'6중 21~30단'};
+const IRON_USE = {i1:'1중',i2:'2중',i3:'3중',i4:'4중',i5:'5중',i6:'6중 1~9단',i7:'6중 10~20단',i8:'6중 21~30단',i9:'6중 31~40단',i10:'6중 41~50단'};
 
 // [id, 이름, 돌파 재료, 2번째 형태 이름]
 const SKILLS = [
@@ -214,7 +215,8 @@ const HERB_GROUP = Object.fromEntries(HERBS);
 
 const PER = [2,4,10,20,32];      // 1~5중 한 단(돌파 포함) 오금철
 const BT = [5,15,18,28,35];      // 1→2 … 5→6 돌파 재료
-const MAX = 80;                  // 6중 30단
+const MAX = 100;                 // 6중 50단(중국 서버 기준)
+const DEF = 80;                  // 6중 30단
 const label = i => i < 50 ? `${Math.floor(i/10)+1}중 ${i%10}단` : `6중 ${i-50}단`;
 const stepCost = (i, herb, add) => {
   if (i < 50) {
@@ -223,7 +225,7 @@ const stepCost = (i, herb, add) => {
     if (i % 10 === 9) add(herb, BT[z]);
   } else {
     const d = i - 50;
-    add(d < 9 ? 'i6' : d < 20 ? 'i7' : 'i8', 48);
+    add(d < 9 ? 'i6' : d < 20 ? 'i7' : d < 30 ? 'i8' : d < 40 ? 'i9' : 'i10', 48);
   }
 };
 const costOf = (sk, st) => {
@@ -257,7 +259,7 @@ for (const k of ['skills','have','week','done']) S[k] ||= {};
 S.custom ||= [];
 const save = () => { try { if (!S.sample) localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 const touch = () => { if (S.sample) { S.sample = false; } save(); };
-const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:MAX});
+const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:DEF});
 
 // ---------- 그리기 ----------
 const $ = id => document.getElementById(id);
@@ -420,7 +422,7 @@ $('addTodo').addEventListener('submit', e => {
   const v = $('todoText').value.trim(); if (!v) return;
   S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
 });
-$('bulkTarget').innerHTML = opts(MAX);
+$('bulkTarget').innerHTML = opts(DEF);
 $('bulkCur').innerHTML = opts(50);
 $('bulkCurApply').addEventListener('click', () => {
   const v = +$('bulkCur').value;
