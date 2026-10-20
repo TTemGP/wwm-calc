@@ -1,0 +1,376 @@
+{
+  "AdaptiveSteelHengBlade": {
+    "name": "Varied Combo DMG Boost",
+    "shortName": "VC Boost",
+    "description": "After a Heng Blade deflection, increases Light/Heavy Varied Combo damage by 5% for 5 seconds. Triggers once every 20 seconds.",
+    "duration": 5,
+    "cooldown": 20,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "effect": [
+      {
+        "requirement": [
+          { "target": "skillTag", "value": "HengBlade" },
+          { "target": "skillTag", "value": "VariedCombo" },
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "skillTag", "value": "Light" },
+              { "target": "skillTag", "value": "Heavy" }
+            ]
+          }
+        ],
+        "effect": { "dmgBonus": 0.05 }
+      }
+    ]
+  },
+  "Cadence": {
+    "name": "Cadence",
+    "shortName": "Cad",
+    "hidden": true,
+    "description": "Stores successful defenses for later Riposte conversions.",
+    "duration": 20,
+    "maxStack": 2,
+    "refresh": true
+  },
+  "Riposte": {
+    "name": "Riposte",
+    "shortName": "Rip",
+    "description": "Reduces the cast time of the next Avalanche by 2 seconds.",
+    "duration": 5,
+    "cooldown": 10,
+    "maxStack": 1,
+    "action": [
+      { "type": "consume", "target": "self", "value": "Cadence", "stack": 1, "time": 0 },
+      { "type": "trigger", "target": "self", "value": "RiposteTrigger", "time": 0 }
+    ],
+    "refresh": true
+  },
+  "ChargeEnhancement": {
+    "name": "Charge Enhancement",
+    "shortName": "CE",
+    "description": "Burning Heart gains Inner Passion.",
+    "duration": 18,
+    "cooldown": 30,
+    "maxStack": 3,
+    "refresh": true
+  },
+  "Forgetfulness": {
+    "name": "Forgetfulness",
+    "shortName": "For",
+    "description": "Skip Snowparting LC charge time.",
+    "duration": 4,
+    "maxStack": 1,
+    "refresh": true
+  },
+  "InnerPassion": {
+    "name": "Inner Passion",
+    "shortName": "IP",
+    "description": "Hasten and increase damage to Burning Heart.",
+    "duration": 12,
+    "maxStack": 4,
+    "refresh": true
+  },
+  "ThroatPierced": {
+    "name": "Throat-Pierced",
+    "shortName": "TP",
+    "showCoverage": true,
+    "description": "Gain 2 Physical Penetration and 2% Critical Damage per stack. From T3, Light/Heavy Varied Combos gain an additional 1 Penetration and 1% Critical Damage per stack. From T6, Anxi Soldier and its triggering skill gain the same additional bonus.",
+    "duration": 8,
+    "maxStack": 3,
+    "stackEffects": [
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": { "physicalPenetration": 2, "critDmgBonus": 0.02 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "DirectDamage" },
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "Light" },
+                      { "target": "skillTag", "value": "Heavy" }
+                    ]
+                  },
+                  { "target": "skillTag", "value": "VariedCombo" },
+                  { "target": "self", "value": "ThroatPiercingArtT3" }
+                ],
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "AnxiSoldier" },
+                      { "target": "skillTag", "value": "TriggerAnxiSolder" }
+                    ]
+                  },
+                  { "target": "self", "value": "ThroatPiercingArtT6" }
+                ]
+              ]
+            },
+            { "target": "self", "value": "ThroatPiercingArtT3" }
+          ],
+          "effect": { "physicalPenetration": 1, "critDmgBonus": 0.01 }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": { "physicalPenetration": 4, "critDmgBonus": 0.04 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "DirectDamage" },
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "Light" },
+                      { "target": "skillTag", "value": "Heavy" }
+                    ]
+                  },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ],
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "AnxiSoldier" },
+                      { "target": "skillTag", "value": "TriggerAnxiSolder" }
+                    ]
+                  },
+                  { "target": "self", "value": "ThroatPiercingArtT6" }
+                ]
+              ]
+            },
+            { "target": "self", "value": "ThroatPiercingArtT3" }
+          ],
+          "effect": { "physicalPenetration": 2, "critDmgBonus": 0.02 }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": { "physicalPenetration": 6, "critDmgBonus": 0.06 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "DirectDamage" },
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "Light" },
+                      { "target": "skillTag", "value": "Heavy" }
+                    ]
+                  },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ],
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "AnxiSoldier" },
+                      { "target": "skillTag", "value": "TriggerAnxiSolder" }
+                    ]
+                  },
+                  { "target": "self", "value": "ThroatPiercingArtT6" }
+                ]
+              ]
+            },
+            { "target": "self", "value": "ThroatPiercingArtT3" }
+          ],
+          "effect": { "physicalPenetration": 3, "critDmgBonus": 0.03 }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": { "physicalPenetration": 8, "critDmgBonus": 0.08 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "DirectDamage" },
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "Light" },
+                      { "target": "skillTag", "value": "Heavy" }
+                    ]
+                  },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ],
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "AnxiSoldier" },
+                      { "target": "skillTag", "value": "TriggerAnxiSolder" }
+                    ]
+                  },
+                  { "target": "self", "value": "ThroatPiercingArtT6" }
+                ]
+              ]
+            },
+            { "target": "self", "value": "ThroatPiercingArtT3" }
+          ],
+          "effect": { "physicalPenetration": 4, "critDmgBonus": 0.04 }
+        }
+      ],
+      [
+        {
+          "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+          "effect": { "physicalPenetration": 10, "critDmgBonus": 0.1 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "DirectDamage" },
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "Light" },
+                      { "target": "skillTag", "value": "Heavy" }
+                    ]
+                  },
+                  { "target": "skillTag", "value": "VariedCombo" }
+                ],
+                [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "AnxiSoldier" },
+                      { "target": "skillTag", "value": "TriggerAnxiSolder" }
+                    ]
+                  },
+                  { "target": "self", "value": "ThroatPiercingArtT6" }
+                ]
+              ]
+            },
+            { "target": "self", "value": "ThroatPiercingArtT3" }
+          ],
+          "effect": { "physicalPenetration": 5, "critDmgBonus": 0.05 }
+        }
+      ]
+    ],
+    "refresh": true
+  },
+  "Cleftpeak": {
+    "name": "Cleftpeak",
+    "shortName": "Cp",
+    "showCoverage": true,
+    "description": "Increase HP damage by 1% per stack. Additional 8% to Light VC, Heavy VC, Anxi Soldier, and its triggering skill at max stack.",
+    "duration": 5,
+    "maxStack": 5,
+    "stackEffects": [
+      [{ "effect": { "hpDMGBonus": 0.01 } }],
+      [{ "effect": { "hpDMGBonus": 0.02 } }],
+      [{ "effect": { "hpDMGBonus": 0.03 } }],
+      [{ "effect": { "hpDMGBonus": 0.04 } }],
+      [
+        { "effect": { "hpDMGBonus": 0.05 } },
+        {
+          "requirement": [
+            {
+              "operator": "or",
+              "operand": [
+                [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "VariedCombo" },
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "martialArt", "value": "SnowpartingBlade" },
+                      { "target": "martialArt", "value": "ThundercryBlade" },
+                      { "target": "martialArt", "value": "VernalUmbrella" }
+                    ]
+                  }
+                ],
+                [
+                  { "target": "skillTag", "value": "Heavy" },
+                  { "target": "skillTag", "value": "VariedCombo" },
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "martialArt", "value": "SnowpartingBlade" },
+                      { "target": "martialArt", "value": "ThundercryBlade" },
+                      { "target": "martialArt", "value": "VernalUmbrella" }
+                    ]
+                  }
+                ],
+                {
+                  "operator": "or",
+                  "operand": [
+                    { "target": "skillTag", "value": "AnxiSoldier" },
+                    { "target": "skillTag", "value": "TriggerAnxiSolder" }
+                  ]
+                }
+              ]
+            }
+          ],
+          "effect": { "hpDMGBonus": 0.08 }
+        }
+      ]
+    ],
+    "refresh": true
+  },
+  "IronGuard": {
+    "name": "Iron Guard",
+    "shortName": "IG",
+    "showCoverage": true,
+    "description": "Increases HP damage by 8%.",
+    "duration": 30,
+    "maxStack": 1,
+    "effect": [{ "effect": { "hpDMGBonus": 0.08 } }],
+    "refresh": true
+  },
+  "MountainSplitter": {
+    "name": "Mountain Splitter",
+    "shortName": "MS",
+    "description": "Increase the critical damage of Burning Heart and Anxi Soldier by 10% and gain guaranteed crit.",
+    "duration": 10,
+    "cooldown": 15,
+    "maxStack": 1,
+    "effect": [
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "skillTag", "value": "BurningHeart" },
+              { "target": "skillTag", "value": "AnxiSoldier" }
+            ]
+          }
+        ],
+        "effect": { "SteadfastGuaranteedCrit": true, "critDmgBonus": 0.1 }
+      }
+    ],
+    "refresh": true
+  },
+  "ForgetfulnessCooldown": {
+    "name": "Forgetfulness Cooldown",
+    "shortName": "For CD",
+    "duration": 6,
+    "maxStack": 1,
+    "refresh": true
+  }
+}

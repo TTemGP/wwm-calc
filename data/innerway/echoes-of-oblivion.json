@@ -1,0 +1,122 @@
+{
+  "name": "Echoes of Oblivion",
+  "altersTimeline": true,
+  "tags": ["BamboocutWind"],
+  "effect": {
+    "EchoesOfOblivionT0": {
+      "effect": [
+        {
+          "requirement": [
+            { "target": "martialArt", "value": "InfernalTwinblades" },
+            { "target": "skillTag", "value": "Light" },
+            { "target": "target", "value": "Sin" }
+          ],
+          "effect": { "defenseBonus": -0.1 }
+        },
+        {
+          "requirement": [
+            { "target": "martialArt", "value": "InfernalTwinblades" },
+            { "target": "skillTag", "value": "Light" },
+            { "target": "target", "value": "Karma" }
+          ],
+          "effect": { "bamboocutResistance": -10 }
+        }
+      ],
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [
+            { "target": "martialArt", "value": "InfernalTwinblades" },
+            { "target": "skillTag", "value": "Light" },
+            {
+              "operator": "or",
+              "operand": [
+                { "operator": "not", "operand": [{ "target": "self", "value": "Flamelash" }] },
+                { "target": "self", "value": "EchoesOfOblivionT6" }
+              ]
+            }
+          ],
+          "action": [{ "type": "apply", "target": "target", "value": "Sin" }]
+        },
+        {
+          "event": "damage",
+          "requirement": [
+            { "target": "martialArt", "value": "InfernalTwinblades" },
+            { "target": "skillTag", "value": "Light" },
+            { "target": "self", "value": "Flamelash" }
+          ],
+          "action": [{ "type": "apply", "target": "target", "value": "Karma" }]
+        }
+      ]
+    },
+    "EchoesOfOblivionT1": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [
+            { "target": "target", "value": "Sin" },
+            { "target": "target", "value": "Karma" }
+          ],
+          "action": [{ "type": "apply", "target": "self", "value": "Samsara" }]
+        }
+      ]
+    },
+    "EchoesOfOblivionT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.017,
+                0.023,
+                0.031,
+                0.039,
+                0.046,
+                0.046,
+                0.046,
+                0.054,
+                0.063,
+                0.074,
+                0.082,
+                0.086,
+                0.09,
+                0.097,
+                0.104,
+                0.113,
+                0.121
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "EchoesOfOblivionT3": {
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "target": "self", "value": "Samsara" }],
+          "action": [{ "type": "addResource", "value": "Hellfire", "amount": 1 }]
+        }
+      ]
+    },
+    "EchoesOfOblivionT4": {
+      "trigger": [
+        {
+          "event": "damage",
+          "hitWindow": { "count": 6, "seconds": 2 },
+          "cooldown": 10,
+          "action": [{ "type": "clearCD", "value": "AddledMind", "charges": 1 }]
+        }
+      ]
+    },
+    "EchoesOfOblivionT5": { "effect": [{ "rawStat": { "critDmgBonus": 0.044 } }] },
+    "EchoesOfOblivionT6": {
+      "effect": [{ "target": "Samsara", "modify": { "effect": [{ "effect": { "hpDMGBonus": 0.05 } }] } }]
+    }
+  }
+}

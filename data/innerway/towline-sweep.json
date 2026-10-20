@@ -1,0 +1,98 @@
+{
+  "name": "Towline Sweep",
+  "altersTimeline": true,
+  "tags": ["BamboocutDust"],
+  "effect": {
+    "TowlineSweepT0": {},
+    "TowlineSweepT1": {
+      "effect": [
+        { "target": "Soulbreak", "modify": { "duration": 21 } },
+        { "target": "SoulReturn", "modify": { "duration": 21 } }
+      ]
+    },
+    "TowlineSweepT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                13.4,
+                18.2,
+                24,
+                30.5,
+                35.6,
+                35.6,
+                35.6,
+                42.3,
+                49.3,
+                57.5,
+                63.8,
+                66.9,
+                70.1,
+                75.6,
+                81.6,
+                88,
+                95
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "TowlineSweepT3": {
+      "effect": [
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep1" }], "effect": { "dmgBonus": 0.05 } },
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep2" }], "effect": { "dmgBonus": 0.05 } },
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep3" }], "effect": { "dmgBonus": 0.05 } },
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep4" }], "effect": { "dmgBonus": 0.1 } },
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep5" }], "effect": { "dmgBonus": 0.1 } },
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep6" }], "effect": { "dmgBonus": 0.15 } },
+        { "requirement": [{ "target": "skillTag", "value": "PiercingDartSweep7" }], "effect": { "dmgBonus": 0.15 } }
+      ]
+    },
+    "TowlineSweepT4": {
+      "effect": [
+        {
+          "target": "Soulbreak",
+          "modify": {
+            "recording": { "event": "damage", "action": { "type": "trigger", "value": "SoulbreakDamage" } },
+            "action": [{ "type": "resolveRecording", "target": "target", "value": "Soulbreak", "time": "expire" }]
+          }
+        }
+      ]
+    },
+    "TowlineSweepT5": { "effect": [{ "rawStat": { "physicalPenetration": 5.1 } }] },
+    "TowlineSweepT6": {
+      "effect": [
+        {
+          "requirement": [{ "target": "skillTag", "value": "BurnAndBury" }],
+          "effect": { "dmgBonus": 0.15, "SteadfastGuaranteedCrit": true }
+        }
+      ],
+      "trigger": [
+        {
+          "target": "self",
+          "requirement": [
+            { "target": "skillTag", "value": "BurnAndBury" },
+            { "target": "self", "value": "SoulReturn" }
+          ],
+          "action": [{ "type": "apply", "target": "self", "value": "SoulReturn", "stack": 1, "reapply": true }]
+        },
+        {
+          "target": "target",
+          "requirement": [
+            { "target": "skillTag", "value": "BurnAndBury" },
+            { "target": "target", "value": "Soulbreak", "resolveAt": "skillStart" },
+            { "target": "distance", "comparison": "<=", "amount": 15 }
+          ],
+          "action": [{ "type": "apply", "target": "target", "value": "Soulbreak", "stack": 1, "reapply": true }]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,690 @@
+{
+  "CraneWings": {
+    "name": "Plumage Sweep",
+    "shortName": "Drum Q1",
+    "castTime": 1,
+    "action": [
+      { "type": "damage", "phyCoef": 0.6285, "phyBonus": 174, "attrCoef": 0.6285, "attrBonus": 94.75, "time": 0 },
+      { "type": "damage", "phyCoef": 0.6285, "phyBonus": 174, "attrCoef": 0.6285, "attrBonus": 94.75, "time": 0 },
+      { "type": "damage", "phyCoef": 0.6285, "phyBonus": 174, "attrCoef": 0.6285, "attrBonus": 94.75, "time": 0 },
+      { "type": "damage", "phyCoef": 0.6285, "phyBonus": 174, "attrCoef": 0.6285, "attrBonus": 94.75, "time": 0 },
+      { "type": "apply", "target": "target", "value": "TangledGauze", "stack": 1, "reapply": true, "time": 0 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MuseflowWaistDrum", "MartialArt", "CraneWings", "RibbonAndDrum"],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "cooldown": 15
+  },
+  "CranesCry": {
+    "name": "Crane's Cry",
+    "shortName": "Drum Q2",
+    "castTime": 0.9523809523809523,
+    "action": [
+      { "type": "addResource", "value": "NobleWill", "amount": 20, "time": 0 },
+      { "type": "damage", "phyCoef": 2.5212, "phyBonus": 698, "attrCoef": 2.5212, "attrBonus": 380, "time": 0 },
+      { "type": "addResource", "value": "NobleWill", "amount": 10, "time": 0 }
+    ],
+    "modifier": [
+      { "requirement": [{ "target": "target", "value": "TangledGauze" }], "effect": { "baseDMGBonus": 0.2 } }
+    ],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "MartialArt",
+      "DrumSeries",
+      "CranesCry",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum"
+  },
+  "RhythmOfAccord": {
+    "name": "Rhythm of Accord",
+    "shortName": "Drum VC",
+    "castTime": 1.1785714285714286,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.33473,
+        "phyBonus": 646,
+        "attrCoef": 2.33473,
+        "attrBonus": 352,
+        "time": 0.5471428571428572
+      },
+      { "type": "addResource", "value": "NobleWill", "amount": 20, "time": 0.5471428571428572 }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Light",
+      "VariedCombo",
+      "DrumSeries",
+      "RhythmOfAccord",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "skillBreakdownCategory": "Rhythm of Accord"
+  },
+  "RibbonHeavy1": {
+    "name": "Waist Drum: Heavy Attack 1",
+    "shortName": "Drum Heavy 1",
+    "castTime": 0.6941666666666667,
+    "action": [
+      { "type": "damage", "phyCoef": 0.49166, "phyBonus": 137, "attrCoef": 0.49166, "attrBonus": 74, "time": 0 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MuseflowWaistDrum", "Heavy", "RibbonHeavy1", "SubAction", "RibbonAndDrum"],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "skillBreakdownCategory": "Waist Drum: Heavy Attack"
+  },
+  "RibbonHeavy2": {
+    "name": "Waist Drum: Heavy Attack 2",
+    "shortName": "Drum Heavy 2",
+    "castTime": 0.4615384615384615,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.3517,
+        "phyBonus": 98,
+        "attrCoef": 0.3517,
+        "attrBonus": 53,
+        "time": 0.19156950769230768
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MuseflowWaistDrum", "Heavy", "RibbonHeavy2", "SubAction", "RibbonAndDrum"],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "skillBreakdownCategory": "Waist Drum: Heavy Attack"
+  },
+  "RibbonHeavy3": {
+    "name": "Waist Drum: Heavy Attack 3",
+    "shortName": "Drum Heavy 3",
+    "castTime": 0.8333333333333334,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.74244,
+        "phyBonus": 206,
+        "attrCoef": 0.74244,
+        "attrBonus": 112,
+        "time": 0.4166666666666667
+      }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Heavy",
+      "DrumSeries",
+      "RibbonHeavy3",
+      "SubAction",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "skillBreakdownCategory": "Waist Drum: Heavy Attack"
+  },
+  "RippleJadebreaker": {
+    "name": "Ripple: Jadebreaker",
+    "shortName": "Drum Special (Jadebreaker)",
+    "castTime": 5.852,
+    "action": [
+      { "type": "consumeResource", "value": "NobleWill", "amount": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "RadiantDrum",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT0" },
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "self", "value": "RadiantDrum" }
+            ]
+          }
+        ]
+      },
+      { "type": "consume", "target": "self", "value": "Tailwind", "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.81254,
+        "phyBonus": 501.5,
+        "attrCoef": 1.81254,
+        "attrBonus": 273.7,
+        "time": 0.982
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.81254,
+        "phyBonus": 501.5,
+        "attrCoef": 1.81254,
+        "attrBonus": 273.7,
+        "time": 3.033
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.81254,
+        "phyBonus": 501.5,
+        "attrCoef": 1.81254,
+        "attrBonus": 273.7,
+        "time": 4.089
+      },
+      { "type": "trigger", "value": "JadebreakerEnhanced", "time": 5.235 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Cloudshear",
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "Cloudshear4P" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "DrumSpecialDefense",
+        "time": 0,
+        "duration": 5.852,
+        "requirement": [{ "target": "self", "value": "HarmonySongT1" }]
+      }
+    ],
+    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Special",
+      "DrumSeries",
+      "RippleJadebreaker",
+      "JadebreakerNormal",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "cooldown": 20,
+    "cooldownGroup": "RipplingDew",
+    "skillBreakdownCategory": "Ripple: Jadebreaker"
+  },
+  "RippleDawnsun": {
+    "name": "Ripple: Dawnsun",
+    "shortName": "Drum Special (Dawnsun)",
+    "castTime": 5.92,
+    "action": [
+      { "type": "consumeResource", "value": "NobleWill", "amount": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "RadiantDrum",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT0" },
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "self", "value": "RadiantDrum" }
+            ]
+          }
+        ]
+      },
+      { "type": "consume", "target": "self", "value": "Tailwind", "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.540659,
+        "phyBonus": 426.275,
+        "attrCoef": 1.540659,
+        "attrBonus": 232.645,
+        "time": 0.982
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.540659,
+        "phyBonus": 426.275,
+        "attrCoef": 1.540659,
+        "attrBonus": 232.645,
+        "time": 2.963
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.8777486,
+        "phyBonus": 519.4775,
+        "attrCoef": 1.8777486,
+        "attrBonus": 283.22,
+        "time": 5.165
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Cloudshear",
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "Cloudshear4P" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      },
+      {
+        "type": "extend",
+        "target": "self",
+        "value": "RadiantDrum",
+        "duration": 4,
+        "time": 5.165,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT6" },
+          {
+            "operator": "not",
+            "operand": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "WingsSupportBlue" },
+                  { "target": "self", "value": "WingsSupportFull" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "RadiantDrum",
+        "duration": 4,
+        "time": 5.165,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT6" },
+          { "target": "self", "value": "Tailwind" },
+          { "operator": "not", "operand": [{ "target": "self", "value": "RadiantDrum" }] },
+          {
+            "operator": "not",
+            "operand": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "WingsSupportBlue" },
+                  { "target": "self", "value": "WingsSupportFull" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "DrumSpecialDefense",
+        "time": 0,
+        "duration": 5.92,
+        "requirement": [{ "target": "self", "value": "HarmonySongT1" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "DawnsunDefense",
+        "time": 5.165,
+        "duration": 4,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT6" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Shield",
+        "time": 0.982,
+        "duration": 2,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT3" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Shield",
+        "time": 2.963,
+        "duration": 2,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT3" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Shield",
+        "time": 5.165,
+        "duration": 4,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT6" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      }
+    ],
+    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Special",
+      "DrumSeries",
+      "RippleDawnsun",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "cooldown": 20,
+    "cooldownGroup": "RipplingDew"
+  },
+  "JadebreakerEnhanced": {
+    "name": "Ripple: Jadebreaker · Enhanced Sound Wave",
+    "silent": true,
+    "ignorePing": true,
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.209116,
+        "phyBonus": 611.15,
+        "attrCoef": 2.209116,
+        "attrBonus": 333.2,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 2.209116,
+        "phyBonus": 611.15,
+        "attrCoef": 2.209116,
+        "attrBonus": 333.2,
+        "time": 0.2,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT6" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      }
+    ],
+    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Special",
+      "DrumSeries",
+      "JadebreakerEnhanced",
+      "Triggered",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "skillBreakdownCategory": "Ripple: Jadebreaker"
+  },
+  "RibbonLightCharged": {
+    "name": "Sleeve Dance",
+    "shortName": "Drum Light Charged",
+    "castTime": 2.033,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.25913115000000003,
+        "phyBonus": 71.82000000000001,
+        "attrCoef": 0.25913115000000003,
+        "attrBonus": 58.72500000000001,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25913115000000003,
+        "phyBonus": 71.82000000000001,
+        "attrCoef": 0.25913115000000003,
+        "attrBonus": 58.72500000000001,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25913115000000003,
+        "phyBonus": 71.82000000000001,
+        "attrCoef": 0.25913115000000003,
+        "attrBonus": 58.72500000000001,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25913115000000003,
+        "phyBonus": 71.82000000000001,
+        "attrCoef": 0.25913115000000003,
+        "attrBonus": 58.72500000000001,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25913115000000003,
+        "phyBonus": 71.82000000000001,
+        "attrCoef": 0.25913115000000003,
+        "attrBonus": 58.72500000000001,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.3647031,
+        "phyBonus": 101.08,
+        "attrCoef": 0.3647031,
+        "attrBonus": 82.65,
+        "time": 0
+      }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Light",
+      "Charged",
+      "RibbonLightCharged",
+      "SubAction",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum"
+  },
+  "RibbonHeavy3PreVC": {
+    "name": "Waist Drum: Heavy Attack 3 · Follow-up Setup",
+    "shortName": "Drum Heavy 3 Pre-VC",
+    "castTime": 0.5833333333333334,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.74244,
+        "phyBonus": 206,
+        "attrCoef": 0.74244,
+        "attrBonus": 112,
+        "time": 0.4166666666666667
+      }
+    ],
+    "modifier": [],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Heavy",
+      "DrumSeries",
+      "RibbonHeavy3",
+      "SubAction",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "skillBreakdownCategory": "Waist Drum: Heavy Attack"
+  },
+  "RibbonLightChargedVC": {
+    "name": "Sleeve Dance → Rhythm of Accord",
+    "shortName": "Drum Light Charged → VC",
+    "ignorePing": true,
+    "castTime": 0,
+    "action": [],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MuseflowWaistDrum", "RibbonLightChargedVC", "RibbonAndDrum"],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "subAction": [{ "value": "RibbonLightCharged" }, { "value": "RhythmOfAccord" }]
+  },
+  "RibbonHeavyComboVC": {
+    "name": "Waist Drum: Heavy Attack 1–3 → Rhythm of Accord",
+    "shortName": "Drum Heavy 123 → VC",
+    "ignorePing": true,
+    "castTime": 0,
+    "action": [],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MuseflowWaistDrum", "RibbonHeavyComboVC", "RibbonAndDrum"],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "subAction": [
+      { "value": "RibbonHeavy1" },
+      { "value": "RibbonHeavy2" },
+      { "value": "RibbonHeavy3PreVC" },
+      { "value": "RhythmOfAccord" }
+    ],
+    "skillBreakdownCategory": "Waist Drum: Heavy Attack"
+  },
+  "RippleFlourishingNotes": {
+    "name": "Ripple: Toneflux",
+    "shortName": "Drum Special (Toneflux)",
+    "castTime": 0,
+    "action": [
+      { "type": "consumeResource", "value": "NobleWill", "amount": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "RadiantDrum",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT0" },
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "self", "value": "Tailwind" },
+              { "target": "self", "value": "RadiantDrum" }
+            ]
+          }
+        ]
+      },
+      { "type": "consume", "target": "self", "value": "Tailwind", "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.540659,
+        "phyBonus": 426.275,
+        "attrCoef": 1.540659,
+        "attrBonus": 232.645,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.540659,
+        "phyBonus": 426.275,
+        "attrCoef": 1.540659,
+        "attrBonus": 232.645,
+        "time": 0
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.8777486,
+        "phyBonus": 519.4775,
+        "attrCoef": 1.8777486,
+        "attrBonus": 283.22,
+        "time": 0
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Cloudshear",
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "Cloudshear4P" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      },
+      {
+        "type": "trigger",
+        "value": "FlourishingNotesField",
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "HarmonySongT6" },
+          { "target": "self", "value": "RadiantDrum" }
+        ]
+      }
+    ],
+    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "tags": [
+      "DirectDamage",
+      "MartialArts",
+      "MuseflowWaistDrum",
+      "Special",
+      "DrumSeries",
+      "RippleFlourishingNotes",
+      "RibbonAndDrum"
+    ],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum",
+    "cooldown": 20,
+    "cooldownGroup": "RipplingDew"
+  },
+  "FlourishingNotesField": {
+    "name": "Ripple: Toneflux · Sound Field",
+    "castTime": 0,
+    "ignorePing": true,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.08836464000000001,
+        "phyBonus": 24.445999999999998,
+        "attrCoef": 0.08836464000000001,
+        "attrBonus": 13.328000000000001,
+        "time": 0.45
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.08836464000000001,
+        "phyBonus": 24.445999999999998,
+        "attrCoef": 0.08836464000000001,
+        "attrBonus": 13.328000000000001,
+        "time": 0.95
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.08836464000000001,
+        "phyBonus": 24.445999999999998,
+        "attrCoef": 0.08836464000000001,
+        "attrBonus": 13.328000000000001,
+        "time": 1.45
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.08836464000000001,
+        "phyBonus": 24.445999999999998,
+        "attrCoef": 0.08836464000000001,
+        "attrBonus": 13.328000000000001,
+        "time": 1.95
+      }
+    ],
+    "modifier": [],
+    "tags": ["DOT", "MartialArts", "MuseflowWaistDrum", "Special", "DrumSeries", "Triggered", "RibbonAndDrum"],
+    "martialArt": "museflowWaistDrum",
+    "weapon": "RibbonAndDrum"
+  }
+}

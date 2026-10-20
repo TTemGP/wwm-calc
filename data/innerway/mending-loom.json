@@ -1,0 +1,73 @@
+{
+  "name": "Mending Loom",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "MendingLoomT0": {},
+    "MendingLoomT1": {},
+    "MendingLoomT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                4.5,
+                6.1,
+                8,
+                10.1,
+                11.9,
+                11.9,
+                11.9,
+                14.1,
+                16.5,
+                19.1,
+                21.3,
+                22.3,
+                23.3,
+                25.2,
+                27.2,
+                29.3,
+                31.7
+              ]
+            },
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                8.9,
+                12.1,
+                16,
+                20.3,
+                23.7,
+                23.7,
+                23.7,
+                28.3,
+                32.9,
+                38.3,
+                42.5,
+                44.7,
+                46.7,
+                50.4,
+                54.4,
+                58.7,
+                63.3
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "MendingLoomT3": {},
+    "MendingLoomT4": {},
+    "MendingLoomT5": { "effect": [{ "rawStat": { "physicalHealingBonus": 0.025 } }] },
+    "MendingLoomT6": {}
+  }
+}

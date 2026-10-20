@@ -1,0 +1,517 @@
+{
+  "DreamwroughtBubbles": {
+    "name": "Dreamwrought Bubbles",
+    "shortName": "Umbrella Heavy Charged",
+    "castTime": 0,
+    "action": [],
+    "modifier": [{ "effect": { "hpDMGBonus": 0.2 } }],
+    "tags": [
+      "MartialArts",
+      "DirectDamage",
+      "Heavy",
+      "Umbrella",
+      "EverspringUmbrella",
+      "Charged",
+      "DreamwroughtBubbles",
+      "ReturningUmbrella"
+    ],
+    "martialArt": "everspring",
+    "weapon": "Umbrella",
+    "subAction": [
+      {
+        "value": "DreamwroughtBubblesCharge",
+        "requirement": [{ "operator": "not", "operand": [[{ "target": "self", "value": "FragrantSongDelicate" }]] }]
+      },
+      "DreamwroughtBubblesRelease"
+    ]
+  },
+  "ScarletSpin": {
+    "name": "Scarlet Spin",
+    "ignorePing": true,
+    "shortName": "Umbrella Q",
+    "castTime": 12,
+    "editableCastTime": { "effect": "FlowerBurial", "max": 12, "required": true },
+    "action": [
+      { "type": "consume", "target": "self", "value": "PhantomUmbrellaThrow", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "PhantomUmbrellaThrow", "stack": 2, "reapply": true, "time": 0 },
+      { "type": "consume", "target": "self", "value": "FallingBlossoms", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "FlowerBurial", "time": 0, "reapply": false },
+      { "type": "trigger", "value": "ScarletSpinStage1", "time": 0, "sourceEffect": "FlowerBurial" }
+    ],
+    "modifier": [],
+    "tags": [
+      "MartialArts",
+      "DirectDamage",
+      "Umbrella",
+      "EverspringUmbrella",
+      "MartialArt",
+      "ScarletSpin",
+      "ReturningUmbrella"
+    ],
+    "martialArt": "everspring",
+    "weapon": "Umbrella",
+    "skillBreakdownCategory": "Scarlet Spin"
+  },
+  "ScarletSpinStage1": {
+    "name": "Scarlet Spin Stage 1",
+    "shortName": "Umbrella Q1",
+    "castTime": 2.000769230769231,
+    "action": [
+      { "type": "consume", "target": "self", "value": "FragrantSongResonance", "stack": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": { "resolveAt": "skillStart", "operand": [{ "target": "self", "value": "FragrantSong" }] }
+      },
+      { "type": "consume", "target": "self", "value": "FragrantSong", "time": 0 },
+      {
+        "type": "damage",
+        "time": 0.44632559606662164,
+        "phyCoef": 1.08504,
+        "attrCoef": 1.08504,
+        "phyBonus": 300.6,
+        "attrBonus": 163.8
+      },
+      {
+        "type": "damage",
+        "time": 0.8003077042332063,
+        "phyCoef": 0.72336,
+        "attrCoef": 0.72336,
+        "phyBonus": 200.4,
+        "attrBonus": 109.2
+      },
+      {
+        "type": "trigger",
+        "value": "EverspringPerfectCatch",
+        "time": 1.0769230769230769,
+        "queueTime": 0.6153846153846154,
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "ScarletSpinStage2",
+        "time": 1.0769230769230769,
+        "queueTime": 0.6153846153846154,
+        "sourceEffect": "FlowerBurial",
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "PhantomUmbrellaSummon",
+        "time": 0.8003077042332063,
+        "requirement": [{ "target": "self", "value": "PhantomRallyT6" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "PhantomUmbrellaThrow",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.8003077042332063,
+        "requirement": [{ "operator": "not", "operand": [[{ "target": "self", "value": "PhantomRallyT6" }]] }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "FragrantSong" }],
+        "effect": { "GuaranteedCrit": true, "hpDMGBonus": 0.2, "castTimeMultiplier": 0.7692307692307692 }
+      }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "Umbrella",
+      "EverspringUmbrella",
+      "MartialArt",
+      "ScarletSpin",
+      "ReturningUmbrella"
+    ],
+    "skillBreakdownCategory": "Scarlet Spin"
+  },
+  "ScarletSpinStage2": {
+    "name": "Scarlet Spin Stage 2",
+    "shortName": "Umbrella Q2",
+    "castTime": 1.6675,
+    "action": [
+      { "type": "consume", "target": "self", "value": "FragrantSongResonance", "stack": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": { "resolveAt": "skillStart", "operand": [{ "target": "self", "value": "FragrantSong" }] }
+      },
+      { "type": "consume", "target": "self", "value": "FragrantSong", "time": 0 },
+      {
+        "type": "damage",
+        "time": 0.2501250099390745,
+        "phyCoef": 1.08504,
+        "attrCoef": 1.08504,
+        "phyBonus": 300.6,
+        "attrBonus": 163.8
+      },
+      {
+        "type": "damage",
+        "time": 0.6336499920487404,
+        "phyCoef": 0.72336,
+        "attrCoef": 0.72336,
+        "phyBonus": 200.4,
+        "attrBonus": 109.2
+      },
+      {
+        "type": "trigger",
+        "value": "EverspringPerfectCatch",
+        "time": 0.9583333333333333,
+        "queueTime": 0.4166666666666667,
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "ScarletSpinStage3",
+        "time": 0.9583333333333333,
+        "queueTime": 0.4166666666666667,
+        "sourceEffect": "FlowerBurial",
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "PhantomUmbrellaSummon",
+        "time": 0.63364999204874,
+        "requirement": [{ "target": "self", "value": "PhantomRallyT6" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "PhantomUmbrellaThrow",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.63364999204874,
+        "requirement": [{ "operator": "not", "operand": [[{ "target": "self", "value": "PhantomRallyT6" }]] }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "FragrantSong" }],
+        "effect": { "GuaranteedCrit": true, "hpDMGBonus": 0.2, "castTimeMultiplier": 0.7692307692307692 }
+      }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "Umbrella",
+      "EverspringUmbrella",
+      "MartialArt",
+      "ScarletSpin",
+      "ReturningUmbrella"
+    ],
+    "skillBreakdownCategory": "Scarlet Spin"
+  },
+  "ScarletSpinStage3": {
+    "name": "Scarlet Spin Stage 3",
+    "shortName": "Umbrella Q3",
+    "castTime": 1.909090909090909,
+    "action": [
+      { "type": "consume", "target": "self", "value": "FragrantSongResonance", "stack": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": { "resolveAt": "skillStart", "operand": [{ "target": "self", "value": "FragrantSong" }] }
+      },
+      { "type": "consume", "target": "self", "value": "FragrantSong", "time": 0 },
+      {
+        "type": "damage",
+        "time": 0.3638091605901718,
+        "phyCoef": 1.08504,
+        "attrCoef": 1.08504,
+        "phyBonus": 300.6,
+        "attrBonus": 163.8
+      },
+      {
+        "type": "damage",
+        "time": 0.782190828025341,
+        "phyCoef": 0.72336,
+        "attrCoef": 0.72336,
+        "phyBonus": 200.4,
+        "attrBonus": 109.2
+      },
+      {
+        "type": "trigger",
+        "value": "EverspringPerfectCatch",
+        "time": 1.0909090909090908,
+        "queueTime": 0.5454545454545454,
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "ScarletSpinStage4",
+        "time": 1.0909090909090908,
+        "queueTime": 0.5454545454545454,
+        "sourceEffect": "FlowerBurial",
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "PhantomUmbrellaSummon",
+        "time": 0.782190828025341,
+        "requirement": [{ "target": "self", "value": "PhantomRallyT6" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "PhantomUmbrellaThrow",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.782190828025341,
+        "requirement": [{ "operator": "not", "operand": [[{ "target": "self", "value": "PhantomRallyT6" }]] }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "FragrantSong" }],
+        "effect": { "GuaranteedCrit": true, "hpDMGBonus": 0.2, "castTimeMultiplier": 0.7692307692307692 }
+      }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "Umbrella",
+      "EverspringUmbrella",
+      "MartialArt",
+      "ScarletSpin",
+      "ReturningUmbrella"
+    ],
+    "skillBreakdownCategory": "Scarlet Spin"
+  },
+  "ScarletSpinStage4": {
+    "name": "Scarlet Spin Stage 4",
+    "shortName": "Umbrella Q4",
+    "castTime": 1.5763636363636362,
+    "action": [
+      { "type": "consume", "target": "self", "value": "FragrantSongResonance", "stack": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": { "resolveAt": "skillStart", "operand": [{ "target": "self", "value": "FragrantSong" }] }
+      },
+      { "type": "consume", "target": "self", "value": "FragrantSong", "time": 0 },
+      {
+        "type": "damage",
+        "time": 0.27288429859009655,
+        "phyCoef": 1.08504,
+        "attrCoef": 1.08504,
+        "phyBonus": 300.6,
+        "attrBonus": 163.8
+      },
+      {
+        "type": "damage",
+        "time": 0.6822123555161735,
+        "phyCoef": 0.72336,
+        "attrCoef": 0.72336,
+        "phyBonus": 200.4,
+        "attrBonus": 109.2
+      },
+      {
+        "type": "trigger",
+        "value": "EverspringPerfectCatch",
+        "time": 1,
+        "queueTime": 0.45454545454545453,
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "ScarletSpinStage2",
+        "time": 1,
+        "queueTime": 0.45454545454545453,
+        "sourceEffect": "FlowerBurial",
+        "queueRequirement": [{ "target": "self", "value": "FlowerBurial" }]
+      },
+      {
+        "type": "trigger",
+        "value": "PhantomUmbrellaSummon",
+        "time": 0.682212355516174,
+        "requirement": [{ "target": "self", "value": "PhantomRallyT6" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "PhantomUmbrellaThrow",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.682212355516174,
+        "requirement": [{ "operator": "not", "operand": [[{ "target": "self", "value": "PhantomRallyT6" }]] }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "FragrantSong" }],
+        "effect": { "GuaranteedCrit": true, "hpDMGBonus": 0.2, "castTimeMultiplier": 0.7692307692307692 }
+      }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "Umbrella",
+      "EverspringUmbrella",
+      "MartialArt",
+      "ScarletSpin",
+      "ReturningUmbrella"
+    ],
+    "skillBreakdownCategory": "Scarlet Spin"
+  },
+  "Resonance": {
+    "name": "Resonance (Scarlet Spin)",
+    "castTime": 0,
+    "action": [{ "type": "damage", "time": 0, "phyCoef": 0.54, "attrCoef": 0.54, "phyBonus": 0, "attrBonus": 0 }],
+    "modifier": [
+      { "requirement": [{ "target": "self", "value": "FragrantSongResonance" }], "effect": { "GuaranteedCrit": true } }
+    ],
+    "tags": [
+      "Triggered",
+      "DirectDamage",
+      "MartialArts",
+      "EverspringUmbrella",
+      "PhantomResonance",
+      "MartialArt",
+      "Umbrella",
+      "ReturningUmbrella"
+    ],
+    "skillBreakdownCategory": "Resonance"
+  },
+  "PhantomUmbrellaSummon": {
+    "name": "Summon Phantom Umbrella",
+    "castTime": 0,
+    "action": [
+      { "type": "consume", "target": "self", "value": "PhantomUmbrella", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "PhantomUmbrella", "stack": 1, "reapply": true, "time": 0 },
+      { "type": "trigger", "value": "Resonance", "time": 0 }
+    ],
+    "tags": ["Triggered", "EverspringUmbrella", "PhantomUmbrella"]
+  },
+  "FragrantSongGrant": {
+    "name": "Fragrant Song",
+    "castTime": 0,
+    "action": [
+      { "type": "apply", "target": "self", "value": "FragrantSong", "stack": 1, "reapply": true, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FragrantSongDelicate",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "PhantomRallyT1" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["Triggered"]
+  },
+  "EverspringPerfectCatch": {
+    "name": "Perfect Catch",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "trigger",
+        "value": "Resonance",
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "PhantomUmbrella" }]
+      }
+    ],
+    "tags": ["Triggered", "EverspringUmbrella", "PerfectCatch"]
+  },
+  "DreamwroughtBubblesCharge": {
+    "name": "Dreamwrought Bubbles [Charge]",
+    "shortName": "Umbrella Charge",
+    "ignorePing": true,
+    "castTime": 0.743,
+    "action": [],
+    "modifier": [],
+    "tags": ["Umbrella", "EverspringUmbrella", "MartialArt", "SubAction"]
+  },
+  "DreamwroughtBubblesRelease": {
+    "name": "Dreamwrought Bubbles [Release]",
+    "ignorePing": true,
+    "castTime": 1.2,
+    "action": [
+      { "type": "consume", "target": "self", "value": "FragrantSongDelicate", "time": 0 },
+      {
+        "type": "damage",
+        "time": 0.4002173027694225,
+        "phyCoef": 1.00728,
+        "attrCoef": 1.00728,
+        "phyBonus": 279,
+        "attrBonus": 151.8
+      },
+      {
+        "type": "damage",
+        "time": 0.830453520655632,
+        "phyCoef": 0.67152,
+        "attrCoef": 0.67152,
+        "phyBonus": 186,
+        "attrBonus": 101.2
+      },
+      {
+        "type": "trigger",
+        "value": "BubblesPhantomUmbrellaSummon",
+        "time": 0.830453520655632,
+        "requirement": [{ "target": "self", "value": "PhantomRallyT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": [
+      "MartialArts",
+      "DirectDamage",
+      "Heavy",
+      "Umbrella",
+      "EverspringUmbrella",
+      "Charged",
+      "DreamwroughtBubbles",
+      "ReturningUmbrella",
+      "SubAction"
+    ]
+  },
+  "BubblesResonance": {
+    "name": "Resonance (Dreamwrought Bubbles)",
+    "castTime": 0,
+    "action": [{ "type": "damage", "time": 0, "phyCoef": 0.54, "attrCoef": 0.54, "phyBonus": 0, "attrBonus": 0 }],
+    "tags": [
+      "Triggered",
+      "DirectDamage",
+      "MartialArts",
+      "EverspringUmbrella",
+      "PhantomResonance",
+      "Heavy",
+      "Charged",
+      "Umbrella",
+      "ReturningUmbrella"
+    ],
+    "skillBreakdownCategory": "Resonance"
+  },
+  "BubblesPhantomUmbrellaSummon": {
+    "name": "Summon Phantom Umbrella (Dreamwrought Bubbles)",
+    "castTime": 0,
+    "action": [
+      { "type": "consume", "target": "self", "value": "PhantomUmbrella", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "PhantomUmbrella", "stack": 1, "reapply": true, "time": 0 },
+      { "type": "trigger", "value": "BubblesResonance", "time": 0 }
+    ],
+    "tags": ["Triggered", "EverspringUmbrella", "PhantomUmbrella"]
+  }
+}

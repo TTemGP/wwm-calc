@@ -1,0 +1,159 @@
+import { assert, describe, it } from "vitest"
+
+import { emptyAttunementStats } from "@/calculations/attunementStats"
+import type { RotationSimulationBundle } from "@/calculations/rotationCalculator"
+import type { TimelineBuildInput } from "@/calculations/rotationTimeline"
+
+import { probeLoad } from "./helpers/probe-loader.js"
+
+// Ported from script/probe/check-simulation.mjs.
+describe("simulation", () => {
+  it("Shared simulated-damage mode, progress, and percentile checks passed", async () => {
+    const { calculateDamageBreakdown, calculateSimulatedDamageBreakdown } =
+      await import("../src/calculations/damage.ts")
+    const { calculateHealingBreakdown, calculateSimulatedHealingBreakdown } =
+      await import("../src/calculations/healing.ts")
+    const { selectSimulationPercentile, simulateRotation } = await probeLoad<
+      typeof import("../src/calculations/simulationCalculator")
+    >("/src/calculations/simulationCalculator.ts")
+    const { calculateDerivedStats } = await import("../src/calculations/effectiveStats.ts")
+    const { emptyStats } = await import("../src/data/statDefinitions.ts")
+    const stats = { ...emptyStats, minPhys: 100, maxPhys: 200, precision: 1 }
+    const enemy = {
+      name: "Probe",
+      level: 1,
+      defense: 0,
+      physicalResistance: 0,
+      bellstrikeResistance: 0,
+      stonesplitResistance: 0,
+      silkbindResistance: 0,
+      bamboocutResistance: 0,
+      judgementResistance: 0,
+    }
+    const context = {
+      stats,
+      attunement: emptyAttunementStats,
+      skillTags: [],
+      weapons: [],
+      buffs: [],
+      enemy,
+      derivedStats: calculateDerivedStats(stats, 0),
+      effects: [],
+    }
+    const action = { type: "damage", time: 1, phyCoef: 1, attrCoef: 1 }
+    const expected = calculateDamageBreakdown(action, context)
+    const minimum = calculateSimulatedDamageBreakdown(action, context, () => 0)
+    const maximum = calculateSimulatedDamageBreakdown(action, context, () => 1)
+
+    assert(
+      minimum.outcome === "normal" && maximum.outcome === "normal",
+      "The controlled probe should select a normal hit.",
+    )
+    assert(
+      minimum.total < expected.total && expected.total < maximum.total,
+      "Simulation mode must sample around deterministic average damage.",
+    )
+    const healingAction = { type: "heal", time: 1, phyCoef: 1, silkbindCoef: 1 }
+    const expectedHealing = calculateHealingBreakdown(healingAction, context)
+    const minimumHealing = calculateSimulatedHealingBreakdown(healingAction, context, () => 0)
+    const maximumHealing = calculateSimulatedHealingBreakdown(healingAction, context, () => 1)
+    assert(
+      Math.abs(minimumHealing.total / expectedHealing.total - 0.92) < 1e-9 &&
+        Math.abs(maximumHealing.total / expectedHealing.total - 1.08) < 1e-9,
+      "Simulation mode must apply the full -8% to +8% healing fluctuation without changing expected healing.",
+    )
+
+    const timeline: TimelineBuildInput = {
+      rotation: { name: "Simulation probe", steps: [{ type: "skill", skill: "ProbeSkill" }] },
+      skills: { ProbeSkill: { name: "Probe Skill", castTime: 1, tags: [], action: [action] } },
+      eventDefinitions: {},
+      dots: {},
+      effectDefinitions: {},
+      innerWayConditions: [],
+      innerWayRules: [],
+      setupEffects: [],
+      weapons: [],
+    }
+    const bundle: RotationSimulationBundle = {
+      timeline,
+      startAnchor: { rowId: "rotation-0" },
+      stats,
+      attunement: emptyAttunementStats,
+      enemy,
+      derivedStats: context.derivedStats,
+      weapons: [],
+      statPriority: [],
+      attunementPriority: [],
+      innerWayPriority: [],
+      setupComparisons: {},
+    }
+    let seed = 123456789
+    const random = () => (seed = (1664525 * seed + 1013904223) >>> 0) / 4294967296
+    let finalProgress: { completed: number; total: number } | undefined
+    const summary = simulateRotation(bundle, 101, random, (completed, total) => {
+      finalProgress = { completed, total }
+    })
+    const customResult = selectSimulationPercentile(summary.runs, 0.855)
+    const ordered = [
+      summary.results.best,
+      summary.results.p99,
+      summary.results.p95,
+      summary.results.p90,
+      customResult,
+      summary.results.p75,
+      summary.results.median,
+    ]
+
+    assert(summary.runCount === 101, "The simulator must produce the requested number of runs.")
+    assert(
+      finalProgress?.completed === 101 && finalProgress.total === 101,
+      "Progress must finish at the requested run count.",
+    )
+    assert(
+      summary.runs.length === 101 && customResult,
+      "Sorted runs must remain available for immediate arbitrary-percentile display.",
+    )
+    assert(
+      ordered.every((result, index) => index === 0 || ordered[index - 1].dps >= result.dps),
+      "Displayed DPS percentiles must remain sorted.",
+    )
+    assert(
+      ordered.every(result => result.normalPercentage === 100),
+      "Outcome percentages must be shares of total damage, not of hit count.",
+    )
+    const healingStats = { ...stats, crit: 1 }
+    const healingSummary = simulateRotation(
+      {
+        ...bundle,
+        timeline: {
+          ...timeline,
+          rotation: { name: "Healing simulation probe", groupSize: 5, steps: [{ type: "skill", skill: "GroupHeal" }] },
+          skills: {
+            GroupHeal: {
+              name: "Group Heal",
+              group: true,
+              castTime: 1,
+              tags: ["Heal"],
+              action: [{ type: "heal", time: 1, phyCoef: 1, silkbindCoef: 1 }],
+            },
+          },
+        },
+        stats: healingStats,
+        derivedStats: calculateDerivedStats(healingStats, 0),
+      },
+      1,
+      () => 0,
+    )
+    const healingRun = healingSummary.results.best
+    assert(
+      healingRun.totalDamage === 0 &&
+        healingRun.totalHealing > 0 &&
+        healingRun.hps === healingRun.totalHealing / healingSummary.duration,
+      "Simulation runs must publish sampled total healing and HPS alongside damage.",
+    )
+    assert(
+      healingRun.healingNormalPercentage === 0 && healingRun.healingCriticalPercentage === 100,
+      "Healing simulation percentages must count sampled recipient-weighted Normal and Critical outcomes.",
+    )
+  })
+})

@@ -1,0 +1,87 @@
+@layer ui {
+  /*
+   * 2.25rem by 1.5rem is a 36x24 track, the smallest size that clears WCAG 2.2 AA's 24x24
+   * minimum target. A 1rem thumb inset by 0.25rem leaves 0.75rem of travel, which puts the
+   * thumb 0.25rem from the far edge in both positions, so on and off are the same inset.
+   *
+   * The resting ring is an inset box-shadow rather than a border on purpose: a border would
+   * shrink the padding box, and the thumb's inset and travel are then measured from a box two
+   * pixels narrower than the track, which puts the two positions 1px apart. The shadow paints
+   * inside the border box, so the arithmetic above stays true. Forced colours get a real
+   * border, because a box-shadow is dropped there.
+   */
+  .toggle {
+    --toggle-thumb-size: 1rem;
+    --toggle-inset: 0.25rem;
+    --toggle-travel: 0.75rem;
+
+    position: relative;
+    flex: 0 0 auto;
+    appearance: none;
+    border-radius: var(--radius-pill);
+    margin: 0;
+    padding: 0;
+    inline-size: 2.25rem;
+    block-size: 1.5rem;
+    box-shadow: inset 0 0 0 1px var(--border-strong);
+    background: var(--surface-sunken);
+    cursor: pointer;
+    transition:
+      background-color var(--transition-normal),
+      box-shadow var(--transition-normal);
+
+    /* `inset-block: 0` with an auto block margin centres the thumb without knowing the track
+       height, and `translate` moves it without a reflow. */
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      inset-inline-start: var(--toggle-inset);
+      margin-block: auto;
+      border-radius: var(--radius-pill);
+      inline-size: var(--toggle-thumb-size);
+      block-size: var(--toggle-thumb-size);
+      background: var(--text-muted);
+      transition:
+        translate var(--transition-normal),
+        background-color var(--transition-normal);
+    }
+  }
+
+  .toggle:checked {
+    box-shadow: inset 0 0 0 1px var(--primary);
+    background: var(--primary);
+  }
+
+  .toggle:checked::before {
+    translate: var(--toggle-travel) 0;
+    background: var(--primary-contrast);
+  }
+
+  .toggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  /* Both colours are replaced here, so the filled track no longer distinguishes the states on
+     its own and the thumb's position is carrying it. */
+  @media (forced-colors: active) {
+    .toggle {
+      border: 1px solid ButtonBorder;
+      background: Canvas;
+    }
+
+    .toggle:checked {
+      border-color: Highlight;
+      background: Highlight;
+    }
+
+    .toggle::before {
+      background: ButtonText;
+    }
+
+    .toggle:checked::before {
+      background: HighlightText;
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "EchoesOfAThousandPlants": {
+    "name": "Echoes of a Thousand Plants",
+    "shortName": "Umbrella Special",
+    "castTime": 1.2,
+    "cooldown": 30,
+    "cooldownGroup": "EchoesOfAThousandPlants",
+    "action": [
+      { "type": "damage", "phyCoef": 0.54, "phyBonus": 149, "attrBonus": 82, "time": 0.625, "attrCoef": 0.54 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "EchoesOfAThousandPlants",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.625
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Special", "Umbrella", "SoulshadeUmbrella", "EchoesOfAThousandPlants"],
+    "martialArt": "soulshadeUmbrella",
+    "weapon": "Umbrella"
+  },
+  "EchoesOfAThousandPlantsCancel": {
+    "name": "Echoes of a Thousand Plants [Cancel]",
+    "shortName": "Umbrella Special [Cancel]",
+    "castTime": 0.625,
+    "cooldown": 30,
+    "cooldownGroup": "EchoesOfAThousandPlants",
+    "action": [
+      { "type": "damage", "phyCoef": 0.54, "phyBonus": 149, "attrBonus": 82, "time": 0.625, "attrCoef": 0.54 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "EchoesOfAThousandPlants",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.625
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Special", "Umbrella", "SoulshadeUmbrella", "EchoesOfAThousandPlants"],
+    "martialArt": "soulshadeUmbrella",
+    "weapon": "Umbrella"
+  },
+  "EchoesOfAThousandPlantsFanQQ": {
+    "name": "Echoes of a Thousand Plants",
+    "shortName": "Umbrella Special [Cancel]",
+    "castTime": 0.625,
+    "cooldown": 30,
+    "cooldownGroup": "EchoesOfAThousandPlants",
+    "action": [
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "EchoesOfAThousandPlants",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.625
+      }
+    ],
+    "modifier": [],
+    "tags": ["Triggered", "EchoesOfAThousandPlants"]
+  },
+  "FloatingGrace": {
+    "name": "Floating Grace",
+    "shortName": "Umbrella Q",
+    "group": true,
+    "castTime": 1.15,
+    "action": [
+      { "type": "consume", "target": "self", "value": "EchoesOfAThousandPlants", "stack": "all", "time": 0 },
+      {
+        "type": "heal",
+        "averageAttack": true,
+        "phyCoef": 4.912,
+        "phyBonus": 1363,
+        "attrBonus": 743,
+        "time": 0.975,
+        "silkbindCoef": 4.912
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FloatingGraceDeluge",
+        "duration": 12,
+        "stack": 1,
+        "reapply": true,
+        "requirement": [{ "target": "equippedMartialArt", "value": "panaceaFan" }],
+        "time": 0.975
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "FloatingGrace",
+        "duration": 12,
+        "stack": 1,
+        "reapply": true,
+        "requirement": [{ "operator": "not", "operand": [{ "target": "equippedMartialArt", "value": "panaceaFan" }] }],
+        "time": 0.975
+      }
+    ],
+    "modifier": [],
+    "tags": ["Heal", "MartialArts", "MartialArt", "Umbrella", "SoulshadeUmbrella", "FloatingGrace"],
+    "martialArt": "soulshadeUmbrella",
+    "weapon": "Umbrella"
+  }
+}

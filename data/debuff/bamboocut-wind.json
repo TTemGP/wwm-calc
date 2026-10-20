@@ -1,0 +1,61 @@
+{
+  "VendettaToken": {
+    "name": "Vendetta Token",
+    "shortName": "VT",
+    "duration": 10,
+    "maxStack": 1,
+    "refresh": true,
+    "shared": false,
+    "showCoverage": true,
+    "effect": [{ "requirement": [{ "target": "skillTag", "value": "Rodent" }], "effect": { "dmgBonus": 0.5 } }]
+  },
+
+  "BoneCorrosion": {
+    "name": "Bone Corrosion",
+    "shortName": "BC",
+    "description": "Increases Qi damage from the applier by 5%, or 40% for Light Attacks.",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "shared": false,
+    "showCoverage": true,
+    "effect": [
+      { "qiDMGBonus": 0.05 },
+      { "requirement": [{ "target": "skillTag", "value": "Light" }], "effect": { "qiDMGBonus": 0.35 } }
+    ]
+  },
+  "Sin": {
+    "name": "Sin",
+    "description": "Echoes of Oblivion mark. Lasts 3 seconds, refreshes on application, and stacks once.",
+    "maxStack": 1,
+    "refresh": true,
+    "shared": false,
+    "showCoverage": true,
+    "duration": 3
+  },
+  "Karma": {
+    "name": "Karma",
+    "shortName": "Kar",
+    "description": "Echoes of Oblivion mark. Lasts 3 seconds, refreshes on application, and stacks once.",
+    "maxStack": 1,
+    "refresh": true,
+    "shared": false,
+    "showCoverage": true,
+    "duration": 3
+  },
+  "RodentHunt": {
+    "name": "Rodent Hunt",
+    "shortName": "RH",
+    "duration": 20,
+    "maxStack": 1,
+    "refresh": true,
+    "shared": false,
+    "showCoverage": true,
+    "recording": {
+      "event": "damage",
+      "requirement": [{ "target": "skillTag", "value": "Rodent" }],
+      "action": { "type": "trigger", "value": "RodentHuntDamage" }
+    },
+    "action": [{ "type": "resolveRecording", "target": "target", "value": "RodentHunt", "time": "expire" }]
+  }
+}

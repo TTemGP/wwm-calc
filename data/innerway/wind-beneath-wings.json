@@ -1,0 +1,47 @@
+{
+  "name": "Wind Beneath Wings",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "WindBeneathWingsT0": {},
+    "WindBeneathWingsT1": {},
+    "WindBeneathWingsT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                453,
+                616,
+                812,
+                1029,
+                1204,
+                1204,
+                1204,
+                1429,
+                1667,
+                1941,
+                2154,
+                2261,
+                2367,
+                2553,
+                2755,
+                2973,
+                3207
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "WindBeneathWingsT3": {},
+    "WindBeneathWingsT4": {},
+    "WindBeneathWingsT5": { "effect": [{ "rawStat": { "physicalDmgReduction": 0.022 } }] },
+    "WindBeneathWingsT6": {}
+  }
+}

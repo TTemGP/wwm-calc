@@ -1,0 +1,10 @@
+{
+  "ThunderSummoning": {
+    "name": "Thunder Summoning",
+    "description": "Increases damage by 30% for 15 seconds through the Mechanism damage category.",
+    "duration": 15,
+    "maxStack": 1,
+    "effect": [{ "effect": { "globalDmgBonus": 0.3 } }],
+    "refresh": true
+  }
+}

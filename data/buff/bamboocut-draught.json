@@ -1,0 +1,5 @@
+{
+  "Inebriate": { "name": "Inebriate", "maxStack": 1, "showCoverage": true },
+  "InebriateDeepdaze": { "name": "Inebriate - Deepdaze", "maxStack": 1, "showCoverage": true },
+  "Carouse": { "name": "Carouse", "duration": 20, "maxStack": 1, "refresh": true, "showCoverage": true }
+}

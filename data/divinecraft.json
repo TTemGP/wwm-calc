@@ -1,0 +1,141 @@
+{
+  "None": { "name": "None", "description": "No Divinecraft effect.", "effect": {} },
+  "Fire": {
+    "name": "Fire",
+    "description": "HP DMG +1.5%. Direct hits burn for 4s and build a Solid Foundation.",
+    "image": "fire.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.015,
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }],
+          "action": { "type": "apply", "target": "target", "value": "DivinecraftFire", "stack": 1, "reapply": true }
+        },
+        {
+          "event": "damage",
+          "requirement": [
+            { "target": "battleStarted" },
+            { "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }
+          ],
+          "action": { "type": "apply", "target": "self", "value": "DivinecraftFireEmber", "stack": 1 }
+        }
+      ]
+    }
+  },
+  "FireWater": {
+    "name": "Fire-Water",
+    "description": "HP DMG +1.5%. Healing grants 0.8 Vitality with a 3s cooldown. Direct hits burn for 4s and build a Solid Foundation.",
+    "image": "firewater.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.015,
+      "trigger": [
+        { "event": "heal", "cooldown": 3, "action": { "type": "addResource", "value": "Vitality", "amount": 0.8 } },
+        {
+          "event": "damage",
+          "requirement": [{ "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }],
+          "action": { "type": "apply", "target": "target", "value": "DivinecraftFire", "stack": 1, "reapply": true }
+        },
+        {
+          "event": "damage",
+          "requirement": [
+            { "target": "battleStarted" },
+            { "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }
+          ],
+          "action": { "type": "apply", "target": "self", "value": "DivinecraftFireEmber", "stack": 1 }
+        }
+      ]
+    }
+  },
+  "FirePoison": {
+    "name": "Fire-Poison",
+    "description": "HP DMG +1.5% and Qi DMG +4%. Direct hits burn for 4s and build a Solid Foundation.",
+    "image": "firepoison.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.015,
+      "qiDMGBonus": 0.04,
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }],
+          "action": { "type": "apply", "target": "target", "value": "DivinecraftFire", "stack": 1, "reapply": true }
+        },
+        {
+          "event": "damage",
+          "requirement": [
+            { "target": "battleStarted" },
+            { "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }
+          ],
+          "action": { "type": "apply", "target": "self", "value": "DivinecraftFireEmber", "stack": 1 }
+        }
+      ]
+    }
+  },
+  "WaterFire": {
+    "name": "Water-Fire",
+    "description": "HP DMG +1.4%. Healing grants 1 Vitality with a 3s cooldown.",
+    "image": "waterfire.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.014,
+      "trigger": {
+        "event": "heal",
+        "cooldown": 3,
+        "action": { "type": "addResource", "value": "Vitality", "amount": 1 }
+      }
+    }
+  },
+  "WaterPoison": {
+    "name": "Water-Poison",
+    "description": "HP DMG +1%, Qi DMG +4%, and healing grants 1 Vitality with a 3s cooldown.",
+    "image": "waterpoison.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.01,
+      "qiDMGBonus": 0.04,
+      "trigger": {
+        "event": "heal",
+        "cooldown": 3,
+        "action": { "type": "addResource", "value": "Vitality", "amount": 1 }
+      }
+    }
+  },
+  "PoisonFire": {
+    "name": "Poison-Fire",
+    "description": "HP DMG +1.4% and Qi DMG +5%. Direct hits poison for 8s.",
+    "image": "poisonfire.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.014,
+      "qiDMGBonus": 0.05,
+      "trigger": [
+        {
+          "event": "damage",
+          "requirement": [{ "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }],
+          "action": { "type": "apply", "target": "target", "value": "DivinecraftPoison", "stack": 1, "reapply": true }
+        }
+      ]
+    }
+  },
+  "PoisonWater": {
+    "name": "Poison-Water",
+    "description": "HP DMG +1%, Qi DMG +5%, and healing grants 0.8 Vitality with a 3s cooldown. Direct hits poison for 8s.",
+    "image": "poisonwater.png",
+    "altersTimeline": true,
+    "effect": {
+      "hpDMGBonus": 0.01,
+      "qiDMGBonus": 0.05,
+      "trigger": [
+        { "event": "heal", "cooldown": 3, "action": { "type": "addResource", "value": "Vitality", "amount": 0.8 } },
+        {
+          "event": "damage",
+          "requirement": [{ "operator": "not", "operand": [[{ "target": "skillTag", "value": "DOT" }]] }],
+          "action": { "type": "apply", "target": "target", "value": "DivinecraftPoison", "stack": 1, "reapply": true }
+        }
+      ]
+    }
+  }
+}

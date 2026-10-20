@@ -1,0 +1,100 @@
+{
+  "SkyGrasped": {
+    "name": "Sky Grasped",
+    "shortName": "RD Special",
+    "castTime": 0.95,
+    "action": [
+      { "type": "damage", "phyCoef": 1.25033, "phyBonus": 347, "attrBonus": 189, "time": 0.666, "attrCoef": 1.25033 },
+      { "type": "apply", "target": "self", "value": "HeavensUnity", "stack": 1, "reapply": true, "time": 0.666 },
+      {
+        "type": "damage",
+        "phyCoef": 2.0944,
+        "time": 1.1,
+        "requirement": [
+          { "target": "self", "value": "SkyGrippedT3" },
+          { "target": "equippedMartialArt", "value": "heavenwill" }
+        ],
+        "attrCoef": 2.0944
+      },
+      {
+        "type": "addResource",
+        "value": "HeavensWill",
+        "amount": 0.25,
+        "time": 1.1,
+        "requirement": [
+          { "target": "self", "value": "SkyGrippedT3" },
+          { "target": "equippedMartialArt", "value": "heavenwill" }
+        ]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Special", "RopeDart", "SkygraspRopeDart", "SkyGrasped"],
+    "martialArt": "skygrasp",
+    "weapon": "RopeDart"
+  },
+  "SnaringLashCancel": {
+    "name": "Snaring Lash [Cancel]",
+    "shortName": "RD Q [Cancel]",
+    "castTime": 0.365,
+    "action": [
+      { "type": "damage", "phyCoef": 0.49752, "phyBonus": 137.7, "attrBonus": 75, "time": 0.365, "attrCoef": 0.49752 },
+      { "type": "trigger", "target": "self", "value": "SnaringLashFalcon", "time": 0.365 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "HeavensMight",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.365,
+        "requirement": [{ "target": "self", "value": "SkyGrippedT0" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MartialArt", "RopeDart", "SkygraspRopeDart", "SnaringLash"],
+    "martialArt": "skygrasp",
+    "weapon": "RopeDart"
+  },
+  "SnaringLash": {
+    "name": "Snaring Lash",
+    "shortName": "RD Q",
+    "castTime": 1.315,
+    "action": [
+      { "type": "damage", "phyCoef": 0.49752, "phyBonus": 137.7, "attrBonus": 75, "time": 0.365, "attrCoef": 0.49752 },
+      { "type": "trigger", "target": "self", "value": "SnaringLashFalcon", "time": 0.365 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "HeavensMight",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.365,
+        "requirement": [{ "target": "self", "value": "SkyGrippedT0" }]
+      },
+      { "type": "damage", "phyCoef": 0.49752, "phyBonus": 137.7, "attrBonus": 75, "time": 1.231, "attrCoef": 0.49752 },
+      { "type": "damage", "phyCoef": 0.66336, "phyBonus": 183.6, "attrBonus": 100, "time": 1.248, "attrCoef": 0.66336 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MartialArt", "RopeDart", "SkygraspRopeDart", "SnaringLash"],
+    "martialArt": "skygrasp",
+    "weapon": "RopeDart"
+  },
+  "SnaringLashFalcon": {
+    "name": "Snaring Lash Falcon",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "phyCoef": 0.83776, "phyBonus": 0.0, "attrBonus": 0.0, "time": 0.2875, "attrCoef": 0.83776 },
+      { "type": "damage", "phyCoef": 0.83776, "phyBonus": 0.0, "attrBonus": 0.0, "time": 0.4125, "attrCoef": 0.83776 },
+      { "type": "damage", "phyCoef": 0.83776, "phyBonus": 0.0, "attrBonus": 0.0, "time": 0.55, "attrCoef": 0.83776 },
+      { "type": "addResource", "value": "HeavensWill", "amount": 0.1, "time": 0.55 },
+      {
+        "type": "addResource",
+        "value": "HeavensWill",
+        "amount": 0.2,
+        "time": 0.55,
+        "requirement": [{ "target": "self", "value": "HeavensUnity" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "SkygraspRopeDart", "Falcon", "MartialArtEffect", "Triggered"]
+  }
+}

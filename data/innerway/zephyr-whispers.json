@@ -1,0 +1,119 @@
+{
+  "name": "Zephyr Whispers",
+  "altersTimeline": true,
+  "tags": ["SilkbindWing"],
+  "effect": {
+    "ZephyrWhispersT0": {},
+    "ZephyrWhispersT1": {
+      "effect": [
+        {
+          "requirement": [
+            { "target": "target", "value": "InkRhyme" },
+            { "operator": "not", "operand": [{ "target": "self", "value": "ZephyrWhispersT4" }] }
+          ],
+          "effect": { "directDamageReduction": 0.05 }
+        }
+      ]
+    },
+    "ZephyrWhispersT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.015,
+                0.021,
+                0.028,
+                0.035,
+                0.041,
+                0.041,
+                0.041,
+                0.049,
+                0.057,
+                0.066,
+                0.073,
+                0.077,
+                0.081,
+                0.087,
+                0.094,
+                0.101,
+                0.109,
+                0.117,
+                0.126,
+                null,
+                null
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ZephyrWhispersT3": {},
+    "ZephyrWhispersT4": {
+      "effect": [
+        {
+          "target": "InkRhyme",
+          "modify": {
+            "duration": 18,
+            "effect": [
+              {
+                "requirement": [
+                  {
+                    "operator": "or",
+                    "operand": [
+                      { "target": "skillTag", "value": "WillowbendFan" },
+                      { "target": "skillTag", "value": "DrumSeries" }
+                    ]
+                  }
+                ],
+                "effect": { "dmgBonus": 0.05 }
+              }
+            ]
+          }
+        },
+        { "requirement": [{ "target": "target", "value": "InkRhyme" }], "effect": { "directDamageReduction": 0.1 } }
+      ]
+    },
+    "ZephyrWhispersT5": { "effect": [{ "rawStat": { "critDmgBonus": 0.04 } }] },
+    "ZephyrWhispersT6": {
+      "effect": [
+        {
+          "target": "Tailwind",
+          "modify": {
+            "effect": [
+              {
+                "effect": {
+                  "bellstrikeAttackBonus": 0.06,
+                  "stonesplitAttackBonus": 0.06,
+                  "silkbindAttackBonus": 0.06,
+                  "bamboocutAttackBonus": 0.06
+                }
+              }
+            ]
+          }
+        },
+        {
+          "target": "RadiantDrum",
+          "modify": {
+            "effect": [
+              {
+                "effect": {
+                  "physicalAttackBonus": 0.06,
+                  "bellstrikeAttackBonus": 0.06,
+                  "stonesplitAttackBonus": 0.06,
+                  "silkbindAttackBonus": 0.06,
+                  "bamboocutAttackBonus": 0.06
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1555 @@
+{
+  "SoaringSpin1": {
+    "name": "Soaring Spin 1-Hit",
+    "shortName": "Soaring 1 Hit",
+    "castTime": 1.1818181818181817,
+    "cooldown": 12,
+    "cooldownGroup": "SoaringSpin",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 15, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 4.5,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 3.196543331088,
+        "phyBonus": 504.027,
+        "attrBonus": 0,
+        "time": 0.7946970054545454,
+        "attrCoef": 3.196543331088
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.1818181818181817,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "Soaring Spin"],
+    "ignorePing": true
+  },
+  "SoaringSpin2": {
+    "name": "Soaring Spin",
+    "shortName": "Soaring",
+    "castTime": 2.02492899,
+    "cooldown": 12,
+    "cooldownGroup": "SoaringSpin",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 15, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 4.5,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 3.196543331088,
+        "phyBonus": 504.027,
+        "attrBonus": 0,
+        "time": 0.7946970054545454,
+        "attrCoef": 3.196543331088
+      },
+      {
+        "type": "damage",
+        "phyCoef": 3.906886293552,
+        "phyBonus": 616.033,
+        "attrBonus": 0,
+        "time": 2.02492899,
+        "attrCoef": 3.906886293552
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 2.02492899,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "Soaring Spin"],
+    "ignorePing": true
+  },
+  "LeapingToad": {
+    "name": "Leaping Toad [Cancel]",
+    "shortName": "Toad",
+    "castTime": 1.25,
+    "cooldown": 8,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 25, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 7.5,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.54066856,
+        "phyBonus": 84.9328,
+        "attrBonus": 0,
+        "time": 0.5,
+        "attrCoef": 0.54066856
+      },
+      {
+        "type": "damage",
+        "phyCoef": 3.24401136,
+        "phyBonus": 509.5968,
+        "attrBonus": 0,
+        "time": 1.15,
+        "attrCoef": 3.24401136
+      },
+      { "type": "apply", "target": "target", "value": "ToadVenom", "reapply": false, "time": 1.15 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.25,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "AreaMystic", "LeapingToad"],
+    "ignorePing": true
+  },
+  "DrunkenPoetDrink": {
+    "name": "Drunken Poet Drink",
+    "shortName": "Drink",
+    "castTime": 0.626,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 10, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 3,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Intoxicated", "reapply": false, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.626,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"],
+    "ignorePing": true
+  },
+  "DrunkenPoetDrinkCancel": {
+    "name": "Drunken Poet Drink [Cancel]",
+    "shortName": "Drink",
+    "castTime": 0,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 10, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 3,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Intoxicated", "reapply": false, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"],
+    "ignorePing": true
+  },
+  "DrunkenPoet1Hit": {
+    "ignorePing": true,
+    "name": "Drunken Poet 1 Hit",
+    "shortName": "Poet x1",
+    "castTime": 0,
+    "action": [],
+    "subAction": [
+      {
+        "value": "DrunkenPoetDrink",
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "Intoxicated" }] }]
+      },
+      { "value": "DrunkenPoet1", "requirement": [{ "target": "self", "value": "Intoxicated" }] }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"]
+  },
+  "DrunkenPoet2Hits": {
+    "ignorePing": true,
+    "name": "Drunken Poet 2 Hits",
+    "shortName": "Poet x2",
+    "castTime": 0,
+    "action": [],
+    "subAction": [
+      {
+        "value": "DrunkenPoetDrink",
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "Intoxicated" }] }]
+      },
+      { "value": "DrunkenPoet1", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet2", "requirement": [{ "target": "self", "value": "Intoxicated" }] }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"]
+  },
+  "DrunkenPoet3Hits": {
+    "ignorePing": true,
+    "name": "Drunken Poet 3 Hits",
+    "shortName": "Poet x3",
+    "castTime": 0,
+    "action": [],
+    "subAction": [
+      {
+        "value": "DrunkenPoetDrink",
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "Intoxicated" }] }]
+      },
+      { "value": "DrunkenPoet1", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet2", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet3", "requirement": [{ "target": "self", "value": "Intoxicated" }] }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"]
+  },
+  "DrunkenPoet4Hits": {
+    "ignorePing": true,
+    "name": "Drunken Poet 4 Hits",
+    "shortName": "Poet x4",
+    "castTime": 0,
+    "action": [],
+    "subAction": [
+      {
+        "value": "DrunkenPoetDrink",
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "Intoxicated" }] }]
+      },
+      { "value": "DrunkenPoet1", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet2", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet3", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet4", "requirement": [{ "target": "self", "value": "Intoxicated" }] }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"]
+  },
+  "DrunkenPoet5HitsCancel": {
+    "ignorePing": true,
+    "name": "Drunken Poet 5 Hits [Cancel]",
+    "shortName": "Poet x5",
+    "castTime": 0,
+    "action": [],
+    "subAction": [
+      {
+        "value": "DrunkenPoetDrink",
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "Intoxicated" }] }]
+      },
+      { "value": "DrunkenPoet1", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet2", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet3", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet4", "requirement": [{ "target": "self", "value": "Intoxicated" }] },
+      { "value": "DrunkenPoet5", "requirement": [{ "target": "self", "value": "Intoxicated" }] }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet"]
+  },
+  "DrunkenPoet1": {
+    "name": "Drunken Poet 1st Hit",
+    "shortName": "Poet",
+    "castTime": 0.58,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 6, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1.7999999999999998,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.023352732349,
+        "phyBonus": 160.9104,
+        "attrBonus": 0,
+        "time": 0.4439,
+        "attrCoef": 1.023352732349
+      },
+      { "type": "apply", "target": "self", "value": "EnhanceDrunkenPoet", "stack": 1, "time": 0.4439 },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Combustion" }],
+        "value": "CombustionExplosion",
+        "time": 0.4439
+      },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Smolder" }],
+        "value": "SmolderExplosion",
+        "time": 0.4439
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.58,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "SubAction"],
+    "ignorePing": true
+  },
+  "DrunkenPoet2": {
+    "name": "Drunken Poet 2nd Hit",
+    "shortName": "Poet",
+    "castTime": 0.436,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 6, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1.7999999999999998,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.023352732349,
+        "phyBonus": 160.9104,
+        "attrBonus": 0,
+        "time": 0.2795,
+        "attrCoef": 1.023352732349
+      },
+      { "type": "apply", "target": "self", "value": "EnhanceDrunkenPoet", "stack": 1, "time": 0.2795 },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Combustion" }],
+        "value": "CombustionExplosion",
+        "time": 0.2795
+      },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Smolder" }],
+        "value": "SmolderExplosion",
+        "time": 0.2795
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.436,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "SubAction"],
+    "ignorePing": true
+  },
+  "DrunkenPoet3": {
+    "name": "Drunken Poet 3rd Hit",
+    "shortName": "Poet",
+    "castTime": 0.55,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 6, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1.7999999999999998,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.023352732349,
+        "phyBonus": 160.9104,
+        "attrBonus": 0,
+        "time": 0.3783,
+        "attrCoef": 1.023352732349
+      },
+      { "type": "apply", "target": "self", "value": "EnhanceDrunkenPoet", "stack": 1, "time": 0.3783 },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Combustion" }],
+        "value": "CombustionExplosion",
+        "time": 0.3783
+      },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Smolder" }],
+        "value": "SmolderExplosion",
+        "time": 0.3783
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.55,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "SubAction"],
+    "ignorePing": true
+  },
+  "DrunkenPoet4": {
+    "name": "Drunken Poet 4th Hit",
+    "shortName": "Poet",
+    "castTime": 0.6,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 6, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1.7999999999999998,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.023352732349,
+        "phyBonus": 160.9104,
+        "attrBonus": 0,
+        "time": 0.44709,
+        "attrCoef": 1.023352732349
+      },
+      { "type": "apply", "target": "self", "value": "EnhanceDrunkenPoet", "stack": 1, "time": 0.44709 },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Combustion" }],
+        "value": "CombustionExplosion",
+        "time": 0.44709
+      },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Smolder" }],
+        "value": "SmolderExplosion",
+        "time": 0.44709
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.6,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "SubAction"],
+    "ignorePing": true
+  },
+  "DrunkenPoet5": {
+    "name": "Drunken Poet 5th Hit [Cancel]",
+    "shortName": "Poet",
+    "castTime": 0.5382,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 6, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1.7999999999999998,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "consume", "target": "self", "value": "EnhanceDrunkenPoet", "stack": "all", "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.705587887248,
+        "phyBonus": 268.184,
+        "attrBonus": 0,
+        "time": 0.5382,
+        "attrCoef": 1.705587887248
+      },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Combustion" }],
+        "value": "CombustionExplosion",
+        "time": 0.5382
+      },
+      {
+        "type": "trigger",
+        "requirement": [{ "target": "target", "value": "Smolder" }],
+        "value": "SmolderExplosion",
+        "time": 0.5382
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.5382,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "EnhanceDrunkenPoet" }],
+        "effect": { "dmgBonus": { "function": "byStack", "param1": "EnhanceDrunkenPoet", "param2": 0.2 } }
+      }
+    ],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "SubAction"],
+    "ignorePing": true
+  },
+  "CombustionExplosion": {
+    "name": "Combustion Explosion",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.701727587896,
+        "phyBonus": 110.33856,
+        "attrBonus": 0,
+        "time": 0,
+        "attrCoef": 0.701727587896
+      },
+      { "type": "extend", "target": "target", "value": "Combustion", "duration": 1.584, "time": 0 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "Triggered"],
+    "ignorePing": true
+  },
+  "SmolderExplosion": {
+    "name": "Smolder Explosion",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 1.608125722263,
+        "phyBonus": 252.8592,
+        "attrBonus": 0,
+        "time": 0,
+        "attrCoef": 1.608125722263
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DrunkenPoet", "Triggered"],
+    "ignorePing": true
+  },
+  "DragonsBreath1": {
+    "name": "Dragon's Breath 1-Hit [Cancel]",
+    "shortName": "Breath 1 Hit",
+    "castTime": 1.27292535,
+    "cooldown": 6,
+    "cooldownGroup": "DragonBreath",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 20, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 6,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Intoxicated", "reapply": false, "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.36088435,
+        "phyBonus": 215.2962,
+        "attrBonus": 0,
+        "time": 1.27292535,
+        "attrCoef": 1.36088435
+      },
+      { "type": "extend", "target": "target", "value": "Combustion", "duration": 1.584, "time": 1.27292535 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "Combustion",
+        "duration": 7.92,
+        "reapply": false,
+        "time": 1.27292535
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.27292535,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "Intoxicated" }],
+        "effect": { "castTimeModifier": -0.6664461963636364 }
+      }
+    ],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DragonsBreath"],
+    "ignorePing": true
+  },
+  "DragonsBreathSmolder1": {
+    "name": "Dragon's Breath - Smolder 1-Hit [Cancel]",
+    "shortName": "Smolder 1 Hit",
+    "castTime": 1.27292535,
+    "cooldown": 12,
+    "cooldownGroup": "DragonBreathSmolder",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 20, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 6,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Intoxicated", "reapply": false, "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.283899386793,
+        "phyBonus": 204.95867924532,
+        "attrBonus": 0,
+        "time": 1.27292535,
+        "attrCoef": 1.283899386793
+      },
+      { "type": "extend", "target": "target", "value": "Smolder", "duration": 4.224, "time": 1.27292535 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "Smolder",
+        "reapply": false,
+        "duration": 3.696,
+        "time": 1.27292535
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.27292535,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "Intoxicated" }],
+        "effect": { "castTimeModifier": -0.6664461963636364 }
+      }
+    ],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DragonsBreath"],
+    "ignorePing": true
+  },
+  "DragonsBreath2": {
+    "name": "Dragon's Breath 2-Hit [Cancel]",
+    "shortName": "Breath Full",
+    "castTime": 2.7276895800000003,
+    "cooldown": 6,
+    "cooldownGroup": "DragonBreath",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 20, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 6,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Intoxicated", "reapply": false, "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.36088435,
+        "phyBonus": 215.2962,
+        "attrBonus": 0,
+        "time": 1.27292535,
+        "attrCoef": 1.36088435
+      },
+      { "type": "extend", "target": "target", "value": "Combustion", "duration": 1.584, "time": 1.27292535 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "Combustion",
+        "duration": 7.92,
+        "reapply": false,
+        "time": 1.27292535
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.36088435,
+        "phyBonus": 215.2962,
+        "attrBonus": 0,
+        "time": 2.7276895800000003,
+        "attrCoef": 1.36088435
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.4997501,
+        "phyBonus": 237.2652,
+        "attrBonus": 0,
+        "time": 2.7276895800000003,
+        "attrCoef": 1.4997501
+      },
+      { "type": "extend", "target": "target", "value": "Combustion", "duration": 3.168, "time": 2.7276895800000003 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 2.7276895800000003,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "Intoxicated" }],
+        "effect": {
+          "castTimeModifier": {
+            "function": "segment",
+            "param1": "actionTime",
+            "param2": [1.2729253500000002],
+            "param3": [-0.6664461963636364, -1.0300926363636367]
+          }
+        }
+      }
+    ],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DragonsBreath"],
+    "ignorePing": true
+  },
+  "DragonsBreathSmolder2": {
+    "name": "Dragon's Breath - Smolder 2-Hit [Cancel]",
+    "shortName": "Smolder Full",
+    "castTime": 2.7276895800000003,
+    "cooldown": 12,
+    "cooldownGroup": "DragonBreathSmolder",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 20, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 6,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Intoxicated", "reapply": false, "time": 0 },
+      {
+        "type": "damage",
+        "phyCoef": 1.283899386793,
+        "phyBonus": 204.95867924532,
+        "attrBonus": 0,
+        "time": 1.27292535,
+        "attrCoef": 1.283899386793
+      },
+      { "type": "extend", "target": "target", "value": "Smolder", "duration": 4.224, "time": 1.27292535 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "Smolder",
+        "duration": 3.696,
+        "reapply": false,
+        "time": 1.27292535
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.283899386793,
+        "phyBonus": 204.95867924532,
+        "attrBonus": 0,
+        "time": 2.7276895800000003,
+        "attrCoef": 1.283899386793
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.414909528303,
+        "phyBonus": 225.87283018872,
+        "attrBonus": 0,
+        "time": 2.7276895800000003,
+        "attrCoef": 1.414909528303
+      },
+      { "type": "extend", "target": "target", "value": "Smolder", "duration": 7.92, "time": 2.7276895800000003 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 2.7276895800000003,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [
+      {
+        "requirement": [{ "target": "self", "value": "Intoxicated" }],
+        "effect": {
+          "castTimeModifier": {
+            "function": "segment",
+            "param1": "actionTime",
+            "param2": [1.2729253500000002],
+            "param3": [-0.6664461963636364, -1.0300926363636367]
+          }
+        }
+      }
+    ],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "DragonsBreath"],
+    "ignorePing": true
+  },
+  "FluteOfTheTidesCancel": {
+    "name": "Flute of the Tides [Cancel]",
+    "shortName": "Flute Cancel",
+    "collectBoostDamage": "Flute",
+    "castTime": 0.8,
+    "cooldown": 25,
+    "cooldownGroup": "FluteOfTheTides",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 50, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 10,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "Flute", "reapply": true, "time": 3.275 },
+      { "type": "trigger", "value": "FluteRipple", "time": 3.275 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.8,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "AreaMystic", "Distance", "FluteOfTheTides"],
+    "skillBreakdownCategory": "Flute of the Tides",
+    "ignorePing": true
+  },
+  "FluteOfTheTides": {
+    "name": "Flute of the Tides Full",
+    "shortName": "Flute Full",
+    "collectBoostDamage": "Flute",
+    "castTime": 3.3,
+    "cooldown": 25,
+    "cooldownGroup": "FluteOfTheTides",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 50, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 10,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.483296377476,
+        "phyBonus": 330.479343881188,
+        "attrBonus": 0,
+        "time": 1.35,
+        "attrCoef": 1.483296377476
+      },
+      {
+        "type": "damage",
+        "phyCoef": 3.955457006604,
+        "phyBonus": 881.278250349834,
+        "attrBonus": 0,
+        "time": 3.275,
+        "attrCoef": 3.955457006604
+      },
+      { "type": "apply", "target": "self", "value": "Flute", "reapply": true, "time": 3.275 },
+      { "type": "trigger", "value": "FluteRipple", "time": 3.275 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 3.3,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "AreaMystic", "Distance", "FluteOfTheTides"],
+    "skillBreakdownCategory": "Flute of the Tides",
+    "ignorePing": true
+  },
+  "FluteRipple": {
+    "name": "Flute Chanting a thousand Waves",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 1.483296377476,
+        "phyBonus": 330.479343881188,
+        "attrBonus": 0,
+        "time": 0.55,
+        "attrCoef": 1.483296377476
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.483296377476,
+        "phyBonus": 330.479343881188,
+        "attrBonus": 0,
+        "time": 3.025,
+        "attrCoef": 1.483296377476
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.483296377476,
+        "phyBonus": 330.479343881188,
+        "attrBonus": 0,
+        "time": 5.525,
+        "attrCoef": 1.483296377476
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.483296377476,
+        "phyBonus": 330.479343881188,
+        "attrBonus": 0,
+        "time": 8.0625,
+        "attrCoef": 1.483296377476
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.483296377476,
+        "phyBonus": 330.479343881188,
+        "attrBonus": 0,
+        "time": 10.55,
+        "attrCoef": 1.483296377476
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "AreaMystic", "FluteOfTheTides", "Triggered"],
+    "skillBreakdownCategory": "Flute of the Tides",
+    "ignorePing": true
+  },
+  "GhostlySteps": {
+    "name": "Ghostly Step",
+    "collectBoostDamage": "MysteryDMGBoost",
+    "castTime": 0,
+    "cooldown": 60,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 35, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 10,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "consume", "target": "self", "value": "MysteryUmbra", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "Mystery", "reapply": true, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["Mystic", "GhostlySteps"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbra": {
+    "name": "Ghostly Step - Umbra",
+    "collectBoostDamage": "MysteryDMGBoost",
+    "castTime": 0,
+    "cooldown": 60,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 40, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 10,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "consume", "target": "self", "value": "Mystery", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "MysteryUmbra", "reapply": true, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["Mystic", "GhostlySteps"],
+    "ignorePing": true
+  },
+  "DragonHeadTide": {
+    "name": "Dragon Head - Tide",
+    "castTime": 5.8,
+    "cooldown": 120,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 80, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 10,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 0.05 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 0.3 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 0.6 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 0.9 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 1.2 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 1.5 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 1.8 },
+      { "type": "apply", "target": "self", "value": "SurgingWaves", "stack": 1, "reapply": true, "time": 2.1 },
+      {
+        "type": "damage",
+        "phyCoef": 12.597265958491,
+        "phyBonus": 1999.472075471702,
+        "attrBonus": 0,
+        "time": 4.7375,
+        "attrCoef": 12.597265958491
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 5.8,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "HP", "DragonHead", "DragonHeadTide"],
+    "ignorePing": true
+  },
+  "SereneBreeze": {
+    "name": "Serene Breeze",
+    "castTime": 0.4375,
+    "cooldown": 30,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 1.0906992,
+        "phyBonus": 538.107521404384,
+        "attrBonus": 0,
+        "time": 0.4375,
+        "attrCoef": 1.0906992
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.4375,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SereneBreeze"],
+    "ignorePing": true
+  },
+  "BurstingNine": {
+    "name": "Bursting Nine",
+    "castTime": 1.4,
+    "cooldown": 30,
+    "cooldownGroup": "BurstingNine",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 20, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 6,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 2.5463082,
+        "phyBonus": 402.3166956,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 2.5463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.76389246,
+        "phyBonus": 120.69500868,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.76389246
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.4,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "BurstingNine"],
+    "ignorePing": true
+  },
+  "BurstingNine2Shots": {
+    "name": "Bursting Nine 2 Shots",
+    "castTime": 1.925,
+    "cooldown": 30,
+    "cooldownGroup": "BurstingNine",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 30, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 9,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 2.5463082,
+        "phyBonus": 402.3166956,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 2.5463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.76389246,
+        "phyBonus": 120.69500868,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.76389246
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.2731541,
+        "phyBonus": 201.1583478,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 1.2731541
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.38194623,
+        "phyBonus": 60.34750434,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.38194623
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.925,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "BurstingNine"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeHengBlade": {
+    "name": "Ghostly Step - Umbra Dodge (Heng Blade)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "HengBlade"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeMoBlade": {
+    "name": "Ghostly Step - Umbra Dodge (Mo Blade)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "MoBlade"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeSpear": {
+    "name": "Ghostly Step - Umbra Dodge (Spear)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "Spear"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeUmbrella": {
+    "name": "Ghostly Step - Umbra Dodge (Umbrella)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "Umbrella"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeRopeDart": {
+    "name": "Ghostly Step - Umbra Dodge (Rope Dart)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "RopeDart"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeGauntlet": {
+    "name": "Ghostly Step - Umbra Dodge (Gauntlet)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "Gauntlet"],
+    "ignorePing": true
+  },
+  "GhostlyStepsUmbraDodgeDualBlades": {
+    "name": "Ghostly Step - Umbra Dodge (Dual Blades)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.041567357513,
+        "phyBonus": 312,
+        "attrBonus": 0,
+        "time": 0.8,
+        "attrCoef": 2.041567357513
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "GhostlySteps", "Triggered", "DualBlades"],
+    "ignorePing": true
+  },
+  "WorldToSword": {
+    "name": "World to Sword",
+    "shortName": "WTS",
+    "castTime": 0,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 40, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 10,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      { "type": "apply", "target": "self", "value": "WorldToSword", "stack": 1, "reapply": true, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["Mystic", "SingleTargetMystic", "WorldToSword"],
+    "ignorePing": true
+  },
+  "QiBlade": {
+    "name": "Qi Blade",
+    "shortName": "Qi Blade",
+    "castTime": 0,
+    "cooldown": 0.3,
+    "action": [
+      { "type": "emitEvent", "value": "QiBladeCheck", "time": 0.3 },
+      {
+        "type": "damage",
+        "phyCoef": 2.03704656,
+        "phyBonus": 321.85335648,
+        "attrBonus": 0,
+        "time": 0.5,
+        "attrCoef": 2.03704656
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "WorldToSword", "QiBlade", "Triggered"],
+    "ignorePing": true
+  },
+  "YakshaRush": {
+    "name": "Yaksha Rush",
+    "castTime": 1.8883333333333334,
+    "cooldown": 2,
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 15, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 4.5,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.738837049856,
+        "phyBonus": 115.748,
+        "attrBonus": 0,
+        "time": 0.45096195999999994,
+        "attrCoef": 0.738837049856
+      },
+      {
+        "type": "damage",
+        "phyCoef": 2.955348199424,
+        "phyBonus": 462.992,
+        "attrBonus": 0,
+        "time": 1.3603838499999998,
+        "attrCoef": 2.955348199424
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.8883333333333334,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "YakshaRush"],
+    "ignorePing": true
+  }
+}

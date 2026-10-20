@@ -1,0 +1,187 @@
+{
+  "Tailwind": {
+    "name": "Rustling",
+    "duration": 12,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      {
+        "requirement": [
+          { "operator": "not", "operand": [{ "target": "equippedMartialArt", "value": "museflowWaistDrum" }] }
+        ],
+        "effect": {
+          "bellstrikeAttackBonus": 0.03,
+          "stonesplitAttackBonus": 0.03,
+          "silkbindAttackBonus": 0.03,
+          "bamboocutAttackBonus": 0.03
+        }
+      }
+    ],
+    "showCoverage": true,
+    "description": "Increases all attribute attacks by 3% (6% when paired with Ribbon & Drum). With Ribbon & Drum talents, also increases Drum Series base damage by 40%."
+  },
+  "RadiantDrum": {
+    "name": "Radiant Drum",
+    "description": "Increases Physical Attack and all attribute attacks by 6%. With Ribbon & Drum talents, also increases Drum Series base damage by 40%.",
+    "duration": 4,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      {
+        "effect": {
+          "physicalAttackBonus": 0.06,
+          "bellstrikeAttackBonus": 0.06,
+          "stonesplitAttackBonus": 0.06,
+          "silkbindAttackBonus": 0.06,
+          "bamboocutAttackBonus": 0.06
+        }
+      }
+    ],
+    "action": [{ "type": "apply", "target": "self", "value": "Tailwind", "time": "expire" }],
+    "showCoverage": true
+  },
+  "Cloudshear": {
+    "name": "Cloudshear: Wings",
+    "description": "Increases all damage and healing by 6%.",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [{ "effect": { "dmgBonus": 0.06, "healingBonus": 0.06 } }],
+    "showCoverage": true
+  },
+  "FlowingWind": {
+    "name": "Driftbreeze",
+    "description": "Enhances Fan Q into Boundless Bloom.",
+    "duration": 20,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true
+  },
+  "DrumSpecialDefense": {
+    "name": "Ripple Damage Reduction",
+    "duration": 1,
+    "maxStack": 1,
+    "refresh": true,
+    "hidden": true,
+    "effect": [{ "effect": { "directDamageReduction": 0.3 } }]
+  },
+  "DawnsunDefense": {
+    "name": "Dawnsun Damage Reduction",
+    "duration": 4,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [{ "effect": { "directDamageReduction": 0.1 } }]
+  },
+  "EnvigoratedDisabled": {
+    "name": "Envigorated Warrior Disabled",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": []
+  },
+  "WarriorCage": {
+    "name": "Cage",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      {
+        "requirement": [
+          { "operator": "not", "operand": [{ "target": "self", "value": "WarriorEscape" }] },
+          { "operator": "not", "operand": [{ "target": "self", "value": "EnvigoratedWarriorT1" }] }
+        ],
+        "effect": { "directDamageReduction": -0.05 }
+      },
+      {
+        "requirement": [
+          { "operator": "not", "operand": [{ "target": "self", "value": "WarriorEscape" }] },
+          { "target": "self", "value": "EnvigoratedWarriorT1" }
+        ],
+        "effect": { "directDamageReduction": -0.03 }
+      }
+    ]
+  },
+  "WarriorEscape": { "name": "Escape From Cage", "duration": 5, "maxStack": 1, "refresh": true, "effect": [] },
+  "WingsSupportYellow": {
+    "name": "Silkbind - Wings (Yellow)",
+    "duration": 0,
+    "maxStack": 1,
+    "hidden": true,
+    "effect": [
+      {
+        "requirement": [
+          { "operator": "not", "operand": [{ "target": "equippedMartialArt", "value": "museflowWaistDrum" }] }
+        ],
+        "effect": {
+          "dmgBonus": 0.02,
+          "healingBonus": 0.02,
+          "physicalAttackBonus": 0.039,
+          "bellstrikeAttackBonus": 0.05925,
+          "stonesplitAttackBonus": 0.05925,
+          "silkbindAttackBonus": 0.05925,
+          "bamboocutAttackBonus": 0.05925
+        }
+      }
+    ]
+  },
+  "WingsSupportBlue": {
+    "name": "Silkbind - Wings (Blue)",
+    "duration": 0,
+    "maxStack": 1,
+    "hidden": true,
+    "effect": [
+      {
+        "requirement": [
+          { "operator": "not", "operand": [{ "target": "equippedMartialArt", "value": "museflowWaistDrum" }] }
+        ],
+        "effect": {
+          "dmgBonus": 0.02,
+          "healingBonus": 0.02,
+          "physicalAttackBonus": 0.063,
+          "bellstrikeAttackBonus": 0.07725,
+          "stonesplitAttackBonus": 0.07725,
+          "silkbindAttackBonus": 0.07725,
+          "bamboocutAttackBonus": 0.07725
+        }
+      }
+    ]
+  },
+  "WingsSupportFull": {
+    "name": "Silkbind - Wings (Full)",
+    "duration": 0,
+    "maxStack": 1,
+    "hidden": true,
+    "effect": [
+      {
+        "requirement": [
+          { "operator": "not", "operand": [{ "target": "equippedMartialArt", "value": "museflowWaistDrum" }] }
+        ],
+        "effect": {
+          "dmgBonus": 0.02,
+          "healingBonus": 0.02,
+          "physicalAttackBonus": 0.12,
+          "bellstrikeAttackBonus": 0.12,
+          "stonesplitAttackBonus": 0.12,
+          "silkbindAttackBonus": 0.12,
+          "bamboocutAttackBonus": 0.12
+        }
+      }
+    ]
+  },
+  "WingsSupportDuration": {
+    "name": "Wings Support Duration",
+    "global": { "equippedMartialArt": "museflowWaistDrum" },
+    "effect": [
+      {
+        "requirement": [{ "target": "self", "value": "WingsSupportBlue" }],
+        "target": "RadiantDrum",
+        "modify": { "duration": 10.5 }
+      },
+      {
+        "requirement": [{ "target": "self", "value": "WingsSupportFull" }],
+        "target": "RadiantDrum",
+        "modify": { "duration": 20.5 }
+      }
+    ]
+  }
+}

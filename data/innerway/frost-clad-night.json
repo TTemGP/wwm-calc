@@ -1,0 +1,70 @@
+{
+  "name": "Frost-Clad Night",
+  "altersTimeline": true,
+  "tags": ["StonesplitStrength"],
+  "effect": {
+    "FrostCladNightT0": {},
+    "FrostCladNightT1": {},
+    "FrostCladNightT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                14.9,
+                20.3,
+                26.7,
+                33.8,
+                39.6,
+                39.6,
+                39.6,
+                47,
+                54.8,
+                63.9,
+                70.9,
+                74.4,
+                77.9,
+                84,
+                90.6,
+                97.8,
+                105.5
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "FrostCladNightT3": {},
+    "FrostCladNightT4": {
+      "effect": [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "SnowbreakSpring" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "self", "value": "InnerPassion" },
+                [
+                  { "target": "self", "value": "FrostCladNightT6" },
+                  { "target": "target", "value": "Exhausted" }
+                ]
+              ]
+            }
+          ],
+          "effect": { "baseDMGBonus": 0.4 }
+        }
+      ]
+    },
+    "FrostCladNightT5": { "effect": [{ "rawStat": { "directCrit": 0.046 } }] },
+    "FrostCladNightT6": {
+      "effect": [
+        { "requirement": [{ "target": "skillTag", "value": "SnowbreakSpring" }], "effect": { "dmgBonus": 0.1 } }
+      ]
+    }
+  }
+}

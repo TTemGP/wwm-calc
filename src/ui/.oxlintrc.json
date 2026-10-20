@@ -1,0 +1,32 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../.oxlintrc.json"],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest",
+    "promise"
+  ],
+  "categories": { "correctness": "error", "suspicious": "error", "pedantic": "error", "perf": "error" },
+  "rules": {
+    "import/no-duplicates": "error",
+    "eslint/no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["../**", "@/**"],
+            "message": "UI primitives must not import application, feature, or domain modules. A primitive is reached through its consumer."
+          }
+        ]
+      }
+    ]
+  },
+  "env": { "builtin": true, "browser": true }
+}

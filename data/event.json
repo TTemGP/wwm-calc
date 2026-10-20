@@ -1,0 +1,18 @@
+{
+  "Hellfire": {
+    "name": "Event: Add Hellfire",
+    "castTime": 0,
+    "action": [
+      { "type": "addResource", "value": "Hellfire", "time": 0 },
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "Flamelash",
+        "stack": "all",
+        "time": 0,
+        "requirement": [{ "target": "resource", "value": "Hellfire", "comparison": "<=", "amount": 0 }]
+      }
+    ],
+    "tags": ["Event"]
+  }
+}

@@ -1,0 +1,370 @@
+{
+  "PiercingDamage": {
+    "name": "Piercing Damage",
+    "damageGroup": { "id": "FivefoldBleed", "name": "Fivefold Bleed" },
+    "castTime": 0,
+    "action": [{ "type": "damage", "phyCoef": 1, "time": 0 }],
+    "modifier": [],
+    "tags": ["Triggered", "DirectDamage", "PiercingDamage"]
+  },
+  "Defense": {
+    "name": "Defense",
+    "castTime": 0.3,
+    "editableCastTime": true,
+    "action": [],
+    "modifier": [],
+    "tags": ["General"],
+    "attackResponse": { "onSuccess": "DefenseSuccess", "perAttack": true }
+  },
+  "RiposteTrigger": {
+    "name": "Riposte Trigger",
+    "castTime": 10,
+    "action": [
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Riposte",
+        "stack": 1,
+        "reapply": true,
+        "time": 10,
+        "requirement": [{ "target": "self", "value": "Cadence" }]
+      }
+    ],
+    "modifier": [
+      { "requirement": [{ "target": "self", "value": "ExquisiteSceneryT4" }], "effect": { "castTimeModifier": -5 } }
+    ],
+    "tags": ["General", "Triggered"]
+  },
+  "AoRT4Shield": {
+    "name": "AoR T4 Shield",
+    "castTime": 3,
+    "action": [
+      { "type": "apply", "target": "self", "value": "Shield", "stack": 1, "duration": 14, "reapply": true, "time": 0 },
+      {
+        "type": "extend",
+        "target": "self",
+        "value": "Shield",
+        "duration": 2,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FormBend4" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["General", "Shield"]
+  },
+  "Deflect": {
+    "ignorePing": true,
+    "name": "Deflect",
+    "castTime": {
+      "function": "switch",
+      "param1": "currentWeapon",
+      "param2": {
+        "HengBlade": 0.25,
+        "MoBlade": 0.3,
+        "Spear": 0.3,
+        "Umbrella": 0.3,
+        "RopeDart": 0.3,
+        "Gauntlet": 0.3,
+        "Sword": 0.3,
+        "Fan": 0.3,
+        "DualBlades": 0.3
+      },
+      "fallback": 0.3
+    },
+    "action": [],
+    "modifier": [],
+    "tags": ["Deflect"]
+  },
+  "DeflectSuccessful": {
+    "ignorePing": true,
+    "name": "Deflect (Successful)",
+    "castTime": {
+      "function": "switch",
+      "param1": "currentWeapon",
+      "param2": {
+        "HengBlade": 0.25,
+        "MoBlade": 0.3,
+        "Spear": 0.3,
+        "Umbrella": 0.3,
+        "RopeDart": 0.3,
+        "Gauntlet": 0.3,
+        "Sword": 0.3,
+        "Fan": 0.3,
+        "DualBlades": 0.3
+      },
+      "fallback": 0.3
+    },
+    "action": [],
+    "modifier": [],
+    "tags": ["Deflect"],
+    "attackResponse": { "endMargin": 0.1, "onSuccess": "DeflectSuccess", "fallback": true }
+  },
+  "MoraleChant": {
+    "name": "Morale Chant",
+    "damageGroup": { "id": "MoraleChant", "name": "Morale Chant" },
+    "castTime": 0,
+    "cooldown": 10,
+    "action": [
+      { "type": "damage", "phyCoef": 1, "phyBonus": 0, "attrBonus": 0, "time": 0, "attrCoef": 1 },
+      {
+        "type": "damage",
+        "phyCoef": 1,
+        "phyBonus": 0,
+        "attrBonus": 0,
+        "time": 0,
+        "attrCoef": 1,
+        "requirement": [{ "target": "target", "value": "Controlled" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "General", "MoraleChant", "Triggered"],
+    "cooldownGroup": "MoraleChant"
+  },
+  "BreakingPointT6Dodge": {
+    "name": "Disintegration",
+    "castTime": 0,
+    "cooldown": 15,
+    "action": [
+      { "type": "apply", "target": "self", "value": "Disintegration", "stack": 5, "reapply": true, "time": 0 },
+      { "type": "apply", "target": "self", "value": "BreakingPointCooldown", "time": 0 }
+    ],
+    "tags": ["Triggered"]
+  },
+  "PerfectDodgeCancel": {
+    "name": "Perfect Dodge [Cancel]",
+    "castTime": 0,
+    "action": [],
+    "modifier": [],
+    "tags": ["General", "PerfectDodge"],
+    "attackResponse": {
+      "endMargin": 0.1,
+      "durationFrom": "PerfectDodge",
+      "onSuccess": "PerfectDodgeSuccess",
+      "fallback": true
+    }
+  },
+  "PerfectDodge": {
+    "name": "Perfect Dodge",
+    "castTime": {
+      "function": "switch",
+      "param1": "currentWeapon",
+      "param2": {
+        "HengBlade": 0.5,
+        "MoBlade": 0.5,
+        "Spear": 0.5,
+        "Umbrella": 0.5,
+        "RopeDart": 0.5,
+        "Gauntlet": 0.5,
+        "Sword": 0.5,
+        "Fan": 0.5,
+        "DualBlades": 0.125
+      },
+      "fallback": 0.5
+    },
+    "action": [],
+    "modifier": [],
+    "tags": ["General", "PerfectDodge"],
+    "attackResponse": { "endMargin": 0.1, "onSuccess": "PerfectDodgeSuccess", "fallback": true }
+  },
+  "Dodge": {
+    "name": "Dodge",
+    "castTime": {
+      "function": "switch",
+      "param1": "currentWeapon",
+      "param2": {
+        "HengBlade": 0.5,
+        "MoBlade": 0.5,
+        "Spear": 0.5,
+        "Umbrella": 0.5,
+        "RopeDart": 0.5,
+        "Gauntlet": 0.5,
+        "Sword": 0.5,
+        "Fan": 0.5,
+        "DualBlades": 0.125
+      },
+      "fallback": 0.5
+    },
+    "action": [],
+    "modifier": [],
+    "tags": ["General", "Dodge", "PerfectDodge"],
+    "attackResponse": { "endMargin": 0.1, "onSuccess": "PerfectDodgeSuccess" }
+  },
+  "PerfectDodgeSuccess": {
+    "name": "Perfect Dodge",
+    "castTime": 0,
+    "action": [
+      { "type": "addResource", "value": "Vitality", "amount": 3, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT1" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Etherwrath",
+        "stack": 5,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Etherwrath4P" }]
+      },
+      {
+        "type": "trigger",
+        "target": "self",
+        "value": "BreakingPointT6Dodge",
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "BreakingPointT6" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "MysteryDMGBoost",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Mystery" }],
+        "boostDamageSource": "Mystery"
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "MysteryDMGBoost",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "MysteryUmbra" }],
+        "boostDamageSource": "MysteryUmbra"
+      },
+      {
+        "type": "trigger",
+        "target": "self",
+        "requirement": [{ "target": "self", "value": "MysteryUmbra" }],
+        "value": {
+          "function": "switch",
+          "param1": "currentWeapon",
+          "param2": {
+            "HengBlade": "GhostlyStepsUmbraDodgeHengBlade",
+            "MoBlade": "GhostlyStepsUmbraDodgeMoBlade",
+            "Spear": "GhostlyStepsUmbraDodgeSpear",
+            "Umbrella": "GhostlyStepsUmbraDodgeUmbrella",
+            "RopeDart": "GhostlyStepsUmbraDodgeRopeDart",
+            "Gauntlet": "GhostlyStepsUmbraDodgeGauntlet",
+            "DualBlades": "GhostlyStepsUmbraDodgeDualBlades"
+          },
+          "resolveAt": "skillStart"
+        },
+        "time": 0
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Samsara",
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "EchoesOfOblivionT3" }]
+      }
+    ],
+    "tags": ["Triggered", "General", "PerfectDodge"]
+  },
+  "DeflectSuccess": {
+    "name": "Deflect (Successful)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "AdaptiveSteelHengBlade",
+        "time": 0,
+        "requirement": [
+          { "target": "self", "value": "AdaptiveSteelT0" },
+          { "target": "currentWeapon", "value": "HengBlade" }
+        ]
+      },
+      { "type": "addResource", "value": "Vitality", "amount": 3, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 1,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT4" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Cleftpeak",
+        "stack": 5,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Cleftpeak4P" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "RisingMomentum",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "targetType", "value": "Boss" }]
+      }
+    ],
+    "tags": ["Triggered", "Deflect"]
+  },
+  "DivinecraftSolidFoundationGrant": {
+    "name": "Solid Foundation (Grant)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "DivinecraftSolidFoundation",
+        "stack": 1,
+        "reapply": true,
+        "time": 0
+      }
+    ],
+    "modifier": [],
+    "tags": ["Triggered", "Divinecraft"]
+  },
+  "DivinecraftSolidFoundationStrike": {
+    "name": "Solid Foundation",
+    "castTime": 0,
+    "action": [{ "type": "damage", "phyCoef": 0.4, "rateRoute": "divinecraft", "averageAttack": true, "time": 0 }],
+    "modifier": [],
+    "tags": ["Triggered", "DirectDamage", "Divinecraft"]
+  },
+  "DefenseSuccess": {
+    "name": "Defense (Successful)",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Riposte",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "ExquisiteSceneryT0" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Cadence",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "ExquisiteSceneryT0" }]
+      }
+    ],
+    "tags": ["General", "Triggered"]
+  },
+  "MoraleChantHealing": {
+    "name": "Morale Chant Healing",
+    "damageGroup": { "id": "MoraleChant", "name": "Morale Chant" },
+    "castTime": 0,
+    "cooldown": 10,
+    "cooldownGroup": "MoraleChant",
+    "action": [{ "type": "heal", "phyCoef": 1, "silkbindCoef": 1, "phyBonus": 0, "attrBonus": 0, "time": 0 }],
+    "tags": ["Heal", "General", "MoraleChant", "Triggered"]
+  }
+}

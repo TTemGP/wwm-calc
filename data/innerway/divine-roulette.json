@@ -1,0 +1,47 @@
+{
+  "name": "Divine Roulette",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "DivineRouletteT0": {},
+    "DivineRouletteT1": {},
+    "DivineRouletteT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                13.4,
+                18.2,
+                24,
+                30.5,
+                35.6,
+                35.6,
+                35.6,
+                42.3,
+                49.3,
+                57.5,
+                63.8,
+                66.9,
+                70.1,
+                75.6,
+                81.6,
+                88,
+                95
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "DivineRouletteT3": {},
+    "DivineRouletteT4": {},
+    "DivineRouletteT5": { "effect": [{ "rawStat": { "physicalPenetration": 5.1 } }] },
+    "DivineRouletteT6": {}
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "Restoring Blossom",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "RestoringBlossomT0": {},
+    "RestoringBlossomT1": {},
+    "RestoringBlossomT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minSilkbind": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                7.6,
+                10.3,
+                13.6,
+                17.3,
+                20.2,
+                20.2,
+                20.2,
+                24,
+                28,
+                32.6,
+                36.2,
+                38,
+                39.8,
+                42.9,
+                46.3,
+                49.9,
+                53.9
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "RestoringBlossomT3": {},
+    "RestoringBlossomT4": {},
+    "RestoringBlossomT5": { "effect": [{ "rawStat": { "criticalHealingBonus": 0.04 } }] },
+    "RestoringBlossomT6": {}
+  }
+}

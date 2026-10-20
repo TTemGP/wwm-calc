@@ -1,0 +1,129 @@
+{
+  "name": "Harmony Song",
+  "altersTimeline": true,
+  "tags": ["SilkbindWing"],
+  "effect": {
+    "HarmonySongT0": {},
+    "HarmonySongT1": {
+      "effect": [
+        {
+          "target": "RadiantDrum",
+          "modify": { "duration": 6.5 },
+          "requirement": [
+            {
+              "operator": "not",
+              "operand": [
+                {
+                  "operator": "or",
+                  "operand": [
+                    { "target": "self", "value": "WingsSupportBlue" },
+                    { "target": "self", "value": "WingsSupportFull" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "HarmonySongT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                14.9,
+                20.3,
+                26.7,
+                33.8,
+                39.6,
+                39.6,
+                39.6,
+                47,
+                54.8,
+                63.9,
+                70.9,
+                74.4,
+                77.9,
+                84,
+                90.6,
+                97.8,
+                105.5,
+                113.1,
+                121.3,
+                null,
+                null
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "HarmonySongT3": {
+      "effect": [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "JadebreakerNormal" },
+            { "target": "self", "value": "RadiantDrum" }
+          ],
+          "effect": { "critDmgBonus": 0.1 }
+        }
+      ]
+    },
+    "HarmonySongT4": {
+      "trigger": [
+        {
+          "event": "damage",
+          "cooldown": 60,
+          "requirement": [
+            { "target": "target", "value": "Exhausted" },
+            {
+              "operator": "or",
+              "operand": [
+                { "target": "skillTag", "value": "CranesCry" },
+                { "target": "skillTag", "value": "RhythmOfAccord" }
+              ]
+            }
+          ],
+          "action": [
+            { "type": "clearCD", "value": "RippleJadebreaker" },
+            { "type": "setResource", "value": "NobleWill", "amount": 100 }
+          ]
+        }
+      ]
+    },
+    "HarmonySongT5": { "effect": [{ "rawStat": { "directCrit": 0.046 } }] },
+    "HarmonySongT6": {
+      "effect": [
+        {
+          "target": "RadiantDrum",
+          "modify": {
+            "effect": [
+              {
+                "effect": {
+                  "physicalAttackBonus": 0.06,
+                  "bellstrikeAttackBonus": 0.06,
+                  "stonesplitAttackBonus": 0.06,
+                  "silkbindAttackBonus": 0.06,
+                  "bamboocutAttackBonus": 0.06
+                }
+              }
+            ]
+          }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "JadebreakerEnhanced" },
+            { "target": "self", "value": "RadiantDrum" }
+          ],
+          "effect": { "critDmgBonus": 0.1 }
+        }
+      ]
+    }
+  }
+}

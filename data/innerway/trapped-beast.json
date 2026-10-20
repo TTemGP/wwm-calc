@@ -1,0 +1,47 @@
+{
+  "name": "Trapped Beast",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "TrappedBeastT0": {},
+    "TrappedBeastT1": {},
+    "TrappedBeastT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                510,
+                693,
+                913,
+                1158,
+                1354,
+                1354,
+                1354,
+                1608,
+                1875,
+                2184,
+                2423,
+                2543,
+                2663,
+                2872,
+                3099,
+                3344,
+                3608
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "TrappedBeastT3": {},
+    "TrappedBeastT4": {},
+    "TrappedBeastT5": { "effect": [{ "rawStat": { "physicalResistance": 5.1 } }] },
+    "TrappedBeastT6": {}
+  }
+}

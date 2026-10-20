@@ -1,0 +1,47 @@
+{
+  "name": "Shadow Assault",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "ShadowAssaultT0": {},
+    "ShadowAssaultT1": {},
+    "ShadowAssaultT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                11.9,
+                16.2,
+                21.4,
+                27.1,
+                31.7,
+                31.7,
+                31.7,
+                37.6,
+                43.9,
+                51.1,
+                56.7,
+                59.5,
+                62.3,
+                67.2,
+                72.5,
+                78.2,
+                84.4
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "ShadowAssaultT3": {},
+    "ShadowAssaultT4": {},
+    "ShadowAssaultT5": { "effect": [{ "rawStat": { "physDmgBonus": 0.022 } }] },
+    "ShadowAssaultT6": {}
+  }
+}

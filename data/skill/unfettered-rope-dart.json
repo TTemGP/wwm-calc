@@ -1,0 +1,771 @@
+{
+  "SoulSweep": {
+    "name": "Soul Sweep",
+    "shortName": "RD Q",
+    "castTime": 1.75,
+    "action": [
+      { "type": "apply", "target": "self", "value": "Soulbound", "time": 0 },
+      { "type": "damage", "time": 0, "phyCoef": 0.94284, "attrCoef": 0.94284, "phyBonus": 261, "attrBonus": 142.2 },
+      { "type": "apply", "target": "target", "value": "SoulLoss", "stack": 1, "reapply": true, "time": 0 },
+      { "type": "damage", "time": 0, "phyCoef": 1.09998, "attrCoef": 1.09998, "phyBonus": 304.5, "attrBonus": 165.9 },
+      { "type": "apply", "target": "target", "value": "SoulLoss", "stack": 1, "reapply": true, "time": 0 },
+      { "type": "damage", "time": 0, "phyCoef": 1.09998, "attrCoef": 1.09998, "phyBonus": 304.5, "attrBonus": 165.9 },
+      { "type": "apply", "target": "target", "value": "SoulLoss", "stack": 1, "reapply": true, "time": 0 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "RopeDart", "UnfetteredRopeDart", "MartialArt", "SoulSweep"],
+    "martialArt": "unfettered",
+    "weapon": "RopeDart",
+    "cooldown": 10,
+    "cooldownGroup": "SoulSweep"
+  },
+  "BurnAndBury": {
+    "name": "Burn and Bury",
+    "shortName": "RD Special",
+    "castTime": 0.65,
+    "action": [
+      {
+        "type": "damage",
+        "time": 0.53,
+        "phyCoef": 1.3792116,
+        "attrCoef": 1.3792116,
+        "phyBonus": 382.2,
+        "attrBonus": 208.26,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "target", "value": "SoulLoss" },
+            { "operator": "not", "operand": [{ "target": "target", "value": "Soulbreak" }] }
+          ]
+        }
+      },
+      {
+        "type": "damage",
+        "time": 0.53,
+        "phyCoef": 2.298686,
+        "attrCoef": 2.298686,
+        "phyBonus": 637,
+        "attrBonus": 347.1,
+        "requirement": { "resolveAt": "skillStart", "operand": [{ "target": "target", "value": "Soulbreak" }] }
+      }
+    ],
+    "modifier": [{ "effect": { "dmgBonus": 0.3 } }],
+    "tags": ["MartialArts", "DirectDamage", "RopeDart", "UnfetteredRopeDart", "Special", "BurnAndBury"],
+    "martialArt": "unfettered",
+    "weapon": "RopeDart"
+  },
+  "PiercingDart": {
+    "name": "Piercing Dart",
+    "castTime": 1.841,
+    "action": [
+      { "type": "consume", "target": "self", "value": "Soulbound", "stack": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.099,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.099,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.099,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep1", "time": 0.099 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.298,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.298,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.298,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep2", "time": 0.298 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.498,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.498,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.498,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep3", "time": 0.498 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.796,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.796,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.796,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep4", "time": 0.796 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 1.02,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.02,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.02,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep5", "time": 1.02 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 1.268,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.268,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.268,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep6", "time": 1.268 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 1.841,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.841,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.841,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep7", "time": 1.841 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "RopeDart", "UnfetteredRopeDart", "Heavy", "Charged", "PiercingDart"],
+    "martialArt": "unfettered",
+    "weapon": "RopeDart",
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "SoulbreakDamage": {
+    "name": "Soulbreak",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "replay",
+        "time": 0,
+        "coef": 0.05,
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "TowlineSweepT6" }] }]
+      },
+      { "type": "replay", "time": 0, "coef": 0.12, "requirement": [{ "target": "self", "value": "TowlineSweepT6" }] }
+    ],
+    "modifier": [],
+    "tags": ["Triggered", "Replayed"]
+  },
+  "SoulSweepCancel": {
+    "name": "Soul Sweep [Cancel]",
+    "shortName": "RD Q [Cancel]",
+    "castTime": 0,
+    "action": [{ "type": "apply", "target": "self", "value": "Soulbound", "time": 0 }],
+    "modifier": [],
+    "tags": ["MartialArts", "RopeDart", "UnfetteredRopeDart", "MartialArt", "SoulSweep"],
+    "martialArt": "unfettered",
+    "weapon": "RopeDart",
+    "cooldown": 10,
+    "cooldownGroup": "SoulSweep"
+  },
+  "PiercingDartCharge": {
+    "name": "Piercing Dart [1.5s Charge]",
+    "shortName": "RD Heavy Charge",
+    "castTime": 1.5,
+    "action": [],
+    "modifier": [],
+    "tags": ["MartialArts", "RopeDart", "UnfetteredRopeDart", "Heavy", "Charged"],
+    "martialArt": "unfettered",
+    "weapon": "RopeDart",
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "SoulbreakGrant": {
+    "name": "Soulbreak Application",
+    "castTime": 0,
+    "action": [
+      { "type": "apply", "target": "target", "value": "Soulbreak", "time": 0, "reapply": true },
+      { "type": "apply", "target": "self", "value": "SoulReturn", "time": 0, "reapply": true }
+    ],
+    "tags": ["Triggered"]
+  },
+  "PiercingDart4Hits": {
+    "name": "Piercing Dart [4 Hits]",
+    "castTime": 0.796,
+    "action": [
+      { "type": "consume", "target": "self", "value": "Soulbound", "stack": "all", "time": 0 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.099,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.099,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.099,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep1", "time": 0.099 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.298,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.298,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.298,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep2", "time": 0.298 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.498,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.498,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.498,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep3", "time": 0.498 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 2,
+        "reapply": true,
+        "time": 0.796,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.796,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "target": "self", "value": "Soulbound" },
+            { "operator": "not", "operand": [[{ "target": "self", "value": "TowlineSweepT0" }]] }
+          ]
+        }
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "SoulLoss",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.796,
+        "requirement": {
+          "resolveAt": "skillStart",
+          "operand": [
+            { "operator": "not", "operand": [[{ "target": "self", "value": "Soulbound" }]] },
+            { "target": "self", "value": "TowlineSweepT0" }
+          ]
+        }
+      },
+      { "type": "trigger", "value": "PiercingDartSweep4", "time": 0.796 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "RopeDart", "UnfetteredRopeDart", "Heavy", "Charged", "PiercingDart"],
+    "martialArt": "unfettered",
+    "weapon": "RopeDart",
+    "shortName": "RD Heavy 4 Hits",
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep1": {
+    "name": "Piercing Dart Sweep 1",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 0.334122, "attrCoef": 0.334122, "phyBonus": 92.7, "attrBonus": 50.4 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep1"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep2": {
+    "name": "Piercing Dart Sweep 2",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 0.334122, "attrCoef": 0.334122, "phyBonus": 92.7, "attrBonus": 50.4 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep2"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep3": {
+    "name": "Piercing Dart Sweep 3",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 0.445496, "attrCoef": 0.445496, "phyBonus": 123.6, "attrBonus": 67.2 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep3"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep4": {
+    "name": "Piercing Dart Sweep 4",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 0.313564, "attrCoef": 0.313564, "phyBonus": 87.2, "attrBonus": 47.6 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep4"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep5": {
+    "name": "Piercing Dart Sweep 5",
+    "shortName": "RD Heavy 5",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 0.470346, "attrCoef": 0.470346, "phyBonus": 130.8, "attrBonus": 71.4 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep5"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep6": {
+    "name": "Piercing Dart Sweep 6",
+    "shortName": "RD Heavy 6",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 0.689664, "attrCoef": 0.689664, "phyBonus": 191.2, "attrBonus": 104 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep6"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  },
+  "PiercingDartSweep7": {
+    "name": "Piercing Dart Sweep 7",
+    "shortName": "RD Heavy 7",
+    "castTime": 0,
+    "action": [
+      { "type": "damage", "time": 0, "phyCoef": 1.034496, "attrCoef": 1.034496, "phyBonus": 286.8, "attrBonus": 156 }
+    ],
+    "tags": [
+      "Triggered",
+      "MartialArts",
+      "DirectDamage",
+      "RopeDart",
+      "UnfetteredRopeDart",
+      "Heavy",
+      "Charged",
+      "PiercingDart",
+      "PiercingDartSweep7"
+    ],
+    "skillBreakdownCategory": "Piercing Dart"
+  }
+}

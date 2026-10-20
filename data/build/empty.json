@@ -1,0 +1,43 @@
+{
+  "id": "empty",
+  "name": "Empty Build",
+  "order": 2,
+  "test": true,
+  "martialArts": [
+    "snowparting",
+    "phalanxbane",
+    "thundercry",
+    "stormbreaker",
+    "everspring",
+    "unfettered",
+    "heavenwill",
+    "skygrasp",
+    "namelessSword",
+    "namelessSpear",
+    "strategicSword",
+    "heavenquakerSpear",
+    "vernalUmbrella",
+    "inkwellFan",
+    "panaceaFan",
+    "soulshadeUmbrella",
+    "infernalTwinblades",
+    "mortalRopeDart",
+    "skystrikeGauntlets",
+    "rivenTwinblades",
+    "museflowWaistDrum",
+    "willowbendFan"
+  ],
+  "setup": {
+    "innerWays": [
+      { "innerWay": "", "tier": "T6" },
+      { "innerWay": "", "tier": "T6" },
+      { "innerWay": "", "tier": "T6" },
+      { "innerWay": "", "tier": "T6" }
+    ],
+    "weaponSets": { "Cleftpeak": 0, "RainWhisper": 0 },
+    "armorSets": { "Formbend": 0 },
+    "bowRingSet": "None",
+    "arsenal": "Stonesplit"
+  },
+  "gearByTier": { "96": {}, "100": {} }
+}

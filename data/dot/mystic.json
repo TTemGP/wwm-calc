@@ -1,0 +1,49 @@
+{
+  "Combustion": {
+    "name": "Combustion",
+    "shortName": "Com",
+    "maxStack": 1,
+    "periodic": {
+      "interval": 0.528,
+      "firstTick": 0,
+      "resetOnRefresh": false,
+      "action": [
+        {
+          "type": "damage",
+          "phyCoef": 0.295506316,
+          "phyBonus": 46.750032,
+          "attrBonus": 0,
+          "time": 0,
+          "attrCoef": 0.295506316
+        }
+      ]
+    },
+    "modifier": [],
+    "tags": ["DOT", "Mystic", "SingleTargetMystic", "DrunkenPoet"],
+    "refresh": false
+  },
+  "Smolder": {
+    "name": "Smolder",
+    "shortName": "Smo",
+    "showCoverage": true,
+    "maxStack": 1,
+    "periodic": {
+      "interval": 0.528,
+      "firstTick": 0,
+      "resetOnRefresh": false,
+      "action": [
+        {
+          "type": "damage",
+          "phyCoef": 0.278789581132,
+          "phyBonus": 44.505313207555,
+          "attrBonus": 0,
+          "time": 0,
+          "attrCoef": 0.278789581132
+        }
+      ]
+    },
+    "modifier": [],
+    "tags": ["DOT", "Mystic", "SingleTargetMystic", "DrunkenPoet"],
+    "refresh": false
+  }
+}

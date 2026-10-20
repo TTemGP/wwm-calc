@@ -1,0 +1,609 @@
+{
+  "name": "Museflow Waist Drum",
+  "weapon": "RibbonAndDrum",
+  "tag": "MuseflowWaistDrum",
+  "talent": [
+    [],
+    [
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 3.696 } } } }]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "stat": {
+              "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 6.6000000000000005 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": { "critDmgBonus": { "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 }, "max": 0.1 } }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "stat": {
+              "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 13.200000000000001 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": { "critDmgBonus": { "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 }, "max": 0.1 } }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.02 } }
+            },
+            "rawStat": { "maxSilkbind": 38, "minSilkbind": 19 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 19.8 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": { "critDmgBonus": { "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 }, "max": 0.1 } }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.028 } }
+            },
+            "rawStat": { "maxSilkbind": 52, "minSilkbind": 26 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 26.400000000000002 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": { "critDmgBonus": { "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 }, "max": 0.1 } }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.038 } }
+            },
+            "rawStat": { "maxSilkbind": 68, "minSilkbind": 34 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      { "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 33 } } } }] },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": { "critDmgBonus": { "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 }, "max": 0.2 } }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.048 } }
+            },
+            "rawStat": { "maxSilkbind": 86, "minSilkbind": 43 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 39.6 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": { "critDmgBonus": { "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 }, "max": 0.2 } }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.056 } }
+            },
+            "rawStat": { "maxSilkbind": 100, "minSilkbind": 50 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 39.6 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.056 } }
+            },
+            "rawStat": { "maxSilkbind": 100, "minSilkbind": 50 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 39.6 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.056 } }
+            },
+            "rawStat": { "maxSilkbind": 100, "minSilkbind": 50 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 46.2 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.066 } }
+            },
+            "rawStat": { "maxSilkbind": 118, "minSilkbind": 59 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 52.800000000000004 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.076 } }
+            },
+            "rawStat": { "maxSilkbind": 138, "minSilkbind": 69 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 59.400000000000006 } }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.09 } }
+            },
+            "rawStat": { "maxSilkbind": 160, "minSilkbind": 80 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 73.92 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.11 } }
+            },
+            "rawStat": { "maxSilkbind": 196, "minSilkbind": 98 }
+          }
+        ]
+      },
+      { "effect": [] }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 79.2 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.118 } }
+            },
+            "rawStat": { "maxSilkbind": 212, "minSilkbind": 106 }
+          }
+        ]
+      },
+      { "effect": [] },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "MuseflowWaistDrum" }],
+            "effect": { "flatAttackBonus": 0.0725 }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "self", "value": "Tailwind" },
+                  { "target": "self", "value": "RadiantDrum" }
+                ]
+              },
+              { "target": "skillTag", "value": "DrumSeries" }
+            ],
+            "effect": { "baseDMGBonus": 0.4 }
+          }
+        ]
+      },
+      {
+        "effect": [{ "stat": { "minPhys": { "formula": { "source": "agility", "multiplier": 0.264, "max": 85.8 } } } }]
+      },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "DrumSeries" }],
+            "effect": {
+              "critDmgBonus": {
+                "formula": { "source": "crit", "multiplier": 0.5, "max": 0.3 },
+                "max": 0.30000000000000004
+              }
+            }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "stat": {
+              "silkbindDmgBonus": { "formula": { "source": "minSilkbind", "multiplier": 0.000336, "max": 0.126 } }
+            },
+            "rawStat": { "maxSilkbind": 228, "minSilkbind": 114 }
+          }
+        ]
+      },
+      { "effect": [] },
+      {
+        "effect": [
+          {
+            "requirement": [{ "target": "skillTag", "value": "MuseflowWaistDrum" }],
+            "effect": { "flatAttackBonus": 0.15 }
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -1,0 +1,1019 @@
+@layer components {
+  .build-manager-panel {
+    min-block-size: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .build-manager-layout {
+    display: grid;
+    grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+    min-block-size: 650px;
+  }
+
+  .viewport-page-shell .build-manager-layout {
+    min-block-size: 0;
+  }
+
+  .build-list {
+    display: flex;
+    min-block-size: 0;
+    flex-direction: column;
+    border-inline-end: 1px solid var(--border);
+    background: oklch(from var(--surface-alt) l c h / 0.7);
+  }
+
+  .build-list-heading {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) minmax(min-content, max-content);
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-block-size: 44px;
+    padding: 8px 9px 8px 13px;
+    border-block-end: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .build-list-entries {
+    flex: 1 1 0;
+    min-block-size: 0;
+    overflow-y: auto;
+  }
+
+  .build-list-create {
+    display: flex;
+    inline-size: 100%;
+    min-block-size: 44px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 7px;
+    border: 0;
+    border-block-end: 1px solid var(--border-muted);
+    padding: 9px 13px;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 650;
+    text-align: start;
+  }
+
+  .build-list-create:hover {
+    background: var(--surface-alt);
+    color: var(--text);
+  }
+
+  .build-list-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-block-size: 52px;
+    border-block-end: 1px solid var(--border-muted);
+    padding: 9px 8px 9px 13px;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .build-list-item:hover {
+    background: color-mix(in oklab, var(--primary-soft) 50%, transparent);
+  }
+
+  .build-list-item.editing {
+    background: var(--primary-soft);
+  }
+
+  .build-list-item.incompatible {
+    opacity: 0.48;
+  }
+
+  .build-list-item.incompatible:hover,
+  .build-list-item.incompatible.editing {
+    opacity: 0.78;
+  }
+
+  .build-list-item > span {
+    min-inline-size: 0;
+  }
+
+  .build-list-item > .build-select-button {
+    display: block;
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  /* Extend selection across the row's padding and gaps; keep removal above it. */
+  .build-select-button::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
+
+  .build-list-item strong,
+  .build-list-item small {
+    display: block;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .build-list-item small {
+    margin-block-start: 2px;
+    color: var(--text-muted);
+  }
+
+  .active-build-icon {
+    margin-inline-end: 6px;
+    color: var(--primary);
+    font-style: normal;
+  }
+
+  .build-remove-button {
+    position: relative;
+    z-index: 1;
+    display: inline-grid;
+
+    /* 24px is the smallest target that clears WCAG 2.2 AA's 24×24 minimum, and it gives a 1em
+       icon 4px of breathing room on each side rather than 3.5px, which read as cramped. */
+    inline-size: 24px;
+    block-size: 24px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 0;
+
+    /* The user agent gives a button 1px 6px of padding, which this rule never cancels. Inside a
+       24px box that leaves 12px of content width, narrower than a 1em icon, so the icon overflows
+       to the right and `place-items` cannot recentre it. Same reset `.icon-only` uses. */
+    padding-inline: 0;
+    border-radius: var(--radius-2xs);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .build-remove-button:hover:not(:disabled) {
+    background: var(--error-soft);
+    color: var(--error);
+  }
+
+  .build-remove-button:disabled {
+    cursor: default;
+    opacity: 0.25;
+  }
+
+  .build-transfer-actions {
+    margin-block-start: auto;
+    border-block-start: 1px solid var(--border);
+    padding: 10px;
+  }
+
+  .build-transfer-actions > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .build-transfer-actions [data-button] {
+    text-align: center;
+  }
+
+  .build-official-import-button {
+    inline-size: 100%;
+    margin-block-start: 7px;
+  }
+
+  .build-transfer-actions p {
+    margin: 7px 2px 0;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .build-transfer-actions p.error {
+    color: var(--error);
+  }
+
+  .build-editor-content {
+    min-inline-size: 0;
+    padding: 20px;
+    padding-block-start: 0;
+  }
+
+  .build-detail-heading {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    display: flex;
+    padding-block: var(--space-xs);
+    background: var(--surface);
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-block-end: 18px;
+  }
+
+  .build-detail-heading h3 {
+    margin: 3px 0 0;
+    font-size: 1.35rem;
+  }
+
+  .build-detail-title {
+    display: flex;
+    min-inline-size: 0;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .build-detail-title:has(.build-name-input) {
+    flex-wrap: nowrap;
+  }
+
+  /*
+   * The active build's own rate is a headline figure and takes the accent colour. A build
+   * being compared is coloured by whether it is ahead of or behind the active one instead, so
+   * the accent is not set here: a rule that always set one would win over the delta's own
+   * colour and a worse build would read as an improvement.
+   */
+  .build-detail-dps {
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .build-detail-dps-active {
+    color: var(--primary);
+  }
+
+  /* A build that is not active shows only how it differs, so the figures it is actually
+     worth are one hover away rather than crowding the row beside the build's name. */
+  .build-detail-dps-tooltip {
+    display: grid;
+    gap: 4px;
+    min-inline-size: 14rem;
+  }
+
+  .build-detail-dps-tooltip .build-detail-dps-row {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .build-detail-dps-tooltip .build-detail-dps-row > span {
+    color: var(--text-muted);
+  }
+
+  .build-detail-dps-tooltip .build-detail-dps-row > strong {
+    color: var(--text);
+    text-align: end;
+  }
+
+  .detail-active-button {
+    min-inline-size: 6rem;
+  }
+
+  .detail-active-actions {
+    display: flex;
+    flex: 0 0 auto;
+    min-inline-size: 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .detail-active-actions [data-button] {
+    white-space: nowrap;
+  }
+
+  .build-name-input {
+    display: block;
+    min-inline-size: 0;
+    inline-size: min(100%, 420px);
+    margin-block-start: 4px;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-xs);
+    padding: 6px 8px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+    font-size: 1.3rem;
+  }
+
+  .build-page {
+    display: grid;
+    gap: 4px;
+  }
+
+  .build-overview-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 24rem);
+    align-items: start;
+    gap: 10px;
+  }
+
+  .build-management-grid {
+    display: grid;
+    min-inline-size: 0;
+    align-content: start;
+    gap: 10px;
+  }
+
+  .build-management-grid [data-panel] {
+    margin-block-end: 0;
+  }
+
+  .build-setup-column {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    min-inline-size: 0;
+  }
+
+  .build-setup-column [data-panel] {
+    margin-block-end: 0;
+  }
+
+  .build-setup-panel {
+    min-inline-size: 0;
+  }
+
+  .build-setup-panel .setup-option-list button:disabled.selected {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--text);
+    opacity: 0.72;
+  }
+
+  .build-setup-panel .inner-way-row select:disabled {
+    border-color: var(--border);
+    background: var(--surface-alt);
+    color: var(--text);
+    cursor: not-allowed;
+    opacity: 0.72;
+  }
+
+  .build-affix-summary-heading {
+    display: flex;
+    inline-size: 100%;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .build-affix-summary-heading > span {
+    flex: 0 0 auto;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .build-affix-summary-list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .build-affix-summary-list li {
+    display: flex;
+    min-inline-size: 0;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 7px;
+    border-block-end: 1px solid var(--border-muted);
+    color: var(--text-muted);
+  }
+
+  .build-affix-summary-list li:last-child {
+    border-block-end: 0;
+  }
+
+  .build-affix-summary-list span {
+    min-inline-size: 0;
+    overflow-wrap: normal;
+  }
+
+  .build-affix-summary-list strong {
+    flex: 0 0 auto;
+    color: var(--text);
+  }
+
+  .build-affix-summary-empty {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  /* Gear Card: one card shape, filled differently by the equipped grid and the inventory. */
+  .gear-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .gear-card {
+    position: relative;
+    display: flex;
+    min-block-size: 16.25rem;
+    min-inline-size: 0;
+    flex-direction: column;
+    padding: var(--space-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--surface-alt);
+    color: var(--text);
+  }
+
+  /* The equipped grid is one row of slots, so its cards are shorter and denser. */
+  .gear-card--select {
+    min-block-size: 13.25rem;
+    cursor: pointer;
+    font: inherit;
+    text-align: start;
+  }
+
+  .gear-card--select:hover,
+  .gear-card--selected {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+  }
+
+  .gear-card--select:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+
+  .gear-card--select:disabled:hover {
+    border-color: var(--border);
+    background: var(--surface-alt);
+  }
+
+  .gear-card--equipped {
+    border-color: var(--primary);
+    box-shadow: inset 0 0 0 1px oklch(from var(--primary) l c h / 0.25);
+  }
+
+  .gear-card-body {
+    display: flex;
+    min-inline-size: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  .gear-slot-name {
+    color: var(--primary);
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .gear-base-stats {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(1.25em, auto));
+    gap: var(--space-3xs);
+    min-block-size: 2.625em;
+  }
+
+  .gear-base-stat {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    color: var(--text-muted);
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .gear-base-stat strong {
+    flex: 0 0 auto;
+    color: var(--text);
+  }
+
+  .gear-empty {
+    margin: auto 0;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .gear-attribute-list {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-block-start: 10px;
+    padding-block-start: var(--space-xs);
+    border-block-start: 1px solid var(--border-muted);
+  }
+
+  .gear-attribute-list.compact {
+    margin-block-start: 6px;
+    padding-block-start: 6px;
+  }
+
+  .gear-attribute {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    color: var(--text-muted);
+  }
+
+  .gear-attribute span {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .gear-attribute small {
+    display: block;
+    color: var(--text-dim);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .gear-attribute strong {
+    flex: 0 0 auto;
+    color: var(--text);
+  }
+
+  /* The attunement row is a separate kind of stat from the affixes above it, and it says so
+     with its own label. The list gap alone leaves the two looking like one run of numbers, so
+     the row takes a gap of its own on top: 12px, which with the list's 4px puts 16px between
+     it and the affix above, against 4px between affixes. */
+  .gear-attunement-attribute {
+    margin-block-start: var(--space-sm);
+  }
+
+  .gear-attunement-attribute > strong {
+    align-self: flex-end;
+  }
+
+  .gear-card-heading {
+    display: flex;
+    min-inline-size: 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-xs);
+  }
+
+  /* Both header columns are grids. Neither declares its own gap here, because a rule that set
+     one for both would out-specify the per-column rules below and silently fix them at one
+     value, which is what the shared `> div` selector used to do. */
+  .gear-card-heading > * {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .gear-card-identity {
+    gap: var(--space-3xs);
+  }
+
+  .gear-card-status {
+    justify-items: end;
+    gap: var(--space-2xs);
+    text-align: end;
+  }
+
+  .gear-card-status > span {
+    color: var(--primary);
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .gear-card-status > small {
+    color: var(--text-muted);
+    overflow-wrap: anywhere;
+  }
+
+  /* The relayed badge sits in the corner the status column would otherwise occupy. */
+  .gear-card--item:has(.gear-relayed-indicator) .gear-card-status {
+    margin-block-start: 18px;
+  }
+
+  .gear-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block-start: auto;
+    padding-block-start: 14px;
+  }
+
+  /* Only the labelled action shares the row's width. The icon actions take their square
+     footprint from the glyph, so the primitive's own size applies and this leaves them be. */
+  .gear-card-actions .gear-card-equip {
+    min-inline-size: min(100%, 5rem);
+    flex: 1 1 5rem;
+    padding-inline: 6px;
+  }
+
+  .add-gear-card {
+    display: grid;
+    min-block-size: 16.25rem;
+    place-content: center;
+    gap: var(--space-2xs);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--surface-alt);
+    color: var(--text-muted);
+    cursor: pointer;
+    font: inherit;
+    text-align: center;
+  }
+
+  .add-gear-card:hover {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--text);
+  }
+
+  .add-gear-card span {
+    color: var(--primary);
+    font-size: 2.375rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  /* Gear Editor */
+  .gear-editor-panel {
+    max-inline-size: 1100px;
+  }
+
+  .gear-editor-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(9rem, 11.25rem)) minmax(min-content, auto);
+    align-items: end;
+    gap: 12px;
+  }
+
+  .gear-editor-roll-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    min-block-size: 37px;
+  }
+
+  .gear-relayed-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .gear-relayed-toggle input {
+    inline-size: 15px;
+    block-size: 15px;
+    accent-color: var(--primary);
+  }
+
+  .gear-relayed-indicator {
+    position: absolute;
+    inset-block-start: 8px;
+    inset-inline-end: 9px;
+    z-index: 1;
+    color: var(--primary);
+    font-size: 1.125rem;
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 0 0 8px oklch(from var(--primary) l c h / 0.45);
+  }
+
+  /* The badge is decorative on a card whose whole surface is the control, so it must not
+     intercept the click that opens the slot. */
+  .gear-card--select .gear-relayed-indicator {
+    pointer-events: none;
+  }
+
+  .gear-editor-sections {
+    display: grid;
+    gap: 18px;
+    margin-block-start: 20px;
+  }
+
+  .gear-editor-sections h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+
+  .gear-value-editor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 150px;
+    gap: 9px;
+  }
+
+  .gear-value-editor label {
+    display: grid;
+    gap: 5px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .gear-value-editor select,
+  .gear-value-editor input {
+    inline-size: 100%;
+    min-inline-size: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 9px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .gear-value-editor select:focus-visible,
+  .gear-value-editor input:focus-visible {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-soft);
+  }
+
+  .gear-value-input > span:last-child {
+    position: relative;
+  }
+
+  .gear-value-input input {
+    padding-inline-end: 28px;
+  }
+
+  .gear-value-input i {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: 9px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  .gear-additional-affixes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+  }
+
+  /* Gear OCR */
+  .gear-ocr-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+    gap: 16px;
+    margin-block-start: 18px;
+  }
+
+  .gear-ocr-dropzone {
+    display: grid;
+    min-block-size: 360px;
+    place-items: center;
+    align-content: center;
+    gap: 16px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-xl);
+    padding: 18px;
+    background: var(--surface-sunken);
+    text-align: center;
+    transition:
+      border-color var(--transition-normal),
+      background-color var(--transition-normal);
+  }
+
+  .gear-ocr-dropzone.dragging {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+  }
+
+  .gear-ocr-dropzone > img {
+    display: block;
+    max-inline-size: 100%;
+    max-block-size: 430px;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+  }
+
+  .gear-ocr-dropzone > div {
+    display: grid;
+    gap: 6px;
+  }
+
+  .gear-ocr-dropzone > div span {
+    color: var(--text-muted);
+  }
+
+  .gear-ocr-example {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .gear-ocr-example img {
+    display: block;
+    inline-size: 100%;
+    max-block-size: 430px;
+    border-radius: var(--radius-md);
+    object-fit: contain;
+  }
+
+  .gear-ocr-example figcaption {
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .gear-ocr-progress {
+    display: grid;
+    gap: 7px;
+    margin-block-start: 16px;
+  }
+
+  .gear-ocr-progress > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--text-muted);
+    text-transform: capitalize;
+  }
+
+  .gear-ocr-progress progress {
+    inline-size: 100%;
+    block-size: 12px;
+    accent-color: var(--primary);
+  }
+
+  .gear-ocr-error {
+    margin-block-end: 0;
+  }
+
+  /* Inner Way & Attunement */
+  .inner-way-list,
+  .attunement-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  .inner-way-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(4.25rem, auto);
+    gap: 7px;
+  }
+
+  .inner-way-row select,
+  .attunement-input-wrap input {
+    inline-size: 100%;
+    min-inline-size: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .inner-way-row select:focus-visible,
+  .attunement-input-wrap input:focus-visible {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-soft);
+  }
+
+  .attunement-field {
+    display: grid;
+    grid-template-columns: 16rem 6rem;
+    align-items: center;
+    gap: 6px;
+    min-inline-size: 0;
+    color: var(--text-muted);
+  }
+
+  .attunement-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-inline-size: 0;
+  }
+
+  .attunement-label > span {
+    min-inline-size: 0;
+    line-height: 1.25;
+    overflow-wrap: normal;
+    white-space: normal;
+  }
+
+  .attunement-input-wrap {
+    position: relative;
+    min-inline-size: 0;
+  }
+
+  .attunement-input-wrap input {
+    padding-inline-end: 22px;
+    text-align: end;
+    appearance: textfield;
+  }
+
+  .attunement-input-wrap i {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: 7px;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-style: normal;
+    pointer-events: none;
+  }
+
+  .attunement-field.modified-field input {
+    border-color: oklch(from var(--primary) l c h / 0.72);
+    background: oklch(from var(--primary) l c h / 0.08);
+  }
+
+  .attunement-section-start {
+    margin-block-start: 8px;
+    padding-block-start: 10px;
+    border-block-start: 1px solid var(--border);
+  }
+
+  /* Gear Responsive Breakpoints */
+  @media (max-width: 115em) {
+    .gear-card-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    }
+  }
+
+  @media (max-width: 80em) {
+    .build-overview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 43.75em) {
+    .build-manager-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .build-list {
+      block-size: 260px;
+      max-block-size: 260px;
+      overflow: hidden;
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--border);
+    }
+
+    .build-editor-content {
+      padding: 14px;
+      padding-block-start: 0;
+    }
+
+    .build-detail-heading {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .detail-active-actions {
+      justify-content: space-between;
+    }
+
+    .detail-active-button {
+      align-self: flex-start;
+    }
+
+    .viewport-page-shell .build-manager-layout {
+      grid-template-rows: 180px minmax(0, 1fr);
+    }
+
+    .viewport-page-shell .build-list {
+      block-size: 180px;
+      max-block-size: 180px;
+    }
+  }
+
+  @media (max-width: 37.5em) {
+    .gear-card-grid,
+    .gear-additional-affixes,
+    .gear-ocr-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gear-value-editor {
+      grid-template-columns: 1fr 120px;
+    }
+
+    .gear-ocr-heading {
+      flex-direction: column;
+    }
+
+    .gear-ocr-dropzone {
+      min-block-size: 280px;
+    }
+
+    .attunement-field {
+      grid-template-columns: minmax(0, 1fr) 6rem;
+    }
+  }
+}

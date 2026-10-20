@@ -1,0 +1,194 @@
+import nodeAssert from "node:assert/strict"
+
+import { assert, describe, it } from "vitest"
+
+import { emptyAttunementStats } from "@/calculations/attunementStats"
+import type { TimelineBuildInput } from "@/calculations/rotationTimeline"
+
+import { assertClose } from "./helpers/floatEquality"
+import { rowWithId } from "./helpers/timelineRows"
+
+// Ported from script/probe/check-vitality-damage-scaling.mjs.
+describe("vitality-damage-scaling", () => {
+  it("Vitality resource ledger and final Mystic damage scaling checks passed", async () => {
+    const { calculateRotationBaseline } = await import("../src/calculations/rotationCalculator.ts")
+    const { calculateDerivedStats } = await import("../src/calculations/effectiveStats.ts")
+    const { emptyStats } = await import("../src/data/statDefinitions.ts")
+    const mysticSkills = (await import("../data/skill/mystic.json")).default
+    const mysticBuffs = (await import("../data/buff/mystic.json")).default
+    const closeTo = (actual: number, expected: number, message: string) => assertClose(actual, expected, 1e-8, message)
+    const stats = { ...emptyStats, minPhys: 100, maxPhys: 100, precision: 1 }
+    const enemy = {
+      name: "Vitality probe",
+      level: 96,
+      defense: 0,
+      physicalResistance: 0,
+      bellstrikeResistance: 0,
+      stonesplitResistance: 0,
+      silkbindResistance: 0,
+      bamboocutResistance: 0,
+      judgementResistance: 0,
+    }
+    const timeline: TimelineBuildInput = {
+      rotation: {
+        name: "Vitality deficit probe",
+        steps: [
+          { type: "skill", skill: "Mystic" },
+          { type: "skill", skill: "General" },
+        ],
+      },
+      skills: {
+        Mystic: {
+          name: "Mystic",
+          castTime: 1,
+          action: [
+            { type: "consumeResource", value: "Vitality", amount: 30, time: 0 },
+            { type: "damage", phyCoef: 1, attrCoef: 1, time: 1 },
+            { type: "heal", phyCoef: 1, silkbindCoef: 1, time: 1 },
+          ],
+          tags: ["Mystic"],
+        },
+        General: {
+          name: "General",
+          castTime: 1,
+          action: [{ type: "damage", phyCoef: 1, attrCoef: 1, time: 1 }],
+          tags: ["General"],
+        },
+      },
+      eventDefinitions: {},
+      dots: {},
+      effectDefinitions: {},
+      innerWayConditions: [],
+      innerWayRules: [],
+      setupEffects: [],
+      weapons: [],
+      initialResources: { Vitality: 20 },
+      resourceMaximums: { Vitality: 40 },
+    }
+    const result = calculateRotationBaseline({
+      timeline,
+      startAnchor: { rowId: "rotation-0" },
+      stats,
+      attunement: emptyAttunementStats,
+      enemy,
+      derivedStats: calculateDerivedStats(stats, 0),
+      weapons: [],
+      statPriority: [],
+      attunementPriority: [],
+      innerWayPriority: [],
+      setupComparisons: {},
+    })
+    const mysticDamage = result.actionBreakdowns["rotation-0:1"].total
+    const generalDamage = result.actionBreakdowns["rotation-1:0"].total
+    closeTo(
+      result.mysticVitalityDamageScale,
+      2 / 3,
+      "A ten-point deficit on thirty consumed Vitality must retain 2/3 Mystic damage",
+    )
+    closeTo(
+      result.metrics.totalDamage,
+      generalDamage + mysticDamage * (2 / 3),
+      "Only Mystic damage must be scaled in the final total",
+    )
+    closeTo(
+      result.metrics.unscaledTotalDamage,
+      generalDamage + mysticDamage,
+      "The editor-facing total must retain damage before the aggregate Vitality correction",
+    )
+    closeTo(
+      result.metrics.unscaledDps,
+      result.metrics.unscaledTotalDamage / result.duration,
+      "The editor-facing DPS must use the unscaled damage total",
+    )
+    assert(
+      result.metrics.dps < result.metrics.unscaledDps,
+      "A Vitality deficit must reduce published Main DPS below the editor preview DPS",
+    )
+    closeTo(
+      result.actionBreakdowns["rotation-0:1"].total,
+      mysticDamage,
+      "The Mystic action breakdown must retain its unscaled damage",
+    )
+    const thirdHealing = result.actionBreakdowns["rotation-0:2"].healing
+    nodeAssert(thirdHealing, "The third action must resolve a healing breakdown.")
+    closeTo(result.metrics.totalHealing, thirdHealing.total, "Vitality deficits must not scale healing")
+    const vitalityLedger = rowWithId(result.timeline, "rotation-0").timelineResourceSummary?.Vitality
+    assert(vitalityLedger, "The rotation must carry a Vitality resource ledger.")
+    const resourceSummary = vitalityLedger
+    closeTo(resourceSummary.initial, 20, "The resource ledger must retain initial Vitality")
+    closeTo(resourceSummary.consumed, 30, "The resource ledger must total accepted Vitality consumption")
+    closeTo(resourceSummary.regenerated, 0, "The resource ledger must not invent Vitality regeneration")
+    closeTo(resourceSummary.final, -10, "The resource ledger must retain negative ending Vitality")
+
+    const infinite = calculateRotationBaseline({
+      timeline: { ...timeline, rotation: { ...timeline.rotation, infiniteVitality: true } },
+      startAnchor: { rowId: "rotation-0" },
+      stats,
+      attunement: emptyAttunementStats,
+      enemy,
+      derivedStats: calculateDerivedStats(stats, 0),
+      weapons: [],
+      statPriority: [],
+      attunementPriority: [],
+      innerWayPriority: [],
+      setupComparisons: {},
+    })
+    closeTo(infinite.mysticVitalityDamageScale, 1, "Infinite Vitality must disable the final damage correction")
+    closeTo(
+      infinite.metrics.totalDamage,
+      infinite.actionBreakdowns["rotation-0:1"].total + infinite.actionBreakdowns["rotation-1:0"].total,
+      "Infinite Vitality must retain all damage",
+    )
+
+    const drunkenPoet = calculateRotationBaseline({
+      timeline: {
+        rotation: {
+          name: "Drunken Poet conditional cost probe",
+          steps: [
+            { type: "skill", skill: "DrunkenPoet1Hit" },
+            { type: "skill", skill: "DrunkenPoet1Hit" },
+          ],
+        },
+        skills: {
+          DrunkenPoet1Hit: mysticSkills.DrunkenPoet1Hit,
+          DrunkenPoetDrink: mysticSkills.DrunkenPoetDrink,
+          DrunkenPoet1: mysticSkills.DrunkenPoet1,
+        },
+        eventDefinitions: {},
+        dots: {},
+        effectDefinitions: { Intoxicated: mysticBuffs.Intoxicated },
+        innerWayConditions: [],
+        innerWayRules: [],
+        setupEffects: [],
+        weapons: [],
+        initialResources: { Vitality: 100 },
+        resourceMaximums: { Vitality: 100 },
+      },
+      startAnchor: { rowId: "rotation-0" },
+      stats,
+      attunement: emptyAttunementStats,
+      enemy,
+      derivedStats: calculateDerivedStats(stats, 0),
+      weapons: [],
+      statPriority: [],
+      attunementPriority: [],
+      innerWayPriority: [],
+      setupComparisons: {},
+    })
+    const poetRows = drunkenPoet.timeline.filter(
+      row => row.step.type === "skill" && row.step.skill === "DrunkenPoet1Hit",
+    )
+    const poetCast = drunkenPoet.metrics.breakdown.casts.find(row => row.skillId === "DrunkenPoet1Hit")
+    closeTo(
+      poetRows[0].resourceConsumption?.Vitality ?? 0,
+      16,
+      "Drunken Poet 1 Hit must drink before its first hit when Intoxicated is absent",
+    )
+    closeTo(
+      poetRows[1].resourceConsumption?.Vitality ?? 0,
+      6,
+      "Drunken Poet 1 Hit must skip the drink while Intoxicated is active",
+    )
+    closeTo(poetCast?.vitalitySpent ?? 0, 22, "Per-cast metrics must sum accepted conditional Vitality costs")
+  })
+})

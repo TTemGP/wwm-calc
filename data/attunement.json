@@ -1,0 +1,360 @@
+{
+  "physicalPenetration": {
+    "name": "Physical Penetration",
+    "tags": ["Weapon"],
+    "effect": { "stat": { "physicalPenetration": 1 } }
+  },
+  "formlessPenetration": {
+    "name": "Formless Penetration",
+    "tags": ["Weapon"],
+    "effect": { "stat": { "formlessPenetration": 1 } }
+  },
+  "physicalResistance": {
+    "name": "Physical Resistance",
+    "tags": ["Defensive"],
+    "effect": { "stat": { "physicalResistance": 1 } }
+  },
+  "phalanxbaneChargedBoost": {
+    "name": "Phalanxbane Blade - Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitStrength", "PhalanxbaneBlade"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["PhalanxbaneBlade", "Charged"] }
+  },
+  "phalanxbaneMartialBoost": {
+    "name": "Phalanxbane Blade - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitStrength", "PhalanxbaneBlade"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["PhalanxbaneBlade", "MartialArt"] }
+  },
+  "snowpartingChargedBoost": {
+    "name": "Snowparting Blade - Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitStrength", "SnowpartingBlade"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SnowpartingBlade", "Charged"] }
+  },
+  "snowpartingVariedComboBoost": {
+    "name": "Snowparting Blade - Light/Heavy Attack Varied Combo DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitStrength", "SnowpartingBlade"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SnowpartingBlade", "VariedCombo"] }
+  },
+  "snowpartingMartialBoost": {
+    "name": "Snowparting Blade - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitStrength", "SnowpartingBlade"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SnowpartingBlade", "MartialArt"] }
+  },
+  "thundercryChargedBoost": {
+    "name": "Thundercry Blade - Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitMight", "ThundercryBlade"],
+    "effect": {
+      "stat": { "attunementDMGBonus": 1 },
+      "tags": ["ThundercryBlade", "Charged"],
+      "excludeTags": ["StonebreakerQuake"]
+    }
+  },
+  "thundercryShieldBoost": {
+    "name": "Thundercry Blade - Shield Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitMight", "ThundercryBlade"],
+    "effect": { "stat": {}, "tags": ["ThundercryBlade", "Shield"] }
+  },
+  "thundercrySpecialBoost": {
+    "name": "Thundercry Blade - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitMight", "ThundercryBlade"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["ThundercryBlade", "Special"] }
+  },
+  "stormbreakerChargedBoost": {
+    "name": "Stormbreaker Spear - Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitMight", "StormbreakerSpear"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["StormbreakerSpear", "Charged"] }
+  },
+  "stormbreakerSpecialBoost": {
+    "name": "Stormbreaker Spear - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "StonesplitMight", "StormbreakerSpear"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["StormbreakerSpear", "Special"] }
+  },
+  "everspringMartialBoost": {
+    "name": "Everspring Umbrella - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDust", "EverspringUmbrella"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["EverspringUmbrella", "MartialArt"] }
+  },
+  "everspringSpecialBoost": {
+    "name": "Everspring Umbrella - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDust", "EverspringUmbrella"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["EverspringUmbrella", "Special"] }
+  },
+  "unfetteredChargedBoost": {
+    "name": "Unfettered Rope Dart - Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDust", "UnfetteredRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["UnfetteredRopeDart", "Charged"] }
+  },
+  "unfetteredSpecialBoost": {
+    "name": "Unfettered Rope Dart - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDust", "UnfetteredRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["UnfetteredRopeDart", "Special"] }
+  },
+  "unfetteredMartialBoost": {
+    "name": "Unfettered Rope Dart - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDust", "UnfetteredRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["UnfetteredRopeDart", "MartialArt"] }
+  },
+  "heavenwillChargedBoost": {
+    "name": "Heavenwill Gauntlets - Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutKite", "HeavenwillGauntlets"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["HeavenwillGauntlets", "Charged"] }
+  },
+  "heavenwillMartialBoost": {
+    "name": "Heavenwill Gauntlets - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutKite", "HeavenwillGauntlets"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["HeavenwillGauntlets", "MartialArt"] }
+  },
+  "heavenwillLightVariedComboBoost": {
+    "name": "Heavenwill Gauntlets - Light Attack and Varied Combo DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutKite", "HeavenwillGauntlets"],
+    "effect": {
+      "stat": { "attunementDMGBonus": 1 },
+      "tags": ["HeavenwillGauntlets", "VariedCombo", ["Light", "Heavy"]]
+    }
+  },
+  "skygraspHeavyBoost": {
+    "name": "Skygrasp Rope Dart - Heavy Attack DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutKite", "SkygraspRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SkygraspRopeDart", "Heavy"] }
+  },
+  "skygraspSpecialBoost": {
+    "name": "Skygrasp Rope Dart - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutKite", "SkygraspRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SkygraspRopeDart", "Special"] }
+  },
+  "panaceaMartialHealingBoost": {
+    "name": "Panacea Fan - Martial Art Skill Healing Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindDeluge", "PanaceaFan"],
+    "effect": { "stat": { "healingBonus": 1 }, "tags": ["PanaceaFan", "MartialArt"] }
+  },
+  "panaceaSpecialHealingBoost": {
+    "name": "Panacea Fan - Special Skill Healing Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindDeluge", "PanaceaFan"],
+    "effect": { "stat": { "healingBonus": 1 }, "tags": ["PanaceaFan", "Special"] }
+  },
+  "panaceaHealingSkillBoost": {
+    "name": "Panacea Fan - Healing Skill Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindDeluge", "PanaceaFan"],
+    "effect": { "stat": { "healingBonus": 1 }, "tags": ["PanaceaFan", "Heavy"] }
+  },
+  "soulshadeMartialHealingBoost": {
+    "name": "Soulshade Umbrella - Martial Art Skill Healing Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindDeluge", "SoulshadeUmbrella"],
+    "effect": { "stat": { "healingBonus": 1 }, "tags": ["SoulshadeUmbrella", "MartialArt"] }
+  },
+  "soulshadeSpecialHealingBoost": {
+    "name": "Soulshade Umbrella - Special Skill Healing Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindDeluge", "SoulshadeUmbrella"],
+    "effect": { "stat": { "healingBonus": 1 }, "tags": ["SoulshadeUmbrella", "Special"] }
+  },
+  "namelessSwordMartialBoost": {
+    "name": "Nameless Sword Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeSplendor", "NamelessSword"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["NamelessSword", "MartialArt"] }
+  },
+  "namelessSwordChargedBoost": {
+    "name": "Nameless Sword Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeSplendor", "NamelessSword"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["NamelessSword", "Charged"] }
+  },
+  "namelessSwordSpecialBoost": {
+    "name": "Nameless Sword Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeSplendor", "NamelessSword"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["NamelessSword", "Special"] }
+  },
+  "namelessSpearChargedBoost": {
+    "name": "Nameless Spear Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeSplendor", "NamelessSpear"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["NamelessSpear", "Charged"] }
+  },
+  "namelessSpearSpecialBoost": {
+    "name": "Nameless Spear Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeSplendor", "NamelessSpear"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["NamelessSpear", "Special"] }
+  },
+  "strategicSwordMartialBoost": {
+    "name": "Strategic Sword Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeUmbra", "StrategicSword"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["StrategicSword", "MartialArt"] }
+  },
+  "strategicSwordSpecialBoost": {
+    "name": "Strategic Sword Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeUmbra", "StrategicSword"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["StrategicSword", "Special"] }
+  },
+  "strategicSwordBleedingBoost": {
+    "name": "Strategic Sword - Bleeding DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeUmbra", "StrategicSword"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["StrategicSword", "Bleed"] }
+  },
+  "heavenquakerMartialBoost": {
+    "name": "Heavenquaker Spear Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeUmbra", "HeavenQuakerSpear"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["HeavenQuakerSpear", "MartialArt"] }
+  },
+  "heavenquakerChargedBoost": {
+    "name": "Heavenquaker Spear Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BellstrikeUmbra", "HeavenQuakerSpear"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["HeavenQuakerSpear", "Charged"] }
+  },
+  "inkwellChargedBoost": {
+    "name": "Inkwell Fan Charged Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindJade", "InkwellFan"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["InkwellFan", "Charged"] }
+  },
+  "inkwellSpecialPursuitBoost": {
+    "name": "Inkwell Fan - Special and Pursuit Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindJade", "InkwellFan"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["InkwellFan", ["Special", "Pursuit"]] }
+  },
+  "vernalMartialBoost": {
+    "name": "Vernal Umbrella Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindJade", "VernalUmbrella"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["VernalUmbrella", "MartialArt"] }
+  },
+  "vernalProjectile280304Boost": {
+    "name": "Vernal Umbrella - Frequent Projectile DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindJade", "VernalUmbrella"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["VernalUmbrella", "FrequentProjectile"] }
+  },
+  "vernalProjectile280305Boost": {
+    "name": "Vernal Umbrella Frequent Projectile DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindJade", "VernalUmbrella"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["VernalUmbrella", "FrequentProjectile"] }
+  },
+  "vernalLightHeavyVariedComboBoost": {
+    "name": "Vernal Umbrella - Light/Heavy Attack & Varied Combo DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindJade", "VernalUmbrella"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["VernalUmbrella", ["Light", "Heavy", "VariedCombo"]] }
+  },
+  "infernalMartialBoost": {
+    "name": "Infernal Twinblades Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutWind", "InfernalTwinblades"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["InfernalTwinblades", "MartialArt"] }
+  },
+  "infernalEmpoweredLightBoost": {
+    "name": "Infernal Twinblades Empowered Light Attack DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutWind", "InfernalTwinblades"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["InfernalTwinblades", "Light", "Empowered"] }
+  },
+  "infernalSpecialBoost": {
+    "name": "Infernal Twinblades Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutWind", "InfernalTwinblades"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["InfernalTwinblades", "Special"] }
+  },
+  "mortalMartialBoost": {
+    "name": "Mortal Rope Dart - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutWind", "MortalRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["MortalRopeDart", "MartialArt"] }
+  },
+  "mortalRodentBoost": {
+    "name": "Mortal Rope Dart - Rodent DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutWind", "MortalRopeDart"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["MortalRopeDart", "Rodent"] }
+  },
+  "driftcleaveDeepdazeBoost": {
+    "name": "Driftcleave - Deepdaze Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDraught", "SkystrikeGauntlets", "RivenTwinblades"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["Deepdaze"] }
+  },
+  "skystrikeSpecialBoost": {
+    "name": "Skystrike Gauntlets - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDraught", "SkystrikeGauntlets"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SkystrikeGauntlets", "Special"] }
+  },
+  "skystrikeMartialBoost": {
+    "name": "Skystrike Gauntlets - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDraught", "SkystrikeGauntlets"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["SkystrikeGauntlets", "MartialArt"] }
+  },
+  "rivenLightBoost": {
+    "name": "Riven Twinblades - Light Attack DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDraught", "RivenTwinblades"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["RivenTwinblades", "Light"] }
+  },
+  "rivenMartialBoost": {
+    "name": "Riven Twinblades - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "BamboocutDraught", "RivenTwinblades"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["RivenTwinblades", "MartialArt"] }
+  },
+  "museflowWaistDrumMartialBoost": {
+    "name": "Museflow Waist Drum - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindWing", "MuseflowWaistDrum"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["MuseflowWaistDrum", "MartialArt"] }
+  },
+  "museflowWaistDrumSpecialBoost": {
+    "name": "Museflow Waist Drum - Special Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindWing", "MuseflowWaistDrum"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["MuseflowWaistDrum", "Special"] }
+  },
+  "museflowWaistDrumLightHeavyVariedComboBoost": {
+    "name": "Museflow Waist Drum - Light/Heavy Attack & Varied Combo DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindWing", "MuseflowWaistDrum"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["MuseflowWaistDrum", ["Light", "Heavy", "VariedCombo"]] }
+  },
+  "willowbendFanMartialBoost": {
+    "name": "Willowbend Fan - Martial Art Skill DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindWing", "WillowbendFan"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["WillowbendFan", "MartialArt"] }
+  },
+  "willowbendFanHeavyVariedComboBoost": {
+    "name": "Willowbend Fan - Heavy Attack & Varied Combo DMG Boost",
+    "percentage": true,
+    "tags": ["Armor", "SilkbindWing", "WillowbendFan"],
+    "effect": { "stat": { "attunementDMGBonus": 1 }, "tags": ["WillowbendFan", ["Heavy", "VariedCombo"]] }
+  }
+}

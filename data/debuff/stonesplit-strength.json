@@ -1,0 +1,43 @@
+{
+  "Dread": {
+    "name": "Dread",
+    "shortName": "Dre",
+    "showCoverage": true,
+    "description": "Increases HP damage taken by 12%.",
+    "duration": 7,
+    "maxStack": 1,
+    "shared": false,
+    "effect": [{ "hpDMGBonus": 0.12 }],
+    "refresh": true
+  },
+  "FearfulBlade": {
+    "name": "Fearful Blade",
+    "shortName": "FB",
+    "showCoverage": true,
+    "description": "Reduces attribute resistances by 16 and increases 8% HP damage for Strength",
+    "duration": 15,
+    "maxStack": 1,
+    "shared": true,
+    "effect": [
+      {
+        "bellstrikeResistance": -16,
+        "stonesplitResistance": -16,
+        "silkbindResistance": -16,
+        "bamboocutResistance": -16
+      },
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "martialArt", "value": "SnowpartingBlade" },
+              { "target": "martialArt", "value": "PhalanxbaneBlade" }
+            ]
+          }
+        ],
+        "effect": { "hpDMGBonus": 0.08 }
+      }
+    ],
+    "refresh": true
+  }
+}

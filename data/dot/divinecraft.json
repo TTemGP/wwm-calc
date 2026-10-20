@@ -1,0 +1,32 @@
+{
+  "DivinecraftFire": {
+    "name": "Divinecraft - Fire",
+    "description": "Direct hits burn for 4 seconds, dealing average physical damage every second.",
+    "duration": 4,
+    "maxStack": 1,
+    "refresh": true,
+    "periodic": {
+      "interval": 1.023,
+      "firstTick": 0.528,
+      "resetOnRefresh": false,
+      "action": [{ "type": "damage", "phyCoef": 0.26, "rateRoute": "divinecraft", "averageAttack": true, "time": 0 }]
+    },
+    "modifier": [],
+    "tags": ["DOT"]
+  },
+  "DivinecraftPoison": {
+    "name": "Divinecraft - Poison",
+    "description": "Direct hits poison for 8 seconds, dealing average physical damage every second.",
+    "duration": 8,
+    "maxStack": 1,
+    "refresh": true,
+    "periodic": {
+      "interval": 1.023,
+      "firstTick": 0.528,
+      "resetOnRefresh": false,
+      "action": [{ "type": "damage", "phyCoef": 0.16, "rateRoute": "divinecraft", "averageAttack": true, "time": 0 }]
+    },
+    "modifier": [],
+    "tags": ["DOT"]
+  }
+}

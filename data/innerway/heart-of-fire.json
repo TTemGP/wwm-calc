@@ -1,0 +1,47 @@
+{
+  "name": "Heart of Fire",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "HeartOfFireT0": {},
+    "HeartOfFireT1": {},
+    "HeartOfFireT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "maxHp": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                510,
+                693,
+                913,
+                1158,
+                1354,
+                1354,
+                1354,
+                1608,
+                1875,
+                2184,
+                2423,
+                2543,
+                2663,
+                2872,
+                3099,
+                3344,
+                3608
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "HeartOfFireT3": {},
+    "HeartOfFireT4": {},
+    "HeartOfFireT5": { "effect": [{ "rawStat": { "physicalDmgReduction": 0.025 } }] },
+    "HeartOfFireT6": {}
+  }
+}

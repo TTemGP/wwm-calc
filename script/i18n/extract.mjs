@@ -1,0 +1,301 @@
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises"
+import path from "node:path"
+
+// The build typechecks with TypeScript 7, whose package no longer exposes the
+// classic compiler API. These build-tool scripts keep using it via alias.
+import ts from "typescript-classic"
+
+import { readCatalog, serializeCsv, writeCatalog } from "./catalog.mjs"
+
+const root = process.cwd()
+const catalogFile = path.join(root, "locales", "translations.csv")
+const generatedDirectory = path.join(root, "public", "locales")
+const checkOnly = process.argv.includes("--check")
+const publishedLocales = new Set(["en", "zh-Hant", "ko"])
+const translatableDataFields = new Set(["name", "title", "shortName", "description", "skillBreakdownCategory"])
+const translatableJsxAttributes = new Set(["aria-label", "title", "placeholder", "alt", "label"])
+
+const normalizeSegment = value =>
+  String(value)
+    .replace(/\.json$/i, "")
+    .replace(/[^A-Za-z0-9]+(.)/g, (_, next) => (next ? next.toUpperCase() : ""))
+
+async function filesUnder(directory, predicate) {
+  const entries = await readdir(directory, { withFileTypes: true })
+  const nested = await Promise.all(
+    entries.map(async entry => {
+      const fullPath = path.join(directory, entry.name)
+      if (entry.isDirectory()) return filesUnder(fullPath, predicate)
+      return predicate(fullPath) ? [fullPath] : []
+    }),
+  )
+  return nested.flat()
+}
+
+function collectDataStrings(value, keyPrefix, entries, canonicalKeysByEnglish, objectPath = [], keyedById = false) {
+  if (!value || typeof value !== "object") return
+  if (Array.isArray(value)) {
+    value.forEach((item, index) =>
+      collectDataStrings(
+        item,
+        keyPrefix,
+        entries,
+        canonicalKeysByEnglish,
+        keyedById && typeof item?.id === "string" ? [item.id] : [...objectPath, String(index)],
+        keyedById,
+      ),
+    )
+    return
+  }
+  Object.entries(value).forEach(([key, child]) => {
+    const nextPath = [...objectPath, key]
+    if (translatableDataFields.has(key) && typeof child === "string" && child.trim()) {
+      const canonicalKey = keyPrefix.startsWith("data.skill.") ? undefined : canonicalKeysByEnglish.get(child)
+      entries.set(canonicalKey ?? `${keyPrefix}.${nextPath.map(normalizeSegment).join(".")}`, child)
+    } else collectDataStrings(child, keyPrefix, entries, canonicalKeysByEnglish, nextPath, keyedById)
+  })
+}
+
+function collectSourceKeys(source, file, keys, untranslated) {
+  const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+  const visit = node => {
+    if (
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      (node.expression.text === "t" || node.expression.text === "dataText") &&
+      node.arguments.length > 0 &&
+      ts.isStringLiteralLike(node.arguments[0])
+    )
+      keys.add(node.arguments[0].text)
+    if (ts.isJsxText(node) && /[A-Za-z]/.test(node.text.trim()))
+      untranslated.push(`${path.relative(root, file)}:${sourceFile.getLineAndCharacterOfPosition(node.pos).line + 1}`)
+    if (
+      ts.isJsxAttribute(node) &&
+      translatableJsxAttributes.has(node.name.getText(sourceFile)) &&
+      node.initializer &&
+      ts.isStringLiteral(node.initializer) &&
+      /[A-Za-z]/.test(node.initializer.text)
+    )
+      untranslated.push(
+        `${path.relative(root, file)}:${sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1}`,
+      )
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+}
+
+function collectStatLabels(source, file, entries) {
+  const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS)
+  const visit = node => {
+    if (ts.isObjectLiteralExpression(node)) {
+      const properties = new Map(
+        node.properties
+          .filter(ts.isPropertyAssignment)
+          .map(property => [property.name.getText(sourceFile), property.initializer]),
+      )
+      const key = properties.get("key")
+      const label = properties.get("label")
+      if (key && label && ts.isStringLiteralLike(key) && ts.isStringLiteralLike(label))
+        entries.set(`stat.${key.text}`, label.text)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+}
+
+// The character sheet builds `system.innerWay.<id>` directly from the runtime Inner
+// Way id, so the canonical owner must exist for every registered Inner Way. Reading
+// the ids from the definition object keeps this true when a data file is renamed.
+function collectInnerWayIds(source, file) {
+  const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS)
+  const ids = []
+  const visit = node => {
+    if (ts.isVariableDeclaration(node) && node.name.getText(sourceFile) === "innerWayDefinitions") {
+      // `= { ... } satisfies Record<string, InnerWayDefinition>` wraps the literal.
+      let initializer = node.initializer
+      while (initializer && ts.isSatisfiesExpression(initializer)) initializer = initializer.expression
+      if (initializer && ts.isObjectLiteralExpression(initializer))
+        for (const property of initializer.properties)
+          if (ts.isPropertyAssignment(property) && ts.isIdentifier(property.name)) ids.push(property.name.text)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(sourceFile)
+  if (!ids.length) throw new Error("Could not read Inner Way ids from src/data/innerWayDefinitions.ts.")
+  return ids
+}
+
+const existing = await readCatalog(catalogFile)
+const headers = existing.headers.length >= 2 ? existing.headers : ["key", "en"]
+if (headers[0] !== "key" || !headers.includes("en"))
+  throw new Error("Translation CSV must start with key and include en.")
+const duplicateKeys = existing.records
+  .map(record => record.key)
+  .filter((key, index, keys) => key && keys.indexOf(key) !== index)
+if (duplicateKeys.length) throw new Error(`Duplicate translation keys: ${[...new Set(duplicateKeys)].join(", ")}`)
+const recordsByKey = new Map(existing.records.map(record => [record.key, record]))
+const canonicalTerms = existing.records
+  .filter(record => record.key.startsWith("system.") && record.en)
+  .map(record => [record.key, record.en])
+const expectedEnglish = new Map(canonicalTerms)
+const canonicalKeysByEnglish = new Map()
+
+for (const [key, english] of canonicalTerms) {
+  if (canonicalKeysByEnglish.has(english)) throw new Error(`Canonical term ${english} is owned by more than one key.`)
+  canonicalKeysByEnglish.set(english, key)
+}
+
+const statDefinitionsFile = path.join(root, "src", "data", "statDefinitions.ts")
+const statLabels = new Map()
+collectStatLabels(await readFile(statDefinitionsFile, "utf8"), statDefinitionsFile, statLabels)
+for (const [key, english] of statLabels) {
+  expectedEnglish.set(key, english)
+  if (!canonicalKeysByEnglish.has(english)) canonicalKeysByEnglish.set(english, key)
+}
+
+// A preview supplies another version of a record that already owns its translation row, and
+// the runtime resolves display names through the shipped registries, so a key derived from a
+// preview path would never be read. Its files are walked for validation but not scanned.
+const dataFiles = await filesUnder(
+  path.join(root, "data"),
+  candidate => candidate.endsWith(".json") && !candidate.startsWith(path.join(root, "data", "preview")),
+)
+const dataSources = await Promise.all(dataFiles.map(async file => [file, await readFile(file, "utf8")]))
+for (const [file, source] of dataSources) {
+  const relative = path.relative(path.join(root, "data"), file).split(path.sep).map(normalizeSegment).join(".")
+  const data = JSON.parse(source)
+  if (relative === "attunement") {
+    for (const [id, definition] of Object.entries(data)) {
+      if (typeof definition?.name !== "string" || !definition.name.trim()) continue
+      const key = `system.attunement.${normalizeSegment(id)}`
+      expectedEnglish.set(key, definition.name)
+      canonicalKeysByEnglish.set(definition.name, key)
+    }
+  }
+  // An id-keyed record owns `data.boss.<Id>.name`; array position is not a stable key.
+  if (relative === "boss" && Array.isArray(data)) {
+    for (const definition of data) {
+      if (typeof definition?.name !== "string" || !definition.name.trim()) continue
+      expectedEnglish.set(`data.boss.${normalizeSegment(definition.id)}.name`, definition.name)
+    }
+  }
+  if (relative === "gear" && data?.slots && typeof data.slots === "object") {
+    for (const [id, name] of Object.entries(data.slots)) {
+      if (typeof name !== "string" || !name.trim()) continue
+      const key = `system.gearSlot.${normalizeSegment(id)}`
+      expectedEnglish.set(key, name)
+      canonicalKeysByEnglish.set(name, key)
+    }
+  }
+  if (relative.startsWith("innerway.") && typeof data.name === "string" && data.name.trim()) {
+    const key = `system.innerWay.${relative.slice("innerway.".length)}`
+    expectedEnglish.set(key, data.name)
+    canonicalKeysByEnglish.set(data.name, key)
+  }
+  collectDataStrings(data, `data.${relative}`, expectedEnglish, canonicalKeysByEnglish, undefined, relative === "boss")
+}
+
+// Every runtime Inner Way id must own a canonical row, because the character sheet
+// builds that key from the id. A data file that is renamed without updating
+// `innerWayDefinitions`, or a registered id with no definition file, is a defect.
+const innerWayIds = collectInnerWayIds(
+  await readFile(path.join(root, "src", "data", "innerWayDefinitions.ts"), "utf8"),
+  path.join(root, "src", "data", "innerWayDefinitions.ts"),
+)
+for (const id of innerWayIds) {
+  const key = `system.innerWay.${id.charAt(0).toLowerCase()}${id.slice(1)}`
+  if (!expectedEnglish.has(key))
+    throw new Error(`Inner Way ${id} owns ${key} in the UI but has no canonical translation row.`)
+}
+const orphanInnerWayFiles = [...expectedEnglish.keys()].filter(
+  key =>
+    key.startsWith("system.innerWay.") &&
+    !innerWayIds.some(id => key === `system.innerWay.${id.charAt(0).toLowerCase()}${id.slice(1)}`),
+)
+if (orphanInnerWayFiles.length)
+  throw new Error(`Inner Way definitions without a registered id: ${orphanInnerWayFiles.join(", ")}`)
+
+const sourceKeys = new Set()
+const untranslated = []
+const sourceFiles = await filesUnder(path.join(root, "src"), candidate => /\.(?:ts|tsx)$/.test(candidate))
+const sourceContents = await Promise.all(sourceFiles.map(async file => [file, await readFile(file, "utf8")]))
+for (const [file, source] of sourceContents) collectSourceKeys(source, file, sourceKeys, untranslated)
+
+if (untranslated.length)
+  throw new Error(`Unmigrated static JSX text or attributes:\n${untranslated.map(entry => `- ${entry}`).join("\n")}`)
+
+for (const [key, english] of expectedEnglish) {
+  const matchingRecords = existing.records.filter(record => record.en === english)
+  const record = recordsByKey.get(key) ?? Object.fromEntries(headers.map(header => [header, ""]))
+  for (const locale of headers.slice(1)) {
+    if (record[locale]) continue
+    const translations = [...new Set(matchingRecords.map(candidate => candidate[locale]).filter(Boolean))]
+    if (translations.length > 1)
+      throw new Error(`Conflicting ${locale} translations for canonical term ${english}: ${translations.join(", ")}`)
+    if (translations.length === 1) record[locale] = translations[0]
+  }
+  record.key = key
+  record.en = english
+  recordsByKey.set(key, record)
+}
+for (const key of sourceKeys) {
+  if (!recordsByKey.has(key)) throw new Error(`Missing translation CSV entry for ${key}.`)
+}
+
+const requiredKeys = new Set([
+  ...expectedEnglish.keys(),
+  ...sourceKeys,
+  ...[...recordsByKey.keys()].filter(key => key.startsWith("game.event.")),
+])
+const records = [...recordsByKey.values()]
+  .filter(record => requiredKeys.has(record.key))
+  .sort((left, right) => left.key.localeCompare(right.key))
+const placeholders = message =>
+  [...String(message).matchAll(/\{([A-Za-z][A-Za-z0-9]*)\}/g)].map(match => match[1]).sort()
+for (const record of records) {
+  const expectedPlaceholders = placeholders(record.en).join(",")
+  for (const locale of headers.filter(header => header !== "key" && header !== "en")) {
+    if (record[locale] && placeholders(record[locale]).join(",") !== expectedPlaceholders)
+      throw new Error(`Placeholder mismatch for ${record.key} in ${locale}.`)
+  }
+}
+const csv = serializeCsv(headers, records)
+const localeFiles = Object.fromEntries(
+  headers
+    .slice(1)
+    .map(locale => [
+      locale,
+      `${JSON.stringify(Object.fromEntries(records.filter(record => record[locale]).map(record => [record.key, record[locale]])), null, 2)}\n`,
+    ]),
+)
+const manifestLocales = headers.slice(1).filter(locale => publishedLocales.has(locale))
+const completion = Object.fromEntries(
+  manifestLocales
+    .filter(locale => locale !== "en")
+    .map(locale => [locale, Math.round((records.filter(record => record[locale]).length / records.length) * 100)]),
+)
+const manifestLocaleList = `[${manifestLocales.map(locale => JSON.stringify(locale)).join(", ")}]`
+const manifestCompletion = JSON.stringify(completion, null, 2).replaceAll("\n", "\n  ")
+const manifest = `{\n  "default": "en",\n  "locales": ${manifestLocaleList},\n  "completion": ${manifestCompletion}\n}\n`
+
+if (checkOnly) {
+  const currentCsv = await readFile(catalogFile, "utf8")
+  if (currentCsv !== csv) throw new Error("translations.csv is out of date. Run npm run i18n:extract.")
+  for (const [locale, content] of Object.entries(localeFiles))
+    if ((await readFile(path.join(generatedDirectory, `${locale}.json`), "utf8")) !== content)
+      throw new Error(`${locale}.json is out of date. Run npm run i18n:extract.`)
+  if ((await readFile(path.join(generatedDirectory, "manifest.json"), "utf8")) !== manifest)
+    throw new Error("Locale manifest is out of date. Run npm run i18n:extract.")
+} else {
+  await mkdir(path.dirname(catalogFile), { recursive: true })
+  await mkdir(generatedDirectory, { recursive: true })
+  await writeCatalog(catalogFile, headers, records)
+  await Promise.all(
+    Object.entries(localeFiles).map(([locale, content]) =>
+      writeFile(path.join(generatedDirectory, `${locale}.json`), content, "utf8"),
+    ),
+  )
+  await writeFile(path.join(generatedDirectory, "manifest.json"), manifest, "utf8")
+}
+
+console.log(`Localization catalog contains ${records.length} entries across ${headers.length - 1} locale(s).`)

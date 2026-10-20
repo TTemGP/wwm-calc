@@ -1,0 +1,84 @@
+{
+  "RodentsResilienceCharge": {
+    "name": "Rodent's Resilience [1.5s Charge]",
+    "shortName": "RD Charge",
+    "castTime": 1.5,
+    "action": [{ "type": "apply", "target": "self", "value": "RodentRampageEnhancement", "stack": 2, "time": 1.5 }],
+    "martialArt": "mortalRopeDart",
+    "weapon": "RopeDart",
+    "tags": ["MartialArts", "MortalRopeDart", "RopeDart", "Charged"]
+  },
+  "RodentRampage": {
+    "name": "Rodent Rampage",
+    "shortName": "RD Special",
+    "castTime": 0.541,
+    "cooldown": 0,
+    "action": [
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "RodentRampage",
+        "time": 0.541,
+        "requirement": [{ "operator": "not", "operand": [{ "target": "self", "value": "RodentRampageEnhancement" }] }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "EnhancedRodentRampage",
+        "time": 0.541,
+        "requirement": [{ "target": "self", "value": "RodentRampageEnhancement" }]
+      },
+      { "type": "consume", "target": "self", "value": "RodentRampageEnhancement", "stack": 1, "time": 0.541 }
+    ],
+    "martialArt": "mortalRopeDart",
+    "weapon": "RopeDart",
+    "tags": ["MartialArts", "MortalRopeDart", "RopeDart", "Special"]
+  },
+  "Rodent": {
+    "name": "Rodent",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "time": 0.5,
+        "phyCoef": { "function": "segment", "param1": "distance", "param2": [12], "param3": [0.348974526316, 0] },
+        "attrCoef": { "function": "segment", "param1": "distance", "param2": [12], "param3": [0.348974526316, 0] }
+      }
+    ],
+    "tags": ["DirectDamage", "MartialArts", "MortalRopeDart", "RopeDart", "MartialArtEffect", "Rodent", "Triggered"]
+  },
+  "BladeboundThreadCancel": {
+    "name": "Bladebound Thread [Cancel]",
+    "shortName": "RD Q",
+    "castTime": 0.385,
+    "cooldown": 8,
+    "cooldownGroup": "BladeboundThread",
+    "action": [
+      {
+        "type": "damage",
+        "time": 0.385,
+        "phyCoef": 0.0621375,
+        "attrCoef": 0.0621375,
+        "phyBonus": 17.5,
+        "attrBonus": 9.5
+      },
+      { "type": "apply", "target": "target", "value": "VendettaToken", "time": 0.385 },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "RodentHunt",
+        "time": 0.385,
+        "requirement": [{ "target": "self", "value": "VendettaT3" }]
+      }
+    ],
+    "martialArt": "mortalRopeDart",
+    "weapon": "RopeDart",
+    "tags": ["DirectDamage", "MartialArts", "MortalRopeDart", "RopeDart", "MartialArt", "BladeboundThread"]
+  },
+  "RodentHuntDamage": {
+    "name": "Rodent Hunt",
+    "castTime": 0,
+    "action": [{ "type": "replay", "time": 0, "coef": 0.3 }],
+    "tags": ["Triggered", "Replayed"]
+  }
+}

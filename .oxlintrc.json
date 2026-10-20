@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest",
+    "promise"
+  ],
+  "categories": { "correctness": "error", "perf": "error" },
+  "rules": {
+    // react-in-jsx-scope must stay disabled.
+    // oxlint does not respect React 19's automatic JSX scope insertion, unlike eslint.
+    "react/react-in-jsx-scope": "off",
+    // jsx-no-new-function-as-prop this should be done as a part of the rework for P0 to eliminate godfiles to comply with eslints pedantic max-lines=300
+    "react-perf/jsx-no-new-function-as-prop": "off",
+    // no-array-index-key cannot be fixed safely: the remaining lists (fixed editor
+    // slots with blank/duplicate values, dynamic editor rows without stable ids) have
+    // no string/id/name to key by, and content keys would remount inputs on every
+    // keystroke. Left untouched; warn only so it stays visible without blocking.
+    "react/no-array-index-key": "warn"
+  },
+  "ignorePatterns": ["public/", "dist/", "dist-preview/", "local/", ".agents/"],
+  "env": { "builtin": true, "browser": true }
+}

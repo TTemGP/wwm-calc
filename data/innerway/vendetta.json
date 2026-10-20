@@ -1,0 +1,67 @@
+{
+  "name": "Vendetta",
+  "altersTimeline": true,
+  "tags": ["BamboocutWind"],
+  "effect": {
+    "VendettaT0": {
+      "effect": [
+        { "target": "RodentRampage", "modify": { "duration": 15 } },
+        { "target": "VendettaToken", "modify": { "duration": 15 } },
+        { "target": "EnhancedRodentRampage", "modify": { "duration": 15 } }
+      ]
+    },
+    "VendettaT1": { "effect": [{ "target": "VendettaToken", "modify": { "duration": 20 } }] },
+    "VendettaT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                13.4,
+                18.2,
+                24,
+                30.5,
+                35.6,
+                35.6,
+                35.6,
+                42.3,
+                49.3,
+                57.5,
+                63.8,
+                66.9,
+                70.1,
+                75.6,
+                81.6,
+                88,
+                95
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "VendettaT3": {},
+    "VendettaT4": {
+      "effect": [
+        { "target": "RodentRampage", "modify": { "duration": 20 } },
+        { "target": "EnhancedRodentRampage", "modify": { "duration": 20 } }
+      ]
+    },
+    "VendettaT5": { "effect": [{ "rawStat": { "physicalPenetration": 5.1 } }] },
+    "VendettaT6": {
+      "effect": [
+        {
+          "target": "VendettaToken",
+          "modify": {
+            "effect": [{ "requirement": [{ "target": "skillTag", "value": "Rodent" }], "effect": { "dmgBonus": 0.3 } }]
+          }
+        }
+      ]
+    }
+  }
+}

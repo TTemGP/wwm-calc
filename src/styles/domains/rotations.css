@@ -1,0 +1,972 @@
+@layer components {
+  .rotation-editor-panel {
+    min-block-size: 0;
+  }
+
+  .rotation-editor-layout {
+    display: grid;
+    grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr);
+    block-size: calc(100dvh - 13.125rem);
+    min-block-size: 500px;
+    max-block-size: calc(100dvh - 13.125rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .viewport-page-shell .rotation-editor-layout {
+    block-size: 100%;
+    min-block-size: 0;
+    max-block-size: none;
+  }
+
+  .rotation-list {
+    display: flex;
+    min-block-size: 0;
+    flex-direction: column;
+    border-inline-end: 1px solid var(--border);
+    background: oklch(from var(--surface-alt) l c h / 0.7);
+  }
+
+  .rotation-list-heading {
+    display: grid;
+    grid-template-columns: minmax(max-content, 1fr) minmax(0, max-content);
+    min-block-size: 44px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 9px 8px 13px;
+    border-block-end: 1px solid var(--border);
+    color: var(--text-muted);
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .rotation-list-heading > span {
+    min-inline-size: 0;
+  }
+
+  .rotation-list-entries {
+    flex: 1 1 0;
+    min-block-size: 0;
+    overflow-y: auto;
+  }
+
+  .rotation-list-create {
+    display: flex;
+    inline-size: 100%;
+    min-block-size: 44px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 7px;
+    border: 0;
+    border-block-end: 1px solid var(--border-muted);
+    padding: 9px 13px;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 650;
+    text-align: start;
+  }
+
+  .rotation-list-create:hover {
+    background: var(--surface-alt);
+    color: var(--text);
+  }
+
+  .rotation-list-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    inline-size: 100%;
+    border: 0;
+    border-block-end: 1px solid var(--border-muted);
+    padding: 12px 13px;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    text-align: start;
+  }
+
+  .rotation-list-item:hover {
+    background: color-mix(in oklab, var(--primary-soft) 50%, transparent);
+  }
+
+  .rotation-list-item.editing {
+    background: var(--primary-soft);
+  }
+
+  .rotation-list-item.incompatible {
+    opacity: 0.48;
+  }
+
+  .rotation-list-item.incompatible:hover,
+  .rotation-list-item.incompatible.editing {
+    opacity: 0.78;
+  }
+
+  .rotation-list-item > .rotation-select-button {
+    display: block;
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  /* Extend selection across the row's padding and gaps; keep removal above it. */
+  .rotation-select-button::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
+
+  .active-rotation-icon {
+    display: inline-block;
+    margin-inline-end: 6px;
+    color: var(--primary);
+    vertical-align: 1px;
+  }
+
+  .rotation-list-actions {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .rotation-remove-button {
+    position: relative;
+    z-index: 1;
+    display: inline-grid;
+    inline-size: 23px;
+    block-size: 23px;
+    place-items: center;
+    border: 0;
+    border-radius: var(--radius-2xs);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .rotation-remove-button:hover:not(:disabled) {
+    background: var(--error-soft);
+    color: var(--error);
+  }
+
+  .rotation-remove-button:disabled {
+    cursor: default;
+    opacity: 0.25;
+  }
+
+  .rotation-editor-content {
+    display: flex;
+    min-inline-size: 0;
+    min-block-size: 0;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 20px;
+  }
+
+  .rotation-scroll-content {
+    min-block-size: 0;
+    flex: 1;
+    overflow: auto;
+    padding-inline-end: 4px;
+  }
+
+  .rotation-list-item strong,
+  .rotation-list-item small {
+    display: block;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .rotation-list-item small {
+    margin-block-start: 3px;
+    color: var(--text-muted);
+  }
+
+  .rotation-transfer-actions {
+    margin-block-start: auto;
+    border-block-start: 1px solid var(--border);
+    padding: 10px;
+  }
+
+  .rotation-transfer-actions > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .rotation-transfer-actions [data-button] {
+    text-align: center;
+  }
+
+  .rotation-transfer-actions p {
+    margin: 7px 2px 0;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .rotation-transfer-actions p.error {
+    color: var(--error);
+  }
+
+  .rotation-detail {
+    min-inline-size: 0;
+    padding: 20px;
+  }
+
+  .rotation-basic-fields {
+    display: grid;
+    gap: 12px;
+    margin-block-end: 18px;
+  }
+
+  .rotation-name-input {
+    display: block;
+    inline-size: min(100%, 420px);
+    margin-block-start: 4px;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-xs);
+    padding: 6px 8px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+    font-size: 1.3rem;
+  }
+
+  .rotation-target-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    margin-block-start: 0.45rem;
+    color: var(--text-muted);
+  }
+
+  .rotation-target-hp,
+  .rotation-target-select,
+  .rotation-option-toggle,
+  .rotation-group-size {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    white-space: nowrap;
+  }
+
+  .rotation-option-toggle input {
+    margin: 0;
+  }
+
+  .rotation-target-hp input {
+    inline-size: 10rem;
+  }
+
+  .rotation-enemy-count input {
+    inline-size: calc(4ch + 1.5rem);
+  }
+
+  .rotation-ping-field input {
+    padding: 5px 7px;
+  }
+
+  .rotation-ping-field input:disabled,
+  .rotation-ping-field input::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
+  }
+
+  .rotation-group-size select,
+  .rotation-target-select select {
+    inline-size: auto;
+    min-inline-size: 7rem;
+  }
+
+  .rotation-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-block-end: 8px;
+    color: var(--text-muted);
+  }
+
+  .rotation-heading-actions {
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .rotation-heading-actions [data-button] {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .rotation-activation-actions {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .rotation-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Sits in the results row, so it takes that row's weight and aligns to it. */
+  .rotation-results-status {
+    min-block-size: 0;
+    margin-block-start: 0;
+    align-self: center;
+    font-size: inherit;
+  }
+
+  /* A rate sits in brackets after the total it is taken from, at that total's own size and weight.
+     Only the nowrap is its own: a rate broken across two lines reads as a second figure.
+
+     The space that separates it from the total is written outside this element, because a bracketed
+     rate that carries one of its own is a block-level flex item inside the tooltip's anchor, and
+     leading whitespace at the start of a block is not rendered. */
+  .rotation-results-rate {
+    white-space: nowrap;
+  }
+
+  /* A rotation that is not active shows only how it differs, so the figures it is actually
+     worth are one hover away rather than crowding the row beside its total damage. */
+  .rotation-results-rate-tooltip {
+    display: grid;
+    gap: 4px;
+    min-inline-size: 14rem;
+  }
+
+  .rotation-results-rate-tooltip .rotation-results-rate-row {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .rotation-results-rate-tooltip .rotation-results-rate-row > span {
+    color: var(--text-muted);
+  }
+
+  .rotation-results-rate-tooltip .rotation-results-rate-row > strong {
+    color: var(--text);
+    text-align: end;
+  }
+
+  /* Rotation Timeline Table */
+  .rotation-table {
+    min-inline-size: 0;
+    inline-size: 100%;
+    border: 1px solid var(--border);
+    border-block-start: 0;
+    border-radius: var(--radius-md);
+  }
+
+  .rotation-table-header,
+  .rotation-table-row,
+  .rotation-action-row {
+    display: grid;
+    grid-template-columns:
+      26px 2rem 4.5rem 4.5rem minmax(0, 1.5fr) var(--rotation-state-columns,) minmax(0, 0.9fr) minmax(0, 1.25fr)
+      minmax(0, 1.25fr) minmax(0, 0.8fr);
+    gap: 0.625rem;
+    align-items: center;
+    inline-size: 100%;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .rotation-table-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    border-block-start: 1px solid var(--border);
+    border-block-end: 1px solid var(--border);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    background: var(--surface-header);
+    box-shadow: 0 1px 0 var(--border-muted);
+    padding-inline: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 750;
+    line-height: 1.15;
+    text-transform: uppercase;
+    white-space: normal;
+  }
+
+  .rotation-table-header > *,
+  .rotation-table-row > *,
+  .rotation-action-row > * {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .rotation-table-header > * {
+    hyphens: auto;
+  }
+
+  .rotation-table-row :is(input, select),
+  .rotation-action-row :is(input, select) {
+    max-inline-size: 100%;
+  }
+
+  .rotation-table-row .rotation-event-time,
+  .rotation-action-row .rotation-event-time {
+    inline-size: 100%;
+  }
+
+  .rotation-buff-cell,
+  .rotation-debuff-cell {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .rotation-buff-cell > *,
+  .rotation-debuff-cell > * {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  .rotation-table-row {
+    min-block-size: 62px;
+    border-block-end: 1px solid var(--border-muted);
+    color: var(--text);
+  }
+
+  .rotation-event-row {
+    background: var(--primary-active);
+  }
+
+  .rotation-fixed-time-event {
+    box-shadow: inset 3px 0 var(--primary);
+  }
+
+  .rotation-move-event-row {
+    background: var(--event-move);
+  }
+
+  .rotation-take-damage-event-row {
+    background: var(--event-take-damage);
+  }
+
+  .rotation-dot-row {
+    background: var(--event-dot);
+  }
+
+  /* Keyed on the real final row: with windowing, :last-child is whichever row the
+     window happens to end on, which would move the border as the list scrolls. */
+  .rotation-row-group[data-window-last] .rotation-table-row {
+    border-block-end: 0;
+  }
+
+  .rotation-index {
+    color: var(--primary);
+    font-weight: 750;
+  }
+
+  .rotation-skill-name {
+    display: flex;
+    min-inline-size: 0;
+    align-items: center;
+    gap: 7px;
+    overflow: hidden;
+  }
+
+  .rotation-skill-label {
+    display: grid;
+    min-inline-size: 0;
+    gap: 2px;
+    line-height: 1.2;
+  }
+
+  .rotation-skill-label > span {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .rotation-skill-label > span + span {
+    color: var(--text-muted);
+  }
+
+  .rotation-hellfire-value {
+    color: oklch(1 0 0);
+
+    &[data-full="true"] {
+      color: oklch(0.85 0.09 25);
+    }
+
+    &[data-flamelash="true"] {
+      color: oklch(0.72 0.2 25);
+    }
+  }
+
+  .rotation-damage-heading,
+  .rotation-damage-value {
+    padding-inline-start: 18px;
+    text-align: start;
+  }
+
+  .rotation-damage-value,
+  .rotation-action-damage,
+  .rotation-action-result,
+  .damage-breakdown-wrap {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  .rotation-martial-art-select {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+  }
+
+  .damage-breakdown-wrap {
+    display: inline-block;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    cursor: help;
+  }
+
+  /* The box is portalled out of the trigger, so its contents are laid out here while the
+     primitive owns showing it. A reveal rule keyed on the trigger could no longer match. */
+  .damage-breakdown-tooltip {
+    display: flex;
+    gap: var(--space-sm);
+    color: inherit;
+  }
+
+  .rotation-action-result {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.45em;
+  }
+
+  .healing-value,
+  .healing-physical,
+  .healing-silkbind {
+    color: var(--success);
+  }
+
+  .damage-breakdown-part {
+    display: grid;
+    gap: 2px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .damage-breakdown-part i {
+    color: inherit;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* Elemental Damage Colors */
+  .damage-physical {
+    color: var(--damage-physical);
+  }
+
+  .damage-bellstrike {
+    color: var(--damage-bellstrike);
+  }
+
+  .damage-stonesplit {
+    color: var(--damage-stonesplit);
+  }
+
+  .damage-silkbind {
+    color: var(--damage-silkbind);
+  }
+
+  .damage-bamboocut {
+    color: var(--damage-bamboocut);
+  }
+
+  .rotation-skill-select-wrap {
+    position: relative;
+    display: block;
+    min-inline-size: 0;
+  }
+
+  .rotation-skill-select-wrap > .rotation-skill-label {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline: 10px 34px;
+    z-index: 1;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .rotation-skill-select {
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: 64px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 8px 9px;
+    background: var(--surface-alt);
+    color: transparent;
+    font: inherit;
+  }
+
+  .rotation-skill-select option,
+  .rotation-skill-select optgroup {
+    color: var(--text);
+  }
+
+  .rotation-skill-select optgroup {
+    font-weight: 700;
+  }
+
+  .rotation-skill-select:focus {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-soft);
+  }
+
+  .rotation-skill-select:disabled {
+    border-color: var(--border-muted);
+    background: var(--surface);
+    color: oklch(from var(--text-muted) l c h / 0.55);
+    cursor: not-allowed;
+    opacity: 0.78;
+  }
+
+  .rotation-event-time-control {
+    display: inline-flex;
+    min-inline-size: 0;
+    inline-size: 100%;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .rotation-event-time-control .rotation-event-time {
+    flex: 1 1 auto;
+    inline-size: auto;
+  }
+
+  .rotation-event-time-control.fixed {
+    color: var(--primary);
+  }
+
+  .rotation-event-time-control.fixed .rotation-event-time {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+  }
+
+  .rotation-event-time-control.fixed > svg {
+    flex: 0 0 auto;
+  }
+
+  .rotation-event-time {
+    inline-size: 110px;
+    block-size: 38px;
+    min-inline-size: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 6px 9px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+    line-height: 24px;
+    appearance: textfield;
+  }
+
+  .rotation-event-time::-webkit-outer-spin-button,
+  .rotation-event-time::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none;
+  }
+
+  .rotation-event-time:focus-visible {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-soft);
+  }
+
+  .rotation-distance-input-wrap {
+    display: flex;
+    min-inline-size: 0;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .rotation-distance-input-wrap .rotation-event-time {
+    flex: 1 1 auto;
+    inline-size: auto;
+    padding-inline: 5px;
+  }
+
+  .rotation-effect-select {
+    inline-size: 100%;
+    min-inline-size: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 6px 7px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .rotation-effect-event-control {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
+    gap: 5px;
+    align-items: center;
+  }
+
+  .rotation-effect-event-control.single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rotation-effect-stack {
+    inline-size: 100%;
+    min-inline-size: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 6px 5px;
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+    text-align: center;
+  }
+
+  .rotation-controls {
+    display: grid;
+    inline-size: 100%;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 2px;
+  }
+
+  .rotation-controls button {
+    display: grid;
+    inline-size: 100%;
+    min-inline-size: 0;
+    block-size: 30px;
+    place-items: center;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-2xs);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .rotation-controls button > svg {
+    max-inline-size: 100%;
+  }
+
+  .rotation-controls button[aria-label="Delete step"] {
+    grid-column: 4;
+  }
+
+  .rotation-control-placeholder {
+    inline-size: 100%;
+    min-inline-size: 0;
+    block-size: 30px;
+  }
+
+  .rotation-controls button:hover:not(:disabled) {
+    background: var(--primary-soft);
+    color: var(--text);
+  }
+
+  .rotation-controls button:disabled {
+    cursor: default;
+    opacity: 0.3;
+  }
+
+  .rotation-controls .rotation-expand-button {
+    color: var(--primary);
+  }
+
+  .rotation-step-editor {
+    display: grid;
+    grid-template-columns: 100px minmax(180px, 1.5fr) 90px minmax(130px, 1fr) 120px;
+    gap: 8px;
+    padding: 10px;
+    border-block-end: 1px solid var(--border);
+    background: oklch(from var(--surface-alt) l c h / 0.65);
+  }
+
+  .rotation-actions {
+    display: grid;
+    gap: 5px;
+    padding: 6px 0 8px;
+    border-block-end: 1px solid var(--border);
+    background: oklch(from var(--primary) l c h / 0.05);
+  }
+
+  .rotation-action-row {
+    background: var(--event-default);
+    color: var(--text-muted);
+  }
+
+  .rotation-actions-trigger,
+  .rotation-action-trigger {
+    background: var(--event-trigger);
+  }
+
+  .rotation-actions-dot,
+  .rotation-action-dot {
+    background: var(--event-dot);
+  }
+
+  .rotation-action-damage {
+    padding-inline-start: 18px;
+    color: var(--text);
+    text-align: start;
+  }
+
+  .effect-plates {
+    display: flex;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .effect-plate {
+    position: relative;
+    display: inline-block;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    border-color: oklch(from var(--primary) l c h / 0.42);
+    background: oklch(from var(--primary) l c h / 0.12);
+    color: var(--text);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    cursor: help;
+  }
+
+  .effect-plate-general-debuff {
+    border-color: var(--error-border);
+    background: var(--error-soft);
+    color: var(--error);
+  }
+
+  .effect-plate-dot {
+    border-color: oklch(from var(--damage-bamboocut) l c h / 0.5);
+    background: oklch(from var(--damage-bamboocut) l c h / 0.16);
+    color: var(--damage-bamboocut);
+  }
+
+  .effect-plate-tooltip {
+    display: block;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .effect-plate-tooltip strong,
+  .effect-plate-tooltip span {
+    display: block;
+  }
+
+  .effect-plate-tooltip strong {
+    margin-block-end: 4px;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .rotation-step-list {
+    display: grid;
+    gap: 7px;
+  }
+
+  .rotation-step {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+    overflow: hidden;
+  }
+
+  .rotation-step-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-block-size: 41px;
+    padding: 5px 8px;
+  }
+
+  .rotation-step-header > strong {
+    inline-size: 22px;
+    color: var(--primary);
+    text-align: center;
+  }
+
+  .rotation-step-header select {
+    inline-size: 100px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    padding: 5px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .rotation-step-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) 100px minmax(0, 1fr) 120px;
+    gap: 8px;
+    padding: 10px;
+    border-block-start: 1px solid var(--border);
+  }
+
+  .rotation-step-fields .checkbox-field {
+    align-self: end;
+  }
+
+  /* Rotation Responsive Breakpoints */
+  @media (max-width: 43.75em) {
+    .rotation-editor-layout {
+      block-size: auto;
+      max-block-size: none;
+      grid-template-columns: 1fr;
+    }
+
+    .rotation-list {
+      block-size: 260px;
+      max-block-size: 260px;
+      overflow: hidden;
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--border);
+    }
+
+    .rotation-basic-fields,
+    .rotation-step-fields {
+      grid-template-columns: 1fr;
+    }
+
+    .viewport-page-shell .rotation-editor-layout {
+      block-size: 100%;
+      grid-template-rows: 180px minmax(0, 1fr);
+    }
+
+    .viewport-page-shell .rotation-list {
+      block-size: 180px;
+      max-block-size: 180px;
+    }
+  }
+}

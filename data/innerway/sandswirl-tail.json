@@ -1,0 +1,47 @@
+{
+  "name": "Sandswirl Tail",
+  "altersTimeline": true,
+  "tags": [],
+  "effect": {
+    "SandswirlTailT0": {},
+    "SandswirlTailT1": {},
+    "SandswirlTailT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "physicalDefense": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                6,
+                8.1,
+                10.7,
+                13.5,
+                15.8,
+                15.8,
+                15.8,
+                18.8,
+                21.9,
+                25.5,
+                28.3,
+                29.7,
+                31.2,
+                33.6,
+                36.2,
+                39.1,
+                42.2
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "SandswirlTailT3": {},
+    "SandswirlTailT4": {},
+    "SandswirlTailT5": { "effect": [{ "rawStat": { "physicalDmgReduction": 0.022 } }] },
+    "SandswirlTailT6": {}
+  }
+}

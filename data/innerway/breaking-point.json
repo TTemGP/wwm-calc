@@ -1,0 +1,65 @@
+{
+  "name": "Breaking Point",
+  "altersTimeline": true,
+  "tags": [
+    "StonesplitStrength",
+    "StonesplitMight",
+    "BamboocutKite",
+    "SilkbindJade",
+    "BamboocutWind",
+    "BamboocutDust",
+    "SilkbindDeluge",
+    "SilkbindWing",
+    "BamboocutDraught"
+  ],
+  "effect": {
+    "BreakingPointT0": {
+      "trigger": [
+        {
+          "target": "self",
+          "requirement": [{ "target": "target", "value": "Exhausted" }],
+          "action": [{ "type": "apply", "target": "self", "value": "Disintegration", "stack": 1, "reapply": true }]
+        }
+      ]
+    },
+    "BreakingPointT1": { "effect": [{ "target": "Disintegration", "modify": { "duration": 5 } }] },
+    "BreakingPointT2": {
+      "effect": [
+        {
+          "rawStat": {
+            "precision": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.014,
+                0.019,
+                0.025,
+                0.031,
+                0.037,
+                0.037,
+                0.037,
+                0.043,
+                0.051,
+                0.059,
+                0.065,
+                0.069,
+                0.072,
+                0.078,
+                0.084,
+                0.09,
+                0.098
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "BreakingPointT3": {},
+    "BreakingPointT4": { "effect": [{ "target": "Disintegration", "modify": { "maxStack": 5 } }] },
+    "BreakingPointT5": { "effect": [{ "rawStat": { "directCrit": 0.041 } }] },
+    "BreakingPointT6": {}
+  }
+}

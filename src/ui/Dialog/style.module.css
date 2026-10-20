@@ -1,0 +1,18 @@
+@layer ui {
+  .dialog {
+    inline-size: min(47.5rem, calc(100dvw - 2rem));
+    max-block-size: calc(100dvh - 3rem);
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    padding: 20px;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 24px 70px var(--shadow-strong);
+  }
+
+  .dialog::backdrop {
+    background: var(--backdrop);
+    backdrop-filter: blur(2px);
+  }
+}

@@ -1,0 +1,1089 @@
+{
+  "Cleftpeak": {
+    "name": "Cleftpeak",
+    "altersTimeline": true,
+    "tags": [
+      "StonesplitStrength",
+      "BamboocutKite",
+      "SnowpartingBlade",
+      "PhalanxbaneBlade",
+      "HeavenwillGauntlets",
+      "SkygraspRopeDart"
+    ],
+    "options": {
+      "0": { "name": "0", "effect": { "stat": {} } },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "stat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          },
+          "trigger": {
+            "event": "damage",
+            "action": { "type": "apply", "target": "self", "value": "Cleftpeak", "stack": 1, "reapply": true }
+          },
+          "condition": "Cleftpeak4P"
+        }
+      }
+    }
+  },
+  "RainWhisper": {
+    "name": "Rain Whisper",
+    "altersTimeline": true,
+    "tags": [
+      "StonesplitStrength",
+      "StonesplitMight",
+      "SilkbindDeluge",
+      "SnowpartingBlade",
+      "PhalanxbaneBlade",
+      "ThundercryBlade",
+      "StormbreakerSpear",
+      "PanaceaFan",
+      "SoulshadeUmbrella",
+      "SilkbindJade",
+      "VernalUmbrella",
+      "InkwellFan"
+    ],
+    "options": {
+      "0": { "name": "0", "effect": { "stat": {} } },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "precision": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.08,
+                0.093,
+                0.093
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": [
+          {
+            "stat": {
+              "precision": {
+                "bySoloLevel": [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  0.08,
+                  0.093,
+                  0.093
+                ]
+              }
+            }
+          },
+          { "requirement": [], "effect": { "critDmgBonus": 0.1, "criticalHealingBonus": 0.1 } },
+          {
+            "requirement": [{ "target": "self", "value": "Shield" }],
+            "effect": { "critDmgBonus": 0.15, "criticalHealingBonus": 0.15 }
+          }
+        ]
+      }
+    }
+  },
+  "Ivorybloom": {
+    "name": "Ivorybloom",
+    "altersTimeline": true,
+    "tags": ["SilkbindDeluge", "PanaceaFan", "SoulshadeUmbrella"],
+    "options": {
+      "0": { "name": "0", "effect": { "stat": {} } },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "crit": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.09,
+                0.104,
+                0.104
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": [
+          {
+            "stat": {
+              "crit": {
+                "bySoloLevel": [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  0.09,
+                  0.104,
+                  0.104
+                ]
+              }
+            }
+          },
+          {
+            "requirement": [{ "target": "selfHPPercentage", "comparison": ">=", "amount": 100 }],
+            "effect": {
+              "effectiveStat": { "effectiveCritBonus": 0.05 },
+              "critDmgBonus": 0.15,
+              "criticalHealingBonus": 0.15
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Hawkwing": {
+    "name": "Hawkwing",
+    "altersTimeline": true,
+    "tags": [
+      "BellstrikeSplendor",
+      "BellstrikeUmbra",
+      "SilkbindDeluge",
+      "NamelessSword",
+      "NamelessSpear",
+      "StrategicSword",
+      "HeavenQuakerSpear",
+      "PanaceaFan",
+      "SoulshadeUmbrella",
+      "SilkbindJade",
+      "VernalUmbrella",
+      "InkwellFan"
+    ],
+    "options": {
+      "0": { "name": "0", "effect": { "stat": {} } },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "affinity": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.045,
+                0.052,
+                0.052
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "stat": {
+            "affinity": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.045,
+                0.052,
+                0.052
+              ]
+            }
+          },
+          "trigger": {
+            "event": "damageOutcome",
+            "outcome": "affinity",
+            "action": { "type": "apply", "target": "self", "value": "Hawkwing", "stack": 1, "reapply": true }
+          }
+        }
+      }
+    }
+  },
+  "Etherwrath": {
+    "name": "Etherwrath",
+    "altersTimeline": true,
+    "tags": [
+      "BamboocutKite",
+      "StonesplitStrength",
+      "SilkbindDeluge",
+      "HeavenwillGauntlets",
+      "SkygraspRopeDart",
+      "SnowpartingBlade",
+      "PhalanxbaneBlade",
+      "PanaceaFan",
+      "SoulshadeUmbrella",
+      "SilkbindJade",
+      "BamboocutDust",
+      "VernalUmbrella",
+      "InkwellFan",
+      "EverspringUmbrella",
+      "UnfetteredRopeDart",
+      "SilkbindWing",
+      "MuseflowWaistDrum",
+      "WillowbendFan"
+    ],
+    "options": {
+      "0": { "name": "0", "effect": { "stat": {} } },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "condition": "Etherwrath4P",
+          "stat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          },
+          "trigger": {
+            "event": "damage",
+            "requirement": [{ "target": "skillTag", "value": "DirectDamage" }],
+            "action": { "type": "apply", "target": "self", "value": "Etherwrath", "stack": 1, "reapply": true }
+          }
+        }
+      }
+    }
+  },
+  "Jadeware": {
+    "name": "Jadeware",
+    "altersTimeline": true,
+    "tags": [
+      "BellstrikeSplendor",
+      "BellstrikeUmbra",
+      "NamelessSword",
+      "NamelessSpear",
+      "StrategicSword",
+      "HeavenQuakerSpear"
+    ],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          },
+          "trigger": {
+            "event": "skillStart",
+            "requirement": [{ "target": "skillTag", "value": "MartialArt" }],
+            "cooldown": 12,
+            "action": { "type": "apply", "target": "self", "value": "Jadeware", "stack": 1, "reapply": true }
+          }
+        }
+      }
+    }
+  },
+  "SwiftGale": {
+    "name": "Swift Gale",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "maxPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "SwayingHeights": {
+    "name": "Swaying Heights",
+    "altersTimeline": false,
+    "tags": [],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": [
+          {
+            "rawStat": {
+              "minPhys": {
+                "bySoloLevel": [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  77.8,
+                  90.6,
+                  90.6
+                ]
+              }
+            }
+          },
+          {
+            "requirement": [{ "target": "targetHPPercentage", "comparison": ">", "amount": 50 }],
+            "effect": { "hpDMGBonus": 0.05 }
+          },
+          {
+            "requirement": [{ "target": "targetHPPercentage", "comparison": ">=", "amount": 55 }],
+            "effect": { "hpDMGBonus": 0.01 }
+          },
+          {
+            "requirement": [{ "target": "targetHPPercentage", "comparison": ">=", "amount": 60 }],
+            "effect": { "hpDMGBonus": 0.01 }
+          },
+          {
+            "requirement": [{ "target": "targetHPPercentage", "comparison": ">=", "amount": 65 }],
+            "effect": { "hpDMGBonus": 0.01 }
+          },
+          {
+            "requirement": [{ "target": "targetHPPercentage", "comparison": ">=", "amount": 70 }],
+            "effect": { "hpDMGBonus": 0.01 }
+          },
+          {
+            "requirement": [{ "target": "targetHPPercentage", "comparison": ">=", "amount": 75 }],
+            "effect": { "hpDMGBonus": 0.01 }
+          }
+        ]
+      }
+    }
+  },
+  "Swallowcall": {
+    "name": "Swallowcall",
+    "altersTimeline": false,
+    "tags": ["BamboocutWind", "InfernalTwinblades", "MortalRopeDart"],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": [
+          {
+            "rawStat": {
+              "minPhys": {
+                "bySoloLevel": [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  77.8,
+                  90.6,
+                  90.6
+                ]
+              }
+            }
+          },
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "Rodent" }
+                ]
+              }
+            ],
+            "effect": { "hpDMGBonus": 0.12 }
+          },
+          {
+            "requirement": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "Rodent" }
+                ]
+              },
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "targetQiPercentage", "comparison": "<", "amount": 40 },
+                  { "target": "target", "value": "BoneCorrosion" },
+                  { "target": "target", "value": "QiImbalance" }
+                ]
+              }
+            ],
+            "effect": { "stat": { "physDmgBonus": 0.06, "bamboocutDmgBonus": 0.06 } }
+          }
+        ]
+      }
+    }
+  },
+  "Mistwillow": {
+    "name": "Mistwillow",
+    "altersTimeline": false,
+    "tags": ["SilkbindJade", "VernalUmbrella", "InkwellFan"],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "precision": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.08,
+                0.093,
+                0.093
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "precision": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                0.08,
+                0.093,
+                0.093
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Starweave": {
+    "name": "Starweave",
+    "altersTimeline": true,
+    "tags": ["BamboocutDust", "EverspringUmbrella", "UnfetteredRopeDart"],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": [
+          {
+            "rawStat": {
+              "minPhys": {
+                "bySoloLevel": [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  77.8,
+                  90.6,
+                  90.6
+                ]
+              }
+            },
+            "condition": "Starweave4P"
+          },
+          {
+            "condition": "Starweave4P",
+            "trigger": {
+              "event": "damage",
+              "cooldown": 0.5,
+              "action": { "type": "apply", "target": "self", "value": "Starweave", "stack": 1, "reapply": true }
+            }
+          },
+          {
+            "condition": "Starweave4P",
+            "trigger": {
+              "event": "takeDamage",
+              "action": { "type": "consume", "target": "self", "value": "Starweave", "stack": 1 }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Tiltrim": {
+    "name": "Tiltrim",
+    "altersTimeline": false,
+    "tags": ["BamboocutDraught", "SkystrikeGauntlets", "RivenTwinblades"],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "Cloudshear": {
+    "name": "Cloudshear",
+    "altersTimeline": true,
+    "tags": ["SilkbindWing", "MuseflowWaistDrum", "WillowbendFan"],
+    "options": {
+      "0": { "name": "0", "effect": {} },
+      "2": {
+        "name": "2",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          }
+        }
+      },
+      "4": {
+        "name": "4",
+        "effect": {
+          "rawStat": {
+            "minPhys": {
+              "bySoloLevel": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                77.8,
+                90.6,
+                90.6
+              ]
+            }
+          },
+          "condition": "Cloudshear4P"
+        }
+      }
+    }
+  }
+}

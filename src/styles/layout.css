@@ -1,0 +1,449 @@
+@layer layout {
+  /*
+   * The shell is a column that is at least one viewport tall, so a page whose content is shorter
+   * than the window still puts the footer on the bottom edge instead of leaving it stranded
+   * mid-page above a band of empty background. A minimum rather than a fixed height, so a page
+   * taller than the window still grows and scrolls.
+   *
+   * `flex` is on the shell rather than only on `.viewport-page-shell` because that variant used
+   * to be the only one pinning the footer, and it only applies to the two tabs that scroll their
+   * own content. Every tab now shares one mechanism, and the variant only has to add the fixed
+   * height and clipping that its internal scrolling needs.
+   */
+  .page-shell {
+    /* The page's horizontal inset, named once and used by both the content below and the footer
+       at the foot of the shell. */
+    --shell-gutter: 14px;
+
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100dvh;
+    inline-size: 100%;
+
+    /* No bottom padding: the footer carries the space below it, inside its own background, so the
+       bar meets the bottom edge instead of stopping short of it with a strip of bare gradient
+       below. The footer's own padding is what stands the page off the window. */
+    padding: 28px 0 0;
+  }
+
+  /*
+   * The content the page is made of, and the reason it is a box of its own. The footer is the bar
+   * across the bottom, so it cannot live inside the inset and capped region the rest of the page
+   * occupies; keeping that region as its own element is what lets the bar reach the edges while
+   * everything above it stays in the measure it was laid out in.
+   *
+   * The gutter is padding here, so a child that paints a card or a rule is inset by it, rather
+   * than each child having to inset itself and each capped layout having to centre it. The cap
+   * counts the padding, so a capped content area is as wide as the capped shell used to be, and
+   * an uncapped one is as wide as `100%` less the gutter, which is what it was before.
+   *
+   * The explicit `inline-size` is what the auto margin needs: an auto margin takes the leftover
+   * space only once the item has a width, and without one it would collapse the content to its
+   * own width instead of filling the page.
+   */
+  .page-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-block-size: 0;
+    inline-size: 100%;
+    margin-inline: auto;
+    padding-inline: var(--shell-gutter);
+  }
+
+  .viewport-page-shell {
+    block-size: 100dvh;
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .viewport-page-shell .page-header {
+    flex: 0 0 auto;
+    margin-block-end: 16px;
+  }
+
+  .viewport-page-shell .main-tabs {
+    flex: 0 0 auto;
+    margin-block-end: 12px;
+  }
+
+  .viewport-tab-content {
+    min-block-size: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .viewport-tab-content > .build-manager-panel,
+  .viewport-tab-content > .rotation-editor-panel {
+    block-size: 100%;
+    margin-block-end: 0;
+  }
+
+  .viewport-tab-content .build-manager-layout {
+    block-size: 100%;
+    min-block-size: 0;
+  }
+
+  .viewport-tab-content .build-editor-content {
+    min-block-size: 0;
+    overflow-y: auto;
+  }
+
+  .viewport-page-shell .page-footer {
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    margin-block-start: 12px;
+
+    /* Same reason the base rule's bottom padding is inside its background: the bar has to reach
+       the bottom edge. The top is tighter here because these two tabs fill the window and have no
+       slack to absorb. */
+    padding-block: 10px 32px;
+  }
+
+  .main-tabs {
+    display: flex;
+    gap: 4px;
+    margin-block-end: 22px;
+    border-block-end: 1px solid var(--border);
+    overflow-x: auto;
+  }
+
+  .main-tabs button {
+    min-inline-size: max-content;
+    border: 0;
+    border-block-end: 2px solid transparent;
+    padding: 10px 16px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+  }
+
+  .main-tabs button:hover,
+  .main-tabs button.active {
+    border-block-end-color: var(--primary);
+    color: var(--text);
+  }
+
+  .main-tabs button.modified {
+    background: var(--primary-soft);
+    color: var(--primary);
+  }
+
+  /* The path switcher follows the title block; its buttons wrap within the column. */
+  .path-selector {
+    margin-block-start: 10px;
+  }
+
+  .path-selector-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .path-selector-options button {
+    display: flex;
+    min-block-size: 42px;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 5px 12px;
+    background: oklch(from var(--surface-alt) l c h / 0.82);
+    color: var(--text-muted);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .path-selector-options button:hover,
+  .path-selector-options button.selected {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--text);
+  }
+
+  .path-selector-options button:disabled {
+    border-color: var(--border);
+    background: oklch(from var(--surface-alt) l c h / 0.55);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  .path-selector-options img {
+    inline-size: 30px;
+    block-size: 30px;
+    border-radius: var(--radius-xs);
+    object-fit: contain;
+  }
+
+  .path-status-badge {
+    padding: 1px 6px;
+    border-color: oklch(from var(--primary) l c h / 0.55);
+    color: var(--primary);
+    font-size: 0.75rem;
+    line-height: 1.35;
+    letter-spacing: 0.05em;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-block-end: 16px;
+
+    /* Title block owns the remaining width so the path switcher wraps, not the controls. */
+    .page-header-start {
+      flex: 1 1 0;
+    }
+
+    /* Controls stack above the project links, each sized by its own content. */
+    .page-header-end {
+      display: flex;
+      flex: 0 1 auto;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .dev-mode-button {
+      min-block-size: 44px;
+      min-inline-size: 4.5rem;
+      flex: 0 0 auto;
+    }
+
+    .page-header-controls {
+      position: relative;
+      display: flex;
+      max-inline-size: 100%;
+      align-items: end;
+      flex-wrap: wrap;
+      justify-content: end;
+      gap: 12px;
+    }
+
+    .project-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      min-block-size: 44px;
+    }
+
+    .project-links a {
+      display: inline-flex;
+      min-block-size: 44px;
+      align-items: center;
+      gap: 6px;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    .locale-selector {
+      display: grid;
+      gap: 4px;
+
+      span {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+
+      select {
+        min-block-size: 44px;
+      }
+    }
+  }
+
+  .page-header > *,
+  [data-panel-heading] > *,
+  .path-selector > * {
+    min-inline-size: 0;
+  }
+
+  .eyebrow {
+    margin: 0 0 6px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    max-inline-size: 620px;
+    margin-block-end: 0;
+    color: var(--text-muted);
+  }
+
+  .app-layout {
+    display: grid;
+    grid-template-columns: 44rem 30rem minmax(22rem, 44rem);
+    align-items: start;
+    justify-content: start;
+    gap: 16px;
+  }
+
+  .app-layout:has(.results-column-with-healing) {
+    grid-template-columns: 44rem 30rem 45.25rem;
+  }
+
+  .app-layout > * {
+    min-inline-size: 0;
+  }
+
+  .results-column {
+    position: static;
+  }
+
+  .middle-stats-column {
+    display: grid;
+    inline-size: 100%;
+    max-inline-size: 30rem;
+    gap: 12px;
+  }
+
+  /*
+   * A translucent bar rather than a rule drawn over the background: the body paints a gradient,
+   * so an opaque fill would have to pick one value for every position the bar can land at, while
+   * a translucent one leaves the gradient showing through. Nothing scrolls under the bar, because
+   * the column puts the footer at the end rather than over the content, so there is nothing to blur.
+   *
+   * Both the bar and the rule above it are painted as spread shadows rather than as a background
+   * and a border, because the shell insets its children horizontally and the footer is one of
+   * them. Cancelling that inset with a negative margin would mean restating the gutter here, and
+   * the shell's width is not one value: a fixed inset on the wide layout, a capped and centred
+   * width on the narrow and mobile ones, so the inset changes per breakpoint and any copy of it
+   * would drift. A spread paints out from the box under the gutter instead, and a clip trims it
+   * back to the block bounds, so the paint reaches the left, right and bottom edges and can never
+   * cover the content above. The rule needs this as much as the bar does, because a border paints
+   * only along the element's own edges and would leave a notch at each end of the line.
+   * `vmax` rather than `vw` because a shadow does not affect layout, and the document reserves a
+   * scrollbar gutter that `100vw` would not.
+   *
+   * The automatic block margin is what pins it. Each tab renders straight into the shell as a
+   * sibling of this footer, so there is no wrapper to grow, and an auto margin on the last item
+   * absorbs the shell's spare height without a target having to be named. The gap above the rule
+   * is padding rather than margin, because an auto margin resolves to nothing once the content is
+   * tall enough to leave no slack, and the gap has to survive that case. The bottom padding is
+   * inside the bar so it reaches the edge of the page, which is why the shell has none of its own.
+   */
+  .page-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    margin-block-start: auto;
+    padding: 24px var(--shell-gutter) 32px;
+    border-block-start: 1px solid var(--border);
+    background: oklch(from var(--surface) l c h / 0.5);
+    color: var(--text-muted);
+  }
+
+  .page-footer-accuracy {
+    margin-inline-start: auto;
+    text-align: end;
+  }
+
+  .page-footer a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .page-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .tab-hidden {
+    display: none;
+  }
+
+  /* Layout Responsive Breakpoints */
+  @media (max-width: 110em) {
+    .app-layout:has(.results-column-with-healing) {
+      grid-template-columns: minmax(0, 44rem) minmax(41.5rem, 1fr);
+    }
+
+    .app-layout:has(.results-column-with-healing) .middle-stats-column {
+      grid-column: 1;
+    }
+
+    .app-layout:has(.results-column-with-healing) .results-column {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media (max-width: 100em) {
+    .app-layout {
+      grid-template-columns: minmax(0, 44rem) minmax(17.5rem, 1fr);
+    }
+
+    .middle-stats-column {
+      grid-column: 1;
+    }
+
+    .results-column {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media (max-width: 70em) {
+    .app-layout,
+    .app-layout:has(.results-column-with-healing) {
+      grid-template-columns: 1fr;
+    }
+
+    .middle-stats-column,
+    .results-column,
+    .app-layout:has(.results-column-with-healing) .middle-stats-column,
+    .app-layout:has(.results-column-with-healing) .results-column {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .results-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 37.5em) {
+    .page-shell {
+      --shell-gutter: 10px;
+
+      padding-block-start: 22px;
+    }
+
+    .page-content {
+      max-inline-size: calc(1100px + var(--shell-gutter) * 2);
+    }
+
+    .page-header {
+      display: block;
+    }
+
+    .page-header-controls {
+      justify-content: start;
+      margin-block-start: 18px;
+    }
+
+    .main-tabs {
+      overflow-x: auto;
+    }
+
+    .main-tabs button {
+      flex: 0 0 auto;
+    }
+  }
+}

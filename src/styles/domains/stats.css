@@ -1,0 +1,589 @@
+@layer components {
+  .character-stats-column {
+    display: grid;
+    inline-size: 100%;
+    max-inline-size: 44rem;
+    gap: 12px;
+    min-inline-size: 0;
+  }
+
+  .character-secondary-stats {
+    display: grid;
+    grid-template-columns: 18.25rem minmax(0, 1fr);
+    align-items: start;
+    gap: 12px;
+    min-inline-size: 0;
+  }
+
+  .character-secondary-stats > [data-panel] {
+    min-inline-size: 0;
+    margin-block-end: 0;
+  }
+
+  .character-stats-heading {
+    align-items: center;
+  }
+
+  /*
+   * The row owns its height rather than inheriting the select's. A select's intrinsic height is a
+   * user-agent value that differs between engines, and it was the only thing setting the line's
+   * cross size, so the three controls agreed in one browser and not the other. Every child states
+   * the row's height instead, which also makes the `align-self: stretch` this relied on
+   * unnecessary: it never applied to a child with a definite cross size.
+   */
+  .character-profile-controls {
+    display: flex;
+    min-inline-size: 0;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-xs);
+    block-size: 2.75rem;
+  }
+
+  .character-profile-controls select {
+    inline-size: min(100%, 12rem);
+    min-inline-size: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-xs);
+    background: var(--surface-alt);
+    color: var(--text);
+    font: inherit;
+    block-size: 100%;
+  }
+
+  .character-profile-controls button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xs);
+    white-space: nowrap;
+
+    /*
+     * An icon-only button carries a definite block-size from the Button primitive, and a definite
+     * cross size makes `align-self: stretch` behave as `flex-start`, which left this one a few
+     * pixels shorter than the controls beside it. Stating the height here overrides it, and
+     * `components` is a later layer than the primitive's `ui`, so this wins without changing the
+     * primitive for every other caller.
+     */
+    block-size: 100%;
+  }
+
+  /*
+   * An icon-only button is square by design, and it takes that square from the primitive's own
+   * block-size, which is smaller than the row. Without a width here it would be the row's height
+   * by one axis and its own by the other, so it states the row's height on both.
+   */
+  .character-profile-controls .profile-reset-button {
+    inline-size: 2.75rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    gap: 5px;
+    min-inline-size: 0;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    min-inline-size: 0;
+    align-items: start;
+  }
+
+  .stats-panel {
+    padding: 12px;
+  }
+
+  .stats-panel .character-stats-heading {
+    margin-block-end: 12px;
+  }
+
+  .stats-panel .stats-grid {
+    grid-template-columns: minmax(0, 14rem) 6rem 1rem minmax(0, 14rem) 6rem;
+    gap: 3px 6px;
+    justify-content: start;
+  }
+
+  .stats-panel .stat-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    gap: 6px;
+  }
+
+  .stats-panel .field {
+    grid-column: span 2;
+    grid-template-columns: subgrid;
+    grid-template-rows: minmax(24px, auto) auto;
+  }
+
+  .stats-panel .stat-row > .field:nth-child(2) {
+    grid-column: 4 / span 2;
+  }
+
+  .stats-panel .input-wrap {
+    inline-size: 96px;
+  }
+
+  .stats-panel .field input {
+    line-height: 18px;
+  }
+
+  .inline-derived {
+    align-self: start;
+    min-inline-size: 0;
+    color: var(--primary);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  .inline-derived-value {
+    grid-column: 2;
+    align-self: start;
+    min-inline-size: 0;
+    padding-inline-start: var(--stat-value-padding-inline-start);
+    color: var(--primary);
+    font-weight: 650;
+    text-align: start;
+  }
+
+  .derived-spacer {
+    visibility: hidden;
+  }
+
+  /* Derived Stat Panel */
+  .derived-panel {
+    border-color: oklch(from var(--primary) l c h / 0.35);
+  }
+
+  .derived-list {
+    display: grid;
+    gap: 7px;
+  }
+
+  .derived-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: var(--radius-md);
+    background: var(--primary-soft);
+  }
+
+  .derived-stat span {
+    color: var(--text-muted);
+    text-transform: capitalize;
+  }
+
+  .derived-stat strong {
+    color: var(--primary);
+    font-size: 1rem;
+  }
+
+  /* DPS Overview Panel */
+  .dps-panel {
+    border-color: oklch(from var(--primary) l c h / 0.45);
+    text-align: center;
+  }
+
+  .dps-panel [data-panel-heading] {
+    text-align: start;
+  }
+
+  .graduation-rate {
+    display: flex;
+    min-inline-size: 0;
+    align-items: center;
+    gap: 0.3rem;
+    margin-inline-start: auto;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  .graduation-rate strong {
+    color: var(--primary);
+  }
+
+  .graduation-rate .breakthrough-detail-trigger {
+    position: relative;
+  }
+
+  .graduation-rate .graduation-rate-tooltip {
+    inset-inline: auto 0;
+    inline-size: min(42rem, calc(100vw - 2rem));
+    text-align: start;
+    white-space: normal;
+  }
+
+  .dps-value {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.18em;
+    margin-block-start: 18px;
+    color: var(--primary);
+    font-size: 3rem;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+  }
+
+  .throughput-separator {
+    color: var(--text-muted);
+  }
+
+  .dps-secondary-metric {
+    display: flex;
+    justify-content: center;
+    gap: 0.45em;
+    color: var(--text-muted);
+    line-height: 1.3;
+
+    strong {
+      color: var(--text);
+    }
+  }
+
+  [data-panel-heading] > div:has(> [data-calculation-status]) {
+    display: flex;
+    min-inline-size: 0;
+    align-items: baseline;
+    gap: var(--space-xs);
+  }
+
+  [data-panel-heading] > div > [data-calculation-status] {
+    min-block-size: 0;
+    margin-block-start: 0;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .dps-calculation-status {
+    min-block-size: 23px;
+    margin-block-start: 4px;
+    margin-inline: auto;
+    font-size: inherit;
+  }
+
+  /* Reserves the row so the value above it does not shift when the status appears. */
+  [data-calculation-status].dps-calculation-status:not([data-busy]) {
+    display: block;
+    visibility: hidden;
+  }
+
+  .dps-context {
+    display: grid;
+    gap: 10px;
+    margin-block-start: 16px;
+    border-block-start: 1px solid var(--border);
+    padding-block-start: 12px;
+    text-align: start;
+  }
+
+  .dps-context > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .dps-context span {
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .dps-context strong {
+    min-inline-size: 0;
+    color: var(--text);
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  /* Priority Panel */
+  .priority-panel {
+    text-align: start;
+  }
+
+  .priority-panel [data-panel-heading] {
+    margin-block-end: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .priority-mode-control {
+    flex: 0 0 auto;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .priority-relayed-indicator {
+    display: inline-flex;
+    margin-inline-start: var(--space-xs);
+    color: var(--primary);
+    font-size: 1.125rem;
+    line-height: 1;
+    vertical-align: middle;
+    text-shadow: 0 0 8px oklch(from var(--primary) l c h / 0.45);
+  }
+
+  .priority-list {
+    --priority-columns: minmax(8rem, 1fr) 6.5rem 5rem;
+
+    display: grid;
+    inline-size: 100%;
+    gap: 7px;
+    overflow-x: auto;
+  }
+
+  .priority-header,
+  .priority-row {
+    display: grid;
+    grid-template-columns: var(--priority-columns);
+    gap: 10px;
+    align-items: center;
+    color: var(--text-muted);
+  }
+
+  .priority-list-with-roll {
+    --priority-columns: minmax(8rem, 1fr) 5rem 6.5rem 5rem;
+  }
+
+  .priority-list-with-healing {
+    --priority-columns: minmax(8rem, 1fr) 6.5rem 5rem 6.5rem 5rem;
+
+    min-inline-size: 34rem;
+  }
+
+  .priority-list-with-roll.priority-list-with-healing {
+    --priority-columns: minmax(8rem, 1fr) 5rem 6.5rem 5rem 6.5rem 5rem;
+
+    min-inline-size: 39.625rem;
+  }
+
+  .priority-header {
+    padding-block-end: 3px;
+    color: var(--text-muted);
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .priority-header span {
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .attunement-panel {
+    padding: 12px;
+  }
+
+  .attunement-panel .attunement-field {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 5.25rem);
+  }
+
+  .breakthrough-panel {
+    padding-block: 0.75rem;
+  }
+
+  .breakthrough-heading {
+    position: relative;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.75rem;
+    margin-block-end: 0;
+  }
+
+  .breakthrough-title {
+    display: flex;
+    min-inline-size: 0;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .breakthrough-title h2 {
+    margin-block-end: 0;
+  }
+
+  .breakthrough-control {
+    inline-size: min(100%, 6rem);
+  }
+
+  .breakthrough-detail-trigger {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+  }
+
+  .breakthrough-detail-mark {
+    position: relative;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    padding: 0;
+    background: var(--primary-soft);
+    color: var(--primary);
+    cursor: help;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .breakthrough-detail-mark::before {
+    position: absolute;
+    inset: -0.75rem;
+    content: "";
+  }
+
+  .breakthrough-detail-mark:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .breakthrough-detail-tooltip {
+    position: absolute;
+    z-index: 20;
+    inset-block-start: calc(100% + 0.65rem);
+    inset-inline-start: 0;
+    display: grid;
+    inline-size: min(24rem, 100%);
+    gap: 0.3rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.75rem;
+    background: var(--surface);
+    box-shadow: 0 0.75rem 1.75rem var(--shadow-color);
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.35;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.25rem);
+    visibility: hidden;
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast),
+      visibility var(--transition-fast);
+  }
+
+  .breakthrough-detail-tooltip > span {
+    white-space: nowrap;
+  }
+
+  .breakthrough-detail-trigger:hover .breakthrough-detail-tooltip,
+  .breakthrough-detail-trigger:focus-within .breakthrough-detail-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .breakthrough-detail-tooltip {
+      transition-duration: 0.01ms;
+    }
+  }
+
+  .priority-header span:nth-child(n + 2),
+  .priority-row strong {
+    text-align: end;
+  }
+
+  .priority-row strong {
+    font-weight: 700;
+  }
+
+  .priority-max-roll {
+    color: var(--text);
+  }
+
+  .damage-positive {
+    color: var(--primary);
+  }
+
+  .damage-negative {
+    color: var(--error);
+  }
+
+  .healing-positive {
+    color: var(--success);
+  }
+
+  .healing-negative {
+    color: var(--healing-negative);
+  }
+
+  .throughput-neutral {
+    color: var(--text);
+  }
+
+  .priority-section-start {
+    margin-block-start: 10px;
+    padding-block-start: 10px;
+    border-block-start: 1px solid var(--border-muted);
+  }
+
+  /* Stats Responsive Breakpoints */
+  @media (max-width: 43.75em) {
+    .character-stats-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .character-profile-controls {
+      inline-size: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .character-profile-controls select {
+      flex: 1 1 150px;
+    }
+
+    .character-profile-row {
+      grid-template-columns: 1fr;
+    }
+
+    .character-profile-row > div {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .character-secondary-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .stats-panel .stats-grid {
+      grid-template-columns: minmax(0, max-content) 96px;
+    }
+
+    .stats-panel .stat-row {
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+    }
+
+    .stats-panel .stat-row > .field,
+    .stats-panel .stat-row > .field:nth-child(2) {
+      grid-column: 1 / -1;
+    }
+
+    .stats-panel .stat-row > span:empty {
+      display: none;
+    }
+  }
+
+  @media (max-width: 26.25em) {
+    .stat-row {
+      grid-template-columns: 1fr;
+    }
+
+    .inline-derived {
+      white-space: normal;
+    }
+  }
+}

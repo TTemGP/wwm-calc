@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../node_modules/oxlint/configuration_schema.json",
+  "extends": ["../../../.oxlintrc.json"],
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "react",
+    "react-perf",
+    "oxc",
+    "import",
+    "jsx-a11y",
+    "vitest",
+    "promise"
+  ],
+  "categories": { "correctness": "error", "suspicious": "error", "pedantic": "error", "perf": "error" },
+  "rules": { "import/no-duplicates": "error" },
+  "env": { "builtin": true, "browser": true }
+}

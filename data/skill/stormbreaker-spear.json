@@ -1,0 +1,43 @@
+{
+  "ThunderShock": {
+    "name": "Thunder Shock",
+    "shortName": "Spear Special",
+    "castTime": 1.6,
+    "action": [
+      { "type": "damage", "phyCoef": 0.4843, "phyBonus": 134, "attrBonus": 73, "time": 0.4, "attrCoef": 0.4843 },
+      { "type": "apply", "target": "target", "value": "Vulnerable", "time": 0.4 },
+      { "type": "damage", "phyCoef": 1.13, "phyBonus": 313, "attrBonus": 171, "time": 1.2, "attrCoef": 1.13 },
+      { "type": "apply", "target": "target", "value": "Vulnerable", "time": 1.2 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Special", "Spear", "StormbreakerSpear", "ThunderShock"],
+    "martialArt": "stormbreaker",
+    "weapon": "Spear"
+  },
+  "ThunderShock1": {
+    "name": "Thunder Shock 1-Hit [Cancel]",
+    "shortName": "Spear Special 1-Hit",
+    "castTime": 0.4,
+    "action": [
+      { "type": "damage", "phyCoef": 0.4843, "phyBonus": 134, "attrBonus": 73, "time": 0.4, "attrCoef": 0.4843 },
+      { "type": "apply", "target": "target", "value": "Vulnerable", "time": 0.4 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Special", "Spear", "StormbreakerSpear", "ThunderShock"],
+    "martialArt": "stormbreaker",
+    "weapon": "Spear"
+  },
+  "StormRoar": {
+    "name": "Storm Roar",
+    "shortName": "Spear Q",
+    "castTime": 1,
+    "action": [
+      { "type": "damage", "phyCoef": 0.3151, "phyBonus": 88, "attrBonus": 48, "time": 1, "attrCoef": 0.3151 },
+      { "type": "apply", "target": "self", "value": "Drumbeat", "time": 1 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "MartialArt", "Spear", "StormbreakerSpear", "StormRoar"],
+    "martialArt": "stormbreaker",
+    "weapon": "Spear"
+  }
+}
