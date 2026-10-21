@@ -174,9 +174,9 @@ footer{font-size:13px;color:var(--muted)}
       <tbody id="boxHave"></tbody>
     </table></div>
     <h3 class="sub">주간 구매</h3>
-    <p class="muted small" style="margin:0 0 8px">체크한 곳의 개수에 시즌 시작까지 남은 주 수를 곱해서 신념의 여정 상자에 더해요. 지금 주간으로 사는 상자는 신념의 여정이에요.</p>
+    <p class="muted small" style="margin:0 0 8px">「계산에 넣기」를 체크한 곳만 세요. 이번 주에 이미 사서 보유에 넣었으면 「이번 주 샀음」을 체크해 주세요. 그 몫은 빼고, 남은 월요일마다 새로 사는 양을 신념의 여정 상자에 더해요. 「이번 주 샀음」은 월요일이 되면 자동으로 풀려요.</p>
     <div class="tbl"><table class="boxsrc">
-      <thead><tr><th></th><th>구매처</th><th class="r">1주 개수</th><th>비용</th></tr></thead>
+      <thead><tr><th>계산에 넣기</th><th>구매처</th><th class="r">1주 개수</th><th>이번 주 샀음</th><th>비용</th></tr></thead>
       <tbody id="boxBody"></tbody>
     </table></div>
   </section>
@@ -378,12 +378,22 @@ const $ = id => document.getElementById(id);
 const fmt = n => n.toLocaleString('ko-KR');
 const opts = (sel, from = 0) => { let h = ''; for (let i = from; i <= MAX; i++) h += `<option value="${i}"${i===sel?' selected':''}>${label(i)}${i>GLOBAL?' (중국)':''}</option>`; return h; };
 
+// 이번 주(월요일 시작) 구분
+const monday = d => { const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - (x.getDay() + 6) % 7); return x; };
+const weekKey = iso(monday(today));
+const bought = k => S.boxWeek === weekKey && !!(S.boxBought||{})[k];
+function mondaysLeft() {
+  const end = new Date(S.season + 'T00:00:00'); let n = 0;
+  for (let d = new Date(monday(today).getTime() + 7*864e5); d < end; d = new Date(d.getTime() + 7*864e5)) n++;
+  return n;
+}
 function buildBox() {
   $('boxBody').innerHTML = BOX_SRC.map(([k, n, , cost]) => {
     const b = S.boxSrc[k] ||= {on:true, n:0};
     return `<tr><td><input type="checkbox" id="bx-on-${k}" data-bx="${k}" data-f="on"${b.on?' checked':''} aria-label="${n} 포함"></td>
       <td><label for="bx-on-${k}" class="mname">${n}</label></td>
       <td class="r"><input type="number" min="0" inputmode="numeric" id="bx-n-${k}" data-bx="${k}" data-f="n" value="${b.n}" aria-label="${n} 1주 개수"></td>
+      <td><input type="checkbox" id="bx-bought-${k}" data-bx="${k}" data-f="bought"${bought(k)?' checked':''} aria-label="${n} 이번 주 샀음"></td>
       <td class="small muted">${cost}</td></tr>`;
   }).join('');
 }
@@ -478,8 +488,12 @@ function render() {
 
   // 시즌 때 = 보유 (+ 신념의 여정 상자는 주간 구매 × 남은 주)
   const proj = {}, all = [...HERBS, ...IRON, ...EXTRA].map(m => m[0]);
-  const boxWeek = BOX_SRC.reduce((a, [id]) => a + (S.boxSrc[id]?.on ? +S.boxSrc[id].n || 0 : 0), 0);
-  for (const k of all) proj[k] = (+S.have[k]||0) + (k === 'bx3' ? boxWeek * W : 0);
+  // 상자: 이번 주 아직 안 산 곳 + 시즌 시작 전 남은 월요일마다 새로 사는 양
+  const on = BOX_SRC.filter(([id]) => S.boxSrc[id]?.on);
+  const boxNow = on.reduce((a, [id]) => a + (bought(id) ? 0 : +S.boxSrc[id].n || 0), 0);
+  const boxWeek = on.reduce((a, [id]) => a + (+S.boxSrc[id].n || 0), 0);
+  const boxAdd = S.season ? boxNow + boxWeek * mondaysLeft() : 0;
+  for (const k of all) proj[k] = (+S.have[k]||0) + (k === 'bx3' ? boxAdd : 0);
 
   // 돌파 재료: 부족분을 상자(3개씩)로 메움
   const short = {}, viaBox = {};
@@ -601,6 +615,7 @@ $('addTodo').addEventListener('submit', e => {
 $('boxBody').addEventListener('input', e => {
   const t = e.target, k = t.dataset.bx; if (!k) return;
   if (t.dataset.f === 'on') S.boxSrc[k].on = t.checked;
+  else if (t.dataset.f === 'bought') { if (S.boxWeek !== weekKey) S.boxBought = {}; S.boxWeek = weekKey; S.boxBought[k] = t.checked; }
   else S.boxSrc[k].n = Math.max(0, Math.floor(+t.value || 0));
   touch(); render();
 });
