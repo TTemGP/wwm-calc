@@ -56,6 +56,13 @@ input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);margin:0}
 .sk{display:inline-flex;gap:6px;align-items:baseline;padding:3px 10px;border-radius:8px;background:var(--sunk);border:1px solid var(--line);font-size:12.5px;white-space:nowrap}
 .sk b{font-weight:600}
 .sk span{color:var(--muted)}
+h3.sub{font-size:14px;margin:18px 0 6px}
+.imp{margin:0 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sunk)}
+.imp summary{cursor:pointer;font-weight:600;font-size:14px}
+.imp ol{margin:10px 0 6px;padding-left:20px;display:grid;gap:4px}
+.imp textarea{width:100%;font:12px ui-monospace,monospace;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:inherit;resize:vertical}
+.imp .bm{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+.impbar{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:baseline;gap:6px;padding:4px 11px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);font-size:13px}
 .chip b{font-family:var(--f-num)}
 
@@ -146,7 +153,7 @@ footer{font-size:13px;color:var(--muted)}
   </section>
 
   <section class="panel" aria-labelledby="h-mat">
-    <div class="ph"><h2 id="h-mat">재료 현황</h2><span class="muted small">지금 가진 개수만 적어 주세요. 오금철은 높은 등급이 낮은 등급을 대신할 수 있어요. 주간으로 사는 비결 지원 상자는 아래 표에서 계산해 신념의 여정 상자에 더해요.</span></div>
+    <div class="ph"><h2 id="h-mat">재료 현황</h2><span class="muted small">지금 가진 개수만 적어 주세요. 오금철은 높은 등급이 낮은 등급을 대신할 수 있어요. 비결 지원 상자는 아래에 따로 있어요.</span></div>
     <div class="tbl"><table class="mat">
       <thead><tr><th>재료</th><th class="r">필요</th><th class="r">보유</th><th class="r">시즌 때</th><th>결과</th></tr></thead>
       <tbody id="matBody"></tbody>
@@ -154,7 +161,13 @@ footer{font-size:13px;color:var(--muted)}
   </section>
 
   <section class="panel" aria-labelledby="h-box">
-    <div class="ph"><h2 id="h-box">비결 지원 상자 주간 구매</h2><span class="muted small">체크한 곳의 개수를 더해서 시즌 시작까지 남은 주 수만큼 곱해서 재료 현황의 신념의 여정 상자에 더해요. 지금 주간으로 사는 상자는 신념의 여정이에요.</span></div>
+    <div class="ph"><h2 id="h-box">비결 지원 상자</h2><span class="muted small">상자 1개에 고른 돌파 재료 3개예요. 재료 현황에서 모자라는 돌파 재료를 가진 상자로 채워요.</span></div>
+    <div class="tbl"><table class="mat">
+      <thead><tr><th>상자</th><th class="r">쓸 개수</th><th class="r">보유</th><th class="r">시즌 때</th><th>결과</th></tr></thead>
+      <tbody id="boxHave"></tbody>
+    </table></div>
+    <h3 class="sub">주간 구매</h3>
+    <p class="muted small" style="margin:0 0 8px">체크한 곳의 개수에 시즌 시작까지 남은 주 수를 곱해서 신념의 여정 상자에 더해요. 지금 주간으로 사는 상자는 신념의 여정이에요.</p>
     <div class="tbl"><table class="boxsrc">
       <thead><tr><th></th><th>구매처</th><th class="r">1주 개수</th><th>비용</th></tr></thead>
       <tbody id="boxBody"></tbody>
@@ -163,6 +176,17 @@ footer{font-size:13px;color:var(--muted)}
 
   <section class="panel" aria-labelledby="h-sk">
     <div class="ph"><h2 id="h-sk">비결 목록</h2><span class="muted small">체크한 비결만 계산해요. 공격 비결(오금철을 쓰는 비결)만 있어요.</span></div>
+    <details class="imp">
+      <summary>공식 데이터 툴에서 장착한 비결 가져오기</summary>
+      <ol class="small">
+        <li><a class="bm" href="javascript:%28function%28%29%7Bvar%20M%3D%7B%22noData%22%3A%20%22%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%97%90%EC%84%9C%20%EB%B9%84%EA%B2%B0%20%EC%A0%95%EB%B3%B4%EB%A5%BC%20%EB%AA%BB%20%EB%B0%9B%EC%95%98%EC%96%B4%EC%9A%94.%22%2C%20%22copyPrompt%22%3A%20%22%EC%9D%B4%20%EB%82%B4%EC%9A%A9%EC%9D%84%20%EB%B3%B5%EC%82%AC%ED%95%B4%EC%84%9C%20%EB%B9%84%EA%B2%B0%20%EA%B3%84%EC%82%B0%EA%B8%B0%EC%97%90%20%EB%B6%99%EC%97%AC%EB%84%A3%EC%96%B4%20%EC%A3%BC%EC%84%B8%EC%9A%94%3A%22%2C%20%22copySuccess%22%3A%20%22%EC%9E%A5%EC%B0%A9%20%EB%B9%84%EA%B2%B0%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EB%B3%B5%EC%82%AC%ED%96%88%EC%96%B4%EC%9A%94.%20%EB%B9%84%EA%B2%B0%20%EA%B3%84%EC%82%B0%EA%B8%B0%EC%97%90%20%EB%B6%99%EC%97%AC%EB%84%A3%EC%96%B4%20%EC%A3%BC%EC%84%B8%EC%9A%94.%22%2C%20%22notLoggedIn%22%3A%20%22%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%9D%B4%20%EC%95%88%20%EB%8F%BC%20%EC%9E%88%EC%96%B4%EC%9A%94.%20%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%9D%84%20%EC%97%B4%EC%96%B4%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%95%9C%20%EB%92%A4%20%EB%8B%A4%EC%8B%9C%20%EB%88%8C%EB%9F%AC%20%EC%A3%BC%EC%84%B8%EC%9A%94.%22%2C%20%22unreadable%22%3A%20%22%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%97%90%EC%84%9C%20%EC%9D%BD%EC%9D%84%20%EC%88%98%20%EC%97%86%EB%8A%94%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80%20%EC%99%94%EC%96%B4%EC%9A%94.%22%2C%20%22unreachable%22%3A%20%22%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%97%90%20%EC%97%B0%EA%B2%B0%ED%95%98%EC%A7%80%20%EB%AA%BB%ED%96%88%EC%96%B4%EC%9A%94.%22%7D%2CD%3D%27https%3A%2F%2Fs2.easebar.com%2F78ae9d90792a3e9b%2Frole%2FroleInfo%27%2CK%3D%27h72na_data_token%27%3Bfunction%20done%28r%29%7Bvar%20d%3Dr%26%26r.data%3Fr.data%3Ar%3Bif%28%21d%7C%7C%21d.battleQs%29%7Balert%28M.noData%29%3Breturn%7Dvar%20s%3DJSON.stringify%28%7Bsource%3A%27wwm-dashboard%27%2Cv%3A2%2CcapturedAt%3Anew%20Date%28%29.toISOString%28%29%2CroleInfo%3A%7BbattleQs%3Ad.battleQs%7D%7D%29%3Bfunction%20fb%28%29%7Bprompt%28M.copyPrompt%2Cs%29%7Dif%28navigator.clipboard%26%26navigator.clipboard.writeText%29navigator.clipboard.writeText%28s%29.then%28function%28%29%7Balert%28M.copySuccess%29%7D%2Cfb%29%3Belse%20fb%28%29%7Dvar%20t%3Dnull%3Btry%7Bt%3DlocalStorage.getItem%28K%29%7Dcatch%28e%29%7B%7Dif%28%21t%29%7Bvar%20m%3D%2F%28%3F%3A%5E%7C%3B%5Cs%2A%29token%3D%28%5B%5E%3B%5D%2B%29%2F.exec%28document.cookie%7C%7C%27%27%29%3Bif%28m%29t%3Dm%5B1%5D%7Dif%28%21t%29%7Balert%28M.notLoggedIn%29%3Breturn%7Dvar%20x%3Dnew%20XMLHttpRequest%28%29%3Bx.open%28%27GET%27%2CD%2Ctrue%29%3Bx.withCredentials%3Dtrue%3Bx.setRequestHeader%28%27access_token%27%2Ct%29%3Bx.onload%3Dfunction%28%29%7Btry%7Bdone%28JSON.parse%28x.responseText%29%29%7Dcatch%28e%29%7Balert%28M.unreadable%29%7D%7D%3Bx.onerror%3Dfunction%28%29%7Balert%28M.unreachable%29%7D%3Bx.send%28%29%7D%29%28%29" onclick="event.preventDefault()">비결 가져오기</a> 버튼을 북마크바로 끌어다 놓아요.</li>
+        <li><a href="https://www.wherewindsmeetgame.com/m/2025h5sjgj/en/" target="_blank" rel="noopener">공식 데이터 툴</a>에 로그인한 상태에서 그 북마크를 눌러요. 데이터가 복사돼요.</li>
+        <li>아래 칸에 붙여넣고 「장착 비결 체크」를 눌러요. 딜 계산기에서 쓰던 공식 데이터 북마크로 복사한 내용도 돼요.</li>
+      </ol>
+      <p class="muted small">공식 데이터에는 장착한 비결 8칸만 있고 비결 단계나 재료 개수는 없어서, 체크만 해 줘요. 단계는 직접 골라 주세요.</p>
+      <textarea id="impText" rows="3" placeholder='{"source":"wwm-dashboard", ...}' aria-label="공식 데이터 붙여넣기"></textarea>
+      <div class="impbar"><button id="impApply">장착 비결 체크</button><span class="muted small" id="impMsg" role="status"></span></div>
+    </details>
     <div class="bulk">
       <span>체크한 비결 한 번에</span>
       <label for="bulkCur">지금</label>
@@ -333,12 +357,12 @@ function buildMats() {
     <td class="r num" id="proj-${k}"></td><td id="res-${k}"></td></tr>`;
   let h = '<tr class="grp"><td colspan="5">돌파 재료</td></tr>';
   HERBS.forEach(m => h += row(m));
-  BOXES.forEach(b => h += row([b[0], b[1]], b[2]));
   h += '<tr class="grp"><td colspan="5">오금철</td></tr>';
   IRON.forEach(m => h += row(m, IRON_USE[m[0]]));
   h += '<tr class="grp"><td colspan="5">기타</td></tr>';
   h += row(EXTRA[0], '2번째 형태');
   $('matBody').innerHTML = h;
+  $('boxHave').innerHTML = BOXES.map(b => row([b[0], b[1]], b[2])).join('');
 }
 
 function weeks() {
@@ -473,6 +497,21 @@ $('addTodo').addEventListener('submit', e => {
   e.preventDefault();
   const v = $('todoText').value.trim(); if (!v) return;
   S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
+});
+// 공식 데이터 툴 roleInfo.battleQs: 칸 → 비결 번호(th.gl chronicle_822xxx 뒤 숫자)
+const QS = {1:'death',2:'breath',3:'poet',4:'lion',6:'mist',10:'ghost',11:'toad',13:'talon',14:'guard',32:'serene',33:'yaksha',
+  36:'free',37:'wolf',38:'soar',39:'meteor',40:'golden',41:'dragon',42:'steps',44:'goose',45:'flute',52:'nine',53:'world',
+  56:'ink',57:'dear',101:'taichi',102:'meridian',103:'seize',106:'cloud'};
+$('impApply').addEventListener('click', () => {
+  let d; try { d = JSON.parse($('impText').value.trim()); } catch { $('impMsg').textContent = '붙여넣은 내용을 읽지 못했어요.'; return; }
+  const q = (d && (d.roleInfo || d.data || d)).battleQs;
+  if (!q) { $('impMsg').textContent = '장착 비결 정보가 없어요. 공식 데이터 툴에서 다시 복사해 주세요.'; return; }
+  const ids = Object.values(q).map(n => QS[n]).filter(Boolean);
+  for (const id of ids) sk(id).on = true;
+  const names = SKILLS.filter(s => ids.includes(s[0])).map(s => s[1]);
+  const skip = Object.values(q).length - ids.length;
+  $('impMsg').textContent = `${names.join(', ')} 체크했어요${skip ? ` (공격 비결이 아닌 ${skip}칸은 빼요)` : ''}.`;
+  touch(); buildSkills(); render();
 });
 $('boxBody').addEventListener('input', e => {
   const t = e.target, k = t.dataset.bx; if (!k) return;
