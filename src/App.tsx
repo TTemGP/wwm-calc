@@ -20,6 +20,7 @@ import { loadRotationEntries } from "./application/persistence/rotations"
 import { loadBuildSetupOverrides, sameBuildSetupValue } from "./application/persistence/setupOverrides"
 import { hasSkillOverrides, loadSkillOverrides } from "./application/persistence/skillOverrides"
 import { rotationAvailableForWeapons } from "./application/rotationCatalog"
+import { AccountBar } from "./application/shell/AccountBar"
 import { FeatureLoadBoundary } from "./application/shell/FeatureLoadBoundary"
 import { NoticeArea } from "./application/shell/NoticeArea"
 import { BreakdownTab } from "./features/analysis/BreakdownTab"
@@ -426,6 +427,7 @@ export default function App() {
           <div className="page-header-end">
             <div className="page-header-controls">
               <NoticeArea />
+              <AccountBar />
             </div>
             <div className="project-links">
               <a href="bis/">

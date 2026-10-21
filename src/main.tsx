@@ -6,6 +6,7 @@ import "@fontsource-variable/noto-sans/wght.css"
 import "@fontsource-variable/noto-sans-tc/wght.css"
 import "@fontsource-variable/noto-sans-kr/wght.css"
 import App from "./App"
+import { startCloudSync } from "./cloudSync"
 import { startDeploymentUpdates } from "./deploymentUpdates"
 import { initializeI18n } from "./i18n"
 import { migrateSessionStorage } from "./persistentStorage"
@@ -28,6 +29,7 @@ import "./styles/theme-yeonun.css"
 
 migrateSessionStorage()
 startDeploymentUpdates()
+void startCloudSync()
 await initializeI18n()
 
 createRoot(document.getElementById("root")!).render(
