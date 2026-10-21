@@ -491,13 +491,15 @@ function gearNeed() {
 }
 function renderGear() {
   const need = gearNeed(), keys = Object.keys(need);
+  // 만들 개수를 안 적어도 이 단계 재료는 다 보여서 보유 개수를 적어 둘 수 있어요
+  const mats = [...new Set(gearPieces(S.gear.tier).flatMap(([, , [, m]]) => (m || []).map(x => x[0])))];
   const cur = $('gearMat').querySelector(':focus')?.dataset.gh;
-  $('gearMat').innerHTML = keys.length ? keys.map(m => {
-    const have = +S.gear.have[m] || 0, s = need[m] - have;
-    return `<tr><td class="mname">${m}</td><td class="r num">${fmt(need[m])}</td>
+  $('gearMat').innerHTML = mats.map(m => {
+    const have = +S.gear.have[m] || 0, n = need[m] || 0, s = n - have;
+    return `<tr><td class="mname">${m}</td><td class="r num">${n ? fmt(n) : '<span class="muted">-</span>'}</td>
       <td class="r"><input type="number" min="0" inputmode="numeric" data-gh="${m}" value="${S.gear.have[m]??''}" placeholder="0" aria-label="${m} 보유"></td>
-      <td>${s > 0 ? `<span class="pill bad">${fmt(s)} 부족</span>` : `<span class="pill ok">${fmt(-s)} 남음</span>`}</td></tr>`;
-  }).join('') + (()=>{ const runs = gearPieces(S.gear.tier).reduce((t, [k, , [, m]]) => t + (m ? (+S.gear.n[k]||0) : 0), 0) * (+S.gear.runs||1); return `<tr><td class="mname">체력<small>제작 1회 10</small></td><td class="r num">${fmt(runs*10)}</td><td></td><td class="small muted">제작 ${fmt(runs)}회</td></tr>`; })() : '<tr><td colspan="4" class="muted small">만들 장비 개수를 적어 주세요.</td></tr>';
+      <td>${!n ? '' : s > 0 ? `<span class="pill bad">${fmt(s)} 부족</span>` : `<span class="pill ok">${fmt(-s)} 남음</span>`}</td></tr>`;
+  }).join('') + (!keys.length ? '<tr><td colspan="4" class="muted small">위에서 만들 장비 개수를 적으면 필요한 양이 나와요.</td></tr>' : (()=>{ const runs = gearPieces(S.gear.tier).reduce((t, [k, , [, m]]) => t + (m ? (+S.gear.n[k]||0) : 0), 0) * (+S.gear.runs||1); return `<tr><td class="mname">체력<small>제작 1회 10</small></td><td class="r num">${fmt(runs*10)}</td><td></td><td class="small muted">제작 ${fmt(runs)}회</td></tr>`; })());
   if (cur) { const el = $('gearMat').querySelector(`[data-gh="${cur}"]`); if (el) { el.focus(); const v = el.value; el.value = ''; el.value = v; } }
   return keys.filter(m => need[m] > (+S.gear.have[m] || 0)).map(m => ({
     key: 'gear-'+S.gear.tier+'-'+m+'-'+(need[m] - (+S.gear.have[m]||0)),
