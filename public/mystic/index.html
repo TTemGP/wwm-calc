@@ -155,6 +155,18 @@ footer{font-size:13px;color:var(--muted)}
     </table></div>
   </section>
 
+  <section class="panel" aria-labelledby="h-shop">
+    <div class="ph"><h2 id="h-shop">시즌 지원 상점 (소옥)</h2><span class="muted small">소옥으로 오금철을 1개에 소옥 80개로 살 수 있어요. 모자라는 오금철을 여기서 사면 얼마나 드는지 봐요.</span></div>
+    <div class="gearbar">
+      <label for="shopJade">소옥 보유</label>
+      <input type="number" min="0" inputmode="numeric" id="shopJade" placeholder="0" style="width:130px">
+      <label for="shopStock">신념의 여정 남은 재고</label>
+      <input type="number" min="0" inputmode="numeric" id="shopStock" style="width:100px">
+    </div>
+    <div id="shopOut" class="small"></div>
+    <p class="muted small" style="margin:10px 0 0">파는 오금철: Lv.1~4, 오금철-Lv.5, 오금철-신념의 여정(각 소옥 80). 신념의 여정 재고는 초기화되지 않고 매주 월요일 550개씩 들어와요(남은 입고 4회, 게임 화면 기준). 소옥은 무위수련에서 옥어패 1개당 8개씩, 소옥이 80만 개 미만일 때만 쌓여요.</p>
+  </section>
+
   <section class="panel" aria-labelledby="h-box">
     <div class="ph"><h2 id="h-box">비결 지원 상자</h2><span class="muted small">상자 1개에 고른 돌파 재료 3개예요. 재료 현황에서 모자라는 돌파 재료를 가진 상자로 채워요.</span></div>
     <div class="tbl"><table class="mat">
@@ -174,8 +186,15 @@ footer{font-size:13px;color:var(--muted)}
     <div class="gearbar">
       <label for="gearTier">장비 단계</label>
       <select id="gearTier"></select>
+      <label for="gearRuns">1개당 제작</label>
+      <select id="gearRuns">
+        <option value="1">1회</option>
+        <option value="16">평균 16회</option>
+        <option value="30">확정 30회</option>
+      </select>
       <span class="muted small" id="gearNote"></span>
     </div>
+    <p class="muted small" style="margin:0 0 12px">제작은 뽑기라 보라색 10%, 금색 5% 확률로 나와요. 금색은 30회 안에 확정이라, 확정까지 보면 1개에 재료·체력이 30번 들어요(체력 1회 10). 5% 확률로 평균 16회쯤이에요.</p>
     <div class="tbl"><table class="mat">
       <thead><tr><th>만들 장비</th><th>재료</th><th class="r">개수</th></tr></thead>
       <tbody id="gearPick"></tbody>
@@ -251,7 +270,7 @@ const IRON_SOON = {i9:'글로벌 미출시, 이름 바뀔 수 있음', i10:'글�
 const IRON_USE = {i1:'1중',i2:'2중',i3:'3중',i4:'4중',i5:'5중',i6:'6중 1~9단',i7:'6중 10~20단',i8:'6중 21~30단',i9:'6중 31~40단',i10:'6중 41~50단'};
 
 // 활·각지 제작법(단로). th.gl 한국어 장비 DB(글로벌 클라이언트 데이터) 기준, 개수는 1개 만들 때.
-// 105는 글로벌 미출시라 바뀔 수 있어요. 귀안연환-신비(100)는 th.gl에 제작법이 없어요.
+// 105는 글로벌 미출시라 바뀔 수 있어요. 귀안연환-신비(100)는 th.gl에 없어서 게임 화면(대추)으로 넣었어요.
 const BOW_TYPES = ['천양','신비','정밀','연주'];
 const GEAR = {
   91: {ring:['동망아결',[['쇄금갑',10],['독산옥',10],['거친 광석',5]]], bow:{
@@ -261,7 +280,7 @@ const GEAR = {
     천양:['용의 그림자-천양',[['원목',10],['화살금계초',10],['소 힘줄',1]]], 신비:['용의 그림자-신비',[['원목',10],['가시나무',10],['소 힘줄',1]]],
     정밀:['용의 그림자-정밀',[['원목',10],['돼지털',10],['소 힘줄',1]]], 연주:['용의 그림자-연주',[['원목',10],['꿩깃털',10],['소 힘줄',1]]]}},
   100: {ring:['귀안아결',[['자연금',10],['자석',10],['거친 광석',5]]], bow:{
-    천양:['귀안연환-천양',[['원목',10],['사과',10],['소 힘줄',1]]], 신비:['귀안연환-신비',null],
+    천양:['귀안연환-천양',[['원목',10],['사과',10],['소 힘줄',1]]], 신비:['귀안연환-신비',[['원목',10],['대추',10],['소 힘줄',1]]],
     정밀:['귀안연환-정밀',[['원목',10],['연교',10],['소 힘줄',1]]], 연주:['귀안연환-연주',[['원목',10],['구예진주',10],['소 힘줄',1]]]}},
   105: {soon:true, ring:['청운아결',[['시문 호박',10],['연교',10],['거친 광석',5]]], bow:{
     천양:['청운연환-천양',[['원목',10],['가시나무',10],['소 힘줄',1]]], 신비:['청운연환-신비',[['원목',10],['선녀의 눈물',10],['소 힘줄',1]]],
@@ -270,7 +289,7 @@ const GEAR = {
 const GEAR_NOTE = {
   91: '',
   96: '',
-  100: '지금 글로벌 최고 단계예요. 귀안연환-신비는 제작법을 못 찾았어요.',
+  100: '지금 글로벌 최고 단계예요.',
   105: '글로벌 미출시예요. 지금 데이터 기준이라 나올 때 재료가 바뀔 수 있어요.',
 };
 const gearPieces = t => [['ring', '각지', GEAR[t].ring], ...BOW_TYPES.map(b => ['bow-'+b, '활 '+b, GEAR[t].bow[b]])];
@@ -338,7 +357,7 @@ const SAMPLE = () => ({
   done: {}, custom: [],
 });
 const boxDefault = () => Object.fromEntries(BOX_SRC.map(b => [b[0], {on:true, n:b[2]}]));
-const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, week:{}, done:{}, custom:[], gear:{tier:100, n:{}, have:{}}});
+const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, week:{}, done:{}, custom:[], gear:{tier:100, n:{}, have:{}, runs:1}, shop:{jade:'', stock:1100}});
 let S;
 try { S = JSON.parse(localStorage.getItem(KEY)) || SAMPLE(); } catch { S = SAMPLE(); }
 for (const k of ['skills','have','week','done']) S[k] ||= {};
@@ -348,6 +367,8 @@ S.boxSrc ||= boxDefault();
 for (const f of ['have','week']) if ('box' in S[f]) { S[f].bx3 ??= S[f].box; delete S[f].box; }
 S.season ||= SEASON_DEFAULT;
 S.gear ||= {tier:100, n:{ring:1, 'bow-정밀':1}, have:{}};
+S.gear.runs ||= 1;
+S.shop ||= {jade:'', stock:1100};
 const save = () => { try { if (!S.sample) localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 const touch = () => { if (S.sample) { S.sample = false; } save(); };
 const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:DEF});
@@ -399,6 +420,7 @@ function buildMats() {
 
 
 function buildGear() {
+  $('gearRuns').value = S.gear.runs || 1;
   $('gearTier').innerHTML = Object.keys(GEAR).map(t => `<option value="${t}"${+t===S.gear.tier?' selected':''}>${t}${GEAR[t].soon?' (미출시)':''}</option>`).join('');
   const t = S.gear.tier;
   $('gearNote').textContent = GEAR_NOTE[t] || '';
@@ -409,7 +431,7 @@ function buildGear() {
 function gearNeed() {
   const need = {};
   for (const [k, , [, mats]] of gearPieces(S.gear.tier)) {
-    const c = +S.gear.n[k] || 0;
+    const c = (+S.gear.n[k] || 0) * (+S.gear.runs || 1);
     if (c && mats) for (const [m, n] of mats) need[m] = (need[m]||0) + n * c;
   }
   return need;
@@ -422,7 +444,7 @@ function renderGear() {
     return `<tr><td class="mname">${m}</td><td class="r num">${fmt(need[m])}</td>
       <td class="r"><input type="number" min="0" inputmode="numeric" data-gh="${m}" value="${S.gear.have[m]??''}" placeholder="0" aria-label="${m} 보유"></td>
       <td>${s > 0 ? `<span class="pill bad">${fmt(s)} 부족</span>` : `<span class="pill ok">${fmt(-s)} 남음</span>`}</td></tr>`;
-  }).join('') : '<tr><td colspan="4" class="muted small">만들 장비 개수를 적어 주세요.</td></tr>';
+  }).join('') + (()=>{ const runs = gearPieces(S.gear.tier).reduce((t, [k, , [, m]]) => t + (m ? (+S.gear.n[k]||0) : 0), 0) * (+S.gear.runs||1); return `<tr><td class="mname">체력<small>제작 1회 10</small></td><td class="r num">${fmt(runs*10)}</td><td></td><td class="small muted">제작 ${fmt(runs)}회</td></tr>`; })() : '<tr><td colspan="4" class="muted small">만들 장비 개수를 적어 주세요.</td></tr>';
   if (cur) { const el = $('gearMat').querySelector(`[data-gh="${cur}"]`); if (el) { el.focus(); const v = el.value; el.value = ''; el.value = v; } }
   return keys.filter(m => need[m] > (+S.gear.have[m] || 0)).map(m => ({
     key: 'gear-'+S.gear.tier+'-'+m+'-'+(need[m] - (+S.gear.have[m]||0)),
@@ -482,6 +504,18 @@ function render() {
     else { viaUp[k] = carry; short[k] = n - have; carry = 0; }
   }
   short.pill = Math.max(0, (need.pill||0) - proj.pill);
+
+  // 시즌 지원 상점: 모자라는 오금철 중 상점에서 파는 등급
+  const SHOP_IRON = ['i1','i2','i3','i4','i5','i7'];
+  const buyNeed = SHOP_IRON.reduce((a, k) => a + (short[k]||0), 0);
+  const jade = +S.shop.jade || 0, stock = S.shop.stock === '' ? Infinity : +S.shop.stock;
+  const canBuy = Math.floor(jade / 80);
+  const i7 = short.i7 || 0;
+  $('shopOut').innerHTML = buyNeed
+    ? `모자라는 오금철 중 상점에서 파는 건 <b>${fmt(buyNeed)}개</b>(${SHOP_IRON.filter(k => short[k]).map(k => `${NAME[k]} ${fmt(short[k])}`).join(', ')}), 다 사려면 소옥 <b>${fmt(buyNeed*80)}</b>개예요. `
+      + (jade ? `지금 소옥으로 ${fmt(canBuy)}개 살 수 있어요${canBuy >= buyNeed ? ' — 다 채울 수 있어요.' : ` — ${fmt(buyNeed - canBuy)}개 모자라요.`}` : '소옥 보유를 적으면 몇 개 살 수 있는지 알려줘요.')
+      + (i7 > stock ? ` 신념의 여정은 남은 재고(${fmt(stock)})보다 많이 필요해서 월요일 입고를 기다려야 해요.` : '')
+    : '<span class="muted">상점에서 파는 오금철 중 모자라는 게 없어요.</span>';
   for (const b of BOXES) short[b[0]] = 0;
   const isBox = k => k.startsWith('bx');
 
@@ -517,7 +551,7 @@ function render() {
   const items = lacking.map(k => {
     const isIron = k[0] === 'i';
     const wk = '';
-    const src = isIron ? `${IRON_USE[k]}에 써요. 더 높은 등급 오금철로 대신 올려도 돼요.${wk}`
+    const src = isIron ? `${IRON_USE[k]}에 써요. 더 높은 등급 오금철로 대신 올려도 돼요.${['i1','i2','i3','i4','i5','i7'].includes(k) ? ' 시즌 지원 상점에서 소옥 80개에 1개 살 수 있어요.' : ''}${wk}`
       : k === 'pill' ? `2번째 형태에 써요.${wk}` : `채집, 비결 지원 상자, 상점에서 모아요.${wk}`;
     return {key:'auto-'+k+'-'+short[k], text:`${NAME[k]} <b>${fmt(short[k])}</b>개 더 모으기`, src};
   });
@@ -582,6 +616,10 @@ $('bulkApply').addEventListener('click', () => {
   for (const s of SKILLS) { const st = sk(s[0]); if (st.on) st.tgt = Math.max(v, st.cur); }
   touch(); buildSkills(); render();
 });
+$('shopJade').value = S.shop.jade; $('shopStock').value = S.shop.stock;
+$('shopJade').addEventListener('input', e => { S.shop.jade = e.target.value; touch(); render(); });
+$('shopStock').addEventListener('input', e => { S.shop.stock = e.target.value; touch(); render(); });
+$('gearRuns').addEventListener('change', e => { S.gear.runs = +e.target.value; touch(); render(); });
 $('gearTier').addEventListener('change', e => { S.gear.tier = +e.target.value; touch(); buildGear(); render(); });
 $('gearPick').addEventListener('input', e => { const k = e.target.dataset.gn; if (!k) return; S.gear.n[k] = Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
 $('gearMat').addEventListener('change', e => { const m = e.target.dataset.gh; if (!m) return; S.gear.have[m] = e.target.value === '' ? '' : Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
