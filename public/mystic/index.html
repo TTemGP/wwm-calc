@@ -62,6 +62,10 @@ h3.sub{font-size:14px;margin:18px 0 6px}
 .chip b{font-family:var(--f-num)}
 
 /* 할 일 */
+.bxmode{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0 0 6px}.bxmode label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.needgrp{display:flex;flex-direction:column;gap:8px}
+.needgrp details{border:1px solid var(--line);border-radius:10px;padding:4px 12px}
+.needgrp summary{cursor:pointer;font-weight:600;padding:8px 0;display:flex;gap:8px;align-items:center}
 .todo{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
 .todo li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:start;padding:8px 6px;border-bottom:1px solid var(--line)}
 .todo li:last-child{border-bottom:0}
@@ -138,8 +142,13 @@ footer{font-size:13px;color:var(--muted)}
     </div>
   </section>
 
+  <section class="panel" aria-labelledby="h-need">
+    <div class="ph"><h2 id="h-need">모아야 할 재료</h2><span class="muted small">모자라는 재료가 종류별로 자동으로 올라와요. 눌러서 열고 닫을 수 있어요.</span></div>
+    <div class="needgrp" id="needGroups"></div>
+  </section>
+
   <section class="panel" aria-labelledby="h-todo">
-    <div class="ph"><h2 id="h-todo">할 일</h2><span class="muted small">모자라는 재료는 자동으로 올라와요. 직접 적은 할 일도 같이 저장돼요.</span></div>
+    <div class="ph"><h2 id="h-todo">할 일</h2><span class="muted small">직접 적는 할 일이에요. 이 브라우저에 저장돼요.</span></div>
     <ul class="todo" id="todo"></ul>
     <form class="addtodo" id="addTodo">
       <input id="todoText" placeholder="예: 토요일 협력 토벌 돌기" aria-label="할 일 추가">
@@ -174,9 +183,13 @@ footer{font-size:13px;color:var(--muted)}
       <tbody id="boxHave"></tbody>
     </table></div>
     <h3 class="sub">주간 구매</h3>
-    <p class="muted small" style="margin:0 0 8px">「계산에 넣기」를 체크한 곳만 세요. 이번 주에 이미 사서 보유에 넣었으면 「이번 주 샀음」을 체크해 주세요. 그 몫은 빼고, 남은 월요일마다 새로 사는 양을 신념의 여정 상자에 더해요. 「이번 주 샀음」은 월요일이 되면 자동으로 풀려요.</p>
+    <div class="bxmode" role="radiogroup" aria-label="상자 계산 방식">
+      <label><input type="radio" name="boxMode" value="plan"> 이번 주 구매 체크 (시즌까지 살 양도 더해요)</label>
+      <label><input type="radio" name="boxMode" value="have"> 보유 상자만 계산 (구매처만 보여줘요)</label>
+    </div>
+    <p class="muted small" id="boxModeNote" style="margin:0 0 8px"></p>
     <div class="tbl"><table class="boxsrc">
-      <thead><tr><th>계산에 넣기</th><th>구매처</th><th class="r">1주 개수</th><th>이번 주 샀음</th><th>비용</th></tr></thead>
+      <thead id="boxHead"></thead>
       <tbody id="boxBody"></tbody>
     </table></div>
   </section>
@@ -388,6 +401,15 @@ function mondaysLeft() {
   return n;
 }
 function buildBox() {
+  const plan = S.boxMode === 'plan';
+  document.querySelectorAll('input[name=boxMode]').forEach(r => r.checked = r.value === (plan ? 'plan' : 'have'));
+  $('boxModeNote').textContent = plan
+    ? '「계산에 넣기」를 체크한 곳만 세요. 이번 주에 이미 사서 보유에 넣었으면 「이번 주 샀음」을 체크해 주세요. 그 몫은 빼고, 남은 월요일마다 새로 사는 양을 신념의 여정 상자에 더해요. 「이번 주 샀음」은 월요일이 되면 자동으로 풀려요.'
+    : '위 표의 보유 상자만으로 계산해요. 매주 살 수 있는 곳은 아래와 같아요. 산 상자는 보유에 더해 주세요.';
+  $('boxHead').innerHTML = plan
+    ? '<tr><th>계산에 넣기</th><th>구매처</th><th class="r">1주 개수</th><th>이번 주 샀음</th><th>비용</th></tr>'
+    : '<tr><th>구매처</th><th class="r">1주 개수</th><th>비용</th></tr>';
+  if (!plan) { $('boxBody').innerHTML = BOX_SRC.map(([k, n, w, cost]) => `<tr><td class="mname">${n}</td><td class="r num">${w}</td><td class="small muted">${cost}</td></tr>`).join(''); return; }
   $('boxBody').innerHTML = BOX_SRC.map(([k, n, , cost]) => {
     const b = S.boxSrc[k] ||= {on:true, n:0};
     return `<tr><td><input type="checkbox" id="bx-on-${k}" data-bx="${k}" data-f="on"${b.on?' checked':''} aria-label="${n} 포함"></td>
@@ -492,7 +514,7 @@ function render() {
   const on = BOX_SRC.filter(([id]) => S.boxSrc[id]?.on);
   const boxNow = on.reduce((a, [id]) => a + (bought(id) ? 0 : +S.boxSrc[id].n || 0), 0);
   const boxWeek = on.reduce((a, [id]) => a + (+S.boxSrc[id].n || 0), 0);
-  const boxAdd = S.season ? boxNow + boxWeek * mondaysLeft() : 0;
+  const boxAdd = S.season && S.boxMode === 'plan' ? boxNow + boxWeek * mondaysLeft() : 0;
   for (const k of all) proj[k] = (+S.have[k]||0) + (k === 'bx3' ? boxAdd : 0);
 
   // 돌파 재료: 부족분을 상자(3개씩)로 메움
@@ -569,11 +591,19 @@ function render() {
       : k === 'pill' ? `2번째 형태에 써요.${wk}` : `채집, 비결 지원 상자, 상점에서 모아요.${wk}`;
     return {key:'auto-'+k+'-'+short[k], text:`${NAME[k]} <b>${fmt(short[k])}</b>개 더 모으기`, src};
   });
-  items.push(...renderGear());
+  const li = it => `<li class="${S.done[it.key]?'done':''}"><input type="checkbox" data-done="${it.key}"${S.done[it.key]?' checked':''} aria-label="완료"><span class="tt">${it.text}<span class="src">${it.src}</span></span><span></span></li>`;
+  const groups = [
+    ['herb', '비결 재료', items.filter(it => !/^auto-i\d/.test(it.key)), active.length ? '모자라는 비결 재료가 없어요.' : '비결을 체크하면 여기 올라와요.'],
+    ['iron', '오금철', items.filter(it => /^auto-i\d/.test(it.key)), active.length ? '모자라는 오금철이 없어요.' : '비결을 체크하면 여기 올라와요.'],
+    ['gear', '활 / 각지 재료', renderGear(), '활·각지 제작 칸에 만들 개수를 적으면 여기 올라와요.'],
+  ];
+  S.open ||= {};
+  $('needGroups').innerHTML = groups.map(([k, title, list, empty]) => `<details data-open="${k}"${S.open[k] === false ? '' : ' open'}>
+    <summary>${title} <span class="pill ${list.length ? 'bad' : 'ok'}">${list.length ? list.length + '종 모자람' : '충분'}</span></summary>
+    <ul class="todo">${list.length ? list.map(li).join('') : `<li><span></span><span class="tt muted">${empty}</span><span></span></li>`}</ul></details>`).join('');
   let h = '';
-  for (const it of items) h += `<li class="${S.done[it.key]?'done':''}"><input type="checkbox" data-done="${it.key}"${S.done[it.key]?' checked':''} aria-label="완료"><span class="tt">${it.text}<span class="src">${it.src}</span></span><span></span></li>`;
   S.custom.forEach((c, i) => h += `<li class="${c.done?'done':''}"><input type="checkbox" data-cdone="${i}"${c.done?' checked':''} aria-label="완료"><span class="tt">${esc(c.text)}</span><button class="x" data-cdel="${i}" aria-label="삭제">✕</button></li>`);
-  if (!h) h = `<li><span></span><span class="tt muted">${active.length ? '모자라는 재료가 없어요.' : '비결을 체크하면 모자라는 재료가 여기 올라와요.'}</span><span></span></li>`;
+  if (!h) h = `<li><span></span><span class="tt muted">아직 적은 할 일이 없어요.</span><span></span></li>`;
   $('todo').innerHTML = h;
 }
 const esc = t => t.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -612,6 +642,8 @@ $('addTodo').addEventListener('submit', e => {
   const v = $('todoText').value.trim(); if (!v) return;
   S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
 });
+$('needGroups').addEventListener('change', e => { const k = e.target.dataset.done; if (!k) return; S.done[k] = e.target.checked; touch(); render(); });
+$('needGroups').addEventListener('toggle', e => { const k = e.target.dataset?.open; if (k) { S.open[k] = e.target.open; save(); } }, true);
 $('boxBody').addEventListener('input', e => {
   const t = e.target, k = t.dataset.bx; if (!k) return;
   if (t.dataset.f === 'on') S.boxSrc[k].on = t.checked;
@@ -619,6 +651,7 @@ $('boxBody').addEventListener('input', e => {
   else S.boxSrc[k].n = Math.max(0, Math.floor(+t.value || 0));
   touch(); render();
 });
+document.querySelectorAll('input[name=boxMode]').forEach(r => r.addEventListener('change', () => { S.boxMode = r.value; touch(); buildBox(); render(); }));
 $('bulkTarget').innerHTML = opts(DEF);
 $('bulkCur').innerHTML = opts(50);
 $('bulkCurApply').addEventListener('click', () => {
