@@ -1,7 +1,7 @@
 {
   "SummonLightning": {
     "name": "Summon Lightning",
-    "castTime": 1.591,
+    "castTime": 1.179,
     "action": [
       { "type": "apply", "target": "self", "value": "ThunderSummoning", "stack": 1, "reapply": true, "time": 0.403 }
     ],

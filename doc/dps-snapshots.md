@@ -9,24 +9,27 @@ retaining its coverage, selector, and comparison-algorithm tests.
 ## Fixture selection
 
 `tests/helpers/dps-snapshot-fixtures.ts` discovers rotation JSON files from each
-path's existing rotation directory. Cases use stable
-`<pathId>/<rotationId>/<breakthrough>` keys, with one case each for breakthroughs
-18 and 19. Breakthrough 17 is no longer part of the accepted snapshots.
-Empty planner rotations are excluded. A durable coverage test checks all
-non-empty rotation files against this catalog. The release guard compares the
-catalog with accepted baseline keys, so new or removed presets cannot silently
-escape review. A missing accepted baseline does not block ordinary builds.
+path's existing rotation directory and every build JSON in the same build group.
+Every non-empty rotation is paired with every build in that group, at breakthroughs
+18 and 19, including builds with different weapon configurations. The production
+bundle uses the build's configured weapons and the rotation's recorded actions.
+Cases use stable `<pathId>/<rotationId>/<buildId>/<breakthrough>` keys, so changing
+a path's default build does not change the snapshot catalog or calculation inputs.
+Empty planner rotations are excluded. The coverage test independently enumerates
+the build/rotation cross product. The release guard detects missing and obsolete
+baseline keys. Rotation and path update selectors include every matching build;
+including a build ID selects only that build's cases.
 
-Each rotation uses its path's default build unless an explicit build override
-selects its corresponding variant: regular Kite uses the non-BP build, pure
-Strength uses the pure build, and Double Stab uses the double-min build. The
-remaining variants retain the path default. This covers all non-empty presets,
-not every build/rotation combination.
+On October 21, 2026, the user approved expanding coverage to every build/rotation
+pair and accepting their current calculated values. This replaces the previous
+default-build cases and Deluge-only additional build cases. The shared behavioral
+fixture loader still selects defaults and explicit rotation overrides; only the
+release case loader expands to all builds.
 
 Current snapshot calculations use breakthroughs 18 and 19, each rotation's saved ping (40 ms
 by default; 30 ms for Might), Simmering Fish Slices,
 Fire Divinecraft, no Script, and no global or skill overrides. The rotation
-supplies its martial arts and encounter flags; the build supplies its gear,
+supplies its actions and encounter flags; the build supplies its weapons, gear,
 Inner Ways, and sets. Fixtures are passed to `src/application/graduation.ts`'s
 `buildPresetRotationBundle` and `calculateRotationBaseline`, the production
 calculation pipeline. No browser preferences or duplicate damage formulas enter
@@ -530,3 +533,114 @@ HP restriction removal at T5. Settlement retains the shared replay adjustments.
 | dust-dummy-1-min       |           19 | 79435.57971811047 | 79060.62177416348 |     4766134.783086629 |     4743637.306449808 |
 
 All durations remain 60 seconds; all other preset snapshots are unchanged.
+
+## Reviewed damage bonus corrections (2026-10-21)
+
+The user approved the multiplier audit corrections and these resulting snapshots.
+Soul-Shaken joins Category 1, Cloudshear joins channel damage scales, and
+Candlelight, Blade of Grass, and End of Gale T3 join Category 1. Tang Melody
+uses direct martial-art-skill eligibility; Vulnerable grants 8% plus 10% HP
+damage with zero Qi contribution under the selected layer-0 policy. Base Yi
+River uses Category 1, early Museflow formula caps are enforced, Critical and
+Affinity outcome factors are clamped, and Ripple corrections cover all supported
+PvE targets. See damage-formula.md for the implemented scopes and remaining
+stepped-talent and target-reduction limitations.
+
+| Preset / breakthrough                         |       Previous DPS |       Accepted DPS | Previous total damage | Accepted total damage |
+| --------------------------------------------- | -----------------: | -----------------: | --------------------: | --------------------: |
+| bamboocutDust/dust-dummy-1-min-100pc/18       |  75378.65890896872 |  75052.69588297587 |     4522719.534538123 |     4503161.752978552 |
+| bamboocutDust/dust-dummy-1-min-100pc/19       |  78781.63492472706 |  78440.19900757818 |     4726898.095483623 |     4706411.940454691 |
+| bamboocutDust/dust-dummy-1-min/18             |  75645.22735018363 |  75218.61406855253 |     4538713.641011018 |     4513116.844113152 |
+| bamboocutDust/dust-dummy-1-min/19             |  79060.62177416348 |  78613.83531516723 |     4743637.306449808 |     4716830.118910034 |
+| bellstrikeUmbra/dummy-1-min-38-bb/18          |  95163.45897986703 |  85334.27364913882 |    5709807.5387920225 |     5120056.418948329 |
+| bellstrikeUmbra/dummy-1-min-38-bb/19          | 100119.09485414634 |  89769.16730002478 |     6007145.691248781 |     5386150.038001487 |
+| silkbindWing/wings-dummy-1-min-dawnsun/18     | 43736.632758129155 | 43977.495233684975 |    2624197.9654877493 |    2638649.7140210983 |
+| silkbindWing/wings-dummy-1-min-dawnsun/19     |   45787.3473306048 |  46034.37102098257 |    2747240.8398362882 |     2762062.261258954 |
+| silkbindWing/wings-dummy-1-min-jadebreaker/18 | 59269.205061193956 | 59631.270792308605 |    3556152.3036716375 |    3577876.2475385163 |
+| silkbindWing/wings-dummy-1-min-jadebreaker/19 |  62089.81204533403 | 62462.147083776756 |     3725388.722720042 |    3747728.8250266053 |
+| stonesplitMight/dummy-1-min/18                |  93998.91147957309 |  94833.29806850525 |    5639934.6887743855 |     5689997.884110315 |
+| stonesplitMight/dummy-1-min/19                |  99308.74329065508 |  100190.5834583792 |     5958524.597439305 |     6011435.007502752 |
+
+All durations remain 60 seconds. Other preset snapshots are unchanged.
+
+## Reviewed Umbra rotation endings (2026-10-21)
+
+The user approved extending both dummy presets through their remaining in-battle
+hits and adding the Dragon Head variant. Dummy 1 Min 39 BB retains the
+`dummy-1-min-38-bb` internal ID so saved preset selections continue to resolve.
+Its ending continues Special 1 into Second Track Slash [2 Casts, 1 Hit], Deflect,
+and the in-battle portion of Inner Track Slash.
+
+Dummy 1 Min 37 BB DH uses Special 2, Deflect, Special 1, Second Track Slash
+[2 Casts, 1 Hit], and Deflect after the second flute. Its first two full
+Sober Sorrow casts use the five-hit cancel; the last remains full. Dragon Head
+hits during Exhausted, Smolder stays connected, and the final charge follow-up
+lands at 59.73390950863632 seconds. The authored Qi break follows the final
+Special 1 hit in the changed post-flute sequence. Both presets measure 60 seconds.
+
+| Preset / breakthrough                   |      Previous DPS |      Accepted DPS | Previous total damage | Accepted total damage |
+| --------------------------------------- | ----------------: | ----------------: | --------------------: | --------------------: |
+| bellstrikeUmbra/dummy-1-min-37-bb-dh/18 |        New preset | 89702.39142504496 |            New preset |    5382143.4855026975 |
+| bellstrikeUmbra/dummy-1-min-37-bb-dh/19 |        New preset | 94326.03108977214 |            New preset |     5659561.865386328 |
+| bellstrikeUmbra/dummy-1-min-38-bb/18    | 85334.27364913882 |  87699.8570634879 |     5120056.418948329 |     5261991.423809274 |
+| bellstrikeUmbra/dummy-1-min-38-bb/19    | 89769.16730002478 | 92262.43970756652 |     5386150.038001487 |     5535746.382453991 |
+
+## Reviewed Umbra hit markers (2026-10-21)
+
+The user accepted the October 21 14:51 export's hit timing corrections while
+preserving cast and cancel durations. The opening charge hit starts battle
+0.00099033 seconds earlier. In Dummy 1 Min 39 BB (`dummy-1-min-38-bb`), the final
+Bleed tick consequently moves from 59.999569962636336 to 60.000560292636336
+seconds and falls outside Battle End: 59 ticks remain instead of 60. Other
+preset snapshots are unchanged, including the Dragon Head variant. Duration
+remains 60 seconds.
+
+| Preset / breakthrough                |      Previous DPS |      Accepted DPS | Previous total damage | Accepted total damage |
+| ------------------------------------ | ----------------: | ----------------: | --------------------: | --------------------: |
+| bellstrikeUmbra/dummy-1-min-38-bb/18 |  87699.8570634879 | 87569.14402156408 |     5261991.423809274 |     5254148.641293844 |
+| bellstrikeUmbra/dummy-1-min-38-bb/19 | 92262.43970756652 | 92124.45752802271 |     5535746.382453991 |     5527467.451681362 |
+
+## Accepted Deluge Ivorybloom builds (October 21, 2026)
+
+The user accepted both new Ivorybloom builds for release. Sixteen additional
+cases cover min/max gear on regular-fire, Smolder, solo WTS, and team WTS at
+breakthroughs 18 and 19. These replace the selectable Rainwhisper presets,
+not the existing Etherwrath default or its accepted snapshots. The accepted
+builds retain Moonflare and the original Inner Ways, with affixes adjusted
+for approximately 100% Effective Precision and 80% Effective Critical while
+Ivorybloom's full-HP bonus is active.
+
+All existing accepted cases remain unchanged. Exact DPS, total damage, and
+duration are recorded in the snapshot JSON; all sixteen added cases last
+60 seconds.
+
+## Ivorybloom critical-heal retention, 2026-10-21
+
+The user approved these sixteen snapshot updates after reviewing the DPS changes.
+Ivorybloom now retains its four-piece bonuses for three seconds after critically
+healing any recipient, refreshing on further critical heals. The full-HP route
+remains active independently and never doubles the bonus. Expected calculations
+track separate active/inactive refresh chances and expiration probabilities;
+sampled runs use actual recipient outcomes.
+
+All affected rotations last 60 seconds. Total damage therefore changes in the
+same proportion as DPS. Other accepted cases remain unchanged within the guard.
+
+| Snapshot                                                                 |       Previous DPS |       Accepted DPS |   Change |
+| ------------------------------------------------------------------------ | -----------------: | -----------------: | -------: |
+| `silkbindDeluge/dummy-1-min-regular-fire/deluge-fully-relayed-max-ib/18` | 34154.271108904621 | 34419.476600049267 | +0.7765% |
+| `silkbindDeluge/dummy-1-min-regular-fire/deluge-fully-relayed-max-ib/19` | 36126.350932557201 | 36394.898919326319 | +0.7434% |
+| `silkbindDeluge/dummy-1-min-regular-fire/deluge-fully-relayed-min-ib/18` | 34024.376017966533 | 34294.680172308152 | +0.7944% |
+| `silkbindDeluge/dummy-1-min-regular-fire/deluge-fully-relayed-min-ib/19` | 35730.807140748620 | 36000.000433415174 | +0.7534% |
+| `silkbindDeluge/dummy-1-min-smolder/deluge-fully-relayed-max-ib/18`      | 43788.954096832902 | 43844.295719366710 | +0.1264% |
+| `silkbindDeluge/dummy-1-min-smolder/deluge-fully-relayed-max-ib/19`      | 46239.449019446925 | 46295.470572964128 | +0.1212% |
+| `silkbindDeluge/dummy-1-min-smolder/deluge-fully-relayed-min-ib/18`      | 43683.101666054536 | 43739.554320807685 | +0.1292% |
+| `silkbindDeluge/dummy-1-min-smolder/deluge-fully-relayed-min-ib/19`      | 45779.463487253292 | 45835.688006727702 | +0.1228% |
+| `silkbindDeluge/dummy-1-min-wts-team/deluge-fully-relayed-max-ib/18`     | 49006.665014782695 | 49329.753525098415 | +0.6593% |
+| `silkbindDeluge/dummy-1-min-wts-team/deluge-fully-relayed-max-ib/19`     | 51736.926212988343 | 52063.843777481867 | +0.6319% |
+| `silkbindDeluge/dummy-1-min-wts-team/deluge-fully-relayed-min-ib/18`     | 48467.157855578545 | 48796.284414440073 | +0.6791% |
+| `silkbindDeluge/dummy-1-min-wts-team/deluge-fully-relayed-min-ib/19`     | 49862.409659208381 | 50190.198179494218 | +0.6574% |
+| `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-max-ib/18`          | 44207.254618297433 | 44530.341973720002 | +0.7308% |
+| `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-max-ib/19`          | 46668.002105197767 | 46994.918602951031 | +0.7005% |
+| `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-min-ib/18`          | 43235.397874059483 | 43564.523359419632 | +0.7612% |
+| `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-min-ib/19`          | 45295.031911131497 | 45622.819362330840 | +0.7237% |

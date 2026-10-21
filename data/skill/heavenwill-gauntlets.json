@@ -137,9 +137,23 @@
     "shortName": "Gauntlet VC",
     "castTime": 0.9,
     "action": [
-      { "type": "damage", "phyCoef": 0.4836, "phyBonus": 134, "attrCoef": 0.4836, "attrBonus": 73.2, "time": 0.216 },
-      { "type": "damage", "phyCoef": 0.7254, "phyBonus": 201, "attrCoef": 0.7254, "attrBonus": 109.8, "time": 0.66 },
-      { "type": "addResource", "value": "HeavensWill", "amount": 0.1, "time": 0.66 }
+      {
+        "type": "damage",
+        "phyCoef": 0.4836,
+        "phyBonus": 134,
+        "attrCoef": 0.4836,
+        "attrBonus": 73.2,
+        "time": 0.216078956
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.7254,
+        "phyBonus": 201,
+        "attrCoef": 0.7254,
+        "attrBonus": 109.8,
+        "time": 0.6023075699130436
+      },
+      { "type": "addResource", "value": "HeavensWill", "amount": 0.1, "time": 0.6023075699130436 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "VariedCombo", "Gauntlet", "HeavenwillGauntlets", "WickedDefiance"],
@@ -291,15 +305,14 @@
   "AllUnderJustice": {
     "name": "All Under Justice",
     "shortName": "Gauntlet Special",
-    "castTime": 1.018,
+    "castTime": 1.0181818181818183,
     "action": [
-      { "type": "damage", "phyCoef": 0.40704, "phyBonus": 112.8, "attrBonus": 61.4, "time": 0.3, "attrCoef": 0.40704 },
       {
         "type": "damage",
         "phyCoef": 0.40704,
         "phyBonus": 112.8,
         "attrBonus": 61.4,
-        "time": 0.435,
+        "time": 0.33435657,
         "attrCoef": 0.40704
       },
       {
@@ -307,7 +320,15 @@
         "phyCoef": 0.40704,
         "phyBonus": 112.8,
         "attrBonus": 61.4,
-        "time": 0.602,
+        "time": 0.45717511616161616,
+        "attrCoef": 0.40704
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.40704,
+        "phyBonus": 112.8,
+        "attrBonus": 61.4,
+        "time": 0.6099680034343434,
         "attrCoef": 0.40704
       },
       {
@@ -315,7 +336,7 @@
         "phyCoef": 0.81408,
         "phyBonus": 225.6,
         "attrBonus": 122.8,
-        "time": 0.935,
+        "time": 0.9137265388888889,
         "attrCoef": 0.81408
       }
     ],

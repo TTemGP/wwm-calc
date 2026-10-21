@@ -70,10 +70,41 @@ export async function loadDpsSnapshotFixtures(breakthrough = dpsSnapshotEnvironm
   return cases
 }
 
-/** Accepted regression cases cover both current breakthroughs for every rotation. */
+/** Accepted regression cases cover every build/rotation pair at both current breakthroughs. */
 export async function loadDpsSnapshotCases() {
   const levels = await Promise.all(["18", "19"].map(breakthrough => loadDpsSnapshotFixtures(breakthrough)))
-  return levels.flatMap(cases => cases.map(entry => ({ ...entry, id: entry.id + "/" + entry.fixture.breakthrough })))
+  const groups = [...new Set(levels.flat().map(entry => entry.buildGroup))]
+  const buildsByGroup = new Map(
+    await Promise.all(
+      groups.map(async group => {
+        const directory = new URL("build/" + group + "/", dataRoot)
+        const files = (await readdir(directory)).filter(file => file.endsWith(".json")).sort()
+        const builds = await Promise.all(
+          files.map(
+            async file =>
+              JSON.parse(await readFile(new URL(file, directory), "utf8")) as {
+                id: string
+                martialArts: Environment["martialArts"]
+              },
+          ),
+        )
+        if (!builds.length) throw new Error("No preset builds found for DPS snapshots: " + group)
+        return [group, builds] as const
+      }),
+    ),
+  )
+  return levels.flatMap(cases =>
+    cases.flatMap(entry =>
+      buildsByGroup
+        .get(entry.buildGroup)!
+        .map(build =>
+          Object.assign({}, entry, {
+            id: entry.id + "/" + build.id + "/" + entry.fixture.breakthrough,
+            fixture: { ...entry.fixture, build: build.id, martialArts: build.martialArts },
+          }),
+        ),
+    ),
+  )
 }
 export function selectDpsSnapshotUpdates(raw: string, caseIds: string[]): string[] {
   if (!raw.trim()) return []

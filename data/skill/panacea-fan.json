@@ -218,7 +218,14 @@
     "shortName": "Fan A1",
     "castTime": 0.5625,
     "action": [
-      { "type": "damage", "phyCoef": 0.3955, "phyBonus": 109, "attrBonus": 59, "time": 0.5625, "attrCoef": 0.3955 }
+      {
+        "type": "damage",
+        "phyCoef": 0.395534,
+        "phyBonus": 109.6,
+        "attrBonus": 59.6,
+        "time": 0.5625,
+        "attrCoef": 0.395534
+      }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
@@ -230,7 +237,14 @@
     "shortName": "Fan A2",
     "castTime": 0.45,
     "action": [
-      { "type": "damage", "phyCoef": 0.2967, "phyBonus": 82, "attrBonus": 44, "time": 0.45, "attrCoef": 0.2967 }
+      {
+        "type": "damage",
+        "phyCoef": 0.2966505,
+        "phyBonus": 82.2,
+        "attrBonus": 44.7,
+        "time": 0.45,
+        "attrCoef": 0.2966505
+      }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
@@ -242,7 +256,14 @@
     "shortName": "Fan A3",
     "castTime": 0.4875,
     "action": [
-      { "type": "damage", "phyCoef": 0.3955, "phyBonus": 109, "attrBonus": 59, "time": 0.4875, "attrCoef": 0.3955 }
+      {
+        "type": "damage",
+        "phyCoef": 0.395534,
+        "phyBonus": 109.6,
+        "attrBonus": 59.6,
+        "time": 0.4875,
+        "attrCoef": 0.395534
+      }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],
@@ -254,7 +275,14 @@
     "shortName": "Fan A4",
     "castTime": 0.4625,
     "action": [
-      { "type": "damage", "phyCoef": 0.89, "phyBonus": 246, "attrBonus": 134, "time": 0.4625, "attrCoef": 0.89 }
+      {
+        "type": "damage",
+        "phyCoef": 0.8899515,
+        "phyBonus": 246.6,
+        "attrBonus": 134.1,
+        "time": 0.4625,
+        "attrCoef": 0.8899515
+      }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Fan", "PanaceaFan", "FourfoldInquiry"],

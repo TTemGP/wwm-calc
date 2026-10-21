@@ -120,20 +120,7 @@
         "phyCoef": 0.377968,
         "phyBonus": 104.6,
         "attrBonus": 57,
-        "time": 0.633,
-        "attrCoef": 0.377968
-      },
-      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1, "attrCoef": 0.377968 },
-      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.1, "attrCoef": 0.377968 },
-      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.2, "attrCoef": 0.377968 },
-      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.3, "attrCoef": 0.377968 },
-      { "type": "damage", "phyCoef": 0.377968, "phyBonus": 104.6, "attrBonus": 57, "time": 1.6, "attrCoef": 0.377968 },
-      {
-        "type": "damage",
-        "phyCoef": 0.377968,
-        "phyBonus": 104.6,
-        "attrBonus": 57,
-        "time": 1.666,
+        "time": 0.8473957101428573,
         "attrCoef": 0.377968
       },
       {
@@ -141,10 +128,65 @@
         "phyCoef": 0.377968,
         "phyBonus": 104.6,
         "attrBonus": 57,
-        "time": 1.733,
+        "time": 1.2144361431428572,
         "attrCoef": 0.377968
       },
-      { "type": "damage", "phyCoef": 0.755936, "phyBonus": 209.2, "attrBonus": 114, "time": 1.8, "attrCoef": 0.755936 },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.314450809142857,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.4144654751428571,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.5144720741428572,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.8145160721428575,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.880520266142857,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.377968,
+        "phyBonus": 104.6,
+        "attrBonus": 57,
+        "time": 1.947524768142857,
+        "attrCoef": 0.377968
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.755936,
+        "phyBonus": 209.2,
+        "attrBonus": 114,
+        "time": 2.014537337142857,
+        "attrCoef": 0.755936
+      },
       { "type": "apply", "requirement": [], "target": "self", "value": "InnerPassion", "stack": 3, "time": 2.066 },
       {
         "type": "apply",

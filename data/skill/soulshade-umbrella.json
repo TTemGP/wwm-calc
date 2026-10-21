@@ -66,17 +66,17 @@
     "name": "Floating Grace",
     "shortName": "Umbrella Q",
     "group": true,
-    "castTime": 1.15,
+    "castTime": 1.1,
     "action": [
       { "type": "consume", "target": "self", "value": "EchoesOfAThousandPlants", "stack": "all", "time": 0 },
       {
         "type": "heal",
         "averageAttack": true,
-        "phyCoef": 4.912,
+        "phyCoef": 4.919188,
         "phyBonus": 1363,
         "attrBonus": 743,
-        "time": 0.975,
-        "silkbindCoef": 4.912
+        "time": 1,
+        "silkbindCoef": 4.919188
       },
       {
         "type": "apply",
@@ -86,7 +86,7 @@
         "stack": 1,
         "reapply": true,
         "requirement": [{ "target": "equippedMartialArt", "value": "panaceaFan" }],
-        "time": 0.975
+        "time": 1
       },
       {
         "type": "apply",
@@ -96,7 +96,7 @@
         "stack": 1,
         "reapply": true,
         "requirement": [{ "operator": "not", "operand": [{ "target": "equippedMartialArt", "value": "panaceaFan" }] }],
-        "time": 0.975
+        "time": 1
       }
     ],
     "modifier": [],

@@ -201,7 +201,7 @@
         "requirement": [{ "target": "self", "value": "HarmonySongT1" }]
       }
     ],
-    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "modifier": [{ "effect": { "baseDMGBonus": 0.3 } }],
     "tags": [
       "DirectDamage",
       "MartialArts",
@@ -376,7 +376,7 @@
         ]
       }
     ],
-    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "modifier": [{ "effect": { "baseDMGBonus": 0.3 } }],
     "tags": [
       "DirectDamage",
       "MartialArts",
@@ -418,7 +418,7 @@
         ]
       }
     ],
-    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "modifier": [{ "effect": { "baseDMGBonus": 0.3 } }],
     "tags": [
       "DirectDamage",
       "MartialArts",
@@ -443,7 +443,7 @@
         "phyCoef": 0.25913115000000003,
         "phyBonus": 71.82000000000001,
         "attrCoef": 0.25913115000000003,
-        "attrBonus": 58.72500000000001,
+        "attrBonus": 39.15,
         "time": 0
       },
       {
@@ -451,7 +451,7 @@
         "phyCoef": 0.25913115000000003,
         "phyBonus": 71.82000000000001,
         "attrCoef": 0.25913115000000003,
-        "attrBonus": 58.72500000000001,
+        "attrBonus": 39.15,
         "time": 0
       },
       {
@@ -459,7 +459,7 @@
         "phyCoef": 0.25913115000000003,
         "phyBonus": 71.82000000000001,
         "attrCoef": 0.25913115000000003,
-        "attrBonus": 58.72500000000001,
+        "attrBonus": 39.15,
         "time": 0
       },
       {
@@ -467,7 +467,7 @@
         "phyCoef": 0.25913115000000003,
         "phyBonus": 71.82000000000001,
         "attrCoef": 0.25913115000000003,
-        "attrBonus": 58.72500000000001,
+        "attrBonus": 39.15,
         "time": 0
       },
       {
@@ -475,7 +475,7 @@
         "phyCoef": 0.25913115000000003,
         "phyBonus": 71.82000000000001,
         "attrCoef": 0.25913115000000003,
-        "attrBonus": 58.72500000000001,
+        "attrBonus": 39.15,
         "time": 0
       },
       {
@@ -483,7 +483,7 @@
         "phyCoef": 0.3647031,
         "phyBonus": 101.08,
         "attrCoef": 0.3647031,
-        "attrBonus": 82.65,
+        "attrBonus": 55.1,
         "time": 0
       }
     ],
@@ -629,7 +629,7 @@
         ]
       }
     ],
-    "modifier": [{ "requirement": [{ "target": "targetType", "value": "Dummy" }], "effect": { "baseDMGBonus": 0.3 } }],
+    "modifier": [{ "effect": { "baseDMGBonus": 0.3 } }],
     "tags": [
       "DirectDamage",
       "MartialArts",

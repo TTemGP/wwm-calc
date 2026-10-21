@@ -1,11 +1,10 @@
+import buffs from "@gamedata/buff/bamboocut-kite.json"
 import { assert, describe, expect, it } from "vitest"
 
 import { defaultSkillMaps } from "@/application/gameData/skills"
 
-import buffs from "../data/buff/bamboocut-kite.json"
-
 const skills = defaultSkillMaps.Heavenwill
-import { buildRotationTimeline, type RotationStep, type TimelineBuildInput } from "../src/calculations/rotationTimeline"
+import { buildRotationTimeline, type RotationStep, type TimelineBuildInput } from "@/calculations/rotationTimeline"
 const cast = (skill: string): RotationStep => ({ type: "skill", skill })
 const delay = (duration: number): RotationStep => ({ type: "event", event: "Delay", duration })
 const a4 = "RighteousReign4thHit",
@@ -31,10 +30,10 @@ const hits = (row: ReturnType<typeof build>[number]) =>
 
 describe("Heavenwill attack timings", () => {
   it.each([
-    ["AllUnderJustice", 1.018, [0.3, 0.435, 0.602, 0.935]],
+    ["AllUnderJustice", 1.0181818181818183, [0.33435657, 0.45717511616161616, 0.6099680034343434, 0.9137265388888889]],
     ["CelestialMandate", 1.4, [0.45, 0.6, 0.683, 0.833, 1.2]],
     ["HeavenwillDeclared", 0.625, [0.403, 0.471]],
-    ["WickedDefiance", 0.9, [0.216, 0.66]],
+    ["WickedDefiance", 0.9, [0.216078956, 0.6023075699130436]],
     ["RighteousReign1stHit", 0.466, [0.21]],
     ["RighteousReign2ndHit", 0.462, [0.148, 0.32]],
     ["RighteousReign3rdHit", 0.333, [0.25]],
@@ -102,7 +101,7 @@ it("Wicked Defiance resolves two hit triggers and grants Heaven's Will after its
   expect(skill.actionStates[1].resources.HeavensWill ?? 0).toBe(0)
   expect(find(rows, "Observe")[0].resources.HitCount).toBe(2)
   expect(find(rows, "Observe")[0].resources.HeavensWill).toBeCloseTo(0.1)
-  expect(skill.startTime + Number(skill.actions[2].time)).toBeCloseTo(0.7)
+  expect(skill.startTime + Number(skill.actions[2].time)).toBeCloseTo(0.6423075699130436)
 })
 it.each([false, true])("Celestial Mandate grants Heaven's Will on its final hit with Unity=%s", unity => {
   const setupEffects: TimelineBuildInput["setupEffects"] = unity

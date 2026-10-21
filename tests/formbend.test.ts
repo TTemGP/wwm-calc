@@ -15,13 +15,13 @@ function rowAt(rows: TimelineRow[], index: number) {
 // Ported from script/probe/check-formbend.mjs.
 describe("formbend", () => {
   it("Art of Resistance and Formbend duration checks passed", async () => {
-    const { buildRotationTimeline } = await import("../src/calculations/rotationTimeline.ts")
-    const { defaultBuildSetup, normalizeBuildSetup } = await import("../src/gear.ts")
-    const thundercrySkills = asSkillRecords((await import("../data/skill/thundercry-blade.json")).default)
-    const stormbreakerSkills = asSkillRecords((await import("../data/skill/stormbreaker-spear.json")).default)
-    const generalSkills = asSkillRecords((await import("../data/skill/general.json")).default)
-    const generalBuffs = (await import("../data/buff/general.json")).default
-    const mightBuffs = (await import("../data/buff/stonesplit-might.json")).default
+    const { buildRotationTimeline } = await import("@/calculations/rotationTimeline.ts")
+    const { defaultBuildSetup, normalizeBuildSetup } = await import("@/gear.ts")
+    const thundercrySkills = asSkillRecords((await import("@gamedata/skill/thundercry-blade.json")).default)
+    const stormbreakerSkills = asSkillRecords((await import("@gamedata/skill/stormbreaker-spear.json")).default)
+    const generalSkills = asSkillRecords((await import("@gamedata/skill/general.json")).default)
+    const generalBuffs = (await import("@gamedata/buff/general.json")).default
+    const mightBuffs = (await import("@gamedata/buff/stonesplit-might.json")).default
     const migrated = normalizeBuildSetup(
       { gearSets: { Cleftpeak: 2, RainWhisper: 2 }, bowRingSet: "Precision", arsenal: "Stonesplit" },
       defaultBuildSetup,
@@ -30,7 +30,7 @@ describe("formbend", () => {
       migrated.weaponSets.Cleftpeak === 2 && migrated.weaponSets.RainWhisper === 2 && migrated.armorSets.Formbend === 0,
       "Legacy gearSets must migrate without losing the new armor-set default.",
     ).toBeTruthy()
-    const vulnerableDefinitions = asEffectDefinitions((await import("../data/debuff/stonesplit-might.json")).default)
+    const vulnerableDefinitions = asEffectDefinitions((await import("@gamedata/debuff/stonesplit-might.json")).default)
     const thunderShockTimeline = buildRotationTimeline({
       rotation: { name: "Thunder Shock ordering probe", steps: [{ type: "skill", skill: "ThunderShock" }] },
       skills: { ThunderShock: stormbreakerSkills.ThunderShock },
@@ -134,13 +134,9 @@ describe("formbend", () => {
     })
     const lateBuffs = actionStateAt(rowAt(durationTimeline, 2), 0).buffs
     expect(lateBuffs.has("Shield"), "AoR and Formbend must extend Shield at the late probe.").toBeTruthy()
-    expect(
-      lateBuffs.get("Breakthrough")?.expiresAt === 22,
-      "Art of Resistance T0/T4 and Formbend must extend Breakthrough from 12 to 20 seconds.",
-    ).toBeTruthy()
-    expect(
-      lateBuffs.get("Shield")?.expiresAt === 18,
-      "Art of Resistance and Formbend must extend Shield from 8 to 16 seconds.",
-    ).toBeTruthy()
+    const breakthrough = lateBuffs.get("Breakthrough")!
+    const shield = lateBuffs.get("Shield")!
+    expect(breakthrough.expiresAt! - breakthrough.appliedAt!).toBeCloseTo(20, 10)
+    expect(shield.expiresAt! - shield.appliedAt!).toBeCloseTo(16, 10)
   })
 })

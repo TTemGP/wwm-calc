@@ -134,8 +134,10 @@ not a second catalog of current values:
   uses a plain `cooldown` because it is currently the only Mystic carrying the
   Break Defense tag; add a `cooldownGroup` when a second one appears.
 - Summon Lightning (`75120051`) applies Thunder Summoning at 0.403 seconds and
-  ends at 1.591 seconds. Both values come from the export route rather than a
-  measured schedule, and the export carries no cooldown or resource cost. Its
+  permits an ordinary equal/lower-priority follow-up at 1.179 seconds; its animation
+  ends at 1.591 seconds. The cast duration uses the follow-up boundary, not animation
+  end. These values come from the export route rather than a measured schedule.
+  No cooldown or resource cost is authored. Its
   30% is the source's independent DMG Bonus (`calc_cause_change` cause 50), so
   it belongs to the Mechanism damage category and not to DMG Bonus Category 1.
   The export's `buffremove_add_buff` grant of `1500232` is a client-side usage
@@ -749,6 +751,23 @@ below keeps cross-cutting blockers and outstanding skill evidence.
 
 ### Timing and source validation
 
+The 2026-10-21 16:50 export supplies normal-route hit clocks for Fleeting Trace,
+All Under Justice, Wicked Defiance, and Storm Roar. Fleeting Trace retains its
+authored cast-end buffs and cast duration because its route has no interrupt
+clock. Wicked Defiance's Heaven's Will gain follows its second hit. Storm Roar's
+Drumbeat follows its hit. Floating Grace uses the cast-timeline healing request
+at one second for both healing and its associated buff; its animation interrupt
+is the next-cast boundary. Thunder Shock imports its ordinary interrupt without
+inventing missing hit clocks or changing the one-hit cancel. Animation-relative
+clocks remain provisional. Alternate routes, collider markers that do not identify
+projectile contact, and documented charge/request clocks are not interchangeable.
+
+The solo and team Deluge WTS presets wait 0.05 seconds after each Floating Grace
+to preserve their downstream cast schedule after its ordinary interrupt changed
+from 1.15 to 1.10 seconds. The healing request remains at one second. This explicit
+rotation delay preserves Qi Blade and Solid Foundation proc alignment without
+overriding the shared skill timing.
+
 - User-confirmed Deflect timing is 0.3s for all weapons, except Heng Blade at
   0.25s. Both ordinary and successful variants resolve this from `currentWeapon`;
   unknown weapons use the 0.3s fallback.
@@ -1205,6 +1224,11 @@ Burn and Bury uses `baseDMGBonus: 0.3`, multiplying its direct base hit separate
 from Category 1; settlement does not receive this multiplier again. Towline T6
 retains its 12% replay and the shared Wildstride/Strayhunt replay adjustment.
 Tang Melody requires HP above 50% through T4; T5 removes that restriction.
+Its critical bonus requires both singular `MartialArt` and `DirectDamage`,
+matching the modeled originating class-108 skill contexts. The broad
+`MartialArts` tag alone is insufficient. Scarlet Spin Resonance retains its
+`MartialArt` context, while Dreamwrought Bubbles and ordinary light/heavy
+attacks do not gain the bonus. This does not change the stack-application triggers.
 Fragrant Song's throw-scoped Resonance marker grants both guaranteed critical
 and 20% Category 1 HP damage while active, using the existing throw ownership
 and expiry rules. Current encounters are non-player targets.
@@ -1273,8 +1297,11 @@ cancel timing remains unmeasured. The first-stage special imports all four
 hits and its 1.4s interrupt boundary. Sober Sorrow now uses all six exported
 hit markers and the 1.996s full-cast interrupt boundary. Its five-hit cancel
 uses a temporary boundary at the fifth hit (1.374300296s); actual cancel timing
-remains unmeasured. Sweep All uses the user-selected 0.304s first-hit and one-hit cancel boundary
-for all buff variants. Its exported animation route mapping remains unresolved.
+remains unmeasured. Sweep All retains its 0.304s one-hit cancel duration. The
+2026-10-21 14:51 export supplies first-hit markers at 0.26737638636363636s for
+basic/Water Drop and 0.30375544363636364s for Spring Surge/River Flow; the user
+confirmed this buff mapping. Damage and hit-attached effects use these markers
+without shortening casts.
 These remaining placeholders cannot validate the proposed sequence within 60s,
 cooldown readiness, effect coverage, or its named 38 BB count.
 
@@ -1294,6 +1321,13 @@ semantics are user-confirmed from combat comparison, rather than explicit
 tooltip ordering. Charged follow-ups expose one-hit and two-hit
 cancel variants; the rotation uses the one-hit variant. Their temporary cancel
 boundaries equal their last retained hit marker (0.22504647s or 0.68347914s).
+
+The 2026-10-21 14:51 export also moves Second Track Slash release's first hit
+to 0.094987652s and Inner Balance Strike III's follow-up hit to 0.095032667s.
+Their hit-attached Bleed and burst checks follow the corrected markers; existing
+cancel durations and combo transitions are preserved. The 38-BB preset's authored
+Qi thresholds retain their proportional placement against the corrected final-hit
+break anchor.
 
 Damage coverage and remaining omissions:
 
@@ -1494,6 +1528,7 @@ Charged light
 0.135 hits and one 0.19 final hit, following the explicit damage table rather
 than the conflicting maximum-eight-hit tooltip. Its user-confirmed time to connect to VC
 is 2.033 seconds: 0.2 seconds of pre-charge plus 1.833 seconds after pre-charge.
+Flat attribute bonuses use the unscaled level-100 source values (39.15 for each small hit and 55.1 for the final hit); the shared primary-attribute multiplier applies once, including to these flat terms.
 Individual hit clocks remain zero because they are unresolved. It carries both `Light` and
 `Charged` tags.
 
@@ -1561,7 +1596,8 @@ affix availability pending a dedicated equipment export.
 
 Cloudshear and Etherwrath are available for Wings. Cloudshear retains the
 77.8 minimum Physical Attack two-piece bonus at four pieces. Its self buff,
-裁雲·翊 (`buff.json` 109804), grants 6% all-type damage and healing for 15 seconds, capped at
+裁雲·翊 (`buff.json` 109804), grants 6% to each applicable channel's damage-scale
+pool and 6% healing for 15 seconds, capped at
 one stack and refreshing its duration on reapplication, when Fan Q applies
 扶風 or Drum Special applies 爍鼓. The automatic 扶風 application when 爍鼓
 expires does not trigger Cloudshear. Ally application is not part of the dummy presets.
@@ -1646,7 +1682,8 @@ remaining mechanisms and draft Flourishing Notes timing limits.
 ### Global Wings support
 
 The Global Buffs Wings selector uses permanent expected bonuses for other paths:
-Support assumes Harmony Song T6. Ally Cloudshear contributes 2% damage and healing; Yellow weights Tailwind's 3%
+Support assumes Harmony Song T6. Ally Cloudshear contributes 2% to each
+applicable channel's damage-scale pool and 2% healing; Yellow weights Tailwind's 3%
 attribute attack bonus by 13.5/20 and Radiant Drum's 12% Physical/all-attribute
 attack bonus by 6.5/20. Blue uses 9.5/20 and 10.5/20 respectively. Full uses
 Cloudshear and Radiant Drum at full coverage. These weighted effects do not

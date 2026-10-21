@@ -7,6 +7,7 @@
   "steps": [
     { "type": "skill", "skill": "SereneBreeze" },
     { "type": "skill", "skill": "FloatingGrace" },
+    { "type": "event", "event": "Delay", "duration": 0.05 },
     { "type": "skill", "skill": "EchoesOfAThousandPlants" },
     { "type": "skill", "skill": "DragonsBreathSmolder2" },
     { "type": "skill", "skill": "DrunkenPoet5HitsCancel" },
@@ -42,6 +43,7 @@
     { "type": "event", "event": "Qi", "before": { "action": "start" }, "targetQiRatio": 0.3999 },
     { "type": "skill", "skill": "SereneBreeze" },
     { "type": "skill", "skill": "FloatingGrace" },
+    { "type": "event", "event": "Delay", "duration": 0.05 },
     { "type": "skill", "skill": "EchoesOfAThousandPlants" },
     { "type": "skill", "skill": "DragonsBreathSmolder2" },
     { "type": "skill", "skill": "DrunkenPoet5HitsCancel" },

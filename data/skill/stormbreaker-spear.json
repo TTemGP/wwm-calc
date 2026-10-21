@@ -2,11 +2,25 @@
   "ThunderShock": {
     "name": "Thunder Shock",
     "shortName": "Spear Special",
-    "castTime": 1.6,
+    "castTime": 1.4,
     "action": [
-      { "type": "damage", "phyCoef": 0.4843, "phyBonus": 134, "attrBonus": 73, "time": 0.4, "attrCoef": 0.4843 },
+      {
+        "type": "damage",
+        "phyCoef": 0.4842855,
+        "phyBonus": 134.55,
+        "attrBonus": 73.35,
+        "time": 0.4,
+        "attrCoef": 0.4842855
+      },
       { "type": "apply", "target": "target", "value": "Vulnerable", "time": 0.4 },
-      { "type": "damage", "phyCoef": 1.13, "phyBonus": 313, "attrBonus": 171, "time": 1.2, "attrCoef": 1.13 },
+      {
+        "type": "damage",
+        "phyCoef": 1.1299995,
+        "phyBonus": 313.95,
+        "attrBonus": 171.15,
+        "time": 1.2,
+        "attrCoef": 1.1299995
+      },
       { "type": "apply", "target": "target", "value": "Vulnerable", "time": 1.2 }
     ],
     "modifier": [],
@@ -19,7 +33,14 @@
     "shortName": "Spear Special 1-Hit",
     "castTime": 0.4,
     "action": [
-      { "type": "damage", "phyCoef": 0.4843, "phyBonus": 134, "attrBonus": 73, "time": 0.4, "attrCoef": 0.4843 },
+      {
+        "type": "damage",
+        "phyCoef": 0.4842855,
+        "phyBonus": 134.55,
+        "attrBonus": 73.35,
+        "time": 0.4,
+        "attrCoef": 0.4842855
+      },
       { "type": "apply", "target": "target", "value": "Vulnerable", "time": 0.4 }
     ],
     "modifier": [],
@@ -30,10 +51,10 @@
   "StormRoar": {
     "name": "Storm Roar",
     "shortName": "Spear Q",
-    "castTime": 1,
+    "castTime": 0.9,
     "action": [
-      { "type": "damage", "phyCoef": 0.3151, "phyBonus": 88, "attrBonus": 48, "time": 1, "attrCoef": 0.3151 },
-      { "type": "apply", "target": "self", "value": "Drumbeat", "time": 1 }
+      { "type": "damage", "phyCoef": 0.31509, "phyBonus": 88, "attrBonus": 48, "time": 0.6, "attrCoef": 0.31509 },
+      { "type": "apply", "target": "self", "value": "Drumbeat", "time": 0.6 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "MartialArt", "Spear", "StormbreakerSpear", "StormRoar"],
