@@ -127,16 +127,11 @@ footer{font-size:13px;color:var(--muted)}
 </style>
 
 <div class="wrap">
-  <nav class="top"><a href="../">딜 계산기</a><a href="../bis/">유파 BiS 공략</a></nav>
+  <nav class="top"><a href="https://ttemgp.github.io/wwm-calc/">딜 계산기</a><a href="https://ttemgp.github.io/wwm-calc/bis/">유파 BiS 공략</a></nav>
   <header>
     <h1>비결 재료 계산기</h1>
     <p class="lede">키울 비결의 지금 단계와 목표 단계를 고르고 가진 재료를 적으면, 남은 재료와 다음 시즌까지 모자라는 양을 알려줘요. 입력한 값은 이 브라우저에만 저장돼요.</p>
   </header>
-
-  <div class="sample" id="sampleBar">
-    <span>지금 보이는 비결·재료 수치는 예시예요. 내 값으로 바꾸면 그때부터 저장돼요.</span>
-    <button id="clearSample">예시 지우고 비우기</button>
-  </div>
 
   <section class="panel" aria-labelledby="h-season">
     <div class="ph"><h2 id="h-season">다음 시즌까지</h2></div>
@@ -183,7 +178,7 @@ footer{font-size:13px;color:var(--muted)}
       <label for="shopJade">소옥 보유</label>
       <input type="number" min="0" inputmode="numeric" id="shopJade" placeholder="0" style="width:130px">
       <label for="shopStock">신념의 여정 남은 재고</label>
-      <input type="number" min="0" inputmode="numeric" id="shopStock" style="width:100px">
+      <input type="number" min="0" inputmode="numeric" id="shopStock" placeholder="1100" style="width:100px">
     </div>
     <div id="shopOut" class="small"></div>
     <p class="muted small" style="margin:10px 0 0">파는 오금철: Lv.1~4, 오금철-Lv.5, 오금철-신념의 여정(각 소옥 80). 신념의 여정 재고는 초기화되지 않고 매주 월요일 550개씩 들어와요(남은 입고 4회, 게임 화면 기준). 소옥은 무위수련에서 옥어패 1개당 8개씩, 소옥이 80만 개 미만일 때만 쌓여요.</p>
@@ -377,22 +372,12 @@ const today = new Date(); today.setHours(0,0,0,0);
 const iso = d => new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10);
 // 글로벌 S5-계승의 불꽃 상반기 종료 2026-11-26 05:59(한국 시간), 하반기 시작
 const SEASON_DEFAULT = '2026-11-26';
-const SAMPLE = () => ({
-  sample: true,
-  season: SEASON_DEFAULT,
-  skills: {
-    poet:{on:true,cur:47,tgt:75}, dragon:{on:true,cur:50,tgt:75,form:true}, soar:{on:true,cur:38,tgt:59},
-    flute:{on:true,cur:42,tgt:59}, steps:{on:true,cur:29,tgt:49},
-  },
-  have: {fruit:12,pearl:30,plume:4,root:9,jasmine:6,frost:2,foxtail:0,storm:20,
-    i1:40,i2:60,i3:120,i4:160,i5:210,i6:300,i7:95,i8:0,pill:0,bx1:2,bx3:4},
-  week: {},
-  done: {}, custom: [],
-});
 const boxDefault = () => Object.fromEntries(BOX_SRC.map(b => [b[0], {on:true, n:b[2]}]));
-const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, week:{}, done:{}, custom:[], gear:{tier:100, n:{}, have:{}, runs:1}, shop:{jade:'', stock:1100}});
+const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, week:{}, done:{}, custom:[], gear:{tier:100, n:{}, have:{}, runs:1}, shop:{jade:'', stock:''}});
 let S;
-try { S = JSON.parse(localStorage.getItem(KEY)) || SAMPLE(); } catch { S = SAMPLE(); }
+// 처음엔 모든 개수가 비어 있어요(0으로 계산)
+try { S = JSON.parse(localStorage.getItem(KEY)) || EMPTY(); } catch { S = EMPTY(); }
+if (S.sample) S = EMPTY();
 for (const k of ['skills','have','week','done']) S[k] ||= {};
 S.custom ||= [];
 S.boxSrc ||= boxDefault();
@@ -515,7 +500,6 @@ function weeks() {
 }
 
 function render() {
-  $('sampleBar').hidden = !S.sample;
   $('seasonDate').value = S.season || '';
   const W = weeks();
   $('weeksLeft').textContent = S.season ? `오늘부터 ${S._days}일(${W}주) 남았어요${S.season===SEASON_DEFAULT?' (글로벌 S5 하반기 시작 11월 26일 06:00)':''}` : '날짜를 넣으면 주간 상자 구매를 더해서 봐요';
@@ -763,7 +747,6 @@ $('gearTier').addEventListener('change', e => { S.gear.tier = +e.target.value; t
 $('gearPick').addEventListener('input', e => { const k = e.target.dataset.gn; if (!k) return; S.gear.n[k] = Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
 $('gearMat').addEventListener('change', e => { const m = e.target.dataset.gh; if (!m) return; S.gear.have[m] = e.target.value === '' ? '' : Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
 const wipe = () => { S = EMPTY(); S.boxSrc = Object.fromEntries(BOX_SRC.map(b => [b[0], {on:false, n:b[2]}])); save(); buildSkills(); buildMats(); buildBox(); buildGear(); render(); };
-$('clearSample').addEventListener('click', wipe);
 let armed = 0;
 $('resetBtn').addEventListener('click', e => {
   if (Date.now() - armed < 4000) { wipe(); e.target.textContent = '모든 입력 지우기'; armed = 0; return; }
