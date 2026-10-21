@@ -36,6 +36,10 @@ h2{font-family:var(--f-display);font-size:21px;margin:0;text-wrap:balance}
 .fold::after{content:"";width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-2px);transition:transform .15s}
 .panel.closed .fold::after{transform:rotate(-45deg)}
 .panel.closed .ph{margin-bottom:0}
+.ph{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.grip{margin-left:auto;align-self:center;color:var(--muted);font-size:13px;letter-spacing:-2px;cursor:grab;padding:2px 4px;touch-action:none}
+.panel.dragging{outline:2px solid var(--accent,#c0392b);box-shadow:0 8px 24px rgba(0,0,0,.18);position:relative;z-index:5;opacity:.95}
+body.reordering{cursor:grabbing;user-select:none;-webkit-user-select:none}
 .ph{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .muted{color:var(--muted)}
 .small{font-size:13px}
@@ -131,9 +135,9 @@ footer{font-size:13px;color:var(--muted)}
   </div>
 
   <section class="panel" aria-labelledby="h-season">
+    <div class="ph"><h2 id="h-season">다음 시즌까지</h2></div>
     <div class="verdict">
       <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <h2 id="h-season" class="muted small" style="font-family:var(--f-body);font-size:13px;letter-spacing:.06em">다음 시즌까지</h2>
         <p class="big" id="verdict">계산 중</p>
         <div id="verdictSub" class="sklist"></div>
       </div>
@@ -241,7 +245,7 @@ footer{font-size:13px;color:var(--muted)}
   </section>
 
   <section class="panel" aria-labelledby="h-src">
-    <h2 id="h-src">계산 기준</h2>
+    <div class="ph"><h2 id="h-src">계산 기준</h2></div>
     <ul class="notes">
       <li><b>1~5중</b>은 0~9단이에요. 한 단 올릴 때 그 중 등급 오금철이 1중 2개, 2중 4개, 3중 10개, 4중 20개, 5중 32개 들어요. 9단에서 다음 중으로 돌파할 때도 같은 양의 오금철에 돌파 재료가 5·15·18·28·35개 더 들어요(합계 101개).</li>
       <li><b>6중</b>은 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 신념의 여정, 21~30단은 계승을 써요. 중국 서버는 8월에 50단까지 열려서 31~40단 협종의 선율, 41~50단 유빈의 연주로 넣었어요(6중 40→41단 강화 화면에서 유빈의 연주 48개 확인, 31~40단 등급은 순서로 맞춘 것). 글로벌은 지금 6중 25단까지라 그 위 단계는 목록에 (중국)이라고 붙였어요.</li>
@@ -657,17 +661,57 @@ $('boxBody').addEventListener('input', e => {
   touch(); render();
 });
 document.querySelectorAll('input[name=boxMode]').forEach(r => r.addEventListener('change', () => { S.boxMode = r.value; touch(); buildBox(); render(); }));
-// 칸마다 제목을 누르면 접고 펴요
-S.closed ||= {};
-document.querySelectorAll('section.panel[aria-labelledby]').forEach(sec => {
+// 칸마다 제목을 누르면 접고 펴요. 제목 줄을 꾹 누른 채 위아래로 끌면 칸 순서가 바뀌어요
+// 칸 순서·접힘은 예시 상태에서도 따로 저장해요
+let UI = {}; try { UI = JSON.parse(localStorage.getItem('wwm-mystic-ui')) || {}; } catch {}
+UI.closed ||= S.closed || {};
+const saveUI = () => { try { localStorage.setItem('wwm-mystic-ui', JSON.stringify(UI)); } catch {} };
+const panels = () => [...document.querySelectorAll('section.panel[aria-labelledby]')];
+const footer = document.querySelector('footer');
+if (Array.isArray(UI.order)) for (const id of UI.order) { const sec = document.querySelector(`section.panel[aria-labelledby="${id}"]`); if (sec) footer.before(sec); }
+let drag = null, skipClick = false;
+panels().forEach(sec => {
   const id = sec.getAttribute('aria-labelledby'), h = $(id); if (!h) return;
-  h.innerHTML = `<button type="button" class="fold" aria-expanded="${!S.closed[id]}">${h.innerHTML}</button>`;
-  sec.classList.toggle('closed', !!S.closed[id]);
+  const ph = h.closest('.ph');
+  h.innerHTML = `<button type="button" class="fold" aria-expanded="${!UI.closed[id]}">${h.innerHTML}</button>`;
+  ph.insertAdjacentHTML('beforeend', '<span class="grip" title="꾹 누른 채 위아래로 끌면 순서가 바뀌어요" aria-hidden="true">⋮⋮</span>');
+  sec.classList.toggle('closed', !!UI.closed[id]);
   h.firstChild.addEventListener('click', e => {
-    (S.closed ||= {})[id] = !S.closed[id]; sec.classList.toggle('closed', S.closed[id]);
-    e.currentTarget.setAttribute('aria-expanded', !S.closed[id]); save();
+    if (skipClick) { skipClick = false; return; }
+    UI.closed[id] = !UI.closed[id]; sec.classList.toggle('closed', UI.closed[id]);
+    e.currentTarget.setAttribute('aria-expanded', !UI.closed[id]); saveUI();
+  });
+  ph.addEventListener('contextmenu', e => e.preventDefault());
+  ph.addEventListener('pointerdown', e => {
+    if (e.button || e.target.closest('input,select,a')) return;
+    const start = {x: e.clientX, y: e.clientY};
+    const t = setTimeout(() => {
+      drag = {sec, y: e.clientY};
+      sec.classList.add('dragging'); document.body.classList.add('reordering');
+      navigator.vibrate?.(30);
+    }, 350);
+    const cancel = ev => { if (Math.hypot(ev.clientX - start.x, ev.clientY - start.y) > 8) clearTimeout(t); };
+    const up = () => { clearTimeout(t); removeEventListener('pointermove', cancel); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); };
+    addEventListener('pointermove', cancel); addEventListener('pointerup', up); addEventListener('pointercancel', up);
   });
 });
+addEventListener('touchmove', e => { if (drag) e.preventDefault(); }, {passive: false});
+addEventListener('pointermove', e => {
+  if (!drag) return;
+  e.preventDefault();
+  const list = panels(), i = list.indexOf(drag.sec);
+  const prev = list[i - 1], next = list[i + 1];
+  if (prev && e.clientY < prev.getBoundingClientRect().top + prev.offsetHeight / 2) prev.before(drag.sec);
+  else if (next && e.clientY > next.getBoundingClientRect().top + next.offsetHeight / 2) next.after(drag.sec);
+  if (e.clientY < 60) scrollBy(0, -12); else if (e.clientY > innerHeight - 60) scrollBy(0, 12);
+});
+const endDrag = () => {
+  if (!drag) return;
+  drag.sec.classList.remove('dragging'); document.body.classList.remove('reordering');
+  drag = null; skipClick = true; setTimeout(() => skipClick = false, 50);
+  UI.order = panels().map(s => s.getAttribute('aria-labelledby')); saveUI();
+};
+addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag);
 $('bulkTarget').innerHTML = opts(DEF);
 $('bulkCur').innerHTML = opts(50);
 $('bulkCurApply').addEventListener('click', () => {
