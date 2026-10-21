@@ -129,6 +129,13 @@ tr.off td:not(:first-child){opacity:.5}
 .reset{align-self:flex-start}
 .acct{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:12px;font-size:13px;color:var(--muted)}
 .acct button{font-size:13px;padding:5px 11px}
+.acct form{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.acct input{font:inherit;font-size:13px;padding:5px 9px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:12em}
+dialog.warn{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:20px 22px;max-width:min(92vw,400px)}
+dialog.warn::backdrop{background:rgb(0 0 0 / .45)}
+dialog.warn p{margin:0 0 10px}
+dialog.warn .row{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+dialog.warn .danger{background:var(--bad);border-color:var(--bad);color:#fff}
 .acct .ask{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;border-radius:8px;background:var(--cn-soft);color:var(--cn)}
 footer{font-size:13px;color:var(--muted)}
 
@@ -287,6 +294,12 @@ footer{font-size:13px;color:var(--muted)}
       <li>출처: 샤오홍슈 可樂搖一搖 「奇术突破材料表」, 达尹 「奇术升满级六重三十段所需材料一览」(2026-03), 茶茗 「奇术升级用的乌金？」(2026-09, 6중 40→41단 화면), Game8 1~5중 돌파표, 한국어 명칭은 th.gl 연운 데이터베이스.</li>
     </ul>
     <button class="reset" id="resetBtn">모든 입력 지우기</button>
+    <dialog class="warn" id="wipeDlg" aria-labelledby="wipeTitle">
+      <p id="wipeTitle"><b>입력한 정보가 모두 지워져요. 괜찮아요?</b></p>
+      <p>비결 단계, 보유 재료, 상자, 활·각지, 할 일까지 전부 처음 상태로 돌아가요. 지운 뒤에는 되돌릴 수 없어요.</p>
+      <p id="wipeAcct" hidden>로그인 중이라 계정에 저장된 값도 같이 비워져요.</p>
+      <div class="row"><button type="button" id="wipeNo">취소</button><button type="button" class="danger" id="wipeYes">모두 지우기</button></div>
+    </dialog>
   </section>
 
   <footer>연운 계산기 · 팬 사이트예요. 게임 데이터의 권리는 NetEase에 있어요.</footer>
@@ -843,12 +856,9 @@ $('gearTier').addEventListener('change', e => { S.gear.tier = +e.target.value; t
 $('gearPick').addEventListener('input', e => { const k = e.target.dataset.gn; if (!k) return; S.gear.n[k] = Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
 $('gearMat').addEventListener('change', e => { const m = e.target.dataset.gh; if (!m) return; S.gear.have[m] = e.target.value === '' ? '' : Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
 const wipe = () => { S = EMPTY(); S.boxSrc = Object.fromEntries(BOX_SRC.map(b => [b[0], {on:false, n:b[2]}])); save(); buildSkills(); buildMats(); buildBox(); buildGear(); render(); };
-let armed = 0;
-$('resetBtn').addEventListener('click', e => {
-  if (Date.now() - armed < 4000) { wipe(); e.target.textContent = '모든 입력 지우기'; armed = 0; return; }
-  armed = Date.now(); e.target.textContent = '한 번 더 누르면 지워져요';
-  setTimeout(() => { if (armed && Date.now() - armed >= 4000) { e.target.textContent = '모든 입력 지우기'; armed = 0; } }, 4100);
-});
+$('resetBtn').addEventListener('click', () => { $('wipeAcct').hidden = !auth; $('wipeDlg').showModal(); $('wipeNo').focus(); });
+$('wipeNo').addEventListener('click', () => $('wipeDlg').close());
+$('wipeYes').addEventListener('click', () => { $('wipeDlg').close(); wipe(); });
 
 // ---------- 로그인·동기화 (Supabase) ----------
 // 주소와 공개 키(anon / publishable)만 넣어요. service_role 키는 절대 넣지 마세요.
@@ -861,7 +871,7 @@ async function sbFetch(path, opt = {}) {
 function keepAuth(t) {
   if (t && !/^[0-9a-f-]{36}$/.test(t.user?.id || '')) t = null;
   auth = t ? {access_token: t.access_token, refresh_token: t.refresh_token, expires_at: Date.now() + (t.expires_in || 3600) * 1000,
-    id: t.user?.id, name: t.user?.user_metadata?.name || t.user?.user_metadata?.full_name || t.user?.email || '로그인됨'} : null;
+    id: t.user?.id, name: t.user?.user_metadata?.nickname || t.user?.user_metadata?.name || t.user?.user_metadata?.full_name || t.user?.email || '로그인됨'} : null;
   jset(AUTH_KEY, auth);
 }
 async function freshAuth() {
@@ -917,7 +927,7 @@ function syncSoon() {
   clearTimeout(syncT);
   syncT = setTimeout(async () => { try { if (await freshAuth()) { await push(); drawAcct(); } } catch { syncState = '저장 실패, 다음에 다시 시도해요'; drawAcct(); } }, 1500);
 }
-let pending = null;
+let pending = null, naming = false;
 async function startSync() {
   if (!await freshAuth()) return drawAcct();
   try {
@@ -935,15 +945,30 @@ function drawAcct() {
   const el = $('acct'); el.hidden = !sbOn; if (!sbOn) return;
   const esc2 = t => esc(String(t || ''));
   if (!auth) { el.innerHTML = `<span>로그인하면 다른 기기에서도 이어서 볼 수 있어요.</span>` + SB_PROVIDERS.map(([p, n]) => `<button type="button" data-login="${p}">${n}로 로그인</button>`).join('') + (syncState ? `<span>${esc2(syncState)}</span>` : ''); return; }
-  el.innerHTML = `<span><b>${esc2(auth.name)}</b> 로그인됨${syncState ? ' · ' + esc2(syncState) : ''}</span><button type="button" data-logout>로그아웃</button>` +
+  if (naming) { el.innerHTML = `<form id="nickForm"><label for="nickIn">닉네임</label><input id="nickIn" maxlength="20" required value="${esc2(auth.name)}"><button type="submit">저장</button><button type="button" data-nick-cancel>취소</button></form>`; $('nickIn').select(); return; }
+  el.innerHTML = `<span><b>${esc2(auth.name)}</b> 로그인됨${syncState ? ' · ' + esc2(syncState) : ''}</span><button type="button" data-nick>닉네임 바꾸기</button><button type="button" data-logout>로그아웃</button>` +
     (pending ? `<span class="ask">계정에 저장된 값과 이 기기 값이 달라요. <button type="button" data-use="remote">계정 값 불러오기</button><button type="button" data-use="local">이 기기 값으로 덮어쓰기</button></span>` : '');
 }
 $('acct').addEventListener('click', async e => {
   const t = e.target;
   if (t.dataset.login) signIn(t.dataset.login);
   else if ('logout' in t.dataset) signOut();
+  else if ('nick' in t.dataset) { naming = true; drawAcct(); }
+  else if ('nickCancel' in t.dataset) { naming = false; drawAcct(); }
   else if (t.dataset.use === 'remote' && pending) applyRemote(pending);
   else if (t.dataset.use === 'local') { pending = null; ready = true; try { await push(); } catch { syncState = '저장 실패'; } drawAcct(); }
+});
+// 닉네임은 계정 정보(user_metadata)에 저장돼서 딜 계산기에서도 같이 보여요
+$('acct').addEventListener('submit', async e => {
+  e.preventDefault();
+  const nick = $('nickIn').value.trim().slice(0, 20);
+  if (!nick) return;
+  try {
+    if (!await freshAuth()) return;
+    const u = await sbFetch('/auth/v1/user', {method: 'PUT', body: JSON.stringify({data: {nickname: nick}})});
+    auth = {...auth, name: u.user_metadata?.nickname || nick}; jset(AUTH_KEY, auth); syncState = '닉네임 저장됨';
+  } catch { syncState = '닉네임 저장 실패'; }
+  naming = false; drawAcct();
 });
 if (sbOn) finishSignIn().then(startSync);
 

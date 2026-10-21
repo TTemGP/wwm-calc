@@ -1,10 +1,12 @@
-import { useSyncExternalStore } from "react"
+import { useState, useSyncExternalStore, type FormEvent } from "react"
 
 import {
   chooseLocalData,
   chooseRemoteData,
   cloudProviders,
   getCloudState,
+  maxNicknameLength,
+  setNickname,
   signIn,
   signOut,
   subscribeToCloud,
@@ -31,6 +33,7 @@ function statusText(status: CloudStatus) {
 
 export function AccountBar() {
   const cloud = useSyncExternalStore(subscribeToCloud, getCloudState)
+  const [draft, setDraft] = useState<string | null>(null)
   if (!cloud.enabled) return null
   const status = statusText(cloud.status)
 
@@ -47,12 +50,43 @@ export function AccountBar() {
     )
   }
 
+  if (draft !== null) {
+    const save = async (event: FormEvent) => {
+      event.preventDefault()
+      if (await setNickname(draft)) setDraft(null)
+    }
+    return (
+      <form className="account-bar" onSubmit={event => void save(event)}>
+        <label className="account-status" htmlFor="account-nickname">
+          {t("ui.account.nickname")}
+        </label>
+        <input
+          id="account-nickname"
+          className="account-nickname"
+          value={draft}
+          maxLength={maxNicknameLength}
+          required
+          onChange={event => setDraft(event.target.value)}
+        />
+        <Button type="submit" size="small" variant="primary">
+          {t("ui.account.saveNickname")}
+        </Button>
+        <Button size="small" onClick={() => setDraft(null)}>
+          {t("ui.account.cancel")}
+        </Button>
+      </form>
+    )
+  }
+
   return (
     <div className="account-bar">
       <span className="account-status">
         <strong>{cloud.name || t("ui.account.signedIn")}</strong>
         {status && ` · ${status}`}
       </span>
+      <Button size="small" onClick={() => setDraft(cloud.name ?? "")}>
+        {t("ui.account.changeNickname")}
+      </Button>
       <Button size="small" onClick={() => void signOut()}>
         {t("ui.account.signOut")}
       </Button>
