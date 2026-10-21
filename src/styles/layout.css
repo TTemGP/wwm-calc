@@ -241,6 +241,10 @@
       font-size: 0.875rem;
     }
 
+    .account-nickname {
+      inline-size: 12em;
+    }
+
     .account-conflict {
       display: flex;
       align-items: center;

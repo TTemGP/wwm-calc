@@ -24,7 +24,7 @@ type TokenResponse = {
   access_token: string
   refresh_token: string
   expires_in?: number
-  user?: { id?: string; email?: string; user_metadata?: { name?: string; full_name?: string } }
+  user?: { id?: string; email?: string; user_metadata?: { nickname?: string; name?: string; full_name?: string } }
 }
 
 export type CloudStatus = "idle" | "syncing" | "saved" | "synced" | "conflict" | "failed" | "signInFailed"
@@ -122,7 +122,12 @@ function keepAuth(token: TokenResponse | null) {
           refresh_token: token.refresh_token,
           expires_at: Date.now() + (token.expires_in ?? 3600) * 1000,
           id,
-          name: token.user?.user_metadata?.name || token.user?.user_metadata?.full_name || token.user?.email || "",
+          name:
+            token.user?.user_metadata?.nickname ||
+            token.user?.user_metadata?.name ||
+            token.user?.user_metadata?.full_name ||
+            token.user?.email ||
+            "",
         }
       : null
   writeJson(authKey, auth)
@@ -185,6 +190,27 @@ async function finishSignIn() {
     )
   } catch {
     setState({ status: "signInFailed" })
+  }
+}
+
+export const maxNicknameLength = 20
+
+// The nickname lives in the account's user metadata, so the 비결 계산기 page shows it too.
+export async function setNickname(nickname: string) {
+  const value = nickname.trim().slice(0, maxNicknameLength)
+  if (!value || !(await freshAuth())) return false
+  try {
+    const user = await request<{ user_metadata?: { nickname?: string } }>("/auth/v1/user", {
+      method: "PUT",
+      body: JSON.stringify({ data: { nickname: value } }),
+    })
+    auth = { ...auth!, name: user.user_metadata?.nickname || value }
+    writeJson(authKey, auth)
+    setState({})
+    return true
+  } catch {
+    setState({ status: "failed" })
+    return false
   }
 }
 
