@@ -86,8 +86,18 @@ h3.sub{font-size:14px;margin:18px 0 6px}
 .todo .tt b{font-family:var(--f-num)}
 .todo .src{display:block;font-size:13px;color:var(--muted)}
 .todo .x{border:0;background:none;color:var(--muted);padding:0 4px}
-.addtodo{display:flex;gap:8px}
-.addtodo input{flex:1;min-width:0}
+.addtodo{display:flex;flex-direction:column;gap:8px}
+.addrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.addrow #todoText{flex:1;min-width:160px}
+.days{display:inline-flex;gap:4px;flex-wrap:wrap}
+.days label{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:30px;border:1px solid var(--line);border-radius:7px;cursor:pointer;font-size:13px;background:var(--sunk)}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days label:has(input:checked){background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.days label:has(input:focus-visible){outline:2px solid var(--accent)}
+.todo .rep{display:block;font-size:12px;color:var(--muted)}
+.donelist{border:1px solid var(--line);border-radius:10px;padding:4px 12px}
+.donelist summary{cursor:pointer;font-weight:600;padding:8px 0;display:flex;gap:8px;align-items:center}
+.donelist #clearDone{margin:8px 0}
 
 /* 표 */
 .tbl{overflow-x:auto}
@@ -159,9 +169,22 @@ footer{font-size:13px;color:var(--muted)}
     <div class="ph"><h2 id="h-todo">할 일</h2><span class="muted small">직접 적는 할 일이에요. 이 브라우저에 저장돼요.</span></div>
     <ul class="todo" id="todo"></ul>
     <form class="addtodo" id="addTodo">
-      <input id="todoText" placeholder="예: 토요일 협력 토벌 돌기" aria-label="할 일 추가">
-      <button type="submit">추가</button>
+      <div class="addrow">
+        <input id="todoText" placeholder="예: 토요일 협력 등반 돌기" aria-label="할 일 추가">
+        <select id="todoKind" aria-label="할 일 종류"><option value="once">일회성</option><option value="repeat">반복</option></select>
+        <button type="submit">추가</button>
+      </div>
+      <div class="addrow" id="todoRepeat" hidden>
+        <span class="muted small">다시 풀리는 때</span>
+        <span class="days" id="todoDays"></span>
+        <input type="time" id="todoTime" value="06:00" aria-label="초기화 시간">
+      </div>
     </form>
+    <details class="donelist" id="doneWrap" hidden>
+      <summary>완료 목록 <span class="pill ok" id="doneCount"></span></summary>
+      <ul class="todo" id="doneList"></ul>
+      <button type="button" id="clearDone">완료한 일회성 할 일 모두 지우기</button>
+    </details>
   </section>
 
   <section class="panel" aria-labelledby="h-mat">
@@ -608,10 +631,31 @@ function render() {
   $('needGroups').innerHTML = groups.map(([k, title, list, empty]) => `<details data-open="${k}"${S.open[k] === false ? '' : ' open'}>
     <summary>${title} <span class="pill ${list.length ? 'bad' : 'ok'}">${list.length ? list.length + '종 모자람' : '충분'}</span></summary>
     <ul class="todo">${list.length ? list.map(li).join('') : `<li><span></span><span class="tt muted">${empty}</span><span></span></li>`}</ul></details>`).join('');
-  let h = '';
-  S.custom.forEach((c, i) => h += `<li class="${c.done?'done':''}"><input type="checkbox" data-cdone="${i}"${c.done?' checked':''} aria-label="완료"><span class="tt">${esc(c.text)}</span><button class="x" data-cdel="${i}" aria-label="삭제">✕</button></li>`);
+  // 할 일: 반복은 정한 요일·시간이 지나면 체크가 풀리고, 일회성은 체크하면 완료 목록으로 가요
+  resetRepeats();
+  const item = (c, i) => `<li class="${c.done?'done':''}"><input type="checkbox" data-cdone="${i}"${c.done?' checked':''} aria-label="완료"><span class="tt">${esc(c.text)}${c.kind === 'repeat' ? `<span class="rep">반복 · ${repLabel(c)}</span>` : ''}</span><button class="x" data-cdel="${i}" aria-label="삭제">✕</button></li>`;
+  let h = '', d = '', nd = 0;
+  S.custom.forEach((c, i) => { if (c.kind !== 'repeat' && c.done) { d += item(c, i); nd++; } else h += item(c, i); });
   if (!h) h = `<li><span></span><span class="tt muted">아직 적은 할 일이 없어요.</span><span></span></li>`;
   $('todo').innerHTML = h;
+  $('doneList').innerHTML = d;
+  $('doneWrap').hidden = !nd; $('doneCount').textContent = nd + '개';
+}
+const DAYS = ['일','월','화','수','목','금','토'];
+const repLabel = c => (c.days.length === 7 ? '매일' : '매주 ' + [1,2,3,4,5,6,0].filter(x => c.days.includes(x)).map(x => DAYS[x]).join('·')) + ' ' + c.time + '에 다시 풀려요';
+// 가장 최근에 지난 초기화 시각
+function lastReset(c, now = new Date()) {
+  const [hh, mm] = c.time.split(':').map(Number);
+  for (let k = 0; k <= 7; k++) {
+    const t = new Date(now); t.setDate(t.getDate() - k); t.setHours(hh, mm, 0, 0);
+    if (t <= now && c.days.includes(t.getDay())) return t.getTime();
+  }
+  return 0;
+}
+function resetRepeats() {
+  let changed = false;
+  for (const c of S.custom) if (c.kind === 'repeat' && c.done && (c.doneAt || 0) < lastReset(c)) { c.done = false; changed = true; }
+  if (changed) save();
 }
 const esc = t => t.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -637,18 +681,29 @@ $('seasonDate').addEventListener('change', e => { S.season = e.target.value; tou
 $('todo').addEventListener('change', e => {
   const t = e.target;
   if (t.dataset.done) { S.done[t.dataset.done] = t.checked; }
-  else if (t.dataset.cdone) { S.custom[+t.dataset.cdone].done = t.checked; }
+  else if (t.dataset.cdone) { const c = S.custom[+t.dataset.cdone]; c.done = t.checked; c.doneAt = t.checked ? Date.now() : 0; }
   touch(); render();
 });
-$('todo').addEventListener('click', e => {
-  const i = e.target.dataset?.cdel; if (i === undefined) return;
-  S.custom.splice(+i, 1); touch(); render();
-});
+const delTodo = e => { const i = e.target.dataset?.cdel; if (i === undefined) return; S.custom.splice(+i, 1); touch(); render(); };
+$('todo').addEventListener('click', delTodo);
+$('doneList').addEventListener('click', delTodo);
+$('doneList').addEventListener('change', e => { const i = e.target.dataset.cdone; if (i === undefined) return; S.custom[+i].done = e.target.checked; touch(); render(); });
+$('clearDone').addEventListener('click', () => { S.custom = S.custom.filter(c => c.kind === 'repeat' || !c.done); touch(); render(); });
+$('todoDays').innerHTML = [1,2,3,4,5,6,0].map(x => `<label><input type="checkbox" value="${x}"${x === 1 ? ' checked' : ''}>${DAYS[x]}</label>`).join('');
+$('todoKind').addEventListener('change', e => { $('todoRepeat').hidden = e.target.value !== 'repeat'; });
 $('addTodo').addEventListener('submit', e => {
   e.preventDefault();
   const v = $('todoText').value.trim(); if (!v) return;
-  S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
+  if ($('todoKind').value === 'repeat') {
+    const days = [...$('todoDays').querySelectorAll('input:checked')].map(x => +x.value);
+    if (!days.length) { $('todoDays').querySelector('input').focus(); return; }
+    S.custom.push({text:v, kind:'repeat', days, time: $('todoTime').value || '06:00', done:false});
+  } else S.custom.push({text:v, kind:'once', done:false});
+  $('todoText').value = ''; touch(); render();
 });
+// 반복 할 일은 페이지를 켜 둔 채로도 시간이 되면 풀려요
+setInterval(() => { if (S.custom.some(c => c.kind === 'repeat' && c.done)) render(); }, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
 $('needGroups').addEventListener('change', e => { const k = e.target.dataset.done; if (!k) return; S.done[k] = e.target.checked; touch(); render(); });
 $('needGroups').addEventListener('toggle', e => { const k = e.target.dataset?.open; if (k) { S.open[k] = e.target.open; save(); } }, true);
 $('boxBody').addEventListener('input', e => {
