@@ -146,15 +146,15 @@ footer{font-size:13px;color:var(--muted)}
   </section>
 
   <section class="panel" aria-labelledby="h-mat">
-    <div class="ph"><h2 id="h-mat">재료 현황</h2><span class="muted small">보유량과 1주에 얻는 양을 적어 주세요. 오금철은 높은 등급이 낮은 등급을 대신할 수 있어요.</span></div>
+    <div class="ph"><h2 id="h-mat">재료 현황</h2><span class="muted small">지금 가진 개수만 적어 주세요. 오금철은 높은 등급이 낮은 등급을 대신할 수 있어요. 주간으로 사는 비결 지원 상자는 아래 표에서 계산해 신념의 여정 상자에 더해요.</span></div>
     <div class="tbl"><table class="mat">
-      <thead><tr><th>재료</th><th class="r">필요</th><th class="r">보유</th><th class="r">1주 획득</th><th class="r">시즌 때 예상</th><th>결과</th></tr></thead>
+      <thead><tr><th>재료</th><th class="r">필요</th><th class="r">보유</th><th class="r">시즌 때</th><th>결과</th></tr></thead>
       <tbody id="matBody"></tbody>
     </table></div>
   </section>
 
   <section class="panel" aria-labelledby="h-box">
-    <div class="ph"><h2 id="h-box">비결 지원 상자 주간 구매</h2><span class="muted small">체크한 곳의 개수를 더해서 재료 현황의 「신념의 여정」 상자 "1주 획득"에 넣어요. 지금 주간으로 사는 상자는 신념의 여정이에요.</span></div>
+    <div class="ph"><h2 id="h-box">비결 지원 상자 주간 구매</h2><span class="muted small">체크한 곳의 개수를 더해서 시즌 시작까지 남은 주 수만큼 곱해서 재료 현황의 신념의 여정 상자에 더해요. 지금 주간으로 사는 상자는 신념의 여정이에요.</span></div>
     <div class="tbl"><table class="boxsrc">
       <thead><tr><th></th><th>구매처</th><th class="r">1주 개수</th><th>비용</th></tr></thead>
       <tbody id="boxBody"></tbody>
@@ -279,7 +279,7 @@ const SAMPLE = () => ({
   },
   have: {fruit:12,pearl:30,plume:4,root:9,jasmine:6,frost:2,foxtail:0,storm:20,
     i1:40,i2:60,i3:120,i4:160,i5:210,i6:300,i7:95,i8:0,pill:0,bx1:2,bx3:4},
-  week: {i4:20,i5:30,i6:40,i7:24,bx3:15,jasmine:3},
+  week: {},
   done: {}, custom: [],
 });
 const boxDefault = () => Object.fromEntries(BOX_SRC.map(b => [b[0], {on:true, n:b[2]}]));
@@ -330,14 +330,13 @@ function buildMats() {
   const row = ([k, n], sub) => `<tr id="m-${k}"><td class="mname">${n}${sub?`<small>${sub}</small>`:''}</td>
     <td class="r num" id="need-${k}"></td>
     <td class="r"><input type="number" min="0" inputmode="numeric" id="have-${k}" data-k="${k}" data-f="have" value="${S.have[k]??''}" placeholder="0" aria-label="${n} 보유"></td>
-    <td class="r"><input type="number" min="0" inputmode="numeric" id="week-${k}" data-k="${k}" data-f="week" value="${S.week[k]??''}" placeholder="0" aria-label="${n} 1주 획득"></td>
     <td class="r num" id="proj-${k}"></td><td id="res-${k}"></td></tr>`;
-  let h = '<tr class="grp"><td colspan="6">돌파 재료</td></tr>';
+  let h = '<tr class="grp"><td colspan="5">돌파 재료</td></tr>';
   HERBS.forEach(m => h += row(m));
   BOXES.forEach(b => h += row([b[0], b[1]], b[2]));
-  h += '<tr class="grp"><td colspan="6">오금철</td></tr>';
+  h += '<tr class="grp"><td colspan="5">오금철</td></tr>';
   IRON.forEach(m => h += row(m, IRON_USE[m[0]]));
-  h += '<tr class="grp"><td colspan="6">기타</td></tr>';
+  h += '<tr class="grp"><td colspan="5">기타</td></tr>';
   h += row(EXTRA[0], '2번째 형태');
   $('matBody').innerHTML = h;
 }
@@ -353,7 +352,7 @@ function render() {
   $('sampleBar').hidden = !S.sample;
   $('seasonDate').value = S.season || '';
   const W = weeks();
-  $('weeksLeft').textContent = S.season ? `오늘부터 ${S._days}일(${W}주) 남았어요${S.season===SEASON_DEFAULT?' (글로벌 S5 하반기 시작 11월 26일 06:00)':''}` : '날짜를 넣으면 주간 획득량을 더해서 봐요';
+  $('weeksLeft').textContent = S.season ? `오늘부터 ${S._days}일(${W}주) 남았어요${S.season===SEASON_DEFAULT?' (글로벌 S5 하반기 시작 11월 26일 06:00)':''}` : '날짜를 넣으면 주간 상자 구매를 더해서 봐요';
 
   // 비결별 비용
   const need = {};
@@ -366,9 +365,10 @@ function render() {
     if (st.on && st.tgt > st.cur || (st.on && s[3] && st.form)) for (const [k,n] of Object.entries(c)) need[k] = (need[k]||0) + n;
   }
 
-  // 예상 보유 = 보유 + 주간 × 남은 주
+  // 시즌 때 = 보유 (+ 신념의 여정 상자는 주간 구매 × 남은 주)
   const proj = {}, all = [...HERBS, ...IRON, ...EXTRA].map(m => m[0]);
-  for (const k of all) proj[k] = (+S.have[k]||0) + (+S.week[k]||0) * W;
+  const boxWeek = BOX_SRC.reduce((a, [id]) => a + (S.boxSrc[id]?.on ? +S.boxSrc[id].n || 0 : 0), 0);
+  for (const k of all) proj[k] = (+S.have[k]||0) + (k === 'bx3' ? boxWeek * W : 0);
 
   // 돌파 재료: 부족분을 상자(3개씩)로 메움
   const short = {}, viaBox = {};
@@ -427,8 +427,7 @@ function render() {
   // 할 일
   const items = lacking.map(k => {
     const isIron = k[0] === 'i';
-    const per = (+S.week[k]||0);
-    const wk = per ? ` 지금 속도면 ${Math.ceil(short[k]/per)}주 더 걸려요.` : '';
+    const wk = '';
     const src = isIron ? `${IRON_USE[k]}에 써요. 더 높은 등급 오금철로 대신 올려도 돼요.${wk}`
       : k === 'pill' ? `2번째 형태에 써요.${wk}` : `채집, 비결 지원 상자, 상점에서 모아요.${wk}`;
     return {key:'auto-'+k+'-'+short[k], text:`${NAME[k]} <b>${fmt(short[k])}</b>개 더 모으기`, src};
@@ -479,8 +478,6 @@ $('boxBody').addEventListener('input', e => {
   const t = e.target, k = t.dataset.bx; if (!k) return;
   if (t.dataset.f === 'on') S.boxSrc[k].on = t.checked;
   else S.boxSrc[k].n = Math.max(0, Math.floor(+t.value || 0));
-  S.week.bx3 = BOX_SRC.reduce((a, [id]) => a + (S.boxSrc[id].on ? S.boxSrc[id].n : 0), 0);
-  $('week-bx3').value = S.week.bx3;
   touch(); render();
 });
 $('bulkTarget').innerHTML = opts(DEF);
