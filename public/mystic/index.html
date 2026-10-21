@@ -31,6 +31,11 @@ h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4.4vw,40px)
 h2{font-family:var(--f-display);font-size:21px;margin:0;text-wrap:balance}
 .lede{margin:6px 0 0;color:var(--muted);max-width:66ch}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel.closed>:not(.ph){display:none}
+.fold{border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-align:left}
+.fold::after{content:"";width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.panel.closed .fold::after{transform:rotate(-45deg)}
+.panel.closed .ph{margin-bottom:0}
 .ph{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .muted{color:var(--muted)}
 .small{font-size:13px}
@@ -652,6 +657,17 @@ $('boxBody').addEventListener('input', e => {
   touch(); render();
 });
 document.querySelectorAll('input[name=boxMode]').forEach(r => r.addEventListener('change', () => { S.boxMode = r.value; touch(); buildBox(); render(); }));
+// 칸마다 제목을 누르면 접고 펴요
+S.closed ||= {};
+document.querySelectorAll('section.panel[aria-labelledby]').forEach(sec => {
+  const id = sec.getAttribute('aria-labelledby'), h = $(id); if (!h) return;
+  h.innerHTML = `<button type="button" class="fold" aria-expanded="${!S.closed[id]}">${h.innerHTML}</button>`;
+  sec.classList.toggle('closed', !!S.closed[id]);
+  h.firstChild.addEventListener('click', e => {
+    (S.closed ||= {})[id] = !S.closed[id]; sec.classList.toggle('closed', S.closed[id]);
+    e.currentTarget.setAttribute('aria-expanded', !S.closed[id]); save();
+  });
+});
 $('bulkTarget').innerHTML = opts(DEF);
 $('bulkCur').innerHTML = opts(50);
 $('bulkCurApply').addEventListener('click', () => {
