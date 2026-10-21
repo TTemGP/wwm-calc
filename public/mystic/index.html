@@ -40,6 +40,10 @@ h2{font-family:var(--f-display);font-size:21px;margin:0;text-wrap:balance}
 .grip{margin-left:auto;align-self:center;color:var(--muted);font-size:13px;letter-spacing:-2px;cursor:grab;padding:2px 4px;touch-action:none}
 .panel.dragging{outline:2px solid var(--accent,#c0392b);box-shadow:0 8px 24px rgba(0,0,0,.18);position:relative;z-index:5;opacity:.95}
 body.reordering{cursor:grabbing;user-select:none;-webkit-user-select:none}
+body.reordering .panel>:not(.ph){display:none}
+body.reordering .panel{transition:none}
+.grip{font-size:16px!important;padding:4px 8px!important;border-radius:6px}
+.grip:hover{background:var(--sunk)}
 .ph{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .muted{color:var(--muted)}
 .small{font-size:13px}
@@ -206,8 +210,6 @@ footer{font-size:13px;color:var(--muted)}
   <section class="panel" aria-labelledby="h-gear">
     <div class="ph"><h2 id="h-gear">활·각지 제작 재료</h2><span class="muted small">장비 단계가 오를 때마다 새로 만드는 활과 각지 재료예요. 만들 개수와 가진 재료를 적으면 모자라는 양을 할 일에 올려요.</span></div>
     <div class="gearbar">
-      <label for="gearServer">서버</label>
-      <select id="gearServer"><option value="global">글로벌</option><option value="cn">중국</option></select>
       <label for="gearTier">장비 단계</label>
       <select id="gearTier"></select>
       <label for="gearRuns">1개당 제작</label>
@@ -251,7 +253,7 @@ footer{font-size:13px;color:var(--muted)}
     <ul class="notes">
       <li><b>1~5중</b>은 0~9단이에요. 한 단 올릴 때 그 중 등급 오금철이 1중 2개, 2중 4개, 3중 10개, 4중 20개, 5중 32개 들어요. 9단에서 다음 중으로 돌파할 때도 같은 양의 오금철에 돌파 재료가 5·15·18·28·35개 더 들어요(합계 101개).</li>
       <li><b>6중</b>은 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 신념의 여정, 21~30단은 계승을 써요. 중국 서버는 8월에 50단까지 열려서 31~40단 협종의 선율, 41~50단 유빈의 연주로 넣었어요(6중 40→41단 강화 화면에서 유빈의 연주 48개 확인, 31~40단 등급은 순서로 맞춘 것). 글로벌은 지금 6중 25단까지라 그 위 단계는 목록에 (중국)이라고 붙였어요.</li>
-      <li><b>활·각지 제작법</b>은 「서버」에서 글로벌과 중국을 고를 수 있어요. 글로벌은 th.gl 한국어 장비 DB(글로벌 게임 데이터)에서 가져왔어요. 중국은 91·96·105단계가 글로벌 데이터와 같고(바하무트 「提早準備未來的弓玦材料」 정리표, 샤오홍슈 月影燕云 105단계 목록), 100단계는 활 갈계 꼬리·도꼬마리·야명 구슬·얼음꽃, 각지 부산석·금벽석 가루예요(같은 정리표, 游民星空 100단계 금활 글). 110단계(曳月, 강남)는 B站 两只黄瓜 영상의 제작 화면에서 활 4종이 원목·赭山石·소 힘줄로 같았고, 각지는 临安石·金桂예요(B站 「最快速获取临安石和金桂材料制作110阶金射玦」 영상 제목, 샤오홍슈 月影燕云. 각지 개수는 다른 단계처럼 10·10·5로 넣었고 화면으로는 확인 못 했어요). 115단계(观澜, 청주)는 B站·샤오홍슈 达尹 영상의 제작 화면에서 각지 자연금 10·석고 10·거친 광석 5, 활 천양 원목 10·운모 10·소 힘줄 1을 직접 확인했어요. 중국은 110단계부터 활 종류를 정교화 후 바꿀 수 있어서 115단계 제작법은 활 하나뿐이에요. 글로벌은 지역이 나온 순서가 달라서(청주가 강남보다 먼저) 100단계가 청주 재료(사과·대추·자연금)로 바뀌었고, 글로벌에 이미 있는 운모·석고·자연금은 중국 115단계 재료라 글로벌 105단계도 이쪽으로 바뀔 수 있어요.</li>
+      <li><b>활·각지 제작법</b>: 91~105단계는 th.gl 한국어 장비 DB(글로벌 게임 데이터) 기준이에요. 105단계는 글로벌에 아직 안 나와서 나올 때 바뀔 수 있어요. 110·115단계는 글로벌에 없어서 중국 서버 제작 화면(B站·샤오홍슈 영상) 기준으로 넣었고, 110단계 각지 개수는 화면으로 확인 못 해서 다른 단계처럼 10·10·5로 넣었어요.</li>
       <li><b>시즌 오금철 이름은 글로벌에서 바뀌어요.</b> 6중 10단부터 쓰는 오금철은 처음엔 중국 이름을 옮긴 이름으로 들어왔다가 그 시즌이 시작될 때 글로벌 시즌 이름으로 바뀌었어요. 오금철-남려가 황궁이 들어온 S4 때 <b>오금철-신념의 여정</b>으로, 오금철-황종의 공명이 2.3 청주(S5) 때 <b>오금철-계승</b>으로 바뀌었어요(아이템은 그대로라 가진 개수는 유지돼요). 그래서 아직 글로벌에 안 나온 <b>오금철-협종의 선율</b>(31~40단), <b>오금철-유빈의 연주</b>(41~50단)도 출시 때 이름이 바뀔 가능성이 높아요. 비결 지원 상자-황종·협종도 중국 시즌 이름이에요.</li>
       <li><b>미리 모아 둘 수 있는 건 돌파 재료뿐이에요.</b> 6중 31~50단은 오금철만 드는데, 그 오금철은 해당 시즌이 와야 나와요. 돌파 재료 8가지는 글로벌에 다 나와 있어서 2번째 형태(45개)와 1~5중 돌파용으로 미리 캘 수 있어요. 남는 낮은 등급 오금철은 위 등급을 대신할 수 없으니(위 등급만 아래를 대신해요) 필요한 만큼만 모으면 돼요.</li>
       <li><b>6중 안에서는 돌파 재료가 안 들어요.</b> 6중 0→40단을 한 단씩 올리는 중국 서버 영상(묵세한화)에서 25→26, 29→30, 30→31, 35→36, 38→39단 화면 모두 소모 재료가 오금철 48개 한 가지뿐이었고, 40→41단 화면도 같았어요. 6중 30단 초기화 때 돌려받는 돌파 재료도 1~6중 돌파 합계(101개)와 딱 맞아요. 41~50단(45→46 등)은 한 단씩 올리는 화면을 아직 못 찾았어요. 중국 서버는 지금 6중 55단까지 열렸는데 51~55단 재료는 아직 못 찾아서 목록에 없어요.</li>
@@ -314,32 +316,16 @@ const GEAR_NOTE = {
   91: '',
   96: '',
   100: '지금 글로벌 최고 단계예요.',
-  105: '글로벌 미출시예요. 지금 데이터는 중국 105와 같은 하서·황궁 재료인데, 글로벌 100이 청주 재료로 바뀐 것처럼 나올 때 바뀔 수 있어요.',
+  105: '글로벌 미출시예요. 나올 때 재료가 바뀔 수 있어요.',
+  110: '글로벌 미출시예요. 중국 서버 제작법이라 나올 때 재료가 바뀔 수 있어요. 활 4종 재료가 같아요.',
+  115: '글로벌 미출시예요. 중국 서버 제작법이라 나올 때 재료가 바뀔 수 있어요. 활은 천양 하나만 만들고 정교화한 뒤 종류를 바꿔요.',
 };
-// 중국 서버 제작법(2026-10 기준). 91·96·105는 글로벌 데이터와 같고, 100·110·115가 달라요
+// 110·115는 글로벌에 아직 없어서 중국 서버 제작법(2026-10)을 넣었어요. 강남 재료는 글로벌 이름이 없어 중국어 그대로예요
 const R = a => [['원목',10],[a,10],['소 힘줄',1]], J = (a, b) => [[a,10],[b,10],['거친 광석',5]];
-const GEAR_CN = {
-  91: {same:91}, 96: {same:96},
-  100: {note:'중국 100단계(귀안)예요. 활 4종 재료는 갈계 꼬리·도꼬마리·야명 구슬·얼음꽃인데 어느 활이 어느 재료인지는 확인 못 해서 재료별로 나눴어요.',
-    pieces:[['ring','각지',['귀안아결',J('부산석','금벽석 가루')]],
-      ['bow-갈계','활 (갈계 꼬리)',['귀안연환',R('갈계 꼬리')]], ['bow-도꼬','활 (도꼬마리)',['귀안연환',R('도꼬마리')]],
-      ['bow-야명','활 (야명 구슬)',['귀안연환',R('야명 구슬')]], ['bow-얼음','활 (얼음꽃)',['귀안연환',R('얼음꽃')]]]},
-  105: {same:105, note:'중국 105단계(청운)는 지금 글로벌 데이터의 105단계와 재료가 같아요.'},
-  110: {note:'중국 110단계(曳月, 강남)예요. 활 4종 모두 같은 재료예요. 강남은 글로벌에 아직 없어서 재료 이름은 중국어 그대로예요.',
-    pieces:[['ring','각지',['曳月牙玦',J('臨安石(임안석)','金桂(금계)')]],
-      ['bow-all','활 (4종 공통)',['曳月連環',R('赭山石(자산석)')]]]},
-  115: {note:'중국 지금 최고 단계(觀瀾, 청주)예요. 제작법은 활 천양 하나뿐이고, 정교화한 뒤 다른 종류로 바꿔요.',
-    pieces:[['ring','각지',['觀瀾牙玦',J('자연금','석고')]], ['bow-천양','활 천양',['觀瀾連環·穿楊',R('운모')]]]},
-};
-const cn = () => S.gear.server === 'cn';
-const gearTiers = () => Object.keys(cn() ? GEAR_CN : GEAR);
-const gearSoon = t => !cn() && GEAR[t]?.soon;
-const gearPieces = t => {
-  const c = cn() && GEAR_CN[t];
-  if (c && c.pieces) return c.pieces;
-  if (c && c.same) t = c.same;
-  return [['ring', '각지', GEAR[t].ring], ...BOW_TYPES.map(b => ['bow-'+b, '활 '+b, GEAR[t].bow[b]])];
-};
+GEAR[110] = {soon:true, pieces:[['ring','각지',['曳月牙玦',J('臨安石','金桂')]], ['bow-all','활 (4종 공통)',['曳月連環',R('赭山石')]]]};
+GEAR[115] = {soon:true, pieces:[['ring','각지',['觀瀾牙玦',J('자연금','석고')]], ['bow-천양','활 천양',['觀瀾連環·穿楊',R('운모')]]]};
+const gearSoon = t => GEAR[t]?.soon;
+const gearPieces = t => GEAR[t].pieces || [['ring', '각지', GEAR[t].ring], ...BOW_TYPES.map(b => ['bow-'+b, '활 '+b, GEAR[t].bow[b]])];
 // [id, 이름, 돌파 재료, 2번째 형태 이름('-'는 이름 모름), 중국 서버에만 있음]
 const SKILLS = [
   ['taichi','태극','fruit'],['seize','허공섭물','fruit'],['talon','응조권법','fruit'],['poet','태백취권','fruit'],
@@ -487,11 +473,10 @@ function buildMats() {
 
 function buildGear() {
   $('gearRuns').value = S.gear.runs || 1;
-  if (!gearTiers().includes(String(S.gear.tier))) S.gear.tier = +gearTiers().at(-1);
-  $('gearServer').value = cn() ? 'cn' : 'global';
-  $('gearTier').innerHTML = gearTiers().map(t => `<option value="${t}"${+t===S.gear.tier?' selected':''}>${t}${gearSoon(t)?' (미출시)':''}</option>`).join('');
+  if (!GEAR[S.gear.tier]) S.gear.tier = 100;
+  $('gearTier').innerHTML = Object.keys(GEAR).map(t => `<option value="${t}"${+t===S.gear.tier?' selected':''}>${t}${gearSoon(t)?' (미출시)':''}</option>`).join('');
   const t = S.gear.tier;
-  $('gearNote').textContent = (cn() ? GEAR_CN[t].note : GEAR_NOTE[t]) || '';
+  $('gearNote').textContent = GEAR_NOTE[t] || '';
   $('gearPick').innerHTML = gearPieces(t).map(([k, label, [name, mats]]) => `<tr><td class="mname">${name}<small>${label}</small></td>
     <td class="small">${mats ? mats.map(([m, n]) => `${m} ${n}`).join(' · ') : '<span class="muted">제작법 못 찾음</span>'}</td>
     <td class="r"><input type="number" min="0" inputmode="numeric" data-gn="${k}" value="${S.gear.n[k]||''}" placeholder="0"${mats?'':' disabled'} aria-label="${name} 만들 개수"></td></tr>`).join('');
@@ -517,7 +502,7 @@ function renderGear() {
   return keys.filter(m => need[m] > (+S.gear.have[m] || 0)).map(m => ({
     key: 'gear-'+S.gear.tier+'-'+m+'-'+(need[m] - (+S.gear.have[m]||0)),
     text: `${m} <b>${fmt(need[m] - (+S.gear.have[m]||0))}</b>개 더 모으기`,
-    src: `활·각지 ${S.gear.tier} 제작에 써요.${cn() ? ' 중국 서버 제작법이에요.' : gearSoon(S.gear.tier) ? ' 미출시 단계라 재료가 바뀔 수 있어요.' : ''}`,
+    src: `활·각지 ${S.gear.tier} 제작에 써요.${gearSoon(S.gear.tier) ? ' 미출시 단계라 재료가 바뀔 수 있어요.' : ''}`,
   }));
 }
 function weeks() {
@@ -696,12 +681,12 @@ const saveUI = () => { try { localStorage.setItem('wwm-mystic-ui', JSON.stringif
 const panels = () => [...document.querySelectorAll('section.panel[aria-labelledby]')];
 const footer = document.querySelector('footer');
 if (Array.isArray(UI.order)) for (const id of UI.order) { const sec = document.querySelector(`section.panel[aria-labelledby="${id}"]`); if (sec) footer.before(sec); }
-let drag = null, skipClick = false;
+let drag = null, skipClick = false, lastTouch = 0;
 panels().forEach(sec => {
   const id = sec.getAttribute('aria-labelledby'), h = $(id); if (!h) return;
   const ph = h.closest('.ph');
   h.innerHTML = `<button type="button" class="fold" aria-expanded="${!UI.closed[id]}">${h.innerHTML}</button>`;
-  ph.insertAdjacentHTML('beforeend', '<span class="grip" title="꾹 누른 채 위아래로 끌면 순서가 바뀌어요" aria-hidden="true">⋮⋮</span>');
+  ph.insertAdjacentHTML('beforeend', '<span class="grip" title="끌어서 순서 바꾸기 (제목을 꾹 눌러도 돼요)" aria-hidden="true">⋮⋮</span>');
   sec.classList.toggle('closed', !!UI.closed[id]);
   h.firstChild.addEventListener('click', e => {
     if (skipClick) { skipClick = false; return; }
@@ -709,36 +694,53 @@ panels().forEach(sec => {
     e.currentTarget.setAttribute('aria-expanded', !UI.closed[id]); saveUI();
   });
   ph.addEventListener('contextmenu', e => e.preventDefault());
-  ph.addEventListener('pointerdown', e => {
-    if (e.button || e.target.closest('input,select,a')) return;
-    const start = {x: e.clientX, y: e.clientY};
-    const t = setTimeout(() => {
-      drag = {sec, y: e.clientY};
-      sec.classList.add('dragging'); document.body.classList.add('reordering');
-      navigator.vibrate?.(30);
-    }, 350);
-    const cancel = ev => { if (Math.hypot(ev.clientX - start.x, ev.clientY - start.y) > 8) clearTimeout(t); };
-    const up = () => { clearTimeout(t); removeEventListener('pointermove', cancel); removeEventListener('pointerup', up); removeEventListener('pointercancel', up); };
-    addEventListener('pointermove', cancel); addEventListener('pointerup', up); addEventListener('pointercancel', up);
+  // 마우스: 누르고 0.35초 지나면 끌기 시작
+  ph.addEventListener('mousedown', e => {
+    if (Date.now() - lastTouch < 800 || e.button || e.target.closest('input,select,a')) return;
+    e.preventDefault();
+    if (e.target.closest('.grip')) startDrag(sec, e.clientY); else hold(sec, e.clientX, e.clientY);
   });
+  // 터치: 손가락을 0.35초 가만히 두면 끌기 시작, 그 전에 움직이면 그냥 스크롤
+  ph.addEventListener('touchstart', e => { lastTouch = Date.now(); if (e.touches.length === 1 && !e.target.closest('input,select,a')) hold(sec, e.touches[0].clientX, e.touches[0].clientY); }, {passive: true});
 });
-addEventListener('touchmove', e => { if (drag) e.preventDefault(); }, {passive: false});
-addEventListener('pointermove', e => {
-  if (!drag) return;
-  e.preventDefault();
+let holdT = 0, holdAt = null;
+function hold(sec, x, y) {
+  clearTimeout(holdT); holdAt = {x, y};
+  holdT = setTimeout(() => startDrag(sec, y), 350);
+}
+// 끄는 동안은 모든 칸을 제목만 보이게 줄여서 짧게 움직여도 순서가 바뀌어요
+function startDrag(sec, y) {
+  clearTimeout(holdT); holdAt = null;
+  drag = {sec};
+  document.body.classList.add('reordering'); sec.classList.add('dragging');
+  const r = sec.getBoundingClientRect(); scrollBy(0, r.top - (y - 20));
+  try { navigator.vibrate?.(30); } catch {}
+}
+function moveTo(x, y) {
+  if (!drag) {
+    if (holdAt && Math.hypot(x - holdAt.x, y - holdAt.y) > 8) { clearTimeout(holdT); holdAt = null; }
+    return false;
+  }
   const list = panels(), i = list.indexOf(drag.sec);
   const prev = list[i - 1], next = list[i + 1];
-  if (prev && e.clientY < prev.getBoundingClientRect().top + prev.offsetHeight / 2) prev.before(drag.sec);
-  else if (next && e.clientY > next.getBoundingClientRect().top + next.offsetHeight / 2) next.after(drag.sec);
-  if (e.clientY < 60) scrollBy(0, -12); else if (e.clientY > innerHeight - 60) scrollBy(0, 12);
-});
+  if (prev && y < prev.getBoundingClientRect().top + prev.offsetHeight / 2) prev.before(drag.sec);
+  else if (next && y > next.getBoundingClientRect().top + next.offsetHeight / 2) next.after(drag.sec);
+  if (y < 70) scrollBy(0, -14); else if (y > innerHeight - 70) scrollBy(0, 14);
+  return true;
+}
 const endDrag = () => {
+  clearTimeout(holdT); holdAt = null;
   if (!drag) return;
   drag.sec.classList.remove('dragging'); document.body.classList.remove('reordering');
-  drag = null; skipClick = true; setTimeout(() => skipClick = false, 50);
+  drag = null; skipClick = true; setTimeout(() => skipClick = false, 400);
   UI.order = panels().map(s => s.getAttribute('aria-labelledby')); saveUI();
 };
-addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag);
+addEventListener('mousemove', e => { if (moveTo(e.clientX, e.clientY)) e.preventDefault(); });
+addEventListener('mouseup', endDrag);
+addEventListener('touchmove', e => { if (moveTo(e.touches[0].clientX, e.touches[0].clientY)) e.preventDefault(); }, {passive: false});
+addEventListener('touchend', e => { lastTouch = Date.now(); if (drag) e.preventDefault(); endDrag(); }, {passive: false});
+addEventListener('touchcancel', endDrag);
+addEventListener('blur', endDrag);
 $('bulkTarget').innerHTML = opts(DEF);
 $('bulkCur').innerHTML = opts(50);
 $('bulkCurApply').addEventListener('click', () => {
@@ -755,7 +757,6 @@ $('shopJade').value = S.shop.jade; $('shopStock').value = S.shop.stock;
 $('shopJade').addEventListener('input', e => { S.shop.jade = e.target.value; touch(); render(); });
 $('shopStock').addEventListener('input', e => { S.shop.stock = e.target.value; touch(); render(); });
 $('gearRuns').addEventListener('change', e => { S.gear.runs = +e.target.value; touch(); render(); });
-$('gearServer').addEventListener('change', e => { S.gear.server = e.target.value; touch(); buildGear(); render(); });
 $('gearTier').addEventListener('change', e => { S.gear.tier = +e.target.value; touch(); buildGear(); render(); });
 $('gearPick').addEventListener('input', e => { const k = e.target.dataset.gn; if (!k) return; S.gear.n[k] = Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
 $('gearMat').addEventListener('change', e => { const m = e.target.dataset.gh; if (!m) return; S.gear.have[m] = e.target.value === '' ? '' : Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
