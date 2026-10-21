@@ -397,7 +397,7 @@ const costOf = (sk, st) => {
 const KEY = 'wwm-mystic-v1';
 const SB_URL = 'https://aiwyjwsuiurujubwkjiy.supabase.co', SB_KEY = 'sb_publishable_CpaoT6leMSbmAx4Esmvt3w_b6QKIULM';
 const SB_PROVIDERS = [['google', '구글']];
-const AUTH_KEY = 'wwm-mystic-auth', SYNC_KEY = 'wwm-mystic-sync';
+const AUTH_KEY = 'wwm-auth', SYNC_KEY = 'wwm-mystic-sync';
 const sbOn = !!(SB_URL && SB_KEY);
 const jget = k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } };
 const jset = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch {} };
@@ -895,11 +895,11 @@ async function signOut() {
 const payload = () => ({v: 1, state: S, ui: UI});
 const isBlank = () => !Object.values(S.skills).some(x => x.on) && !Object.values(S.have).some(Boolean) && !S.custom.length && !Object.values(S.gear.n).some(Boolean);
 async function pull() {
-  const rows = await sbFetch(`/rest/v1/user_state?select=data,updated_at&user_id=eq.${auth.id}`);
+  const rows = await sbFetch(`/rest/v1/user_state?select=data,updated_at&user_id=eq.${auth.id}&app=eq.mystic`);
   return rows[0] || null;
 }
 async function push() {
-  const rows = await sbFetch('/rest/v1/user_state?on_conflict=user_id', {method: 'POST', headers: {Prefer: 'resolution=merge-duplicates,return=representation'}, body: JSON.stringify({user_id: auth.id, data: payload()})});
+  const rows = await sbFetch('/rest/v1/user_state?on_conflict=user_id,app', {method: 'POST', headers: {Prefer: 'resolution=merge-duplicates,return=representation'}, body: JSON.stringify({user_id: auth.id, app: 'mystic', data: payload()})});
   jset(SYNC_KEY, {uid: auth.id, at: rows[0].updated_at, dirty: false});
   syncState = '저장됨 ' + new Date().toTimeString().slice(0, 5);
 }

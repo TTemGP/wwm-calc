@@ -1,4 +1,5 @@
 import { isApplicationStorageKey } from "./application/persistence/keys"
+import { noteLocalChange } from "./cloudSync"
 
 function availableStorage(name: "localStorage" | "sessionStorage") {
   if (typeof window === "undefined") return undefined
@@ -50,11 +51,13 @@ export function setPersistentItem(key: string, value: string) {
   if (!persistent) throw new Error("Persistent browser storage is unavailable.")
   persistent.setItem(key, value)
   removeItem(availableStorage("sessionStorage"), key)
+  noteLocalChange()
 }
 
 export function removePersistentItem(key: string) {
   removeItem(availableStorage("localStorage"), key)
   removeItem(availableStorage("sessionStorage"), key)
+  noteLocalChange()
 }
 
 export function migrateSessionStorage() {

@@ -13,6 +13,7 @@
     "local/",
     "public/ocr/",
     "public/bis/",
+    "public/mystic/",
     "tools/bis/",
     "public/locales/manifest.json",
     ".agents/",
