@@ -57,12 +57,7 @@ input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);margin:0}
 .sk b{font-weight:600}
 .sk span{color:var(--muted)}
 h3.sub{font-size:14px;margin:18px 0 6px}
-.imp{margin:0 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sunk)}
-.imp summary{cursor:pointer;font-weight:600;font-size:14px}
-.imp ol{margin:10px 0 6px;padding-left:20px;display:grid;gap:4px}
-.imp textarea{width:100%;font:12px ui-monospace,monospace;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:inherit;resize:vertical}
-.imp .bm{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
-.impbar{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.gearbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
 .chip{display:inline-flex;align-items:baseline;gap:6px;padding:4px 11px;border-radius:999px;background:var(--sunk);border:1px solid var(--line);font-size:13px}
 .chip b{font-family:var(--f-num)}
 
@@ -174,19 +169,25 @@ footer{font-size:13px;color:var(--muted)}
     </table></div>
   </section>
 
+  <section class="panel" aria-labelledby="h-gear">
+    <div class="ph"><h2 id="h-gear">활·각지 제작 재료</h2><span class="muted small">장비 단계가 오를 때마다 새로 만드는 활과 각지 재료예요. 만들 개수와 가진 재료를 적으면 모자라는 양을 할 일에 올려요.</span></div>
+    <div class="gearbar">
+      <label for="gearTier">장비 단계</label>
+      <select id="gearTier"></select>
+      <span class="muted small" id="gearNote"></span>
+    </div>
+    <div class="tbl"><table class="mat">
+      <thead><tr><th>만들 장비</th><th>재료</th><th class="r">개수</th></tr></thead>
+      <tbody id="gearPick"></tbody>
+    </table></div>
+    <div class="tbl" style="margin-top:14px"><table class="mat">
+      <thead><tr><th>재료</th><th class="r">필요</th><th class="r">보유</th><th>결과</th></tr></thead>
+      <tbody id="gearMat"></tbody>
+    </table></div>
+  </section>
+
   <section class="panel" aria-labelledby="h-sk">
     <div class="ph"><h2 id="h-sk">비결 목록</h2><span class="muted small">체크한 비결만 계산해요. 공격 비결(오금철을 쓰는 비결)만 있어요.</span></div>
-    <details class="imp">
-      <summary>공식 데이터 툴에서 장착한 비결 가져오기</summary>
-      <ol class="small">
-        <li><a class="bm" href="javascript:%28function%28%29%7Bvar%20M%3D%7B%22noData%22%3A%20%22%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%97%90%EC%84%9C%20%EB%B9%84%EA%B2%B0%20%EC%A0%95%EB%B3%B4%EB%A5%BC%20%EB%AA%BB%20%EB%B0%9B%EC%95%98%EC%96%B4%EC%9A%94.%22%2C%20%22copyPrompt%22%3A%20%22%EC%9D%B4%20%EB%82%B4%EC%9A%A9%EC%9D%84%20%EB%B3%B5%EC%82%AC%ED%95%B4%EC%84%9C%20%EB%B9%84%EA%B2%B0%20%EA%B3%84%EC%82%B0%EA%B8%B0%EC%97%90%20%EB%B6%99%EC%97%AC%EB%84%A3%EC%96%B4%20%EC%A3%BC%EC%84%B8%EC%9A%94%3A%22%2C%20%22copySuccess%22%3A%20%22%EC%9E%A5%EC%B0%A9%20%EB%B9%84%EA%B2%B0%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EB%B3%B5%EC%82%AC%ED%96%88%EC%96%B4%EC%9A%94.%20%EB%B9%84%EA%B2%B0%20%EA%B3%84%EC%82%B0%EA%B8%B0%EC%97%90%20%EB%B6%99%EC%97%AC%EB%84%A3%EC%96%B4%20%EC%A3%BC%EC%84%B8%EC%9A%94.%22%2C%20%22notLoggedIn%22%3A%20%22%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%9D%B4%20%EC%95%88%20%EB%8F%BC%20%EC%9E%88%EC%96%B4%EC%9A%94.%20%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%9D%84%20%EC%97%B4%EC%96%B4%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%95%9C%20%EB%92%A4%20%EB%8B%A4%EC%8B%9C%20%EB%88%8C%EB%9F%AC%20%EC%A3%BC%EC%84%B8%EC%9A%94.%22%2C%20%22unreadable%22%3A%20%22%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%97%90%EC%84%9C%20%EC%9D%BD%EC%9D%84%20%EC%88%98%20%EC%97%86%EB%8A%94%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EA%B0%80%20%EC%99%94%EC%96%B4%EC%9A%94.%22%2C%20%22unreachable%22%3A%20%22%EA%B3%B5%EC%8B%9D%20%EB%8D%B0%EC%9D%B4%ED%84%B0%20%ED%88%B4%EC%97%90%20%EC%97%B0%EA%B2%B0%ED%95%98%EC%A7%80%20%EB%AA%BB%ED%96%88%EC%96%B4%EC%9A%94.%22%7D%2CD%3D%27https%3A%2F%2Fs2.easebar.com%2F78ae9d90792a3e9b%2Frole%2FroleInfo%27%2CK%3D%27h72na_data_token%27%3Bfunction%20done%28r%29%7Bvar%20d%3Dr%26%26r.data%3Fr.data%3Ar%3Bif%28%21d%7C%7C%21d.battleQs%29%7Balert%28M.noData%29%3Breturn%7Dvar%20s%3DJSON.stringify%28%7Bsource%3A%27wwm-dashboard%27%2Cv%3A2%2CcapturedAt%3Anew%20Date%28%29.toISOString%28%29%2CroleInfo%3A%7BbattleQs%3Ad.battleQs%7D%7D%29%3Bfunction%20fb%28%29%7Bprompt%28M.copyPrompt%2Cs%29%7Dif%28navigator.clipboard%26%26navigator.clipboard.writeText%29navigator.clipboard.writeText%28s%29.then%28function%28%29%7Balert%28M.copySuccess%29%7D%2Cfb%29%3Belse%20fb%28%29%7Dvar%20t%3Dnull%3Btry%7Bt%3DlocalStorage.getItem%28K%29%7Dcatch%28e%29%7B%7Dif%28%21t%29%7Bvar%20m%3D%2F%28%3F%3A%5E%7C%3B%5Cs%2A%29token%3D%28%5B%5E%3B%5D%2B%29%2F.exec%28document.cookie%7C%7C%27%27%29%3Bif%28m%29t%3Dm%5B1%5D%7Dif%28%21t%29%7Balert%28M.notLoggedIn%29%3Breturn%7Dvar%20x%3Dnew%20XMLHttpRequest%28%29%3Bx.open%28%27GET%27%2CD%2Ctrue%29%3Bx.withCredentials%3Dtrue%3Bx.setRequestHeader%28%27access_token%27%2Ct%29%3Bx.onload%3Dfunction%28%29%7Btry%7Bdone%28JSON.parse%28x.responseText%29%29%7Dcatch%28e%29%7Balert%28M.unreadable%29%7D%7D%3Bx.onerror%3Dfunction%28%29%7Balert%28M.unreachable%29%7D%3Bx.send%28%29%7D%29%28%29" onclick="event.preventDefault()">비결 가져오기</a> 버튼을 북마크바로 끌어다 놓아요.</li>
-        <li><a href="https://www.wherewindsmeetgame.com/m/2025h5sjgj/en/" target="_blank" rel="noopener">공식 데이터 툴</a>에 로그인한 상태에서 그 북마크를 눌러요. 데이터가 복사돼요.</li>
-        <li>아래 칸에 붙여넣고 「장착 비결 체크」를 눌러요. 딜 계산기에서 쓰던 공식 데이터 북마크로 복사한 내용도 돼요.</li>
-      </ol>
-      <p class="muted small">공식 데이터에는 장착한 비결 8칸만 있고 비결 단계나 재료 개수는 없어서, 체크만 해 줘요. 단계는 직접 골라 주세요.</p>
-      <textarea id="impText" rows="3" placeholder='{"source":"wwm-dashboard", ...}' aria-label="공식 데이터 붙여넣기"></textarea>
-      <div class="impbar"><button id="impApply">장착 비결 체크</button><span class="muted small" id="impMsg" role="status"></span></div>
-    </details>
     <div class="bulk">
       <span>체크한 비결 한 번에</span>
       <label for="bulkCur">지금</label>
@@ -207,6 +208,7 @@ footer{font-size:13px;color:var(--muted)}
     <ul class="notes">
       <li><b>1~5중</b>은 0~9단이에요. 한 단 올릴 때 그 중 등급 오금철이 1중 2개, 2중 4개, 3중 10개, 4중 20개, 5중 32개 들어요. 9단에서 다음 중으로 돌파할 때도 같은 양의 오금철에 돌파 재료가 5·15·18·28·35개 더 들어요(합계 101개).</li>
       <li><b>6중</b>은 한 단에 오금철 48개예요. 1~9단은 오금철 Lv.6, 10~20단은 신념의 여정, 21~30단은 계승을 써요. 중국 서버는 8월에 50단까지 열려서 31~40단 협종의 선율, 41~50단 유빈의 연주로 넣었어요(6중 40→41단 강화 화면에서 유빈의 연주 48개 확인, 31~40단 등급은 순서로 맞춘 것). 글로벌은 지금 6중 25단까지라 그 위 단계는 목록에 (중국)이라고 붙였어요.</li>
+      <li><b>활·각지 제작법</b>은 th.gl 한국어 장비 DB(글로벌 게임 데이터)에서 가져왔어요. 글로벌은 중국과 지역이 나온 순서가 달라서 제작 재료도 달라요. 중국 100단계 각지(시문 호박·당개나리)와 활 재료는 글로벌에서는 105단계로 밀렸고, 글로벌 100단계는 청주 재료(사과·자연금)와 황궁 재료(구예진주)로 바뀌었어요. 105단계는 아직 안 나와서 출시 때 또 바뀔 수 있어요. 미리 캐 두려면 지금 데이터의 105단계 재료(시문 호박·연교·가시나무·선녀의 눈물·유리 기와·모리화)를 참고하되, 바뀔 수 있다는 점은 감안해 주세요.</li>
       <li><b>시즌 오금철 이름은 글로벌에서 바뀌어요.</b> 6중 10단부터 쓰는 오금철은 처음엔 중국 이름을 옮긴 이름으로 들어왔다가 그 시즌이 시작될 때 글로벌 시즌 이름으로 바뀌었어요. 오금철-남려가 황궁이 들어온 S4 때 <b>오금철-신념의 여정</b>으로, 오금철-황종의 공명이 2.3 청주(S5) 때 <b>오금철-계승</b>으로 바뀌었어요(아이템은 그대로라 가진 개수는 유지돼요). 그래서 아직 글로벌에 안 나온 <b>오금철-협종의 선율</b>(31~40단), <b>오금철-유빈의 연주</b>(41~50단)도 출시 때 이름이 바뀔 가능성이 높아요. 비결 지원 상자-황종·협종도 중국 시즌 이름이에요.</li>
       <li><b>미리 모아 둘 수 있는 건 돌파 재료뿐이에요.</b> 6중 31~50단은 오금철만 드는데, 그 오금철은 해당 시즌이 와야 나와요. 돌파 재료 8가지는 글로벌에 다 나와 있어서 2번째 형태(45개)와 1~5중 돌파용으로 미리 캘 수 있어요. 남는 낮은 등급 오금철은 위 등급을 대신할 수 없으니(위 등급만 아래를 대신해요) 필요한 만큼만 모으면 돼요.</li>
       <li><b>6중 안에서는 돌파 재료가 안 들어요.</b> 6중 0→40단을 한 단씩 올리는 중국 서버 영상(묵세한화)에서 25→26, 29→30, 30→31, 35→36, 38→39단 화면 모두 소모 재료가 오금철 48개 한 가지뿐이었고, 40→41단 화면도 같았어요. 6중 30단 초기화 때 돌려받는 돌파 재료도 1~6중 돌파 합계(101개)와 딱 맞아요. 41~50단(45→46 등)은 한 단씩 올리는 화면을 아직 못 찾았어요. 중국 서버는 지금 6중 55단까지 열렸는데 51~55단 재료는 아직 못 찾아서 목록에 없어요.</li>
@@ -248,6 +250,30 @@ const NAME = Object.fromEntries([...HERBS, ...IRON, ...EXTRA]);
 const IRON_SOON = {i9:'글로벌 미출시, 이름 바뀔 수 있음', i10:'글로벌 미출시, 이름 바뀔 수 있음'};
 const IRON_USE = {i1:'1중',i2:'2중',i3:'3중',i4:'4중',i5:'5중',i6:'6중 1~9단',i7:'6중 10~20단',i8:'6중 21~30단',i9:'6중 31~40단',i10:'6중 41~50단'};
 
+// 활·각지 제작법(단로). th.gl 한국어 장비 DB(글로벌 클라이언트 데이터) 기준, 개수는 1개 만들 때.
+// 105는 글로벌 미출시라 바뀔 수 있어요. 귀안연환-신비(100)는 th.gl에 제작법이 없어요.
+const BOW_TYPES = ['천양','신비','정밀','연주'];
+const GEAR = {
+  91: {ring:['동망아결',[['쇄금갑',10],['독산옥',10],['거친 광석',5]]], bow:{
+    천양:['동망연환-천양',[['원목',10],['먹붓 담비 털',10],['소 힘줄',1]]], 신비:['동망연환-신비',[['원목',10],['강황초',10],['소 힘줄',1]]],
+    정밀:['동망연환-정밀',[['원목',10],['시문 호박',10],['소 힘줄',1]]], 연주:['동망연환-연주',[['원목',10],['노을초',10],['소 힘줄',1]]]}},
+  96: {ring:['용그림자 상아고리',[['자석',10],['금벽석 가루',10],['거친 광석',5]]], bow:{
+    천양:['용의 그림자-천양',[['원목',10],['화살금계초',10],['소 힘줄',1]]], 신비:['용의 그림자-신비',[['원목',10],['가시나무',10],['소 힘줄',1]]],
+    정밀:['용의 그림자-정밀',[['원목',10],['돼지털',10],['소 힘줄',1]]], 연주:['용의 그림자-연주',[['원목',10],['꿩깃털',10],['소 힘줄',1]]]}},
+  100: {ring:['귀안아결',[['자연금',10],['자석',10],['거친 광석',5]]], bow:{
+    천양:['귀안연환-천양',[['원목',10],['사과',10],['소 힘줄',1]]], 신비:['귀안연환-신비',null],
+    정밀:['귀안연환-정밀',[['원목',10],['연교',10],['소 힘줄',1]]], 연주:['귀안연환-연주',[['원목',10],['구예진주',10],['소 힘줄',1]]]}},
+  105: {soon:true, ring:['청운아결',[['시문 호박',10],['연교',10],['거친 광석',5]]], bow:{
+    천양:['청운연환-천양',[['원목',10],['가시나무',10],['소 힘줄',1]]], 신비:['청운연환-신비',[['원목',10],['선녀의 눈물',10],['소 힘줄',1]]],
+    정밀:['청운연환-정밀',[['원목',10],['유리 기와',10],['소 힘줄',1]]], 연주:['청운연환-연주',[['원목',10],['모리화',10],['소 힘줄',1]]]}},
+};
+const GEAR_NOTE = {
+  91: '',
+  96: '',
+  100: '지금 글로벌 최고 단계예요. 귀안연환-신비는 제작법을 못 찾았어요.',
+  105: '글로벌 미출시예요. 지금 데이터 기준이라 나올 때 재료가 바뀔 수 있어요.',
+};
+const gearPieces = t => [['ring', '각지', GEAR[t].ring], ...BOW_TYPES.map(b => ['bow-'+b, '활 '+b, GEAR[t].bow[b]])];
 // [id, 이름, 돌파 재료, 2번째 형태 이름('-'는 이름 모름), 중국 서버에만 있음]
 const SKILLS = [
   ['taichi','태극','fruit'],['seize','허공섭물','fruit'],['talon','응조권법','fruit'],['poet','태백취권','fruit'],
@@ -312,7 +338,7 @@ const SAMPLE = () => ({
   done: {}, custom: [],
 });
 const boxDefault = () => Object.fromEntries(BOX_SRC.map(b => [b[0], {on:true, n:b[2]}]));
-const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, week:{}, done:{}, custom:[]});
+const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, week:{}, done:{}, custom:[], gear:{tier:100, n:{}, have:{}}});
 let S;
 try { S = JSON.parse(localStorage.getItem(KEY)) || SAMPLE(); } catch { S = SAMPLE(); }
 for (const k of ['skills','have','week','done']) S[k] ||= {};
@@ -321,6 +347,7 @@ S.boxSrc ||= boxDefault();
 // 예전 저장값: 상자 한 칸 → 신념의 여정 상자
 for (const f of ['have','week']) if ('box' in S[f]) { S[f].bx3 ??= S[f].box; delete S[f].box; }
 S.season ||= SEASON_DEFAULT;
+S.gear ||= {tier:100, n:{ring:1, 'bow-정밀':1}, have:{}};
 const save = () => { try { if (!S.sample) localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 const touch = () => { if (S.sample) { S.sample = false; } save(); };
 const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:DEF});
@@ -370,6 +397,39 @@ function buildMats() {
   $('boxHave').innerHTML = BOXES.map(b => row([b[0], b[1]], b[2])).join('');
 }
 
+
+function buildGear() {
+  $('gearTier').innerHTML = Object.keys(GEAR).map(t => `<option value="${t}"${+t===S.gear.tier?' selected':''}>${t}${GEAR[t].soon?' (미출시)':''}</option>`).join('');
+  const t = S.gear.tier;
+  $('gearNote').textContent = GEAR_NOTE[t] || '';
+  $('gearPick').innerHTML = gearPieces(t).map(([k, label, [name, mats]]) => `<tr><td class="mname">${name}<small>${label}</small></td>
+    <td class="small">${mats ? mats.map(([m, n]) => `${m} ${n}`).join(' · ') : '<span class="muted">제작법 못 찾음</span>'}</td>
+    <td class="r"><input type="number" min="0" inputmode="numeric" data-gn="${k}" value="${S.gear.n[k]||''}" placeholder="0"${mats?'':' disabled'} aria-label="${name} 만들 개수"></td></tr>`).join('');
+}
+function gearNeed() {
+  const need = {};
+  for (const [k, , [, mats]] of gearPieces(S.gear.tier)) {
+    const c = +S.gear.n[k] || 0;
+    if (c && mats) for (const [m, n] of mats) need[m] = (need[m]||0) + n * c;
+  }
+  return need;
+}
+function renderGear() {
+  const need = gearNeed(), keys = Object.keys(need);
+  const cur = $('gearMat').querySelector(':focus')?.dataset.gh;
+  $('gearMat').innerHTML = keys.length ? keys.map(m => {
+    const have = +S.gear.have[m] || 0, s = need[m] - have;
+    return `<tr><td class="mname">${m}</td><td class="r num">${fmt(need[m])}</td>
+      <td class="r"><input type="number" min="0" inputmode="numeric" data-gh="${m}" value="${S.gear.have[m]??''}" placeholder="0" aria-label="${m} 보유"></td>
+      <td>${s > 0 ? `<span class="pill bad">${fmt(s)} 부족</span>` : `<span class="pill ok">${fmt(-s)} 남음</span>`}</td></tr>`;
+  }).join('') : '<tr><td colspan="4" class="muted small">만들 장비 개수를 적어 주세요.</td></tr>';
+  if (cur) { const el = $('gearMat').querySelector(`[data-gh="${cur}"]`); if (el) { el.focus(); const v = el.value; el.value = ''; el.value = v; } }
+  return keys.filter(m => need[m] > (+S.gear.have[m] || 0)).map(m => ({
+    key: 'gear-'+S.gear.tier+'-'+m+'-'+(need[m] - (+S.gear.have[m]||0)),
+    text: `${m} <b>${fmt(need[m] - (+S.gear.have[m]||0))}</b>개 더 모으기`,
+    src: `활·각지 ${S.gear.tier} 제작에 써요.${GEAR[S.gear.tier].soon ? ' 미출시 단계라 재료가 바뀔 수 있어요.' : ''}`,
+  }));
+}
 function weeks() {
   if (!S.season) return 0;
   const d = new Date(S.season + 'T00:00:00');
@@ -461,6 +521,7 @@ function render() {
       : k === 'pill' ? `2번째 형태에 써요.${wk}` : `채집, 비결 지원 상자, 상점에서 모아요.${wk}`;
     return {key:'auto-'+k+'-'+short[k], text:`${NAME[k]} <b>${fmt(short[k])}</b>개 더 모으기`, src};
   });
+  items.push(...renderGear());
   let h = '';
   for (const it of items) h += `<li class="${S.done[it.key]?'done':''}"><input type="checkbox" data-done="${it.key}"${S.done[it.key]?' checked':''} aria-label="완료"><span class="tt">${it.text}<span class="src">${it.src}</span></span><span></span></li>`;
   S.custom.forEach((c, i) => h += `<li class="${c.done?'done':''}"><input type="checkbox" data-cdone="${i}"${c.done?' checked':''} aria-label="완료"><span class="tt">${esc(c.text)}</span><button class="x" data-cdel="${i}" aria-label="삭제">✕</button></li>`);
@@ -503,21 +564,6 @@ $('addTodo').addEventListener('submit', e => {
   const v = $('todoText').value.trim(); if (!v) return;
   S.custom.push({text:v, done:false}); $('todoText').value = ''; touch(); render();
 });
-// 공식 데이터 툴 roleInfo.battleQs: 칸 → 비결 번호(th.gl chronicle_822xxx 뒤 숫자)
-const QS = {1:'death',2:'breath',3:'poet',4:'lion',6:'mist',10:'ghost',11:'toad',13:'talon',14:'guard',32:'serene',33:'yaksha',
-  36:'free',37:'wolf',38:'soar',39:'meteor',40:'golden',41:'dragon',42:'steps',44:'goose',45:'flute',52:'nine',53:'world',
-  56:'ink',57:'dear',101:'taichi',102:'meridian',103:'seize',106:'cloud'};
-$('impApply').addEventListener('click', () => {
-  let d; try { d = JSON.parse($('impText').value.trim()); } catch { $('impMsg').textContent = '붙여넣은 내용을 읽지 못했어요.'; return; }
-  const q = (d && (d.roleInfo || d.data || d)).battleQs;
-  if (!q) { $('impMsg').textContent = '장착 비결 정보가 없어요. 공식 데이터 툴에서 다시 복사해 주세요.'; return; }
-  const ids = Object.values(q).map(n => QS[n]).filter(Boolean);
-  for (const id of ids) sk(id).on = true;
-  const names = SKILLS.filter(s => ids.includes(s[0])).map(s => s[1]);
-  const skip = Object.values(q).length - ids.length;
-  $('impMsg').textContent = `${names.join(', ')} 체크했어요${skip ? ` (공격 비결이 아닌 ${skip}칸은 빼요)` : ''}.`;
-  touch(); buildSkills(); render();
-});
 $('boxBody').addEventListener('input', e => {
   const t = e.target, k = t.dataset.bx; if (!k) return;
   if (t.dataset.f === 'on') S.boxSrc[k].on = t.checked;
@@ -536,7 +582,10 @@ $('bulkApply').addEventListener('click', () => {
   for (const s of SKILLS) { const st = sk(s[0]); if (st.on) st.tgt = Math.max(v, st.cur); }
   touch(); buildSkills(); render();
 });
-const wipe = () => { S = EMPTY(); S.boxSrc = Object.fromEntries(BOX_SRC.map(b => [b[0], {on:false, n:b[2]}])); save(); buildSkills(); buildMats(); buildBox(); render(); };
+$('gearTier').addEventListener('change', e => { S.gear.tier = +e.target.value; touch(); buildGear(); render(); });
+$('gearPick').addEventListener('input', e => { const k = e.target.dataset.gn; if (!k) return; S.gear.n[k] = Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
+$('gearMat').addEventListener('change', e => { const m = e.target.dataset.gh; if (!m) return; S.gear.have[m] = e.target.value === '' ? '' : Math.max(0, Math.floor(+e.target.value || 0)); touch(); render(); });
+const wipe = () => { S = EMPTY(); S.boxSrc = Object.fromEntries(BOX_SRC.map(b => [b[0], {on:false, n:b[2]}])); save(); buildSkills(); buildMats(); buildBox(); buildGear(); render(); };
 $('clearSample').addEventListener('click', wipe);
 let armed = 0;
 $('resetBtn').addEventListener('click', e => {
@@ -545,6 +594,6 @@ $('resetBtn').addEventListener('click', e => {
   setTimeout(() => { if (armed && Date.now() - armed >= 4000) { e.target.textContent = '모든 입력 지우기'; armed = 0; } }, 4100);
 });
 
-buildSkills(); buildMats(); buildBox(); render();
+buildSkills(); buildMats(); buildBox(); buildGear(); render();
 })();
 </script>
