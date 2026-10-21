@@ -127,6 +127,9 @@ tr.off td:not(:first-child){opacity:.5}
 .notes{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--muted);max-width:80ch}
 .notes b{color:var(--ink);font-weight:500}
 .reset{align-self:flex-start}
+.acct{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:12px;font-size:13px;color:var(--muted)}
+.acct button{font-size:13px;padding:5px 11px}
+.acct .ask{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;border-radius:8px;background:var(--cn-soft);color:var(--cn)}
 footer{font-size:13px;color:var(--muted)}
 
 @media (max-width:760px){
@@ -141,6 +144,7 @@ footer{font-size:13px;color:var(--muted)}
   <header>
     <h1>비결 재료 계산기</h1>
     <p class="lede">키울 비결의 지금 단계와 목표 단계를 고르고 가진 재료를 적으면, 남은 재료와 다음 시즌까지 모자라는 양을 알려줘요. 활·각지 제작 재료도 같이 계산할 수 있어요. 입력한 값은 이 브라우저에만 저장돼요.</p>
+    <div class="acct" id="acct" hidden></div>
   </header>
 
   <section class="panel" aria-labelledby="h-season">
@@ -391,6 +395,15 @@ const costOf = (sk, st) => {
 
 // ---------- 상태 ----------
 const KEY = 'wwm-mystic-v1';
+const SB_URL = '', SB_KEY = '';
+const SB_PROVIDERS = [['kakao', '카카오'], ['google', '구글']];
+const AUTH_KEY = 'wwm-mystic-auth', SYNC_KEY = 'wwm-mystic-sync';
+const sbOn = !!(SB_URL && SB_KEY);
+const jget = k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } };
+const jset = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+let auth = jget(AUTH_KEY), syncT = 0, syncState = '', applying = false, ready = false;
+if (!auth || !/^[0-9a-f-]{36}$/.test(auth.id || '')) auth = null;
+const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const today = new Date(); today.setHours(0,0,0,0);
 const iso = d => new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10);
 // 글로벌 S5-계승의 불꽃 상반기 종료 2026-11-26 05:59(한국 시간), 하반기 시작
@@ -400,8 +413,8 @@ const EMPTY = () => ({sample:false, season:SEASON_DEFAULT, skills:{}, have:{}, w
 let S;
 // 처음엔 모든 개수가 비어 있어요(0으로 계산)
 try { S = JSON.parse(localStorage.getItem(KEY)) || EMPTY(); } catch { S = EMPTY(); }
-if (S.sample) S = EMPTY();
-for (const k of ['skills','have','week','done']) S[k] ||= {};
+if (!S || typeof S !== 'object' || S.sample) S = EMPTY();
+for (const k of ['skills','have','week','done']) if (!S[k] || typeof S[k] !== 'object') S[k] = {};
 S.custom ||= [];
 S.boxSrc ||= boxDefault();
 // 예전 저장값: 상자 한 칸 → 신념의 여정 상자
@@ -410,7 +423,32 @@ S.season ||= SEASON_DEFAULT;
 S.gear ||= {tier:100, n:{ring:1, 'bow-정밀':1}, have:{}};
 S.gear.runs ||= 1;
 S.shop ||= {jade:'', stock:1100};
-const save = () => { try { if (!S.sample) localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+sanitize(S);
+// 저장값은 화면에 그대로 끼워 넣으니, 불러올 때 숫자·날짜·시간 모양만 남겨요(다른 기기에서 받아온 값도 같은 길을 거쳐요)
+function sanitize(o) {
+  const num = v => v === '' || v == null ? '' : (Number.isFinite(+v) ? Math.max(0, Math.floor(+v)) : '');
+  const nums = m => { if (!m || typeof m !== 'object') return {}; for (const k of Object.keys(m)) m[k] = num(m[k]); return m; };
+  const obj = v => v && typeof v === 'object' && !Array.isArray(v);
+  if (!obj(o.gear)) o.gear = {tier:100, n:{}, have:{}, runs:1};
+  if (!obj(o.shop)) o.shop = {jade:'', stock:''};
+  o.skills = Object.fromEntries(Object.entries(obj(o.skills) ? o.skills : {}).filter(([, v]) => obj(v)));
+  o.have = nums(o.have); o.week = nums(o.week);
+  o.gear.n = nums(o.gear.n); o.gear.have = nums(o.gear.have);
+  o.gear.tier = GEAR[+o.gear.tier] ? +o.gear.tier : 100; o.gear.runs = num(o.gear.runs) || 1;
+  o.shop.jade = num(o.shop.jade); o.shop.stock = num(o.shop.stock);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(o.season)) o.season = SEASON_DEFAULT;
+  o.boxSrc = Object.fromEntries(Object.entries(obj(o.boxSrc) ? o.boxSrc : {}).filter(([, v]) => obj(v)));
+  for (const b of Object.values(o.boxSrc)) { b.n = num(b.n) || 0; b.on = !!b.on; }
+  for (const f of ['done', 'open']) o[f] = Object.fromEntries(Object.entries(o[f] && typeof o[f] === 'object' ? o[f] : {}).map(([k, v]) => [k, !!v]));
+  for (const st of Object.values(o.skills || {})) { st.cur = num(st.cur) || 0; st.tgt = num(st.tgt) || 0; st.on = !!st.on; st.form = !!st.form; }
+  o.custom = (Array.isArray(o.custom) ? o.custom : []).filter(c => c && typeof c.text === 'string').map(c => ({
+    text: c.text.slice(0, 200), kind: c.kind === 'repeat' ? 'repeat' : 'once', done: !!c.done, doneAt: +c.doneAt || 0,
+    days: Array.isArray(c.days) ? c.days.map(Number).filter(d => d >= 0 && d <= 6) : [1],
+    time: /^\d{2}:\d{2}$/.test(c.time) ? c.time : '06:00' }));
+  if (o.boxMode !== 'plan') o.boxMode = 'have';
+  return o;
+}
+const save = () => { try { if (!S.sample) localStorage.setItem(KEY, JSON.stringify(S)); } catch {} syncSoon(); };
 const touch = () => { if (S.sample) { S.sample = false; } save(); };
 const sk = id => (S.skills[id] ||= {on:false, cur:0, tgt:DEF});
 
@@ -705,7 +743,7 @@ $('addTodo').addEventListener('submit', e => {
 setInterval(() => { if (S.custom.some(c => c.kind === 'repeat' && c.done)) render(); }, 60000);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
 $('needGroups').addEventListener('change', e => { const k = e.target.dataset.done; if (!k) return; S.done[k] = e.target.checked; touch(); render(); });
-$('needGroups').addEventListener('toggle', e => { const k = e.target.dataset?.open; if (k) { S.open[k] = e.target.open; save(); } }, true);
+$('needGroups').addEventListener('toggle', e => { const k = e.target.dataset?.open; if (k && (S.open[k] !== false) !== e.target.open) { S.open[k] = e.target.open; save(); } }, true);
 $('boxBody').addEventListener('input', e => {
   const t = e.target, k = t.dataset.bx; if (!k) return;
   if (t.dataset.f === 'on') S.boxSrc[k].on = t.checked;
@@ -718,7 +756,10 @@ document.querySelectorAll('input[name=boxMode]').forEach(r => r.addEventListener
 // 칸 순서·접힘은 예시 상태에서도 따로 저장해요
 let UI = {}; try { UI = JSON.parse(localStorage.getItem('wwm-mystic-ui')) || {}; } catch {}
 UI.closed ||= S.closed || {};
-const saveUI = () => { try { localStorage.setItem('wwm-mystic-ui', JSON.stringify(UI)); } catch {} };
+// 다른 기기에서 받아온 값도 탭 이름(영문·숫자·-)과 참/거짓만 남겨요
+UI.order = Array.isArray(UI.order) ? UI.order.filter(id => typeof id === 'string' && /^[\w-]{1,40}$/.test(id)) : undefined;
+UI.closed = Object.fromEntries(Object.entries(UI.closed && typeof UI.closed === 'object' ? UI.closed : {}).filter(([k]) => /^[\w-]{1,40}$/.test(k)).map(([k, v]) => [k, !!v]));
+const saveUI = () => { try { localStorage.setItem('wwm-mystic-ui', JSON.stringify(UI)); } catch {} syncSoon(); };
 const panels = () => [...document.querySelectorAll('section.panel[aria-labelledby]')];
 const footer = document.querySelector('footer');
 if (Array.isArray(UI.order)) for (const id of UI.order) { const sec = document.querySelector(`section.panel[aria-labelledby="${id}"]`); if (sec) footer.before(sec); }
@@ -808,6 +849,103 @@ $('resetBtn').addEventListener('click', e => {
   armed = Date.now(); e.target.textContent = '한 번 더 누르면 지워져요';
   setTimeout(() => { if (armed && Date.now() - armed >= 4000) { e.target.textContent = '모든 입력 지우기'; armed = 0; } }, 4100);
 });
+
+// ---------- 로그인·동기화 (Supabase) ----------
+// 주소와 공개 키(anon / publishable)만 넣어요. service_role 키는 절대 넣지 마세요.
+// 보안은 DB의 행 단위 보안(RLS)이 맡아요: 로그인한 사람은 자기 행만 읽고 쓸 수 있어요(supabase/schema.sql).
+async function sbFetch(path, opt = {}) {
+  const r = await fetch(SB_URL + path, {...opt, headers: {apikey: SB_KEY, 'Content-Type': 'application/json', ...(auth ? {Authorization: 'Bearer ' + auth.access_token} : {}), ...(opt.headers || {})}});
+  if (!r.ok) throw new Error(r.status + ' ' + (await r.text()).slice(0, 200));
+  return r.status === 204 ? null : r.json();
+}
+function keepAuth(t) {
+  if (t && !/^[0-9a-f-]{36}$/.test(t.user?.id || '')) t = null;
+  auth = t ? {access_token: t.access_token, refresh_token: t.refresh_token, expires_at: Date.now() + (t.expires_in || 3600) * 1000,
+    id: t.user?.id, name: t.user?.user_metadata?.name || t.user?.user_metadata?.full_name || t.user?.email || '로그인됨'} : null;
+  jset(AUTH_KEY, auth);
+}
+async function freshAuth() {
+  if (!auth) return null;
+  if (Date.now() < auth.expires_at - 60000) return auth;
+  try { keepAuth(await sbFetch('/auth/v1/token?grant_type=refresh_token', {method: 'POST', body: JSON.stringify({refresh_token: auth.refresh_token}), headers: {Authorization: ''}})); }
+  catch { keepAuth(null); }
+  return auth;
+}
+// PKCE 로그인: 토큰이 주소창에 남지 않아요
+async function signIn(provider) {
+  const v = b64url(crypto.getRandomValues(new Uint8Array(32)));
+  sessionStorage.setItem('wwm-pkce', v);
+  const ch = b64url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v)));
+  const back = location.origin + location.pathname;
+  location.href = `${SB_URL}/auth/v1/authorize?provider=${provider}&redirect_to=${encodeURIComponent(back)}&code_challenge=${ch}&code_challenge_method=s256`;
+}
+async function finishSignIn() {
+  const q = new URLSearchParams(location.search), code = q.get('code');
+  if (!code) return;
+  history.replaceState(null, '', location.pathname);
+  const v = sessionStorage.getItem('wwm-pkce'); sessionStorage.removeItem('wwm-pkce');
+  if (!v) return;
+  try { keepAuth(await sbFetch('/auth/v1/token?grant_type=pkce', {method: 'POST', body: JSON.stringify({auth_code: code, code_verifier: v})})); }
+  catch (e) { syncState = '로그인에 실패했어요'; }
+}
+async function signOut() {
+  try { await freshAuth(); if (auth) await sbFetch('/auth/v1/logout', {method: 'POST'}); } catch {}
+  keepAuth(null); jset(SYNC_KEY, null); ready = false; pending = null; syncState = ''; drawAcct();
+}
+const payload = () => ({v: 1, state: S, ui: UI});
+const isBlank = () => !Object.values(S.skills).some(x => x.on) && !Object.values(S.have).some(Boolean) && !S.custom.length && !Object.values(S.gear.n).some(Boolean);
+async function pull() {
+  const rows = await sbFetch(`/rest/v1/user_state?select=data,updated_at&user_id=eq.${auth.id}`);
+  return rows[0] || null;
+}
+async function push() {
+  const rows = await sbFetch('/rest/v1/user_state?on_conflict=user_id', {method: 'POST', headers: {Prefer: 'resolution=merge-duplicates,return=representation'}, body: JSON.stringify({user_id: auth.id, data: payload()})});
+  jset(SYNC_KEY, {uid: auth.id, at: rows[0].updated_at, dirty: false});
+  syncState = '저장됨 ' + new Date().toTimeString().slice(0, 5);
+}
+function applyRemote(row) {
+  applying = true;
+  jset(KEY, row.data.state); jset('wwm-mystic-ui', row.data.ui || {});
+  jset(SYNC_KEY, {uid: auth.id, at: row.updated_at, dirty: false});
+  location.reload();
+}
+function syncSoon() {
+  if (!sbOn || applying) return;
+  const m = jget(SYNC_KEY); if (m && auth && m.uid === auth.id) jset(SYNC_KEY, {...m, dirty: true});
+  // 서버 값과 맞춰 보기 전(또는 어느 쪽을 쓸지 고르기 전)에는 올리지 않아요
+  if (!auth || !ready) return;
+  clearTimeout(syncT);
+  syncT = setTimeout(async () => { try { if (await freshAuth()) { await push(); drawAcct(); } } catch { syncState = '저장 실패, 다음에 다시 시도해요'; drawAcct(); } }, 1500);
+}
+let pending = null;
+async function startSync() {
+  if (!await freshAuth()) return drawAcct();
+  try {
+    const row = await pull(), m = jget(SYNC_KEY);
+    if (!row) await push();
+    else if (m && m.uid === auth.id && !m.dirty) { if (row.updated_at !== m.at) return applyRemote(row); syncState = '동기화됨'; }
+    else if (m && m.uid === auth.id && m.dirty && row.updated_at === m.at) await push();
+    else if (isBlank()) return applyRemote(row);
+    else pending = row;
+    ready = !pending;
+  } catch (e) { syncState = '서버에 연결하지 못했어요'; }
+  drawAcct();
+}
+function drawAcct() {
+  const el = $('acct'); el.hidden = !sbOn; if (!sbOn) return;
+  const esc2 = t => esc(String(t || ''));
+  if (!auth) { el.innerHTML = `<span>로그인하면 다른 기기에서도 이어서 볼 수 있어요.</span>` + SB_PROVIDERS.map(([p, n]) => `<button type="button" data-login="${p}">${n}로 로그인</button>`).join('') + (syncState ? `<span>${esc2(syncState)}</span>` : ''); return; }
+  el.innerHTML = `<span><b>${esc2(auth.name)}</b> 로그인됨${syncState ? ' · ' + esc2(syncState) : ''}</span><button type="button" data-logout>로그아웃</button>` +
+    (pending ? `<span class="ask">계정에 저장된 값과 이 기기 값이 달라요. <button type="button" data-use="remote">계정 값 불러오기</button><button type="button" data-use="local">이 기기 값으로 덮어쓰기</button></span>` : '');
+}
+$('acct').addEventListener('click', async e => {
+  const t = e.target;
+  if (t.dataset.login) signIn(t.dataset.login);
+  else if ('logout' in t.dataset) signOut();
+  else if (t.dataset.use === 'remote' && pending) applyRemote(pending);
+  else if (t.dataset.use === 'local') { pending = null; ready = true; try { await push(); } catch { syncState = '저장 실패'; } drawAcct(); }
+});
+if (sbOn) finishSignIn().then(startSync);
 
 buildSkills(); buildMats(); buildBox(); buildGear(); render();
 })();
