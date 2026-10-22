@@ -2,6 +2,7 @@
   "HeavenwillDeclared": {
     "name": "Heavenwill Declared",
     "shortName": "Gauntlet Q1",
+    "cooldown": 15,
     "castTime": 0.625,
     "action": [
       {
@@ -29,6 +30,7 @@
   "CelestialMandate": {
     "name": "Celestial Mandate",
     "shortName": "Gauntlet Q2",
+    "cooldown": 2,
     "castTime": 1.4,
     "action": [
       {
@@ -78,6 +80,22 @@
         "amount": 0.2,
         "time": 1.2,
         "requirement": [{ "target": "self", "value": "HeavensUnity" }]
+      },
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "HeavenwillLightCombo",
+        "stack": "all",
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "SoaringHighT1" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "HeavenwillLightCombo",
+        "stack": 5,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "SoaringHighT1" }]
       }
     ],
     "modifier": [],
@@ -99,7 +117,11 @@
     "shortName": "Gauntlet H1",
     "castTime": 0.4125,
     "action": [
-      { "type": "damage", "phyCoef": 0.4349, "phyBonus": 121, "attrBonus": 66, "time": 0.4125, "attrCoef": 0.4349 }
+      { "type": "damage", "phyCoef": 0.4349, "phyBonus": 121, "attrBonus": 66, "time": 0.4125, "attrCoef": 0.4349 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 3, "time": 0 },
+      { "type": "consume", "target": "self", "value": "HeavenwillHeavyCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillHeavyCombo", "stack": 2, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Heavy", "Gauntlet", "HeavenwillGauntlets", "VirtuousEnthroned"],
@@ -111,7 +133,11 @@
     "shortName": "Gauntlet H2",
     "castTime": 0.4375,
     "action": [
-      { "type": "damage", "phyCoef": 0.3237, "phyBonus": 91, "attrBonus": 49, "time": 0.4375, "attrCoef": 0.3237 }
+      { "type": "damage", "phyCoef": 0.3237, "phyBonus": 91, "attrBonus": 49, "time": 0.4375, "attrCoef": 0.3237 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 3, "time": 0 },
+      { "type": "consume", "target": "self", "value": "HeavenwillHeavyCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillHeavyCombo", "stack": 3, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Heavy", "Gauntlet", "HeavenwillGauntlets", "VirtuousEnthroned"],
@@ -125,7 +151,18 @@
     "action": [
       { "type": "damage", "phyCoef": 0.19089, "phyBonus": 53.1, "attrBonus": 28.8, "time": 0.275, "attrCoef": 0.19089 },
       { "type": "damage", "phyCoef": 0.19089, "phyBonus": 53.1, "attrBonus": 28.8, "time": 0.55, "attrCoef": 0.19089 },
-      { "type": "damage", "phyCoef": 0.25452, "phyBonus": 70.8, "attrBonus": 38.4, "time": 0.7375, "attrCoef": 0.25452 }
+      {
+        "type": "damage",
+        "phyCoef": 0.25452,
+        "phyBonus": 70.8,
+        "attrBonus": 38.4,
+        "time": 0.7375,
+        "attrCoef": 0.25452
+      },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 5, "time": 0 },
+      { "type": "consume", "target": "self", "value": "HeavenwillHeavyCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillHeavyCombo", "stack": 4, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Heavy", "Gauntlet", "HeavenwillGauntlets", "VirtuousEnthroned"],
@@ -153,7 +190,23 @@
         "attrBonus": 109.8,
         "time": 0.6023075699130436
       },
-      { "type": "addResource", "value": "HeavensWill", "amount": 0.1, "time": 0.6023075699130436 }
+      { "type": "addResource", "value": "HeavensWill", "amount": 0.1, "time": 0.6023075699130436 },
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "HeavenwillLightCombo",
+        "stack": "all",
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "SoaringHighT1" }]
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "HeavenwillLightCombo",
+        "stack": 5,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "SoaringHighT1" }]
+      }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "VariedCombo", "Gauntlet", "HeavenwillGauntlets", "WickedDefiance"],
@@ -165,7 +218,9 @@
     "shortName": "Gauntlet A1",
     "castTime": 0.466,
     "action": [
-      { "type": "damage", "phyCoef": 0.35636, "phyBonus": 100, "attrBonus": 54, "time": 0.21, "attrCoef": 0.35636 }
+      { "type": "damage", "phyCoef": 0.35636, "phyBonus": 100, "attrBonus": 54, "time": 0.21, "attrCoef": 0.35636 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 2, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Gauntlet", "HeavenwillGauntlets", "RighteousReign"],
@@ -178,7 +233,9 @@
     "castTime": 0.462,
     "action": [
       { "type": "damage", "phyCoef": 0.156852, "phyBonus": 44, "attrBonus": 23.6, "time": 0.148, "attrCoef": 0.156852 },
-      { "type": "damage", "phyCoef": 0.235278, "phyBonus": 66, "attrBonus": 35.4, "time": 0.32, "attrCoef": 0.235278 }
+      { "type": "damage", "phyCoef": 0.235278, "phyBonus": 66, "attrBonus": 35.4, "time": 0.32, "attrCoef": 0.235278 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 3, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Gauntlet", "HeavenwillGauntlets", "RighteousReign"],
@@ -190,7 +247,9 @@
     "shortName": "Gauntlet A3",
     "castTime": 0.333,
     "action": [
-      { "type": "damage", "phyCoef": 0.25294, "phyBonus": 71, "attrBonus": 39, "time": 0.25, "attrCoef": 0.25294 }
+      { "type": "damage", "phyCoef": 0.25294, "phyBonus": 71, "attrBonus": 39, "time": 0.25, "attrCoef": 0.25294 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 4, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Gauntlet", "HeavenwillGauntlets", "RighteousReign"],
@@ -203,7 +262,9 @@
     "castTime": 0.417,
     "action": [
       { "type": "damage", "phyCoef": 0.31826, "phyBonus": 89, "attrBonus": 48, "time": 0.194, "attrCoef": 0.31826 },
-      { "type": "apply", "target": "self", "value": "HeavenwillGauntletsA4", "time": 0.417 }
+      { "type": "apply", "target": "self", "value": "HeavenwillGauntletsA4", "time": 0.417 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 5, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Gauntlet", "HeavenwillGauntlets", "RighteousReign"],
@@ -217,7 +278,9 @@
     "action": [
       { "type": "damage", "phyCoef": 0.186944, "phyBonus": 52, "attrBonus": 28.4, "time": 0.205, "attrCoef": 0.186944 },
       { "type": "damage", "phyCoef": 0.280416, "phyBonus": 78, "attrBonus": 42.6, "time": 0.423, "attrCoef": 0.280416 },
-      { "type": "consume", "target": "self", "value": "HeavenwillGauntletsA4", "time": 0 }
+      { "type": "consume", "target": "self", "value": "HeavenwillGauntletsA4", "time": 0 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 6, "time": 0 }
     ],
     "modifier": [
       {
@@ -242,7 +305,9 @@
     "castTime": 0.923,
     "action": [
       { "type": "damage", "phyCoef": 0.8202, "phyBonus": 228, "attrBonus": 124, "time": 0.256, "attrCoef": 0.8202 },
-      { "type": "trigger", "target": "self", "value": "LightAttackFalcon", "time": 0.256 }
+      { "type": "trigger", "target": "self", "value": "LightAttackFalcon", "time": 0.256 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 2, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Gauntlet", "HeavenwillGauntlets", "RighteousReign"],
@@ -255,7 +320,9 @@
     "castTime": 0.256,
     "action": [
       { "type": "damage", "phyCoef": 0.8202, "phyBonus": 228, "attrBonus": 124, "time": 0.256, "attrCoef": 0.8202 },
-      { "type": "trigger", "target": "self", "value": "LightAttackFalcon", "time": 0.256 }
+      { "type": "trigger", "target": "self", "value": "LightAttackFalcon", "time": 0.256 },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 2, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Light", "Gauntlet", "HeavenwillGauntlets", "RighteousReign"],
@@ -305,6 +372,7 @@
   "AllUnderJustice": {
     "name": "All Under Justice",
     "shortName": "Gauntlet Special",
+    "cooldown": 6,
     "castTime": 1.0181818181818183,
     "action": [
       {
@@ -338,7 +406,9 @@
         "attrBonus": 122.8,
         "time": 0.9137265388888889,
         "attrCoef": 0.81408
-      }
+      },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 5, "time": 0 }
     ],
     "modifier": [],
     "tags": ["DirectDamage", "MartialArts", "Special", "Gauntlet", "HeavenwillGauntlets", "AllUnderJustice"],
@@ -538,6 +608,28 @@
       "VileCondemned",
       "MartialArtEffect"
     ],
+    "martialArt": "heavenwill",
+    "weapon": "Gauntlet"
+  },
+  "VirtuousEnthroned4thHit": {
+    "name": "Virtuous Enthroned 4th Hit",
+    "shortName": "Gauntlet H4",
+    "castTime": 0.75,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.5772,
+        "phyBonus": 161,
+        "attrBonus": 87,
+        "time": 0.2228013325,
+        "attrCoef": 0.5772
+      },
+      { "type": "consume", "target": "self", "value": "HeavenwillLightCombo", "stack": "all", "time": 0 },
+      { "type": "apply", "target": "self", "value": "HeavenwillLightCombo", "stack": 5, "time": 0 },
+      { "type": "consume", "target": "self", "value": "HeavenwillHeavyCombo", "stack": "all", "time": 0 }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "MartialArts", "Heavy", "Gauntlet", "HeavenwillGauntlets", "VirtuousEnthroned"],
     "martialArt": "heavenwill",
     "weapon": "Gauntlet"
   }

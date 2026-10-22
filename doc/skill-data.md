@@ -45,6 +45,9 @@ resolved total rather than offering an editable wrapper-duration field. Stored
 step duration overrides remain intact; wrapper editing stays in the Skills editor.
 Base totals exclude ping.
 
+Boss Talent is a permanent global buff selected at 0% or 15%. Its `dmgBonus`
+adds to the existing general damage bonus category; it has no target-type condition.
+
 ## Datamine interpretation
 
 Local references are under `local/datamine/`: `wwm-skills-normal-all.json`,
@@ -1763,6 +1766,54 @@ Mystic replacements, the highest 38-Blood-Burst preset DPS uses seven
 Momentum, three Affinity, one Max Void Attack, and no All Mystic additional
 rolls. Comparison uses breakthrough 18, Clay Oven Flatbread, Fire, no script,
 default global buffs, and the preset ping; other affixes and setup stay fixed.
+
+### Kite skill cooldowns and DH finisher
+
+Normal skill-export cooldowns are authored on the castable records:
+Heavenwill Declared (Q1) 15 seconds, Celestial Mandate (Q2) 2 seconds,
+All Under Justice 6 seconds, Sky Grasped 18 seconds, and Snaring Lash
+15 seconds. Q1 owns the main gauntlet Q cooldown; Q2's short follow-up
+cooldown is independent, so Q1 does not block its continuation.
+Snaring Lash and its Cancel variant share the `SnaringLash` cooldown group.
+Ordinary light/heavy attacks and Wicked Defiance have zero exported cooldown;
+Vile Condemned End retains its existing resettable 18-second effect marker.
+
+The DH preset dodges the 41.5-second attack and uses Soaring Spin's first hit
+to trigger the authored Qi break, matching the BP preset. Dragon Head follows
+Soaring directly, then the third four-HW End. Both hit during Exhausted with
+five Disintegration stacks on BP builds. Q1/Q2, A5/A6, and the legal
+Snaring Lash / Deflect / Sky Grasped sequence follow that End.
+
+The preset intentionally does not reset End again during Exhausted. Its final
+ordinary Vile Condemned falls back to the two-HW hit while End cooldown remains
+active. The four charged casts spend 4 / 4 / 4 / 2 HW. At 40ms ping, the Qi
+break is at 41.909697 seconds, Dragon Head hits at 47.877429 seconds, and the
+third End hits at 51.654929 seconds, before Exhausted expires at 51.909697.
+The final weak hit lands at 59.955429 seconds; the 60-second cutoff leaves
+little timing margin. Dragon Head already had five stacks in the old preset.
+
+### Kite combo stage indicators
+
+Heavenwill uses separate hidden `HeavenwillLightCombo` and
+`HeavenwillHeavyCombo` next-stage indicators. Like Wind's markers, applications
+replace the count at cast start and do not restrict skill selection. These
+indicators track stage only: expiry, input windows, and interruption admission
+are not modeled here. They must not be used as proof that a delayed follow-up
+is legal. Existing attack timings and A4's separate fast-A5 marker are unchanged.
+
+The normal skill export's six-stage Righteous Reign sequence advances A1–A5
+to A2–A6; its description and explicit action shortcut loop A6 back to A2,
+including the Cancel variant. Virtuous Enthroned's source stages
+20901006/7/8/9 map to the persisted H1/H2/H3 IDs and the added H4 ID:
+H1/H2 select A3, H3/H4 select A5, H1–H3 select the next heavy, and H4 clears
+the heavy indicator. Existing persisted heavy IDs retain their meaning.
+
+All Under Justice selects A5 unconditionally. Soaring High T1 enables the
+Wicked Defiance and Celestial Mandate A5 shortcuts, confirmed by Inner Way
+601 tier-one text and buff 10260120. The selecting Q2 action is 20901102;
+the normal tooltip's reference to 20901101 is not an additional Q1 shortcut.
+Shortcut selection does not apply A4's animation marker, so A5 retains its
+ordinary timing unless that separate marker is already present.
 
 ### Wind combo windows
 

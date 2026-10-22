@@ -8,7 +8,7 @@ import { isDeepStrictEqual } from "node:util"
 export const dpsSnapshotUlpBudget = 4
 
 // Snapshot fields under comparison, in report order.
-const comparedFields = ["dps", "totalDamage", "duration"]
+const comparedFields = ["dps", "totalDamage", "hps", "totalHealing", "duration"]
 
 // Exact distance in representable doubles. Both operands are validated finite
 // and positive above, where the IEEE-754 bit pattern rises with the value, so
@@ -35,10 +35,16 @@ export function compareDpsSnapshots(expected, actual) {
       continue
     }
     const valid = [before, after].every(value =>
-      comparedFields.every(field => Number.isFinite(value[field]) && value[field] > 0),
+      comparedFields.every(
+        field =>
+          Number.isFinite(value[field]) &&
+          (field === "hps" || field === "totalHealing" ? value[field] >= 0 : value[field] > 0),
+      ),
     )
     if (!valid) {
-      failures.push(`${caseId}: snapshot and calculated DPS, damage, and duration must be finite and positive.`)
+      failures.push(
+        `${caseId}: snapshot and calculated metrics must be finite; DPS, damage, and duration must be positive; HPS and healing must be nonnegative.`,
+      )
       continue
     }
     if (!isDeepStrictEqual(before.fixture, after.fixture)) {

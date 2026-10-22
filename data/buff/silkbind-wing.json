@@ -114,7 +114,14 @@
       }
     ]
   },
-  "WarriorEscape": { "name": "Escape From Cage", "duration": 5, "maxStack": 1, "refresh": true, "effect": [] },
+  "WarriorEscape": {
+    "name": "Escape From Cage",
+    "hidden": true,
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": []
+  },
   "WingsSupportYellow": {
     "name": "Silkbind - Wings (Yellow)",
     "duration": 0,

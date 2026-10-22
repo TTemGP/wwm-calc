@@ -400,6 +400,11 @@ rotation with Simmering Fish Slices, Fire Divinecraft, no Script, and default
 global effects. The search preserves the primary attack and attribute affixes;
 it does not claim an exhaustive optimum over every possible loadout.
 
+The minimum Ivorybloom build now replaces the fan's Max Silkbind Attack roll
+with Art of Fan at both gear tiers, as requested. This trades solo-rotation DPS
+for Fan martial-art healing and improves team WTS DPS. The accepted rotation
+snapshots also record HPS and total healing to cover this tradeoff.
+
 Effective Precision reaches 100% at breakthroughs 17–19. Effective Critical
 reaches 80% with Ivorybloom's full-HP bonus, except the max build at breakthrough
 18, which reaches about 79.81%. At breakthrough 19 the solo WTS results are

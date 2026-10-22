@@ -1,3 +1,4 @@
+import generalBuffDefinitions from "@gamedata/buff/general.json"
 import floatingGraceDefinitions from "@gamedata/buff/silkbind-deluge.json"
 import strayhuntDefinitions from "@gamedata/debuff/bamboocut-draught.json"
 import phantomChimeDefinitions from "@gamedata/debuff/bamboocut-dust.json"
@@ -14,6 +15,7 @@ import { getPersistentItem } from "./persistentStorage"
 export { globalDebuffStorageKey }
 
 export type GlobalDebuffState = {
+  bossTalent: 0 | 0.15
   draught: "none" | "strayhunt" | "both"
   phantomChime: boolean
   qiImbalance: boolean
@@ -26,6 +28,7 @@ export type GlobalDebuffState = {
 }
 
 export const defaultGlobalDebuffs: GlobalDebuffState = {
+  bossTalent: 0,
   draught: "none",
   phantomChime: false,
   qiImbalance: false,
@@ -78,6 +81,7 @@ export function normalizeGlobalDebuffs(value: unknown): GlobalDebuffState {
   const floatingGrace =
     source.floatingGrace === "mixed" || source.floatingGrace === "deluge" ? source.floatingGrace : "none"
   return {
+    bossTalent: source.bossTalent === 0.15 ? 0.15 : 0,
     draught: normalizeDraught(source),
     phantomChime: source.phantomChime === true,
     qiImbalance: source.qiImbalance === true,
@@ -150,7 +154,11 @@ function wingsSupportEffects(state: GlobalDebuffState): TrackedEffect[] {
 }
 
 export function globalBuffTimelineEffects(state: GlobalDebuffState): TrackedEffect[] {
-  return [...floatingGraceTimelineEffects(state), ...wingsSupportEffects(state)]
+  return [
+    ...floatingGraceTimelineEffects(state),
+    ...wingsSupportEffects(state),
+    ...(state.bossTalent === 0.15 ? [permanentEffect("BossTalent", generalBuffDefinitions.BossTalent)] : []),
+  ]
 }
 
 function floatingGraceTimelineEffects(state: GlobalDebuffState): TrackedEffect[] {

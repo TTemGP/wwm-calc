@@ -284,6 +284,15 @@ export function buildRotationComparisonBundle(
                 globalDebuffs: { ...currentGlobalDebuffs, silkbindWings: value },
               }),
             })),
+          "buff:bossTalent": ([0, 0.15] as const)
+            .filter(value => value !== currentGlobalDebuffs.bossTalent)
+            .map(value => ({
+              label: String(value),
+              timeline: makeTimelineInput(subject.rotation, {
+                setupEffects: baselineSetupEffects,
+                globalDebuffs: { ...currentGlobalDebuffs, bossTalent: value },
+              }),
+            })),
           ...setComparisonGroups,
         }
       : ({} as Record<string, RotationSimulationVariant[]>),

@@ -18,13 +18,26 @@ describe("dps-snapshot-guard", () => {
     fixture: { build: "example", rotation: "one-minute" },
     dps: 100,
     totalDamage: 6000,
+    hps: 50,
+    totalHealing: 3000,
     duration: 60,
     ...overrides,
   })
   const baseline = { example: sample() }
 
+  it("accepts zero healing and rejects missing, negative, or nonfinite healing metrics", () => {
+    const zero = { example: sample({ hps: 0, totalHealing: 0 }) }
+    assert.deepEqual(compareDpsSnapshots(zero, zero), [])
+    for (const field of ["hps", "totalHealing"]) {
+      for (const value of [undefined, -1, NaN, Infinity]) {
+        assert(compareDpsSnapshots(baseline, { example: sample({ [field]: value }) }).length > 0)
+      }
+      assert(compareDpsSnapshots(zero, { example: sample({ hps: 0, totalHealing: 0, [field]: 1 }) }).length > 0)
+    }
+  })
+
   it("accepts floating-point noise and rejects real changes in either direction", () => {
-    for (const field of ["dps", "totalDamage", "duration"] as const) {
+    for (const field of ["dps", "totalDamage", "hps", "totalHealing", "duration"] as const) {
       const accepted = sample()
       for (const steps of [0, 1, dpsSnapshotUlpBudget]) {
         assert.deepEqual(

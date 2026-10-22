@@ -55,13 +55,16 @@ Endurance recovery before combat, and the approved Splendor Qi and Might Defense
 alignment repairs. The snapshot JSON records the exact accepted values.
 
 Schema version 2 replaces the old one-case-per-path file. Each case records its
-fixture, DPS, total damage, and duration. The gate fails on:
+fixture, DPS, total damage, HPS, total healing, and duration. HPS and total
+healing come directly from the production calculation metrics. Cases without
+healing record zero for both fields. The gate fails on:
 
-- Any change beyond 4 units in the last place in DPS, total damage, or duration,
+- Any change beyond 4 units in the last place in DPS, total damage, HPS, total healing, or duration,
   independently for each rotation and in either direction.
 - Missing or removed rotation coverage.
 - A changed build, rotation, martial-art pair, or fixed environment.
 - Non-finite, zero, or negative DPS, damage, or duration.
+- Missing, non-finite, or negative HPS or total healing.
 
 The budget is counted in ULPs rather than a percentage because the damage
 pipeline is bit-deterministic: it uses only exactly specified IEEE-754
@@ -70,7 +73,7 @@ locale-, time-, or random-dependent input. The same inputs must therefore
 reproduce the same bits. Four ULPs absorbs a single-representation shift from a
 summation reassociation or an engine change and rejects every real change; a 1%
 band was roughly 8x10^11 ULPs wide and silently accepted unreviewed edits. All
-three stored numbers are compared, and changes accumulate against the last
+five stored numbers are compared, and changes accumulate against the last
 accepted value, not the previous test run.
 
 At the user's request, expanded non-Deluge baselines preserve the values from
@@ -644,3 +647,26 @@ same proportion as DPS. Other accepted cases remain unchanged within the guard.
 | `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-max-ib/19`          | 46668.002105197767 | 46994.918602951031 | +0.7005% |
 | `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-min-ib/18`          | 43235.397874059483 | 43564.523359419632 | +0.7612% |
 | `silkbindDeluge/dummy-1-min-wts/deluge-fully-relayed-min-ib/19`          | 45295.031911131497 | 45622.819362330840 | +0.7237% |
+
+## Kite IV BP rotation acceptance (2026-10-22)
+
+The user accepted the IV BP A5/A6 filler and the separate IV BP Dragon Head
+rotation. Refresh only `bamboocutKite/dummy-1-min-iv-bp` and
+`bamboocutKite/dummy-1-min-iv-bp-dh` across all five Kite builds at breakthroughs
+18 and 19. Both rotations retain the 60-second battle cutoff, 40 ms ping,
+and infinite Vitality.
+
+IV BP completes A5/A6 after the late All Under Justice. This reduces the
+Soaring cooldown wait from 1.262707s to 0.414707s without moving Q1 or changing
+Soaring, exhaustion, or Vile End timing. Fully Relayed Min BP DPS changes from
+75173.98480041238 to 76078.12616062301 at breakthrough 18 and from
+78884.19443715914 to 79836.34235770653 at breakthrough 19.
+
+IV BP DH uses complete gauntlet combos before one-hit Soaring breaks Qi at
+44.447990s. Exhaustion applies after that hit and lasts until 54.447990s.
+Vile End lands at 47.550111s, then Snaring Lash's Falcon resets its cooldown.
+Dragon Head lands at 53.930111s while Exhausted is active. Sky Grasped and
+Snaring Lash refill Heaven's Will for the final Vile End at 59.425111s.
+All four Vile End casts land before battle end. Fully Relayed Min BP DPS is
+79254.00654687747 at breakthrough 18 and 83138.63044461497 at breakthrough 19.
+Gauntlet A5/A6 requires its combo opener; it cannot follow Vile End directly.

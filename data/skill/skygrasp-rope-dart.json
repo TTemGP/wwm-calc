@@ -2,6 +2,7 @@
   "SkyGrasped": {
     "name": "Sky Grasped",
     "shortName": "RD Special",
+    "cooldown": 18,
     "castTime": 0.95,
     "action": [
       { "type": "damage", "phyCoef": 1.25033, "phyBonus": 347, "attrBonus": 189, "time": 0.666, "attrCoef": 1.25033 },
@@ -35,6 +36,8 @@
   "SnaringLashCancel": {
     "name": "Snaring Lash [Cancel]",
     "shortName": "RD Q [Cancel]",
+    "cooldown": 15,
+    "cooldownGroup": "SnaringLash",
     "castTime": 0.365,
     "action": [
       { "type": "damage", "phyCoef": 0.49752, "phyBonus": 137.7, "attrBonus": 75, "time": 0.365, "attrCoef": 0.49752 },
@@ -57,6 +60,8 @@
   "SnaringLash": {
     "name": "Snaring Lash",
     "shortName": "RD Q",
+    "cooldown": 15,
+    "cooldownGroup": "SnaringLash",
     "castTime": 1.315,
     "action": [
       { "type": "damage", "phyCoef": 0.49752, "phyBonus": 137.7, "attrBonus": 75, "time": 0.365, "attrCoef": 0.49752 },

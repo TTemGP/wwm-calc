@@ -2123,7 +2123,7 @@ export function RotationEditorTab({
                     const isAction = entry.kind === "action"
                     const { step: timelineStep, startTime, skill: timelineSkill } = row
                     const authoredStep =
-                      row.rotationIndex === undefined || !editorTimelineReady
+                      isAutomaticDelay(timelineStep) || row.rotationIndex === undefined || !editorTimelineReady
                         ? timelineStep
                         : (rotation.steps[row.rotationIndex] ?? timelineStep)
                     const step = authoredStep

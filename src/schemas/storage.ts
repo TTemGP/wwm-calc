@@ -26,6 +26,7 @@ export const statMapSchema = numberMap
 export const attunementMapSchema = numberMap
 export const simulationPercentilesSchema = v.array(v.pipe(finiteNumber, v.minValue(0), v.maxValue(100)))
 export const globalDebuffStateSchema = v.looseObject({
+  bossTalent: v.optional(finiteNumber),
   draught: v.optional(v.string()),
   phantomChime: v.optional(v.boolean()),
   qiImbalance: v.optional(v.boolean()),

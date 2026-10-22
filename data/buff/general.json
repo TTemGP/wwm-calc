@@ -1,4 +1,10 @@
 {
+  "BossTalent": {
+    "name": "Boss Talent",
+    "description": "Increases general damage by 15%.",
+    "maxStack": 1,
+    "effect": [{ "effect": { "dmgBonus": 0.15 } }]
+  },
   "Turnaround": {
     "name": "Turnaround",
     "shortName": "Turn",

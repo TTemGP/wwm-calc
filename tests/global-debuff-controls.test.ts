@@ -16,6 +16,7 @@ describe("global-debuff-controls", () => {
     const { defaultGlobalDebuffs, globalBuffTimelineEffects, globalDebuffTimelineEffects, normalizeGlobalDebuffs } =
       await import("@/globalDebuffs.ts")
     const delugeBuffs = (await import("@gamedata/buff/silkbind-deluge.json")).default
+    const generalBuffs = (await import("@gamedata/buff/general.json")).default
     const generalDebuffs = (await import("@gamedata/debuff/general.json")).default
     const strengthDebuffs = (await import("@gamedata/debuff/stonesplit-strength.json")).default
     const mightDebuffs = (await import("@gamedata/debuff/stonesplit-might.json")).default
@@ -26,6 +27,7 @@ describe("global-debuff-controls", () => {
     const draughtDebuffs = (await import("@gamedata/debuff/bamboocut-draught.json")).default
     const scripts = (await import("@gamedata/script.json")).default
     const effectDefinitions = asEffectDefinitions({
+      ...generalBuffs,
       ...draughtDebuffs,
       ...delugeBuffs,
       ...generalDebuffs,
@@ -142,7 +144,17 @@ describe("global-debuff-controls", () => {
       "Bitter Seasons T6 must initialize its permanent maximum-stack debuff.",
     )
 
+    assert.equal(normalizeGlobalDebuffs({}).bossTalent, 0)
+    assert.equal(normalizeGlobalDebuffs({ bossTalent: 15 }).bossTalent, 0)
+    const bossEffects = globalBuffTimelineEffects(normalizeGlobalDebuffs({ bossTalent: 0.15 }))
     const baseline = result([])
+    assert(closeTo(result([], [], false, false, bossEffects) / baseline, 1.15))
+    const combinedEffects = globalBuffTimelineEffects({
+      ...defaultGlobalDebuffs,
+      bossTalent: 0.15,
+      floatingGrace: "mixed",
+    })
+    assert(closeTo(result([], [], false, false, combinedEffects) / baseline, 1.25))
     const mixedGraceEffects = globalBuffTimelineEffects({ ...defaultGlobalDebuffs, floatingGrace: "mixed" })
     const delugeGraceEffects = globalBuffTimelineEffects({ ...defaultGlobalDebuffs, floatingGrace: "deluge" })
     assert(

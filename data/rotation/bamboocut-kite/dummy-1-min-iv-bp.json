@@ -60,6 +60,8 @@
     { "type": "skill", "skill": "SnaringLashCancel" },
     { "type": "skill", "skill": "Deflect" },
     { "type": "skill", "skill": "AllUnderJustice" },
+    { "type": "skill", "skill": "RighteousReign5thHit" },
+    { "type": "skill", "skill": "RighteousReign6thHitCancel" },
     { "type": "event", "event": "Qi", "before": { "action": 2 }, "targetQiRatio": 0 },
     { "type": "skill", "skill": "SoaringSpin2" },
     { "type": "skill", "skill": "LeapingToad" },

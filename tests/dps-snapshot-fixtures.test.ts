@@ -82,6 +82,8 @@ describe("rotation DPS snapshot fixtures", () => {
       fixture: { build: "same" },
       dps: 100,
       totalDamage: 6000,
+      hps: 50,
+      totalHealing: 3000,
       duration: 60,
       ...overrides,
     })

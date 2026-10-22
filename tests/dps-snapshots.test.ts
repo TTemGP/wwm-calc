@@ -37,7 +37,14 @@ describe("dps-snapshots", () => {
     }
     const actual: Record<
       string,
-      { fixture: (typeof cases)[number]["fixture"]; dps: number; totalDamage: number; duration: number }
+      {
+        fixture: (typeof cases)[number]["fixture"]
+        dps: number
+        totalDamage: number
+        hps: number
+        totalHealing: number
+        duration: number
+      }
     > = {}
     for (const { id, pathId, rotation, fixture } of cases) {
       const bundle = buildPresetRotationBundle(
@@ -46,7 +53,14 @@ describe("dps-snapshots", () => {
       )
       assert(bundle, id + ": failed to build the production calculation bundle.")
       const { metrics, duration } = calculateRotationBaseline(bundle)
-      actual[id] = { fixture, dps: metrics.dps, totalDamage: metrics.totalDamage, duration }
+      actual[id] = {
+        fixture,
+        dps: metrics.dps,
+        totalDamage: metrics.totalDamage,
+        hps: metrics.hps,
+        totalHealing: metrics.totalHealing,
+        duration,
+      }
       const previous = snapshot.cases[id]?.dps
       console.log(
         id +

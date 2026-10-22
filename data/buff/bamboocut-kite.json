@@ -590,5 +590,7 @@
     ],
     "refresh": true
   },
-  "HeavenwillGauntletsA4": { "name": "Heavenwill Gauntlets A4", "duration": 1, "maxStack": 1, "shortName": "A4" }
+  "HeavenwillGauntletsA4": { "name": "Heavenwill Gauntlets A4", "duration": 1, "maxStack": 1, "shortName": "A4" },
+  "HeavenwillLightCombo": { "name": "Heavenwill Light Attack Combo", "hidden": true, "maxStack": 6, "refresh": true },
+  "HeavenwillHeavyCombo": { "name": "Heavenwill Heavy Attack Combo", "hidden": true, "maxStack": 4, "refresh": true }
 }
