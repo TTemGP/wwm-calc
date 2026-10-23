@@ -670,3 +670,19 @@ Snaring Lash refill Heaven's Will for the final Vile End at 59.425111s.
 All four Vile End casts land before battle end. Fully Relayed Min BP DPS is
 79254.00654687747 at breakthrough 18 and 83138.63044461497 at breakthrough 19.
 Gauntlet A5/A6 requires its combo opener; it cannot follow Vile End directly.
+
+## Dragon Head Tide Abrasion acceptance (2026-10-23)
+
+The user accepted unconditional zero Abrasion for Dragon Head Tide on every
+path and the resulting six DPS increases. Durations remain 60 seconds. The
+skill's `NoAbrasion` modifier removes its precision failures independently of
+Deluge's Mystic Precision talent; other release fixtures are unchanged.
+
+| Rotation / build                     | Breakthrough | Previous DPS      | Accepted DPS      |
+| ------------------------------------ | ------------ | ----------------- | ----------------- |
+| Kite IV BP DH / Fully Relayed Max BP | 18           | 75491.81772108369 | 75497.99991281683 |
+| Kite IV BP DH / Fully Relayed Min BP | 18           | 78529.4908863814  | 78534.43712045073 |
+| Umbra 37 BB DH / Full                | 18           | 91974.89335942702 | 92249.58624260272 |
+| Umbra 37 BB DH / Full                | 19           | 96624.33911549249 | 96897.05539421894 |
+| Umbra 37 BB DH / Fully Relayed       | 18           | 89702.39142504496 | 89969.71360581621 |
+| Umbra 37 BB DH / Fully Relayed       | 19           | 94326.03108977214 | 94591.70122128044 |

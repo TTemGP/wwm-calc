@@ -1039,7 +1039,7 @@
         "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
       }
     ],
-    "modifier": [],
+    "modifier": [{ "effect": { "NoAbrasion": true } }],
     "tags": ["DirectDamage", "Mystic", "SingleTargetMystic", "HP", "DragonHead", "DragonHeadTide"],
     "ignorePing": true
   },

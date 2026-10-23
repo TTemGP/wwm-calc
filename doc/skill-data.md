@@ -106,6 +106,8 @@ not a second catalog of current values:
   enlightenment factors. The source's level-71 row reproduces the previously
   confirmed 16.3591422641509 / 2483.50943396226 baseline; the regular curve
   is a different route and must not replace it.
+  Its unconditional `NoAbrasion` modifier prevents Abrasion on every combat path,
+  independently of Deluge's Mystic Precision talent.
 - Panacea's extra **Mystic Precision Enhancement** talent is intentional despite
   its absence from the rank-13 source list; see the talent audit.
 - Echoes of Oblivion's Karma reduction is **10 flat Bamboocut Resistance** at

@@ -1,13 +1,14 @@
 import assert from "node:assert/strict"
 
+import mysticSkills from "@gamedata/skill/mystic.json"
 import { describe, it } from "vitest"
 
 import { martialArtDefinitions } from "@/application/gameData/martialArts"
 import { emptyAttunementStats } from "@/calculations/attunementStats"
 import type { DamageBreakdown } from "@/calculations/damage"
 import type { StatFormula } from "@/calculations/statEffects"
+import { effectState } from "@/calculations/trackedEffectState"
 
-import { effectState } from "../src/calculations/trackedEffectState"
 import { assertClose } from "./helpers/floatEquality"
 import { probeLoad } from "./helpers/probe-loader.js"
 import { asTalentEffects } from "./helpers/shippedData"
@@ -16,14 +17,14 @@ import { asTalentEffects } from "./helpers/shippedData"
 describe("deluge-martial-talents", () => {
   it("Deluge talents: datamined stats, healing caps/tag gating, Mystic bonus, and conditional Mystic Precision passed", async () => {
     const close = (actual: number, expected: number, message: string) => assertClose(actual, expected, 1e-9, message)
-    const { martialArtEffectsForRank } = await import("../src/data/martialArtTalents.ts")
+    const { martialArtEffectsForRank } = await import("@/data/martialArtTalents.ts")
     const { calculateStatsWithEffects, resolveFormulaValue } = await probeLoad<
-      typeof import("../src/calculations/statEffects")
+      typeof import("@/calculations/statEffects")
     >("/src/calculations/statEffects.ts")
-    const { calculateDamageBreakdown } = await import("../src/calculations/damage.ts")
-    const { calculateDerivedStats } = await import("../src/calculations/effectiveStats.ts")
-    const { requirementsPass } = await import("../src/calculations/rotationTimeline.ts")
-    const { emptyStats } = await import("../src/data/statDefinitions.ts")
+    const { calculateDamageBreakdown } = await import("@/calculations/damage.ts")
+    const { calculateDerivedStats } = await import("@/calculations/effectiveStats.ts")
+    const { requirementsPass } = await import("@/calculations/rotationTimeline.ts")
+    const { emptyStats } = await import("@/data/statDefinitions.ts")
     const arts = {
       panaceaFan: martialArtDefinitions.panaceaFan,
       soulshadeUmbrella: martialArtDefinitions.soulshadeUmbrella,
@@ -108,6 +109,10 @@ describe("deluge-martial-talents", () => {
           effects: effectsFor(weapons, tags).filter(effect => includePrecision || !effect.convert),
         },
       )
+    const dragonHeadRates = damage(["soulshadeUmbrella", "panaceaFan"], mysticSkills.DragonHeadTide.tags).outcomeRates
+    assert(dragonHeadRates)
+    close(dragonHeadRates.abrasion, 0, "Dragon Head Tide inherits Deluge Mystic Precision")
+    close(dragonHeadRates.normal, 1, "Dragon Head Tide transfers Abrasion probability to Normal")
     const outcomeRates = (breakdown: DamageBreakdown) => {
       const rates = breakdown.outcomeRates
       assert(rates, "A damage breakdown must resolve its outcome rates.")

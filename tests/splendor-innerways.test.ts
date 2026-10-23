@@ -80,6 +80,17 @@ function firstHitDamage(result: ReturnType<typeof run>) {
   return result.actionBreakdowns[row.id + ":" + index].total
 }
 
+it("Dragon Head Tide cannot roll Abrasion without Deluge talents or Inner Ways", () => {
+  const result = run([], ["DragonHeadTide", "SereneBreeze"])
+  const rates = result.timeline.map(row => {
+    const index = row.actions.findIndex(action => action.type === "damage")
+    return result.actionBreakdowns[`${row.id}:${index}`].outcomeRates!
+  })
+  expect(rates[0].abrasion).toBe(0)
+  expect(rates[0].normal).toBe(1)
+  expect(rates[1].abrasion).toBeGreaterThan(0)
+})
+
 it("Daunting Strike cancel lands the flying sword and applies Qi Imbalance on hit", () => {
   const plain = run([], ["DauntingStrikeCancel", "ShadowStepCancel"])
   const empowered = run([{ innerWay: "MountainsMight", tier: "T1" }], ["DauntingStrikeCancel", "ShadowStepCancel"])
