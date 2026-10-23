@@ -949,6 +949,24 @@ export function StatsTab({
                     })}
                   </ButtonGroup>
                 </div>
+                <div className="setup-category-row">
+                  <span>{t("ui.app.bossTalent")}</span>
+                  <ButtonGroup columns={2}>
+                    {([0, 0.15] as const).map(value => {
+                      const active = globalDebuffs.bossTalent === value
+                      return (
+                        <ButtonGroupOption
+                          key={value}
+                          label={`${value * 100}%`}
+                          selected={active}
+                          onClick={() => updateGlobalDebuff("bossTalent", value)}
+                        >
+                          {setupStatus("buff:bossTalent", String(value), active)}
+                        </ButtonGroupOption>
+                      )
+                    })}
+                  </ButtonGroup>
+                </div>
               </div>
             </Panel>
           </div>
