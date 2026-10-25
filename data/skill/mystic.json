@@ -84,7 +84,7 @@
   "LeapingToad": {
     "name": "Leaping Toad [Cancel]",
     "shortName": "Toad",
-    "castTime": 1.25,
+    "castTime": 1.15,
     "cooldown": 8,
     "action": [
       { "type": "consumeResource", "value": "Vitality", "amount": 25, "time": 0 },
@@ -118,7 +118,7 @@
         "value": "Turnaround",
         "stack": 1,
         "reapply": true,
-        "time": 1.25,
+        "time": 1.15,
         "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
       }
     ],
@@ -1170,6 +1170,90 @@
     "tags": ["DirectDamage", "Mystic", "BurstingNine"],
     "ignorePing": true
   },
+  "BurstingNine7Hits": {
+    "name": "Bursting Nine [7 hits]",
+    "castTime": 1.4,
+    "cooldown": 30,
+    "cooldownGroup": "BurstingNine",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 20, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 6,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 2.5463082,
+        "phyBonus": 402.3166956,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 2.5463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.76389246,
+        "phyBonus": 120.69500868,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.76389246
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.4,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "BurstingNine"],
+    "ignorePing": true
+  },
   "BurstingNine2Shots": {
     "name": "Bursting Nine 2 Shots",
     "castTime": 1.925,
@@ -1287,6 +1371,146 @@
         "attrBonus": 0,
         "time": 1.6125,
         "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.25463082,
+        "phyBonus": 40.23166956,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.25463082
+      },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "Turnaround",
+        "stack": 1,
+        "reapply": true,
+        "time": 1.925,
+        "requirement": [{ "target": "self", "value": "FuryHarvestT6" }]
+      }
+    ],
+    "modifier": [],
+    "tags": ["DirectDamage", "Mystic", "BurstingNine"],
+    "ignorePing": true
+  },
+  "BurstingNine2Shots7Hits": {
+    "name": "Bursting Nine 2 Shots [7 hits]",
+    "castTime": 1.925,
+    "cooldown": 30,
+    "cooldownGroup": "BurstingNine",
+    "action": [
+      { "type": "consumeResource", "value": "Vitality", "amount": 30, "time": 0 },
+      {
+        "type": "addResource",
+        "value": "Vitality",
+        "amount": 9,
+        "time": 0,
+        "requirement": [{ "target": "self", "value": "Turnaround" }]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 2.5463082,
+        "phyBonus": 402.3166956,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 2.5463082
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.76389246,
+        "phyBonus": 120.69500868,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.76389246
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.50926164,
+        "phyBonus": 80.46333912,
+        "attrBonus": 0,
+        "time": 1.1625,
+        "attrCoef": 0.50926164
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.2731541,
+        "phyBonus": 201.1583478,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 1.2731541
+      },
+      {
+        "type": "damage",
+        "phyCoef": 0.38194623,
+        "phyBonus": 60.34750434,
+        "attrBonus": 0,
+        "time": 1.6125,
+        "attrCoef": 0.38194623
       },
       {
         "type": "damage",

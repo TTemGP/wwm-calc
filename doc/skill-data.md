@@ -50,6 +50,22 @@ adds to the existing general damage bonus category; it has no target-type condit
 
 ## Datamine interpretation
 
+### Strength mixed preset fillers
+
+The ordinary Mixed, Double Stab, and Infinite Vitality one-minute presets retain
+fifteen Burning Heart charged casts. Snowbreak Spring (VC) must immediately follow
+Snowparting Conversion (Tab) or Grave Frost (LC), ignoring attached events. Tab
+must immediately follow a Mo Blade ability.
+
+Ordinary Mixed replaces the earlier second Tab/VC pair with Leaping Toad/Deflect
+and the final LC/VC pair with seven-arrow Bursting Nine 2 Shots. Double Stab
+replaces the first filler LC/VC pair with seven-arrow Bursting Nine 2 Shots,
+Leaping Toad, and Deflect. Infinite Vitality retains Mo QQ/Tab and replaces the
+following VC/LC/VC with that same Mystic sequence. Existing charge movement
+attachments and Qi anchors remain attached to their original surviving skills.
+
+### Export interpretation
+
 Local references are under `local/datamine/`: `wwm-skills-normal-all.json`,
 `wwm-skills-mystic-skills-all.json`, `wwm-skills-mechanism-all.json`,
 `wwm-inner-way-normal.json`, and
@@ -176,6 +192,9 @@ old expiry actions, and consumption does not count as natural expiration.
 Cast time excludes ping. `ignorePing: true` suppresses latency for that skill.
 All Mystic skills, including their composite components, and both castable
 Deflect variants ignore ping.
+Leaping Toad uses the user-confirmed 1.15-second lunge-hit cancel before
+Deflect. Keep this cancel boundary distinct from the export's contact-dependent
+recovery clocks.
 `triggerPing: true` opts a triggered skill into paying the rotation ping when
 it is dispatched; ordinary triggered effects remain latency-free unless they
 declare it. Composite parents and components must declare exemptions
@@ -1094,9 +1113,51 @@ Loss, which is applied immediately after its corresponding hit.
 | Scarlet Spin         | Four source stage markers; duration input controls the chain    | User-entered, capped at 12 s                                |
 | Dreamwrought Bubbles | Charge and release split into sub-actions                       | 0.743 s charge + 1.2 s release; Delicate removes the charge |
 
-The 0.743 s Bubbles charge is a user-supplied value, not a measurement: the
-datamine explicitly excludes charge timing. Soul Sweep Cancel at 0 and Piercing
+The 0.743 s Bubbles charge is a retained user-supplied value, not a measurement
+replaced by the October 23 export's separate charge-opening/threshold fields. Soul Sweep Cancel at 0 and Piercing
 Dart Charge at 1.5 s are user-confirmed rather than timing gaps.
+
+#### Scarlet Spin opening-catch timing (October 23, 2026)
+
+The selected catch policy accepts input at the exported window opening. A catch
+does not itself start the next throw: the continuation starts at the exported
+gate and is admitted only while the owning Flower Burial application is active.
+An admitted throw still completes its catch after Flower Burial expires; that
+catch cannot admit an additional throw. This retains fourteen throws and 84
+direct hits across the three batches. The 100% PC preset now resolves 87
+Resonances, including three from Bubbles; the regular preset resolves 89,
+including five from Bubbles. These counts arise from events, not a hit-count
+override. Battle End still filters damage at 60 seconds.
+
+Normal stage clocks from `20603202`–`20603205` in the October 23 export are:
+
+| Stage | Catch opening  | Phantom creation | Creation Resonance request | Next throw     |
+| ----- | -------------- | ---------------- | -------------------------- | -------------- |
+| 1     | 0.615384615385 | 0.746153846154   | 0.976923076923             | 1.076923076923 |
+| 2     | 0.416666666667 | 0.583333333333   | 0.833333333333             | 0.958333333333 |
+| 3     | 0.545454545455 | 0.727272727273   | 1.000000000000             | 1.090909090909 |
+| 4     | 0.454545454545 | 0.609090909091   | 0.881818181818             | 1.000000000000 |
+
+Direct-hit, creation, request, and continuation clocks scale by `1 / 1.3` on
+a Fragrant Song throw. Enhanced catch openings have their own source values:
+0.295857988166 / 0.252564102564 / 0.349650349650 / 0.279720279720 seconds.
+Normal and enhanced continuation admission use the corresponding openings.
+
+`PhantomUmbrellaSummon` now only replaces the Phantom and marks its creation
+for the current throw. Each stage requests its Creation Resonance separately
+when that throw actually summoned. A catch with no available Phantom sets
+`PendingCatchResonance`; the later request resolves that pending catch once if
+a Phantom exists. An immediate catch pulse never also sets the pending flag.
+Both hidden flags clear at the next throw's start, and pending catch clears
+after its request check. Lower-tier every-third-throw summon cadence is retained.
+
+`FragrantSongResonance` remains the owning throw's marker. An early catch can
+ready Fragrant Song for the following throw without granting its bonus to the
+current ordinary throw. The source's unconnected request is not counted as an
+extra guaranteed pulse. Separate readiness/damage cleanup at interruptions and
+projectile contact latency are not added by this timing update. Direct-hit and
+next-throw timestamps are unchanged, so the existing authored Qi anchors are
+retained rather than recalibrated solely for the shifted supporting events.
 
 Qi is authored as absolute-time `Qi` steps on the rotation. A rotation cannot
 attach one beyond a Scarlet Spin throw's first, because an attachment's `trigger`
@@ -1161,8 +1222,21 @@ deliberately equal; the ramp is 0.334122, 0.334122, 0.445496, 0.313564, 0.470346
 0.689664, 1.034496. The per-hit `multiplier` is already folded into these
 coefficients, so it is not applied again.
 
-Dreamwrought Bubbles is split into a charge and a release sub-action. Actions
-scheduled past a skill's cast time are inactive, and action times are absolute from
+Dreamwrought Bubbles is split into a charge and a release sub-action.
+The Normal description's 20% non-player HP damage bonus belongs to the release
+sub-action so both outbound and returning hits receive it. Parent modifiers do
+not propagate to sub-action damage. Normal calcpoints `2060320101` and
+`2060320102`, layer 1, carry `target_tag_correct: [[8, 0.2]]`; layer 0 omits it.
+This is a target correction, represented by `baseDMGBonus` for the supported PvE
+targets, not Category 1 `hpDMGBonus`. The October 21 bonus coverage ledger left
+this occurrence uncertified, and the October 23 coefficient audit did not verify
+its runtime application. Neither audit established complete Bubble bonus parity.
+The separate Everspring channel-damage talent is restricted by passive
+`31220311` to originating class 108/current art 20603. Bubble's class 104
+context, including its Resonance, does not receive that talent; the broad
+`ReturningUmbrella` tag is not its eligibility test.
+
+Actions scheduled past a skill's cast time are inactive, and action times are absolute from
 the skill's start, so a charge that Fragrant Song - Delicate skips cannot be
 expressed inside the release skill. As sub-actions the 0.743 s charge delays the
 release, and skipping it slides the two collider markers back to their raw
@@ -1723,7 +1797,7 @@ expiring does not start cooldown. The CN preview uses the same rules.
 
 Hawkwing uses 1.8% Physical and Bellstrike Attack per tracked stack, matching normal buff 107031. Adaptive Steel unlocks its 3% Bellstrike damage stat at T5, not T4. Seasonal Edge T0 lasts ten seconds; T1 remains twelve. By explicit user decision, retain the existing T6 one/two/three-effect probabilities and unconditional Winter exclusion despite the export’s different wording. See [datamine-balance-audit.md](datamine-balance-audit.md) for other pending differences.
 
-Bursting Nine’s second volley retains its 50% strength while using the same 30% then 20% repeated-arrow decay as the first volley. Rank-14 Phalanxbane Blade and Mortal Rope Dart use the existing no-flat-attack coefficient exception at 0.725%, scoped to their own martial-art tags. Anxi Soldier variants owned by Snowparting Blade do not inherit Phalanxbane’s talent.
+Bursting Nine’s second volley retains its 50% strength while using the same 30% then 20% repeated-arrow decay as the first volley. The seven-hit variants retain the first seven arrows of each volley, totaling 230% of the first arrow per volley before the second-volley multiplier. They share the original timing, resource costs, and cooldown group; the two-shot variant lands fourteen arrows in total. Rank-14 Phalanxbane Blade and Mortal Rope Dart use the existing no-flat-attack coefficient exception at 0.725%, scoped to their own martial-art tags. Anxi Soldier variants owned by Snowparting Blade do not inherit Phalanxbane’s talent.
 
 The attack-food key `SimmeringFishSlices` is retained for saved selections and now represents Clay Oven Flatbread (缸爐燒餅). It replaces the previous food rather than adding a second option. Older benchmark notes naming Simmering Fish Slices describe their original setup.
 
@@ -1881,3 +1955,11 @@ through the final hit for the two additional Echoes Rodents.
 The preset ends its authored skill sequence on the final in-battle FA4.
 The post-battle RD Q / Deflect / RD Special refresh and its expiry wait are
 omitted; the fixed Battle End event still closes the measurement at 60 seconds.
+
+### Might and Wings encounter alignment
+
+Might's first Defense hold includes the 0.1 seconds saved by Leaping Toad's
+user-confirmed cancel so it still covers the intended dummy attack pair. Wings'
+fixed Qi thresholds retain proportional depletion around the second Drum
+Special break and its recovery; changes to that break's time require recomputing
+both cycles of fixed thresholds.

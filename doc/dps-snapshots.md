@@ -686,3 +686,97 @@ Deluge's Mystic Precision talent; other release fixtures are unchanged.
 | Umbra 37 BB DH / Full                | 19           | 96624.33911549249 | 96897.05539421894 |
 | Umbra 37 BB DH / Fully Relayed       | 18           | 89702.39142504496 | 89969.71360581621 |
 | Umbra 37 BB DH / Fully Relayed       | 19           | 94326.03108977214 | 94591.70122128044 |
+
+## Dust opening-catch timing — initial review (October 23, 2026)
+
+The user requested the exported Scarlet Spin timing update with 87 Resonance
+hits in the 100% PC preset. Creation and its Resonance request now use separate
+clocks; accepted catches use the normal/enhanced opening, and a deferred first
+catch resolves once at the creation request if no Phantom existed at input.
+Admitted throws complete their final catch after Flower Burial ends without
+admitting another throw. This changes 100% PC Resonances from 84 to 87 and
+Regular from 86 to 89. Direct Scarlet hits remain 84 and throw-start clocks,
+Qi markers, coefficients, and 60-second durations are unchanged.
+
+The following table records the initial twelve proposed values. The October 24
+acceptance below supersedes these preliminary values with the final reviewed
+working-tree results.
+
+| Rotation / build / breakthrough                    |      Previous DPS |      Proposed DPS |   Change | Previous total damage | Proposed total damage |
+| -------------------------------------------------- | ----------------: | ----------------: | -------: | --------------------: | --------------------: |
+| `dust-dummy-1-min-100pc/dust-full-min/18`          |  77305.3868340634 | 78039.81467726089 | +0.9500% |     4638323.210043805 |     4682388.880635654 |
+| `dust-dummy-1-min-100pc/dust-full-min/19`          | 81119.84030432547 | 81890.52934056774 | +0.9501% |    4867190.4182595275 |     4913431.760434064 |
+| `dust-dummy-1-min-100pc/dust-fully-relayed-max/18` | 73156.42294133201 | 73865.51221524917 | +0.9693% |     4389385.376479921 |      4431930.73291495 |
+| `dust-dummy-1-min-100pc/dust-fully-relayed-max/19` | 77054.66009997776 | 77800.93258543861 | +0.9685% |     4623279.605998665 |     4668055.955126316 |
+| `dust-dummy-1-min-100pc/dust-fully-relayed-min/18` | 75052.69588297587 | 75778.37636077964 | +0.9669% |     4503161.752978552 |     4546702.581646779 |
+| `dust-dummy-1-min-100pc/dust-fully-relayed-min/19` | 78440.19900757818 | 79197.27720519452 | +0.9652% |     4706411.940454691 |     4751836.632311671 |
+| `dust-dummy-1-min/dust-full-min/18`                | 77588.88247245115 | 78379.82199171977 | +1.0194% |     4655332.948347069 |     4702789.319503186 |
+| `dust-dummy-1-min/dust-full-min/19`                |  81419.2773617976 | 82248.82810563916 | +1.0189% |     4885156.641707856 |     4934929.686338349 |
+| `dust-dummy-1-min/dust-fully-relayed-max/18`       | 73319.79848869996 | 74087.15533096775 | +1.0466% |     4399187.909321997 |     4445229.319858065 |
+| `dust-dummy-1-min/dust-fully-relayed-max/19`       | 77227.28372145865 | 78034.42549369467 | +1.0452% |     4633637.023287519 |      4682065.52962168 |
+| `dust-dummy-1-min/dust-fully-relayed-min/18`       | 75218.61406855253 | 75999.54241513587 | +1.0382% |     4513116.844113152 |     4559972.544908153 |
+| `dust-dummy-1-min/dust-fully-relayed-min/19`       | 78613.83531516723 | 79428.13376215902 | +1.0358% |     4716830.118910034 |     4765688.025729542 |
+
+## Toad cancel and Dust snapshot acceptance (October 24, 2026)
+
+The user accepted the 108 reviewed snapshot changes: 96 cases across Bamboocut
+Kite, Silkbind Wings, Stonesplit Might, and Stonesplit Strength following the
+Leaping Toad cancel change from 1.25 to 1.15 seconds, plus twelve Dust cases
+from the existing umbrella timing work. The accepted values are recorded in
+`tests/snapshots/rotation-dps.json`; duration and healing remain unchanged.
+
+Kite IV BP gains primarily because its final Vile Condemned End retains five
+Disintegration stacks. Wings changes only slightly through Divinecraft Fire's
+buff coverage. Snapshot acceptance does not resolve the separate Might Defense
+and Wings Qi alignment checks, which still report three failures.
+
+The new seven-arrow Bursting Nine variants do not replace existing preset skills
+and therefore introduce no further snapshot changes.
+
+## Strength mixed Mystic filler acceptance (October 25, 2026)
+
+The ordinary Mixed, Double Stab, and Infinite Vitality presets replace selected
+Tab/VC or LC/VC fillers with seven-arrow Bursting Nine 2 Shots and Leaping
+Toad/Deflect. All fifteen Mo Blade charged casts and their thirty direct hits
+remain inside the sixty-second battle; VC/Tab prerequisites are preserved.
+
+The user accepted the current three rotations and all forty-two changed
+build/rotation/breakthrough snapshots. The mixed builds improve at
+both Solo levels. The mixed-full-min results are:
+
+| Rotation          | Solo |      Previous DPS |      Accepted DPS |
+| ----------------- | ---: | ----------------: | ----------------: |
+| Ordinary Mixed    |   18 | 83603.73949081561 | 84127.29719152386 |
+| Ordinary Mixed    |   19 |  87681.1597907847 | 88216.85282984885 |
+| Double Stab       |   18 | 82810.64338264748 |  84465.2414247234 |
+| Double Stab       |   19 | 86847.15082300674 | 88577.24794485883 |
+| Infinite Vitality |   18 |   83882.128012811 |   84639.521220197 |
+| Infinite Vitality |   19 |  87952.8985750452 | 88730.89572011077 |
+
+The snapshot matrix also evaluates these mixed rotations with pure builds.
+Those combinations improve about 1.07–1.12% for Double Stab but regress about
+0.49–0.51% for Ordinary Mixed and 1.01–1.08% for Infinite Vitality. Pure rotations
+are unchanged. The accepted snapshots include these pure-build combinations.
+
+Repeated LC/VC filler alternatives, including redistribution toward Exhausted,
+did not improve on the accepted Double Stab Mystic sequence while preserving all
+fifteen Mo Blade charged casts. The accepted first filler retains Mo QQ/Tab/VC
+before Bursting Nine 2 Shots [7 hits], Leaping Toad, and Deflect.
+
+## Might and Wings timing repair acceptance (October 25, 2026)
+
+The user approved restoring the first Might Defense hold from 0.260075 to
+0.360075 seconds after the shorter Toad cancel. Defense again covers the
+intended dummy attack pair. The four Might snapshots are accepted:
+
+| Build                   | Solo |       Previous DPS |       Accepted DPS |
+| ----------------------- | ---: | -----------------: | -----------------: |
+| might-full-max          |   18 |  97412.27314402927 |  97489.05541713296 |
+| might-fully-relayed-max |   18 |  94758.28707058546 |  94833.51884322167 |
+| might-full-max          |   19 | 102902.85267662379 | 102984.18949757682 |
+| might-fully-relayed-max |   19 | 100111.18345810732 | 100190.82379965615 |
+
+Both Wings presets move their four fixed Qi threshold times earlier by 0.04,
+0.06, 0.14, and 0.16 seconds to retain proportional depletion around the earlier
+break and recovery. Wings DPS and all other snapshots are unchanged. These
+repairs resolve the three alignment failures noted in the earlier acceptance.

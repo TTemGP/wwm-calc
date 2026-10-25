@@ -42,6 +42,8 @@ describe("Mystic cast timing with ping", () => {
     { skill: "SoaringSpin2", duration: 2.02492899, hits: [0.7946970054545454, 2.02492899] },
     { skill: "DragonHeadTide", duration: 5.8, hits: [4.7375] },
     { skill: "BurstingNine", duration: 1.4, hits: Array(9).fill(1.1625) },
+    { skill: "BurstingNine7Hits", duration: 1.4, hits: Array(7).fill(1.1625) },
+    { skill: "BurstingNine2Shots7Hits", duration: 1.925, hits: [...Array(7).fill(1.1625), ...Array(7).fill(1.6125)] },
     { skill: "FluteOfTheTides", duration: 3.3, hits: [1.35, 3.275] },
   ])(
     "$skill preserves its hits, finishes at the selected boundary, and then pays the next ping",

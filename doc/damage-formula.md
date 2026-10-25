@@ -137,6 +137,13 @@ Expected and sampled damage share this resolution, including static aggregates.
 
 ## Stat resolution
 
+Everspring's channel-damage talent requires originating Martial Art class 108
+and the Everspring art context. Scarlet Spin and its ordinary Resonance qualify;
+Dreamwrought Bubbles and its Resonance are class 104 and do not. Passive
+`31220311` grants each of Physical and Bamboocut damage scales
+`min(floor(raw Min Physical Attack / 62.5) * 0.01, 0.12)`.
+The channel bonuses are separate from Bubble's innate non-player target correction.
+
 Rank 13 uses the interpreted conversion rates, including
 `0.264` Physical Attack per base-attribute point (cap `73.92`), `0.000304`
 Critical Rate (cap `0.08512`), and `0.000152` Affinity Rate (cap `0.04256`).

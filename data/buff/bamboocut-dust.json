@@ -179,7 +179,7 @@
     "name": "Fragrant Song - Resonance",
     "shortName": "FSR",
     "hidden": true,
-    "description": "Marks the Scarlet Spin throw that spent Fragrant Song, so the Resonances that throw summons crit with it. Every throw clears and re-primes this at its own start, which scopes it to one throw even though the next throw starts before this one's Resonances land. The duration only has to outlive the throw's own Resonances; scoping comes from the clear, not the expiry.",
+    "description": "Marks the throw that started with Fragrant Song. Its creation and accepted-catch Resonances use that throw's bonus. A catch may ready Fragrant Song for the following throw without changing this marker; the following throw clears and re-primes it.",
     "duration": 2,
     "maxStack": 1,
     "refresh": false
@@ -289,5 +289,19 @@
         }
       ]
     ]
+  },
+  "PhantomCreatedThisThrow": {
+    "name": "Phantom created by current throw",
+    "hidden": true,
+    "duration": 2,
+    "maxStack": 1,
+    "refresh": true
+  },
+  "PendingCatchResonance": {
+    "name": "Deferred catch Resonance",
+    "hidden": true,
+    "duration": 2,
+    "maxStack": 1,
+    "refresh": true
   }
 }

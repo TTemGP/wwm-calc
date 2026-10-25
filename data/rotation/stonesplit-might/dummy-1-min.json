@@ -14,7 +14,7 @@
     { "type": "skill", "skill": "LeapingToad" },
     { "type": "skill", "skill": "Deflect" },
     { "type": "skill", "skill": "DragonsBreath1" },
-    { "type": "skill", "skill": "Defense", "duration": 0.260075 },
+    { "type": "skill", "skill": "Defense", "duration": 0.360075 },
     { "type": "skill", "skill": "Avalanche" },
     { "type": "event", "event": "Qi", "before": { "action": 1 }, "targetQiRatio": 0.5999 },
     { "type": "skill", "skill": "StonebreakerCleave" },
