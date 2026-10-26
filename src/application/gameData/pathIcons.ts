@@ -28,7 +28,7 @@ export const pathIcons: Record<PathId, string | null> = {
   stonesplitStrength: strengthIcon,
   silkbindJade: jadeIcon,
   silkbindDeluge: delugeIcon,
-  silkbindWing: wingsIcon,
+  silkbindWings: wingsIcon,
   bamboocutWind: windIcon,
   bamboocutKite: kiteIcon,
   bamboocutDust: dustIcon,

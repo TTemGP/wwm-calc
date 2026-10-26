@@ -42,6 +42,13 @@ snapshot environment.
 
 ## Accepted values and review gate
 
+On October 26, 2026, the user accepted the defense correction from 446 to 500
+for breakthroughs 18 and 19 and approved refreshing all 222 preset baselines.
+The higher enemy defense lowers DPS and total damage by 0.95–1.50%, with no
+duration changes. For example, `bamboocutDust/dust-dummy-1-min-100pc/dust-full-min/18`
+changes from 78,106.31550827304 to 77,037.10483776833 DPS. Enemy level,
+Judgement Resistance, and HP are unchanged by this correction.
+
 The current baseline set replaces the twenty breakthrough-17 cases with forty
 cases at breakthroughs 18 and 19, as requested. These use the corrected flat
 breakthrough rewards as well as each level's gear, Enhancement, Arsenal, sets,
@@ -348,8 +355,8 @@ cooldown is ready; ordinary cooldown waiting keeps that cast valid.
 | `silkbindDeluge/dummy-1-min-smolder`                     | 36504.170596575765 |  36654.94652217669 |     2190250.235794546 |     2199296.791330601 |
 | `silkbindDeluge/dummy-1-min-wts`                         | 35571.006125529166 | 35965.542258448586 |      2134260.36753175 |    2157932.5355069153 |
 | `silkbindDeluge/dummy-1-min-wts-team`                    |   38839.4023092996 |  38486.36615934393 |     2330364.138557976 |    2309181.9695606357 |
-| `silkbindWing/wings-dummy-1-min-dawnsun`                 |  36207.09043887357 | 36219.849963928216 |     2172425.426332414 |     2173190.997835693 |
-| `silkbindWing/wings-dummy-1-min-jadebreaker`             |  49308.01325488668 |  49326.60872559312 |    2958480.7952932008 |    2959596.5235355874 |
+| `silkbindWings/wings-dummy-1-min-dawnsun`                |  36207.09043887357 | 36219.849963928216 |     2172425.426332414 |     2173190.997835693 |
+| `silkbindWings/wings-dummy-1-min-jadebreaker`            |  49308.01325488668 |  49326.60872559312 |    2958480.7952932008 |    2959596.5235355874 |
 | `stonesplitStrength/mixed-dummy-1-min`                   |  67395.84544895132 |  67395.58756016383 |      4043750.72693708 |    4043735.2536098287 |
 | `stonesplitStrength/mixed-dummy-infinite-vitality-1-min` |  67757.04178633557 |   67759.9259617702 |    4065422.5071801343 |    4065595.5577062126 |
 | `stonesplitStrength/mixed-dummy-smolder-poet-1-min`      |  67656.17965543146 |  67943.77984410097 |     4059370.779325888 |    4076626.7906460576 |
@@ -387,8 +394,8 @@ Clay Oven Flatbread replaces the previous attack food, increasing effective Phys
 | `silkbindDeluge/dummy-1-min-smolder`                     |  36654.94652217669 |  36880.48631845998 | +0.6153% |
 | `silkbindDeluge/dummy-1-min-wts-team`                    |  38486.36615934393 | 38722.801991740074 | +0.6143% |
 | `silkbindDeluge/dummy-1-min-wts`                         | 35965.542258448586 |  36186.63847937145 | +0.6147% |
-| `silkbindWing/wings-dummy-1-min-dawnsun`                 | 36219.849963928216 |  36423.74732400038 | +0.5629% |
-| `silkbindWing/wings-dummy-1-min-jadebreaker`             |  49326.60872559312 | 49600.968893796395 | +0.5562% |
+| `silkbindWings/wings-dummy-1-min-dawnsun`                | 36219.849963928216 |  36423.74732400038 | +0.5629% |
+| `silkbindWings/wings-dummy-1-min-jadebreaker`            |  49326.60872559312 | 49600.968893796395 | +0.5562% |
 | `stonesplitMight/dummy-1-min`                            |  79486.75718449506 |   80140.3390419006 | +0.8223% |
 | `stonesplitStrength/mixed-dummy-1-min-double-stab`       |  66653.62193112556 |  67017.06987142487 | +0.5453% |
 | `stonesplitStrength/mixed-dummy-1-min`                   |  67395.58756016383 |  67762.68828283051 | +0.5447% |
@@ -431,8 +438,8 @@ The user approved all twenty results on October 17, 2026. The accepted snapshots
 | silkbindDeluge/dummy-1-min-smolder                     |  37286.60947114474 |  36873.94978161095 | -1.1067% |  2237196.568268684 |  2212436.986896657 | 60 → 60  |
 | silkbindDeluge/dummy-1-min-wts                         |   36584.0573371089 | 36180.063544133074 | -1.1043% |  2195043.440226534 | 2170803.8126479844 | 60 → 60  |
 | silkbindDeluge/dummy-1-min-wts-team                    |   39149.1318370525 | 38715.724661035245 | -1.1071% | 2348947.9102231497 | 2322943.4796621148 | 60 → 60  |
-| silkbindWing/wings-dummy-1-min-dawnsun                 |  36801.11222528141 |  36423.74732400038 | -1.0254% | 2208066.7335168845 |  2185424.839440023 | 60 → 60  |
-| silkbindWing/wings-dummy-1-min-jadebreaker             | 50117.644204073214 | 49600.968893796395 | -1.0309% |  3007058.652244393 | 2976058.1336277835 | 60 → 60  |
+| silkbindWings/wings-dummy-1-min-dawnsun                |  36801.11222528141 |  36423.74732400038 | -1.0254% | 2208066.7335168845 |  2185424.839440023 | 60 → 60  |
+| silkbindWings/wings-dummy-1-min-jadebreaker            | 50117.644204073214 | 49600.968893796395 | -1.0309% |  3007058.652244393 | 2976058.1336277835 | 60 → 60  |
 | stonesplitMight/dummy-1-min                            |  80942.31111106317 |   80140.3390419006 | -0.9908% |   4856538.66666379 |  4808420.342514036 | 60 → 60  |
 | stonesplitStrength/mixed-dummy-1-min                   |  68450.20165536168 |  67762.68828283051 | -1.0044% | 4107012.0993217006 |   4065761.29696983 | 60 → 60  |
 | stonesplitStrength/mixed-dummy-1-min-double-stab       |  67697.63371836559 |  67017.06987142487 | -1.0053% | 4061858.0231019347 |  4021024.192285492 | 60 → 60  |
@@ -468,8 +475,8 @@ in every preset; every duration remains 60 seconds. The user approved all twenty
 | silkbindDeluge/dummy-1-min-smolder                     |  36873.94978161095 |  36963.91838572095 | 0.2440% |  2212436.986896657 |  2217835.103143257 | 60 → 60  |
 | silkbindDeluge/dummy-1-min-wts                         | 36180.063544133074 |  36270.30696158508 | 0.2494% | 2170803.8126479844 |  2176218.417695105 | 60 → 60  |
 | silkbindDeluge/dummy-1-min-wts-team                    | 38715.724661035245 |  38811.38525892662 | 0.2471% | 2322943.4796621148 |  2328683.115535597 | 60 → 60  |
-| silkbindWing/wings-dummy-1-min-dawnsun                 |  36423.74732400038 |  36450.29858359722 | 0.0729% |  2185424.839440023 | 2187017.9150158335 | 60 → 60  |
-| silkbindWing/wings-dummy-1-min-jadebreaker             | 49600.968893796395 |  49626.86992889119 | 0.0522% | 2976058.1336277835 | 2977612.1957334713 | 60 → 60  |
+| silkbindWings/wings-dummy-1-min-dawnsun                |  36423.74732400038 |  36450.29858359722 | 0.0729% |  2185424.839440023 | 2187017.9150158335 | 60 → 60  |
+| silkbindWings/wings-dummy-1-min-jadebreaker            | 49600.968893796395 |  49626.86992889119 | 0.0522% | 2976058.1336277835 | 2977612.1957334713 | 60 → 60  |
 | stonesplitMight/dummy-1-min                            |   80140.3390419006 |  80160.26931425251 | 0.0249% |  4808420.342514036 |   4809616.15885515 | 60 → 60  |
 | stonesplitStrength/mixed-dummy-1-min                   |  67762.68828283051 |  67780.81295646731 | 0.0267% |   4065761.29696983 | 4066848.7773880386 | 60 → 60  |
 | stonesplitStrength/mixed-dummy-1-min-double-stab       |  67017.06987142487 |  67034.95167411004 | 0.0267% |  4021024.192285492 |  4022097.100446602 | 60 → 60  |
@@ -485,10 +492,10 @@ buff, paired Fan talents, and Zephyr Whispers T6 now use the shared attribute
 attack-value bonuses after Void conversion, matching Hawkwing. The paired 6%
 and T6 6% contributions add to 12% instead of compounding.
 
-| Rotation                                   |      Previous DPS |       Accepted DPS | Previous total damage | Accepted total damage |
-| ------------------------------------------ | ----------------: | -----------------: | --------------------: | --------------------: |
-| silkbindWing/wings-dummy-1-min-dawnsun     | 36450.29858359722 |  36434.99885039597 |    2187017.9150158335 |     2186099.931023758 |
-| silkbindWing/wings-dummy-1-min-jadebreaker | 49626.86992889119 | 49620.402274184016 |    2977612.1957334713 |     2977224.136451041 |
+| Rotation                                    |      Previous DPS |       Accepted DPS | Previous total damage | Accepted total damage |
+| ------------------------------------------- | ----------------: | -----------------: | --------------------: | --------------------: |
+| silkbindWings/wings-dummy-1-min-dawnsun     | 36450.29858359722 |  36434.99885039597 |    2187017.9150158335 |     2186099.931023758 |
+| silkbindWings/wings-dummy-1-min-jadebreaker | 49626.86992889119 | 49620.402274184016 |    2977612.1957334713 |     2977224.136451041 |
 
 Both durations remain 60 seconds. All other release fixtures are unchanged.
 
@@ -549,20 +556,20 @@ Affinity outcome factors are clamped, and Ripple corrections cover all supported
 PvE targets. See damage-formula.md for the implemented scopes and remaining
 stepped-talent and target-reduction limitations.
 
-| Preset / breakthrough                         |       Previous DPS |       Accepted DPS | Previous total damage | Accepted total damage |
-| --------------------------------------------- | -----------------: | -----------------: | --------------------: | --------------------: |
-| bamboocutDust/dust-dummy-1-min-100pc/18       |  75378.65890896872 |  75052.69588297587 |     4522719.534538123 |     4503161.752978552 |
-| bamboocutDust/dust-dummy-1-min-100pc/19       |  78781.63492472706 |  78440.19900757818 |     4726898.095483623 |     4706411.940454691 |
-| bamboocutDust/dust-dummy-1-min/18             |  75645.22735018363 |  75218.61406855253 |     4538713.641011018 |     4513116.844113152 |
-| bamboocutDust/dust-dummy-1-min/19             |  79060.62177416348 |  78613.83531516723 |     4743637.306449808 |     4716830.118910034 |
-| bellstrikeUmbra/dummy-1-min-38-bb/18          |  95163.45897986703 |  85334.27364913882 |    5709807.5387920225 |     5120056.418948329 |
-| bellstrikeUmbra/dummy-1-min-38-bb/19          | 100119.09485414634 |  89769.16730002478 |     6007145.691248781 |     5386150.038001487 |
-| silkbindWing/wings-dummy-1-min-dawnsun/18     | 43736.632758129155 | 43977.495233684975 |    2624197.9654877493 |    2638649.7140210983 |
-| silkbindWing/wings-dummy-1-min-dawnsun/19     |   45787.3473306048 |  46034.37102098257 |    2747240.8398362882 |     2762062.261258954 |
-| silkbindWing/wings-dummy-1-min-jadebreaker/18 | 59269.205061193956 | 59631.270792308605 |    3556152.3036716375 |    3577876.2475385163 |
-| silkbindWing/wings-dummy-1-min-jadebreaker/19 |  62089.81204533403 | 62462.147083776756 |     3725388.722720042 |    3747728.8250266053 |
-| stonesplitMight/dummy-1-min/18                |  93998.91147957309 |  94833.29806850525 |    5639934.6887743855 |     5689997.884110315 |
-| stonesplitMight/dummy-1-min/19                |  99308.74329065508 |  100190.5834583792 |     5958524.597439305 |     6011435.007502752 |
+| Preset / breakthrough                          |       Previous DPS |       Accepted DPS | Previous total damage | Accepted total damage |
+| ---------------------------------------------- | -----------------: | -----------------: | --------------------: | --------------------: |
+| bamboocutDust/dust-dummy-1-min-100pc/18        |  75378.65890896872 |  75052.69588297587 |     4522719.534538123 |     4503161.752978552 |
+| bamboocutDust/dust-dummy-1-min-100pc/19        |  78781.63492472706 |  78440.19900757818 |     4726898.095483623 |     4706411.940454691 |
+| bamboocutDust/dust-dummy-1-min/18              |  75645.22735018363 |  75218.61406855253 |     4538713.641011018 |     4513116.844113152 |
+| bamboocutDust/dust-dummy-1-min/19              |  79060.62177416348 |  78613.83531516723 |     4743637.306449808 |     4716830.118910034 |
+| bellstrikeUmbra/dummy-1-min-38-bb/18           |  95163.45897986703 |  85334.27364913882 |    5709807.5387920225 |     5120056.418948329 |
+| bellstrikeUmbra/dummy-1-min-38-bb/19           | 100119.09485414634 |  89769.16730002478 |     6007145.691248781 |     5386150.038001487 |
+| silkbindWings/wings-dummy-1-min-dawnsun/18     | 43736.632758129155 | 43977.495233684975 |    2624197.9654877493 |    2638649.7140210983 |
+| silkbindWings/wings-dummy-1-min-dawnsun/19     |   45787.3473306048 |  46034.37102098257 |    2747240.8398362882 |     2762062.261258954 |
+| silkbindWings/wings-dummy-1-min-jadebreaker/18 | 59269.205061193956 | 59631.270792308605 |    3556152.3036716375 |    3577876.2475385163 |
+| silkbindWings/wings-dummy-1-min-jadebreaker/19 |  62089.81204533403 | 62462.147083776756 |     3725388.722720042 |    3747728.8250266053 |
+| stonesplitMight/dummy-1-min/18                 |  93998.91147957309 |  94833.29806850525 |    5639934.6887743855 |     5689997.884110315 |
+| stonesplitMight/dummy-1-min/19                 |  99308.74329065508 |  100190.5834583792 |     5958524.597439305 |     6011435.007502752 |
 
 All durations remain 60 seconds. Other preset snapshots are unchanged.
 

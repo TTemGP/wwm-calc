@@ -1,6 +1,7 @@
 import type { PathId } from "@/application/contracts"
 import { typedPathDefinitions } from "@/application/gameData/paths"
 import { gearScopeStorageKey } from "@/application/persistence/keys"
+import { migrateWingsPathId } from "@/application/persistence/legacy/wingsPath"
 import {
   buildEntryAvailableForPath,
   buildEntryIsTestPreset,
@@ -47,6 +48,7 @@ export const sharedGearScope: GearScope = {
 }
 
 export function loadGearScope(): GearScope {
+  migrateWingsPathId()
   const parsed = parseJson(gearScopeSchema, getPersistentItem(gearScopeStorageKey) ?? "null")
   if (!parsed.success) return { ...sharedGearScope }
   const saved = parsed.output

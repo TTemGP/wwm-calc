@@ -8,7 +8,7 @@
 
 계산 엔진과 게임 데이터는 greydust의 [Where Builds Meet](https://github.com/greydust/where-builds-meet)을 가져와 쓰고, 화면과 한국어 번역을 새로 만들었어요. 원작과 같은 [GNU GPL v3](LICENSE)로 배포해요. 원작에 쓰인 글꼴·아이콘 라이선스는 `public/licenses/`에 있어요.
 
-이 저장소는 원작의 `.upstream-commit`에 적힌 커밋을 기준으로 해요. 원작을 고쳐서 배포하는 버전이고, 마지막으로 원작을 반영하고 수정한 날짜는 2026-10-26이에요.
+이 저장소는 원작의 `.upstream-commit`에 적힌 커밋을 기준으로 해요. 원작을 고쳐서 배포하는 버전이고, 마지막으로 원작을 반영하고 수정한 날짜는 2026-10-27이에요.
 
 ## 원작과 달라진 점
 

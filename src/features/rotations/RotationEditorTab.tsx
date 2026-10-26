@@ -1230,7 +1230,7 @@ export function RotationEditorTab({
     settings.weapons.includes("infernalTwinblades") ||
     rotation.steps.some(step => step.type === "event" && step.event === "Hellfire")
   const showZenithColumn = pathId === "bellstrikeUmbra" || settings.weapons.includes("strategicSword")
-  const showNobleWillColumn = pathId === "silkbindWing" || settings.weapons.includes("museflowWaistDrum")
+  const showNobleWillColumn = pathId === "silkbindWings" || settings.weapons.includes("museflowWaistDrum")
   const showHeavensWillColumn = settings.weapons.includes("heavenwill") && settings.weapons.includes("skygrasp")
   const showEnduranceColumn = rotationUsesEndurance(timeline)
   const showVitalityColumn = useMemo(

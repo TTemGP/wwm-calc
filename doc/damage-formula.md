@@ -15,9 +15,12 @@ Enemy defense, level, path resistances, Judgement Resistance, and level-derived
 character bonuses come from the selected entry in `data/breakthrough.json`.
 Breakthrough 17 uses 408 enemy defense, zero base resistance, 65% Judgement
 Resistance, 16.5% level Precision, and 150 of each base attribute. Breakthrough
-18 uses 446 enemy defense, zero base resistance, 85% Judgement Resistance,
+18 uses 500 enemy defense, zero base resistance, 85% Judgement Resistance,
 17.8% level Precision, and 164 of each base attribute. Enemy level remains 96
 for both profiles; it is not imported from the Solo Level datamine.
+Breakthroughs 18 and 19 use the progression-specific enemy defense from the
+October 26, 2026 export (500, previously 446). This update does not import
+enemy HP or change enemy level or Judgement Resistance.
 Breakthrough 17 selects martial-art talent rank 13 and breakthrough 18 selects
 rank 14 through `martialArtTalentRank`.
 Breakthrough 19 selects Solo Level 19 and martial-art rank 15, with 19.2%

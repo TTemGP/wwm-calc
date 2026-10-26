@@ -9,6 +9,12 @@ build time. User changes remain in browser storage. Deterministic calculation
 work runs in a persistent Web Worker, while requested Monte Carlo simulations
 run in their own disposable worker.
 
+The Wings path uses `silkbindWings` as its path ID and `SilkbindWings` as its
+eligibility tag. `src/application/persistence/legacy/wingsPath.ts` migrates the
+former `silkbindWing` key in the selected path, active build and rotation maps,
+and path-scoped inventory and build maps before current loaders validate them.
+If both old and new keys exist in a map, the new key takes precedence.
+
 ## Spacing and sizing scale
 
 `src/styles/tokens.css` defines the scale: `--space-3xs` through `--space-xl`, at

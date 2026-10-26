@@ -1,9 +1,11 @@
-import { getPersistentItem, setPersistentItem } from "../../persistentStorage"
-import { parseJson } from "../../schemas/json"
-import { pathSelectionSchema } from "../../schemas/storage"
-import type { PathId } from "../contracts"
-import { typedPathDefinitions } from "../gameData/paths"
+import type { PathId } from "@/application/contracts"
+import { typedPathDefinitions } from "@/application/gameData/paths"
+import { getPersistentItem, setPersistentItem } from "@/persistentStorage"
+import { parseJson } from "@/schemas/json"
+import { pathSelectionSchema } from "@/schemas/storage"
+
 import { readLegacyPathSelection } from "./legacy"
+import { migrateWingsPathId } from "./legacy/wingsPath"
 
 export type PathSelectionIds = Partial<Record<PathId, string>>
 
@@ -19,6 +21,7 @@ function isRestorableSelectionId(id: unknown): id is string {
 }
 
 export function loadPathSelectionIds(storageKey: string, legacyStorageKey: string, currentPathId: PathId) {
+  migrateWingsPathId()
   const parsed = parseJson(pathSelectionSchema, getPersistentItem(storageKey) ?? "null")
   const stored: PathSelectionIds = parsed.success
     ? (Object.fromEntries(

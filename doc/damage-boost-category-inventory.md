@@ -310,9 +310,9 @@ Source: [data/buff/silkbind-deluge.json](../data/buff/silkbind-deluge.json). All
 | Floating Grace (`FloatingGrace`)                | `/FloatingGrace/effect/0/effect/dmgBonus`       | `dmgBonus` | Category 1 (additive) | `0.1`          | `[{"maxStack":1}]`              |
 | Floating Grace - Deluge (`FloatingGraceDeluge`) | `/FloatingGraceDeluge/effect/0/effect/dmgBonus` | `dmgBonus` | Category 1 (additive) | `0.24`         | `[{"maxStack":1}]`              |
 
-### silkbind-wing.json
+### silkbind-wings.json
 
-Source: [data/buff/silkbind-wing.json](../data/buff/silkbind-wing.json). All rows pending confirmation.
+Source: [data/buff/silkbind-wings.json](../data/buff/silkbind-wings.json). All rows pending confirmation.
 
 | Record                                           | JSON pointer                                                | Field                   | Boost category            | Authored value | Enclosing conditions / metadata                                                                                                               |
 | ------------------------------------------------ | ----------------------------------------------------------- | ----------------------- | ------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -487,9 +487,9 @@ Source: [data/debuff/mechanism.json](../data/debuff/mechanism.json). All rows pe
 
 Source: [data/debuff/mystic.json](../data/debuff/mystic.json). No explicit damage-boost fields in the categories above.
 
-### silkbind-wing.json
+### silkbind-wings.json
 
-Source: [data/debuff/silkbind-wing.json](../data/debuff/silkbind-wing.json). All rows pending confirmation.
+Source: [data/debuff/silkbind-wings.json](../data/debuff/silkbind-wings.json). All rows pending confirmation.
 
 | Record                    | JSON pointer                                     | Field            | Boost category        | Authored value | Enclosing conditions / metadata                                                                                                                                                                                                                                                                  |
 | ------------------------- | ------------------------------------------------ | ---------------- | --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
