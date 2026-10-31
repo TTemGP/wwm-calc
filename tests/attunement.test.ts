@@ -64,6 +64,20 @@ describe("attunement", () => {
         },
       ).total
     const infernalSkills = (await import("@gamedata/skill/infernal-twinblades.json")).default
+    const vernalSkills = (await import("@gamedata/skill/vernal-umbrella.json")).default
+    for (const key of ["vernalProjectile280304Boost", "vernalProjectile280305Boost"] as const) {
+      for (const [skill, multiplier] of [
+        [vernalSkills.UnfadingFlowerProjectile, 1.06],
+        [vernalSkills.UnfadingFlowerRelease, 1],
+        [vernalSkills.SpringSorrowBarrage, 1],
+        [vernalSkills.VernalHeavy, 1],
+      ] as const) {
+        expect(damage({ ...baseAttunement, [key]: 0.06 }, skill.tags) / damage(baseAttunement, skill.tags)).toBeCloseTo(
+          multiplier,
+          9,
+        )
+      }
+    }
     for (const [skill, expectedMultiplier] of [
       [infernalSkills.AddledMind, 1.06],
       [infernalSkills.InfernalLight1, 1],

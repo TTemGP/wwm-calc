@@ -1021,6 +1021,13 @@ loadouts, including each build's Inner Ways, weapon and armor sets, bow/ring set
 Import validates that snapshot and appends it to the current state,
 remapping colliding gear and build IDs without replacing existing data or
 duplicating bundled default presets.
+A share link carries the same snapshot for one build and only the gear that build equips,
+deflated into the URL fragment so it never reaches the host and stays short enough to paste.
+Opening one offers an import confirmation, including after fragment navigation in an open tab.
+Accepting runs the same merge path, switches the workspace to the build's martial arts when
+needed, and clears the fragment after a successful import. If the required path is unavailable
+without Dev mode, the import writes nothing and keeps the fragment for a retry after Dev mode
+is enabled. Dismissal clears the fragment so a reload does not ask again.
 The official-dashboard import is a separate boundary adapter: a user-installed
 bookmarklet copies role gear JSON from the authenticated official origin, then
 `officialGearImport.ts` maps official slots and stat IDs into a normal build
@@ -1276,6 +1283,17 @@ The timeline owns mutable simulation state while it is being built:
 - skill, action, and effect cooldowns
 - action-time state snapshots
 
+Cast-scoped Endurance and buff-owned `resourceRates` share continuous resource
+integration. Buff rates can override passive regeneration and add consumption
+while other skills are casting. Live state requirements are re-evaluated at
+events and relevant target/self expiry boundaries. A resource-depletion clock
+event runs authored `onDepleted` effect actions at the exact zero crossing;
+ordinary consume actions remove the mode and cancel its remaining periodic
+events. Refund actions retain their authored delay and original cast source.
+No separate projectile-based drain loop is used. Variant calculations with
+these definitions rebuild their timeline so changing resources or state cannot
+reuse stale depletion times.
+
 The editor and calculator share the timeline's skill-cooldown state. An
 unavailable explicit cast waits for its ready time, and a live cooldown reset can
 wake it earlier. Before-cast attachments resolve only once the cast is ready.
@@ -1308,6 +1326,15 @@ ownership and damage tags, allowing duration bonuses to follow nested triggers
 even when a triggered skill changes its damage group. These rules execute within
 the shared worker timeline; comparisons that change them require a rebuilt
 timeline rather than reusing baseline effect snapshots.
+
+The existing `castEnd` event also dispatches data-driven `skillEnd` triggers for
+setup effects, Inner Ways, and tracked buffs through the ordinary action
+executor. Seasonal Edge's specialized callback keeps its original priority.
+The shared dispatch follows the ending cast's same-time actions and precedes
+the next ordered cast, so a completion-granted buff does not boost its own
+final hit. It uses live state and the completing skill's own tags. Composite
+and queued-cast timing adjustments move the same completion event; no separate
+completion clock or displayed action is introduced.
 
 Direct incoming damage reductions reuse setup/innerway requirements and tracked
 self-effect definitions in the timeline. They read pre-hit HP and stacks before
@@ -1406,6 +1433,14 @@ resolve when it starts after the latency gap. Skipped components consume no ping
 Composite row duration includes component gaps and pushes later components and
 ordered skills accordingly. Triggered skills, DOTs, periodic actions, and explicit
 Delay events do not pay input latency.
+
+Hit-based `leech` is resolved in the shared damage-entry resolver and returned
+through `selfRecovery` to the chronological timeline. Ordinary setup, skill,
+Inner Way, and tracked effects use the same path as Concentration's conditional
+recovery. Expected branches weight damage and recovery together; sampled runs
+use their rolled damage. HP is clamped before the following action resolves.
+Leech-bearing calculation inputs require live comparison resolution because
+changing attack damage can change subsequent HP conditions.
 
 ## Damage calculation
 

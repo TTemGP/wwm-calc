@@ -1,0 +1,121 @@
+{
+  "Jadebreak": {
+    "name": "Jadebreak",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "effect": [
+      { "requirement": [{ "target": "skillTag", "value": "Ballistic" }], "effect": { "hpDMGBonus": 0.3 } },
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "skillTag", "value": "Ballistic" },
+              { "target": "skillTag", "value": "Pursuit" }
+            ]
+          }
+        ],
+        "effect": { "hpDMGBonus": 0.1 }
+      }
+    ],
+    "shortName": "JB"
+  },
+  "Windrider": { "name": "Windrider", "duration": 5, "maxStack": 1, "refresh": true, "shortName": "WR" },
+  "UnfadingFlowerMode": {
+    "name": "Unfading Flower",
+    "maxStack": 1,
+    "refresh": false,
+    "showCoverage": true,
+    "resourceRates": [
+      {
+        "resource": "Blossoms",
+        "regeneration": 0,
+        "consumption": 10,
+        "onDepleted": [
+          { "type": "consume", "target": "self", "value": "UnfadingFlowerMode", "stack": "all", "time": 0 },
+          { "type": "addResource", "value": "Blossoms", "amount": 15, "time": 0.2 }
+        ]
+      },
+      {
+        "resource": "Blossoms",
+        "consumption": 10,
+        "requirement": [
+          { "target": "target", "value": "LingeringBone" },
+          { "operator": "not", "operand": [{ "target": "target", "value": "Airborne" }] }
+        ]
+      },
+      { "resource": "Blossoms", "consumption": 15, "requirement": [{ "target": "target", "value": "Airborne" }] }
+    ],
+    "periodic": {
+      "firstTick": 0.55,
+      "interval": 0.5,
+      "action": [{ "type": "trigger", "value": "UnfadingFlowerProjectile", "time": 0 }]
+    },
+    "duration": 30,
+    "action": [{ "type": "apply", "target": "self", "value": "UnfadingFlowerReturn", "time": "expire" }],
+    "shortName": "UF",
+    "blocksSkillTags": ["Umbrella"]
+  },
+  "SpringThunder": {
+    "name": "Spring Thunder",
+    "duration": 12,
+    "maxStack": 3,
+    "refresh": true,
+    "showCoverage": true,
+    "shortName": "ST"
+  },
+  "SpringThunderDamage": {
+    "name": "Spring Thunder Damage",
+    "duration": 1,
+    "maxStack": 1,
+    "refresh": true,
+    "shortName": "STD"
+  },
+  "StarReacherBone": {
+    "name": "Star Reacher",
+    "duration": 8,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [{ "requirement": [], "effect": { "physicalAttackBonus": 0.05 } }],
+    "showCoverage": true,
+    "shortName": "SR"
+  },
+  "StarReacherBoneEnhanced": {
+    "name": "Star Reacher (Exhausted)",
+    "duration": 8,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [{ "requirement": [], "effect": { "physicalAttackBonus": 0.15 } }],
+    "showCoverage": true,
+    "shortName": "SR (Exhausted)"
+  },
+  "SpringThunderSpent": {
+    "name": "Spring Thunder Spent",
+    "duration": 0.000001,
+    "maxStack": 1,
+    "refresh": true,
+    "hidden": true
+  },
+  "UnfadingFlowerReturn": {
+    "name": "Unfading Flower Return",
+    "duration": 0.2,
+    "maxStack": 1,
+    "hidden": true,
+    "action": [{ "type": "addResource", "value": "Blossoms", "amount": 15, "time": "expire" }]
+  },
+  "StartlingSpring": {
+    "name": "Startling Spring",
+    "duration": 15,
+    "maxStack": 5,
+    "refresh": true,
+    "showCoverage": true,
+    "effect": [
+      {
+        "requirement": [{ "target": "skillTag", "value": "Charged" }],
+        "effect": { "hpDMGBonus": 0.04, "resourceCostBonus": { "Endurance": 0.04 } }
+      }
+    ]
+  }
+}

@@ -790,7 +790,7 @@
   },
   "Mistwillow": {
     "name": "Mistwillow",
-    "altersTimeline": false,
+    "altersTimeline": true,
     "tags": ["SilkbindJade", "VernalUmbrella", "InkwellFan"],
     "options": {
       "0": { "name": "0", "effect": {} },
@@ -853,7 +853,138 @@
                 0.093
               ]
             }
-          }
+          },
+          "trigger": [
+            {
+              "event": "damage",
+              "requirement": [
+                {
+                  "operator": "or",
+                  "operand": [
+                    {
+                      "operator": "or",
+                      "operand": [
+                        { "target": "skillTag", "value": "Light" },
+                        { "target": "skillTag", "value": "Ballistic" }
+                      ]
+                    },
+                    { "target": "skillTag", "value": "Heavy" }
+                  ]
+                },
+                { "target": "skillTag", "value": "Heavy" },
+                { "operator": "not", "operand": [{ "target": "self", "value": "Mistwillow" }] }
+              ],
+              "action": {
+                "type": "apply",
+                "target": "self",
+                "value": "MistwillowGracefulWillow",
+                "stack": 1,
+                "reapply": true
+              }
+            },
+            {
+              "event": "damage",
+              "requirement": [
+                {
+                  "operator": "or",
+                  "operand": [
+                    {
+                      "operator": "or",
+                      "operand": [
+                        { "target": "skillTag", "value": "Light" },
+                        { "target": "skillTag", "value": "Ballistic" }
+                      ]
+                    },
+                    { "target": "skillTag", "value": "Heavy" }
+                  ]
+                },
+                {
+                  "operator": "or",
+                  "operand": [
+                    { "target": "skillTag", "value": "Light" },
+                    { "target": "skillTag", "value": "Ballistic" }
+                  ]
+                },
+                { "operator": "not", "operand": [{ "target": "self", "value": "Mistwillow" }] }
+              ],
+              "action": {
+                "type": "apply",
+                "target": "self",
+                "value": "MistwillowDenseSmoke",
+                "stack": 1,
+                "reapply": true
+              }
+            },
+            {
+              "event": "damage",
+              "requirement": [
+                {
+                  "operator": "or",
+                  "operand": [
+                    {
+                      "operator": "or",
+                      "operand": [
+                        { "target": "skillTag", "value": "Light" },
+                        { "target": "skillTag", "value": "Ballistic" }
+                      ]
+                    },
+                    { "target": "skillTag", "value": "Heavy" }
+                  ]
+                },
+                {
+                  "operator": "or",
+                  "operand": [
+                    { "target": "self", "value": "Mistwillow" },
+                    [
+                      { "target": "self", "value": "MistwillowGracefulWillow" },
+                      { "target": "self", "value": "MistwillowDenseSmoke" }
+                    ]
+                  ]
+                }
+              ],
+              "action": { "type": "apply", "target": "self", "value": "Mistwillow", "stack": 1, "reapply": true }
+            },
+            {
+              "event": "damage",
+              "requirement": [
+                {
+                  "operator": "or",
+                  "operand": [
+                    {
+                      "operator": "or",
+                      "operand": [
+                        { "target": "skillTag", "value": "Light" },
+                        { "target": "skillTag", "value": "Ballistic" }
+                      ]
+                    },
+                    { "target": "skillTag", "value": "Heavy" }
+                  ]
+                },
+                { "target": "self", "value": "Mistwillow" }
+              ],
+              "action": { "type": "consume", "target": "self", "value": "MistwillowGracefulWillow", "stack": "all" }
+            },
+            {
+              "event": "damage",
+              "requirement": [
+                {
+                  "operator": "or",
+                  "operand": [
+                    {
+                      "operator": "or",
+                      "operand": [
+                        { "target": "skillTag", "value": "Light" },
+                        { "target": "skillTag", "value": "Ballistic" }
+                      ]
+                    },
+                    { "target": "skillTag", "value": "Heavy" }
+                  ]
+                },
+                { "target": "self", "value": "Mistwillow" }
+              ],
+              "action": { "type": "consume", "target": "self", "value": "MistwillowDenseSmoke", "stack": "all" }
+            }
+          ]
         }
       }
     }

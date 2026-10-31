@@ -84,13 +84,13 @@ function parseRotationStep(value: unknown): RotationStep | undefined {
 
   if (
     step.type === "event" &&
-    step.event === "Hellfire" &&
+    (step.event === "Hellfire" || step.event === "Blossoms") &&
     typeof step.amount === "number" &&
     Number.isFinite(step.amount) &&
     (before || startTime !== undefined)
   ) {
     return event({
-      event: "Hellfire",
+      event: step.event,
       ...(before ? { before } : { startTime: startTime! }),
       amount: step.amount,
       ...(before ? optionalStartTime : {}),

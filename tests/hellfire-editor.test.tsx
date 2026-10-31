@@ -82,58 +82,62 @@ async function commit(input: HTMLInputElement, trigger: "enter" | "blur" = "blur
     else input.dispatchEvent(new FocusEvent("focusout", { bubbles: true }))
   })
 }
-it("adds a timed Hellfire event, edits signed amounts, and saves it", async () => {
-  await act(async () => root.render(<App />))
-  await openRotationEditor()
-  await click("Duplicate")
-  const selects = [...container.querySelectorAll<HTMLSelectElement>('select[aria-label="Skill or event"]')]
-  expect(selects.length).toBeGreaterThan(1)
-  const select = selects[1]
-  const groups = [...select.querySelectorAll("optgroup")]
-  const groupLabels = groups.map(group => group.label)
-  expect(groupLabels.slice(-2)).toEqual(["Events", "Action"])
-  expect(groupLabels).toContain("Mystic")
-  expect(groupLabels).toContain("General")
-  for (const skillGroup of groups.slice(0, -2)) expect(skillGroup.querySelectorAll("option").length).toBeGreaterThan(0)
-  expect([...groups[groups.length - 1].querySelectorAll("option")].map(option => option.textContent)).toEqual([
-    "Action: Delay",
-    "Action: Switch Martial Art",
-  ])
-  await act(async () => {
-    select.value = "__event:Hellfire"
-    select.dispatchEvent(new Event("change", { bubbles: true }))
-  })
-  const amount = container.querySelector<HTMLInputElement>(
-    'input[aria-label="Hellfire change (+ adds / - subtracts)"]',
-  )!
-  expect(amount).not.toBeNull()
-  await fill(amount, "-12.5")
-  await commit(amount)
-  expect(amount.value).toBe("-12.5")
-  const time = amount.closest(".rotation-table-row")!.querySelector<HTMLInputElement>("input.rotation-event-time")!
-  await fill(time, "3.25")
-  await commit(time)
-  await click("Save")
-  const entries = JSON.parse(localStorage.getItem("wwm-rotation-list-session-v1")!)
-  expect(entries.flatMap((entry: { rotation: { steps: unknown[] } }) => entry.rotation.steps)).toContainEqual({
-    type: "event",
-    event: "Hellfire",
-    startTime: 3.25,
-    amount: -12.5,
-  })
-  await fill(amount, "25")
-  await commit(amount)
-  await act(async () => {
-    await vi.advanceTimersByTimeAsync(300)
-  })
-  expect(
-    dpsBundles("editorTimeline").some(bundle =>
-      bundle.timeline.rotation.steps.some(
-        (step: RotationStep) => step.type === "event" && step.event === "Hellfire" && step.amount === 25,
+it.each(["Hellfire", "Blossoms"] as const)(
+  "adds a timed %s event, edits signed amounts, and saves it",
+  async resource => {
+    await act(async () => root.render(<App />))
+    await openRotationEditor()
+    await click("Duplicate")
+    const selects = [...container.querySelectorAll<HTMLSelectElement>('select[aria-label="Skill or event"]')]
+    expect(selects.length).toBeGreaterThan(1)
+    const select = selects[1]
+    const groups = [...select.querySelectorAll("optgroup")]
+    const groupLabels = groups.map(group => group.label)
+    expect(groupLabels.slice(-2)).toEqual(["Events", "Action"])
+    expect(groupLabels).toContain("Mystic")
+    expect(groupLabels).toContain("General")
+    for (const skillGroup of groups.slice(0, -2))
+      expect(skillGroup.querySelectorAll("option").length).toBeGreaterThan(0)
+    expect([...groups[groups.length - 1].querySelectorAll("option")].map(option => option.textContent)).toEqual([
+      "Action: Delay",
+      "Action: Switch Martial Art",
+    ])
+    await act(async () => {
+      select.value = `__event:${resource}`
+      select.dispatchEvent(new Event("change", { bubbles: true }))
+    })
+    const amount = container.querySelector<HTMLInputElement>(
+      `input[aria-label="${resource} change (+ adds / - subtracts)"]`,
+    )!
+    expect(amount).not.toBeNull()
+    await fill(amount, "-12.5")
+    await commit(amount)
+    expect(amount.value).toBe("-12.5")
+    const time = amount.closest(".rotation-table-row")!.querySelector<HTMLInputElement>("input.rotation-event-time")!
+    await fill(time, "3.25")
+    await commit(time)
+    await click("Save")
+    const entries = JSON.parse(localStorage.getItem("wwm-rotation-list-session-v1")!)
+    expect(entries.flatMap((entry: { rotation: { steps: unknown[] } }) => entry.rotation.steps)).toContainEqual({
+      type: "event",
+      event: resource,
+      startTime: 3.25,
+      amount: -12.5,
+    })
+    await fill(amount, "25")
+    await commit(amount)
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(300)
+    })
+    expect(
+      dpsBundles("editorTimeline").some(bundle =>
+        bundle.timeline.rotation.steps.some(
+          (step: RotationStep) => step.type === "event" && step.event === resource && step.amount === 25,
+        ),
       ),
-    ),
-  ).toBe(true)
-})
+    ).toBe(true)
+  },
+)
 
 it("allows a Delay action in a one-skill rotation", async () => {
   localStorage.setItem("wwm-path-session-v1", "silkbindDeluge")

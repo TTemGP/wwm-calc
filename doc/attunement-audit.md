@@ -46,6 +46,11 @@ The user confirmed these scopes:
 - `280304` and `280305`: Vernal Umbrella with `FrequentProjectile`. Both IDs
   remain distinct and active with the same confirmed scope; generic `Projectile`
   or `Ballistic` tags do not qualify.
+  The user confirmed this includes Unfading Flower projectiles and Vernal
+  Umbrella charged light. Unfading Flower's projectile record carries the tag;
+  Umbrella charged light is not yet implemented. The activation hit and Spring
+  Sorrow do not qualify. All Jade presets equip `vernalProjectile280304Boost`
+  on their four armor pieces, retaining weapon Physical Penetration.
 - `280306`: Vernal Umbrella with `Light`, `Heavy`, **or** `VariedCombo`.
   Matching multiple categories applies this bonus once.
 - `279753`: Heavenwill Gauntlets with Varied Combo and either Light or Heavy.

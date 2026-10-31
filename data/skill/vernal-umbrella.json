@@ -1,0 +1,410 @@
+{
+  "SpringSorrow": {
+    "name": "Spring Sorrow",
+    "shortName": "Umbrella Q",
+    "castTime": 0,
+    "action": [],
+    "modifier": [
+      { "requirement": [{ "target": "self", "value": "BlossomBarrageT0" }], "effect": { "cooldownUses": 3 } }
+    ],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "MartialArt", "Ballistic", "SpringSorrow"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "cooldown": 15,
+    "cooldownUses": 2,
+    "cooldownRecovery": "sequential",
+    "subAction": [
+      {
+        "value": "SpringSorrowBarrage",
+        "fallback": "SpringSorrowNormal",
+        "requirement": [{ "target": "self", "value": "BlossomBarrageT3" }]
+      }
+    ]
+  },
+  "VernalHeavy": {
+    "name": "Vernal Umbrella Heavy",
+    "shortName": "Umbrella Heavy",
+    "castTime": 0.4592,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.539718,
+        "attrCoef": 0.539718,
+        "phyBonus": 149.4,
+        "attrBonus": 81.4,
+        "time": 0.10645634
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 5, "time": 0.10645634 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Heavy"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella"
+  },
+  "UnfadingFlower": {
+    "name": "Unfading Flower",
+    "shortName": "UF",
+    "castTime": 0,
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Special"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "subAction": [
+      {
+        "value": "UnfadingFlowerRelease",
+        "waitForRequirement": true,
+        "requirement": [
+          { "target": "resource", "value": "Blossoms", "comparison": ">=", "amount": 50 },
+          { "operator": "not", "operand": [{ "target": "self", "value": "UnfadingFlowerMode" }] }
+        ]
+      }
+    ],
+    "silent": true,
+    "skillBreakdownCategory": "Unfading Flower"
+  },
+  "UnfadingFlowerProjectile": {
+    "name": "Unfading Flower",
+    "shortName": "UF",
+    "castTime": 0,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.51082875,
+        "attrCoef": 0.51082875,
+        "phyBonus": 141.375,
+        "attrBonus": 77,
+        "time": 0,
+        "requirement": [
+          {
+            "operator": "not",
+            "operand": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "target", "value": "LingeringBone" },
+                  { "target": "target", "value": "Airborne" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.0216575,
+        "attrCoef": 1.0216575,
+        "phyBonus": 282.75,
+        "attrBonus": 154,
+        "time": 0,
+        "requirement": [
+          { "target": "target", "value": "LingeringBone" },
+          { "operator": "not", "operand": [{ "target": "target", "value": "Airborne" }] }
+        ]
+      },
+      {
+        "type": "damage",
+        "phyCoef": 1.53248625,
+        "attrCoef": 1.53248625,
+        "phyBonus": 424.125,
+        "attrBonus": 231,
+        "time": 0,
+        "requirement": [{ "target": "target", "value": "Airborne" }]
+      },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "LingeringBone",
+        "duration": 5,
+        "time": 0,
+        "requirement": [{ "target": "target", "value": "LingeringBone" }]
+      }
+    ],
+    "modifier": [{ "effect": { "hpDMGBonus": 0.15 } }],
+    "tags": [
+      "MartialArts",
+      "DirectDamage",
+      "Umbrella",
+      "VernalUmbrella",
+      "Ballistic",
+      "UnfadingFlowerProjectile",
+      "FrequentProjectile",
+      "Triggered"
+    ],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "skillBreakdownCategory": "Unfading Flower"
+  },
+  "UnfadingFlowerRelease": {
+    "name": "Unfading Flower",
+    "shortName": "UF",
+    "castTime": 1.093,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.539718,
+        "attrCoef": 0.539718,
+        "phyBonus": 149.4,
+        "attrBonus": 81.4,
+        "time": 0.5963992753846155
+      },
+      { "type": "apply", "target": "self", "value": "UnfadingFlowerMode", "time": 0.6 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Special"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "ignorePing": true,
+    "skillBreakdownCategory": "Unfading Flower"
+  },
+  "JadeComboExtension": {
+    "name": "Combo Extension",
+    "castTime": 0,
+    "tags": ["Triggered"],
+    "action": [{ "type": "extend", "target": "target", "value": "JadeCombo", "duration": 1, "time": 0 }]
+  },
+  "SpringSorrowNormal": {
+    "name": "Spring Sorrow",
+    "shortName": "Umbrella Q",
+    "castTime": 1.4583333333333335,
+    "ignorePing": true,
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "MartialArt", "Ballistic", "SpringSorrow"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.3396925,
+        "attrCoef": 2.3396925,
+        "phyBonus": 648.41,
+        "attrBonus": 353.25,
+        "time": 1.0066666666666666,
+        "requirement": []
+      },
+      {
+        "type": "addResource",
+        "value": "Blossoms",
+        "amount": 25,
+        "time": 1.0066666666666666,
+        "requirement": [
+          { "target": "self", "value": "BlossomBarrageT6" },
+          { "target": "target", "value": "JadeCombo" }
+        ]
+      },
+      {
+        "type": "clearCD",
+        "value": "SpringSorrow",
+        "seconds": 5,
+        "time": 1.0066666666666666,
+        "requirement": [
+          { "target": "self", "value": "BlossomBarrageT6" },
+          { "target": "target", "value": "JadeCombo" }
+        ]
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 20, "time": 1.0066666666666666, "requirement": [] },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "JadeCombo",
+        "time": 1.0066666666666666,
+        "requirement": [{ "target": "self", "value": "BlossomBarrageT0" }]
+      }
+    ]
+  },
+  "SpringSorrowBarrage": {
+    "name": "Spring Sorrow",
+    "shortName": "Umbrella Q",
+    "castTime": 1.1217948717948718,
+    "ignorePing": true,
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "MartialArt", "Ballistic", "SpringSorrow"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 2.3396925,
+        "attrCoef": 2.3396925,
+        "phyBonus": 648.41,
+        "attrBonus": 353.25,
+        "time": 0.7779487179487179,
+        "requirement": []
+      },
+      {
+        "type": "addResource",
+        "value": "Blossoms",
+        "amount": 25,
+        "time": 0.7779487179487179,
+        "requirement": [
+          { "target": "self", "value": "BlossomBarrageT6" },
+          { "target": "target", "value": "JadeCombo" }
+        ]
+      },
+      {
+        "type": "clearCD",
+        "value": "SpringSorrow",
+        "seconds": 5,
+        "time": 0.7779487179487179,
+        "requirement": [
+          { "target": "self", "value": "BlossomBarrageT6" },
+          { "target": "target", "value": "JadeCombo" }
+        ]
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 20, "time": 0.7779487179487179, "requirement": [] },
+      {
+        "type": "apply",
+        "target": "target",
+        "value": "JadeCombo",
+        "time": 0.7779487179487179,
+        "requirement": [{ "target": "self", "value": "BlossomBarrageT0" }]
+      }
+    ]
+  },
+  "colorfulphoenix1": {
+    "name": "Colorful Phoenix [1 hits]",
+    "shortName": "Colorful Phoenix [1 hits]",
+    "castTime": 0.3251,
+    "action": [
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.03 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.13 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.23 },
+      {
+        "type": "damage",
+        "phyCoef": 0.382932,
+        "attrCoef": 0.382932,
+        "phyBonus": 106.26,
+        "attrBonus": 57.75,
+        "time": 0.3251
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.3251 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Light", "VariedCombo"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "skillBreakdownCategory": "Colorful Phoenix"
+  },
+  "colorfulphoenix2": {
+    "name": "Colorful Phoenix [2 hits]",
+    "shortName": "Colorful Phoenix [2 hits]",
+    "castTime": 0.53,
+    "action": [
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.03 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.13 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.23 },
+      {
+        "type": "damage",
+        "phyCoef": 0.382932,
+        "attrCoef": 0.382932,
+        "phyBonus": 106.26,
+        "attrBonus": 57.75,
+        "time": 0.3251
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.3251 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.33 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.43 },
+      {
+        "type": "damage",
+        "phyCoef": 0.382932,
+        "attrCoef": 0.382932,
+        "phyBonus": 106.26,
+        "attrBonus": 57.75,
+        "time": 0.4442
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.4442 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.53 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Light", "VariedCombo"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "skillBreakdownCategory": "Colorful Phoenix"
+  },
+  "ColorfulPhoenix": {
+    "name": "Colorful Phoenix",
+    "shortName": "Colorful Phoenix",
+    "castTime": 0.7442,
+    "action": [
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.03 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.13 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.23 },
+      {
+        "type": "damage",
+        "phyCoef": 0.382932,
+        "attrCoef": 0.382932,
+        "phyBonus": 106.26,
+        "attrBonus": 57.75,
+        "time": 0.3251
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.3251 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.33 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.43 },
+      {
+        "type": "damage",
+        "phyCoef": 0.382932,
+        "attrCoef": 0.382932,
+        "phyBonus": 106.26,
+        "attrBonus": 57.75,
+        "time": 0.4442
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.4442 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.53 },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.63 },
+      {
+        "type": "damage",
+        "phyCoef": 0.382932,
+        "attrCoef": 0.382932,
+        "phyBonus": 106.26,
+        "attrBonus": 57.75,
+        "time": 0.7442
+      },
+      { "type": "addResource", "value": "Blossoms", "amount": 4, "time": 0.7442 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Light", "VariedCombo"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "skillBreakdownCategory": "Colorful Phoenix"
+  },
+  "UnfadingFlowerCancel": {
+    "name": "Unfading Flower [Cancel]",
+    "shortName": "UF [Cancel]",
+    "castTime": 0,
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Special"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "subAction": [
+      {
+        "value": "UnfadingFlowerReleaseCancel",
+        "waitForRequirement": true,
+        "requirement": [
+          { "target": "resource", "value": "Blossoms", "comparison": ">=", "amount": 50 },
+          { "operator": "not", "operand": [{ "target": "self", "value": "UnfadingFlowerMode" }] }
+        ]
+      }
+    ],
+    "silent": true,
+    "skillBreakdownCategory": "Unfading Flower"
+  },
+  "UnfadingFlowerReleaseCancel": {
+    "name": "Unfading Flower [Cancel]",
+    "shortName": "UF [Cancel]",
+    "castTime": 0.6,
+    "action": [
+      {
+        "type": "damage",
+        "phyCoef": 0.539718,
+        "attrCoef": 0.539718,
+        "phyBonus": 149.4,
+        "attrBonus": 81.4,
+        "time": 0.5963992753846155
+      },
+      { "type": "apply", "target": "self", "value": "UnfadingFlowerMode", "time": 0.6 }
+    ],
+    "modifier": [],
+    "tags": ["MartialArts", "DirectDamage", "Umbrella", "VernalUmbrella", "Special"],
+    "martialArt": "vernalUmbrella",
+    "weapon": "Umbrella",
+    "ignorePing": true,
+    "skillBreakdownCategory": "Unfading Flower"
+  }
+}

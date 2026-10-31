@@ -14,5 +14,11 @@
       }
     ],
     "tags": ["Event"]
+  },
+  "Blossoms": {
+    "name": "Event: Add Blossoms",
+    "castTime": 0,
+    "action": [{ "type": "addResource", "value": "Blossoms", "time": 0 }],
+    "tags": ["Event"]
   }
 }

@@ -439,5 +439,74 @@
         }
       ]
     ]
+  },
+  "MistwillowGracefulWillow": {
+    "name": "Graceful Willow",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "cooldown": 2,
+    "showCoverage": true,
+    "description": "Increases Physical and Silkbind damage of matching attacks by 10%. Refreshes at most once every 2 seconds.",
+    "effect": [
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              { "target": "skillTag", "value": "Light" },
+              { "target": "skillTag", "value": "Ballistic" }
+            ]
+          }
+        ],
+        "effect": { "stat": { "physDmgBonus": 0.1, "silkbindDmgBonus": 0.1 } }
+      }
+    ]
+  },
+  "MistwillowDenseSmoke": {
+    "name": "Dense Smoke",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "cooldown": 2,
+    "showCoverage": true,
+    "description": "Increases Physical and Silkbind damage of matching attacks by 10%. Refreshes at most once every 2 seconds.",
+    "effect": [
+      {
+        "requirement": [{ "target": "skillTag", "value": "Heavy" }],
+        "effect": { "stat": { "physDmgBonus": 0.1, "silkbindDmgBonus": 0.1 } }
+      }
+    ],
+    "shortName": "DS"
+  },
+  "Mistwillow": {
+    "name": "Mistwillow",
+    "duration": 15,
+    "maxStack": 1,
+    "refresh": true,
+    "cooldown": 2,
+    "showCoverage": true,
+    "description": "Increases Physical and Silkbind damage of matching attacks by 10%. Refreshes at most once every 2 seconds.",
+    "effect": [
+      {
+        "requirement": [
+          {
+            "operator": "or",
+            "operand": [
+              {
+                "operator": "or",
+                "operand": [
+                  { "target": "skillTag", "value": "Light" },
+                  { "target": "skillTag", "value": "Ballistic" }
+                ]
+              },
+              { "target": "skillTag", "value": "Heavy" }
+            ]
+          }
+        ],
+        "effect": { "stat": { "physDmgBonus": 0.1, "silkbindDmgBonus": 0.1 } }
+      }
+    ],
+    "shortName": "MW"
   }
 }

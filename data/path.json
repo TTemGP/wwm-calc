@@ -46,11 +46,11 @@
   "silkbindJade": {
     "name": "Jade",
     "tag": "SilkbindJade",
-    "status": "plannerOnly",
+    "status": "wip",
     "buildGroup": "silkbind-jade",
-    "defaultBuild": "empty",
-    "graduated": ["empty"],
-    "defaultRotation": "empty",
+    "defaultBuild": "jade-fully-relayed-max",
+    "graduated": ["jade-graduate"],
+    "defaultRotation": "jade-three-rounds",
     "lockedWeapons": ["vernalUmbrella", "inkwellFan"],
     "arsenal": "Silkbind"
   },

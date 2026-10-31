@@ -179,8 +179,7 @@
     "name": "Fragrant Song - Resonance",
     "shortName": "FSR",
     "hidden": true,
-    "description": "Marks the throw that started with Fragrant Song. Its creation and accepted-catch Resonances use that throw's bonus. A catch may ready Fragrant Song for the following throw without changing this marker; the following throw clears and re-primes it.",
-    "duration": 2,
+    "description": "Marks the throw that started with Fragrant Song. Its creation and accepted-catch Resonances use that throw's bonus until the throw's recovery cleanup clears the marker. A catch may ready Fragrant Song for the following throw without changing this marker; each throw also clears and re-primes it at start.",
     "maxStack": 1,
     "refresh": false
   },

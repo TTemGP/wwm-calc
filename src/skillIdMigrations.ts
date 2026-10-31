@@ -1,4 +1,5 @@
 const renamedSkillIds: Record<string, string> = {
+  colorfulphoenix3: "ColorfulPhoenix",
   Rustling: "VerdantGust",
   CraneCry: "CranesCry",
   FiendishSquall: "EndOfGale",

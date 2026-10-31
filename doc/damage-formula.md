@@ -1061,6 +1061,23 @@ Expected Component =
 
 The action total is the sum of expected Physical, Bellstrike, Stonesplit, Silkbind, and Bamboocut damage. Rotation total damage includes resolved damage at or after the selected start anchor and within the combat window, including triggered skills and DOT ticks. Pre-start actions remain visible but are omitted from damage, hit count, and outcome-rate aggregation; actions after combat ends are not resolved. Battle End precedes damage at the same timestamp, so an equal-time hit does not count. Actions at the starting timestamp still use timeline order to omit earlier actions in the starting skill. DPS is total damage divided by the time from the selected start anchor to Battle End, or to completion of the final ordered cast/Delay when Battle End is absent. Final-cast same-time actions count; later DOTs and replays do not extend the duration.
 
+## Hit-based life leech
+
+An ordinary effect may supply `leech` as a decimal ratio. Matching setup,
+Inner Way, skill-modifier, and tracked-effect contributions add together.
+After a damage action resolves, self HP recovers by `final hit damage × leech`,
+clamped to Max HP. Requirements read HP before the hit; the next action sees
+the recovery and reevaluates its own requirements. Leech does not create a heal
+action, roll a healing critical, apply healing bonuses, or trigger heal listeners.
+It does not leech replay damage. DOTs can leech only when their tags satisfy the
+authored effect requirements; use `DirectDamage` to restrict an effect to direct hits.
+
+Expected calculations resolve recovery within each conditional damage branch
+before weighting it. Insightful Strike's Concentration branch supplies its
+conditional `leech` to this same resolver, preserving correlation with its
+Affinity bonus. Simulations use the actual sampled damage. Comparisons rebuild
+the live timeline when leech can change HP rather than reuse old HP snapshots.
+
 ## Replayed damage
 
 A `replay` action does not enter the normal damage formula. Its source is the

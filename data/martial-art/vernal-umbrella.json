@@ -8,14 +8,134 @@
     [],
     [],
     [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
+    ],
     [
       {
         "effect": [
@@ -78,7 +198,21 @@
           }
         ]
       },
-      { "effect": [] }
+      { "effect": [] },
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
+          }
+        ]
+      }
     ],
     [
       {
@@ -148,6 +282,20 @@
           {
             "requirement": [{ "target": "skillTag", "value": "VernalUmbrella" }],
             "effect": { "flatAttackBonus": 0.0725 }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
           }
         ]
       }
@@ -220,6 +368,20 @@
           {
             "requirement": [{ "target": "skillTag", "value": "VernalUmbrella" }],
             "effect": { "flatAttackBonus": 0.15 }
+          }
+        ]
+      },
+      {
+        "effect": [
+          {
+            "trigger": {
+              "requirement": [
+                { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+                { "target": "target", "value": "Exhausted" }
+              ],
+              "action": [{ "type": "addResource", "value": "Blossoms", "amount": 3, "time": 0 }],
+              "event": "damage"
+            }
           }
         ]
       }

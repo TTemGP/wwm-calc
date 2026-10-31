@@ -473,10 +473,11 @@ export function RotationEditorTab({
       let steps = current.steps.map((step, stepIndex) => {
         if (stepIndex !== index) return step
         switch (value) {
+          case "__event:Blossoms":
           case "__event:Hellfire":
             return {
               type: "event",
-              event: "Hellfire",
+              event: value === "__event:Blossoms" ? "Blossoms" : "Hellfire",
               startTime: previousSkill ? previousSkill.startTime - anchorTime : 0,
               amount: 0,
             }
@@ -627,6 +628,7 @@ export function RotationEditorTab({
     const step = rotation.steps[stepIndex]
     if (Number.isFinite(value) && step?.type === "event") {
       switch (step.event) {
+        case "Blossoms":
         case "Hellfire":
           updateStep(stepIndex, { amount: value })
           break
@@ -1232,7 +1234,13 @@ export function RotationEditorTab({
   const showZenithColumn = pathId === "bellstrikeUmbra" || settings.weapons.includes("strategicSword")
   const showNobleWillColumn = pathId === "silkbindWings" || settings.weapons.includes("museflowWaistDrum")
   const showHeavensWillColumn = settings.weapons.includes("heavenwill") && settings.weapons.includes("skygrasp")
-  const showEnduranceColumn = rotationUsesEndurance(timeline)
+  const showBlossoms =
+    pathId === "silkbindJade" ||
+    settings.weapons.includes("vernalUmbrella") ||
+    rotation.steps.some(step => step.type === "event" && step.event === "Blossoms")
+  const displayedResource = showBlossoms ? "Blossoms" : "Endurance"
+  const resourceLabel = showBlossoms ? t("system.resource.blossoms") : t("system.resource.endurance")
+  const showResourceColumn = showBlossoms || rotationUsesEndurance(timeline)
   const showVitalityColumn = useMemo(
     () =>
       rotation.steps.some(step => {
@@ -1252,7 +1260,7 @@ export function RotationEditorTab({
     showNobleWillColumn ? "minmax(0, 0.7fr)" : "",
     showHeavensWillColumn ? "minmax(0, 0.9fr)" : "",
     showVitalityColumn ? "minmax(0, 0.7fr)" : "",
-    showEnduranceColumn ? "minmax(0, 0.7fr)" : "",
+    showResourceColumn ? "minmax(0, 0.7fr)" : "",
   ]
     .filter(Boolean)
     .join(" ")
@@ -2071,7 +2079,7 @@ export function RotationEditorTab({
                   {showNobleWillColumn && <span>{t("system.resource.nobleWill")}</span>}
                   {showHeavensWillColumn && <span>{t("system.resource.heavensWill")}</span>}
                   {showVitalityColumn && <span>{t("system.resource.vitality")}</span>}
-                  {showEnduranceColumn && <span>{t("system.resource.endurance")}</span>}
+                  {showResourceColumn && <span>{resourceLabel}</span>}
                   <span className="rotation-damage-heading">{t("ui.app.damage")}</span>
                   <span>{t("ui.app.buff")}</span>
                   <span>{t("ui.app.debuff")}</span>
@@ -2109,7 +2117,7 @@ export function RotationEditorTab({
                             {showNobleWillColumn && <span aria-hidden="true" />}
                             {showHeavensWillColumn && <span aria-hidden="true" />}
                             {showVitalityColumn && <span aria-hidden="true" />}
-                            {showEnduranceColumn && <span aria-hidden="true" />}
+                            {showResourceColumn && <span aria-hidden="true" />}
                             <span className="rotation-damage-value" data-mobile-label={t("ui.app.damage")}>
                               {formatThroughput(damage)}
                             </span>
@@ -2771,9 +2779,37 @@ export function RotationEditorTab({
                                   : formatResourceRange(row.resources.Vitality ?? 0, row.resourceRanges?.Vitality)}
                               </span>
                             )}
-                            {showEnduranceColumn && (
-                              <span data-mobile-label={t("system.resource.endurance")}>
-                                {formatResourceRange(row.resources.Endurance ?? 0, row.resourceRanges?.Endurance)}
+                            {showResourceColumn && (
+                              <span data-mobile-label={resourceLabel}>
+                                {isManualEvent && step.event === "Blossoms" ? (
+                                  rowReadOnly ? (
+                                    <span>
+                                      {step.amount > 0 ? "+" : ""}
+                                      {formatNumber(step.amount)}
+                                    </span>
+                                  ) : (
+                                    <input
+                                      className="rotation-event-time"
+                                      aria-label={t("ui.app.blossomsChange")}
+                                      title={t("ui.app.blossomsChange")}
+                                      type="number"
+                                      step="0.01"
+                                      value={eventHPDrafts[row.id] ?? String(step.amount)}
+                                      onChange={event =>
+                                        setEventHPDrafts(current => ({ ...current, [row.id]: event.target.value }))
+                                      }
+                                      onBlur={() => commitEventHP(row.id, row.rotationIndex ?? 0)}
+                                      onKeyDown={event => {
+                                        if (event.key === "Enter") event.currentTarget.blur()
+                                      }}
+                                    />
+                                  )
+                                ) : (
+                                  formatResourceRange(
+                                    row.resources[displayedResource] ?? 0,
+                                    row.resourceRanges?.[displayedResource],
+                                  )
+                                )}
                               </span>
                             )}
                             <span className="rotation-damage-value" data-mobile-label={t("ui.app.damage")}>
@@ -3126,11 +3162,14 @@ export function RotationEditorTab({
                                         )}
                                   </span>
                                 )}
-                                {showEnduranceColumn && (
-                                  <span data-mobile-label={t("system.resource.endurance")}>
+                                {showResourceColumn && (
+                                  <span data-mobile-label={resourceLabel}>
                                     {formatResourceRange(
-                                      actionState?.resources.Endurance ?? row.resources.Endurance ?? 0,
-                                      actionState?.resourceRanges?.Endurance ?? row.resourceRanges?.Endurance,
+                                      actionState?.resources[displayedResource] ??
+                                        row.resources[displayedResource] ??
+                                        0,
+                                      actionState?.resourceRanges?.[displayedResource] ??
+                                        row.resourceRanges?.[displayedResource],
                                     )}
                                   </span>
                                 )}

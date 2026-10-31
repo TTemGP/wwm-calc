@@ -24,8 +24,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 77037.10483776833,
-      "totalDamage": 4622226.2902661,
+      "dps": 76324.02843243226,
+      "totalDamage": 4579441.705945935,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -53,8 +53,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 80886.16138658024,
-      "totalDamage": 4853169.683194814,
+      "dps": 80137.41627424165,
+      "totalDamage": 4808244.976454499,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -82,8 +82,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 72843.20015452025,
-      "totalDamage": 4370592.009271215,
+      "dps": 72158.98914253908,
+      "totalDamage": 4329539.348552345,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -111,8 +111,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 76780.48573527868,
-      "totalDamage": 4606829.144116721,
+      "dps": 76059.8359973849,
+      "totalDamage": 4563590.159843094,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -140,8 +140,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 74757.00525500305,
-      "totalDamage": 4485420.315300183,
+      "dps": 74056.2831510674,
+      "totalDamage": 4443376.989064044,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -169,8 +169,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 78178.48162999742,
-      "totalDamage": 4690708.897799845,
+      "dps": 77446.9703649311,
+      "totalDamage": 4646818.221895866,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -198,8 +198,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 77418.34869882601,
-      "totalDamage": 4645100.921929561,
+      "dps": 76699.5753785789,
+      "totalDamage": 4601974.522714734,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -227,8 +227,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 81288.68877678235,
-      "totalDamage": 4877321.326606941,
+      "dps": 80534.05632822085,
+      "totalDamage": 4832043.379693251,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -256,8 +256,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 73102.03797403675,
-      "totalDamage": 4386122.278442205,
+      "dps": 72412.437133078,
+      "totalDamage": 4344746.22798468,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -285,8 +285,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 77053.88317251139,
-      "totalDamage": 4623232.990350683,
+      "dps": 76327.62257533036,
+      "totalDamage": 4579657.354519822,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -314,8 +314,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 75016.6995287751,
-      "totalDamage": 4501001.971726506,
+      "dps": 74310.73502532642,
+      "totalDamage": 4458644.101519585,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -343,8 +343,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 78450.39860841249,
-      "totalDamage": 4707023.916504749,
+      "dps": 77713.47069848448,
+      "totalDamage": 4662808.241909069,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -3307,6 +3307,180 @@
       "totalHealing": 2211720.020346783,
       "duration": 60
     },
+    "silkbindJade/jade-three-rounds/jade-fully-relayed-max/18": {
+      "fixture": {
+        "build": "jade-fully-relayed-max",
+        "rotation": "jade-three-rounds",
+        "martialArts": ["vernalUmbrella", "inkwellFan"],
+        "breakthrough": "18",
+        "ping": 40,
+        "food": "SimmeringFishSlices",
+        "divinecraft": "Fire",
+        "script": "None",
+        "globalDebuffs": {
+          "bossTalent": 0,
+          "draught": "none",
+          "phantomChime": false,
+          "qiImbalance": false,
+          "soulShaken": false,
+          "vulnerable": false,
+          "fearfulBlade": false,
+          "qingyisCharm": "none",
+          "floatingGrace": "none",
+          "silkbindWings": "none"
+        }
+      },
+      "dps": 77303.83778144824,
+      "totalDamage": 4638230.266886895,
+      "hps": 0,
+      "totalHealing": 0,
+      "duration": 60
+    },
+    "silkbindJade/jade-three-rounds/jade-fully-relayed-max/19": {
+      "fixture": {
+        "build": "jade-fully-relayed-max",
+        "rotation": "jade-three-rounds",
+        "martialArts": ["vernalUmbrella", "inkwellFan"],
+        "breakthrough": "19",
+        "ping": 40,
+        "food": "SimmeringFishSlices",
+        "divinecraft": "Fire",
+        "script": "None",
+        "globalDebuffs": {
+          "bossTalent": 0,
+          "draught": "none",
+          "phantomChime": false,
+          "qiImbalance": false,
+          "soulShaken": false,
+          "vulnerable": false,
+          "fearfulBlade": false,
+          "qingyisCharm": "none",
+          "floatingGrace": "none",
+          "silkbindWings": "none"
+        }
+      },
+      "dps": 81455.47574941137,
+      "totalDamage": 4887328.544964682,
+      "hps": 0,
+      "totalHealing": 0,
+      "duration": 60
+    },
+    "silkbindJade/jade-three-rounds/jade-fully-relayed-min/18": {
+      "fixture": {
+        "build": "jade-fully-relayed-min",
+        "rotation": "jade-three-rounds",
+        "martialArts": ["vernalUmbrella", "inkwellFan"],
+        "breakthrough": "18",
+        "ping": 40,
+        "food": "SimmeringFishSlices",
+        "divinecraft": "Fire",
+        "script": "None",
+        "globalDebuffs": {
+          "bossTalent": 0,
+          "draught": "none",
+          "phantomChime": false,
+          "qiImbalance": false,
+          "soulShaken": false,
+          "vulnerable": false,
+          "fearfulBlade": false,
+          "qingyisCharm": "none",
+          "floatingGrace": "none",
+          "silkbindWings": "none"
+        }
+      },
+      "dps": 75931.8960715569,
+      "totalDamage": 4555913.764293414,
+      "hps": 0,
+      "totalHealing": 0,
+      "duration": 60
+    },
+    "silkbindJade/jade-three-rounds/jade-fully-relayed-min/19": {
+      "fixture": {
+        "build": "jade-fully-relayed-min",
+        "rotation": "jade-three-rounds",
+        "martialArts": ["vernalUmbrella", "inkwellFan"],
+        "breakthrough": "19",
+        "ping": 40,
+        "food": "SimmeringFishSlices",
+        "divinecraft": "Fire",
+        "script": "None",
+        "globalDebuffs": {
+          "bossTalent": 0,
+          "draught": "none",
+          "phantomChime": false,
+          "qiImbalance": false,
+          "soulShaken": false,
+          "vulnerable": false,
+          "fearfulBlade": false,
+          "qingyisCharm": "none",
+          "floatingGrace": "none",
+          "silkbindWings": "none"
+        }
+      },
+      "dps": 79393.64325977048,
+      "totalDamage": 4763618.595586229,
+      "hps": 0,
+      "totalHealing": 0,
+      "duration": 60
+    },
+    "silkbindJade/jade-three-rounds/jade-graduate/18": {
+      "fixture": {
+        "build": "jade-graduate",
+        "rotation": "jade-three-rounds",
+        "martialArts": ["vernalUmbrella", "inkwellFan"],
+        "breakthrough": "18",
+        "ping": 40,
+        "food": "SimmeringFishSlices",
+        "divinecraft": "Fire",
+        "script": "None",
+        "globalDebuffs": {
+          "bossTalent": 0,
+          "draught": "none",
+          "phantomChime": false,
+          "qiImbalance": false,
+          "soulShaken": false,
+          "vulnerable": false,
+          "fearfulBlade": false,
+          "qingyisCharm": "none",
+          "floatingGrace": "none",
+          "silkbindWings": "none"
+        }
+      },
+      "dps": 79221.35987057103,
+      "totalDamage": 4753281.592234262,
+      "hps": 0,
+      "totalHealing": 0,
+      "duration": 60
+    },
+    "silkbindJade/jade-three-rounds/jade-graduate/19": {
+      "fixture": {
+        "build": "jade-graduate",
+        "rotation": "jade-three-rounds",
+        "martialArts": ["vernalUmbrella", "inkwellFan"],
+        "breakthrough": "19",
+        "ping": 40,
+        "food": "SimmeringFishSlices",
+        "divinecraft": "Fire",
+        "script": "None",
+        "globalDebuffs": {
+          "bossTalent": 0,
+          "draught": "none",
+          "phantomChime": false,
+          "qiImbalance": false,
+          "soulShaken": false,
+          "vulnerable": false,
+          "fearfulBlade": false,
+          "qingyisCharm": "none",
+          "floatingGrace": "none",
+          "silkbindWings": "none"
+        }
+      },
+      "dps": 83320.69652642569,
+      "totalDamage": 4999241.791585541,
+      "hps": 0,
+      "totalHealing": 0,
+      "duration": 60
+    },
     "silkbindWings/wings-dummy-1-min-dawnsun/wings-fully-relayed-double-min/18": {
       "fixture": {
         "build": "wings-fully-relayed-double-min",
@@ -4026,8 +4200,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 83385.74968058772,
-      "totalDamage": 5003144.980835263,
+      "dps": 83664.47808757986,
+      "totalDamage": 5019868.685254791,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4055,8 +4229,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 87493.15847002153,
-      "totalDamage": 5249589.508201291,
+      "dps": 87742.55442362059,
+      "totalDamage": 5264553.265417235,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4084,8 +4258,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 80386.0344666179,
-      "totalDamage": 4823162.067997074,
+      "dps": 80703.23534731155,
+      "totalDamage": 4842194.120838692,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4113,8 +4287,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 84101.88773743816,
-      "totalDamage": 5046113.264246289,
+      "dps": 84414.50562866207,
+      "totalDamage": 5064870.337719724,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4142,8 +4316,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 77162.59901416913,
-      "totalDamage": 4629755.940850147,
+      "dps": 77449.19259892861,
+      "totalDamage": 4646951.555935716,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4171,8 +4345,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 81586.28916697604,
-      "totalDamage": 4895177.350018562,
+      "dps": 81845.77784611443,
+      "totalDamage": 4910746.670766866,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4200,8 +4374,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 80256.95388104738,
-      "totalDamage": 4815417.232862842,
+      "dps": 80571.11744072077,
+      "totalDamage": 4834267.046443245,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4229,8 +4403,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 84301.50876778342,
-      "totalDamage": 5058090.526067005,
+      "dps": 84590.2699693785,
+      "totalDamage": 5075416.198162709,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4258,8 +4432,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 54580.15343697034,
-      "totalDamage": 3274809.20621822,
+      "dps": 55087.46534592272,
+      "totalDamage": 3305247.9207553626,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4287,8 +4461,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 57016.88490551986,
-      "totalDamage": 3421013.094331191,
+      "dps": 57545.17117602738,
+      "totalDamage": 3452710.2705616425,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4316,8 +4490,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 50996.93111714713,
-      "totalDamage": 3059815.8670288273,
+      "dps": 51467.48930510697,
+      "totalDamage": 3088049.3583064177,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4345,8 +4519,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 54120.79501921961,
-      "totalDamage": 3247247.701153176,
+      "dps": 54618.71443405813,
+      "totalDamage": 3277122.8660434876,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4374,8 +4548,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 52473.19068162866,
-      "totalDamage": 3148391.440897719,
+      "dps": 52955.960021453415,
+      "totalDamage": 3177357.6012872043,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4403,8 +4577,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 55267.201443616876,
-      "totalDamage": 3316032.086617012,
+      "dps": 55773.98355583432,
+      "totalDamage": 3346439.013350059,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4432,8 +4606,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 83050.72376735933,
-      "totalDamage": 4983043.426041559,
+      "dps": 83456.22794182469,
+      "totalDamage": 5007373.676509481,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4461,8 +4635,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 87135.74937051283,
-      "totalDamage": 5228144.962230769,
+      "dps": 87516.29149668838,
+      "totalDamage": 5250977.489801303,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4490,8 +4664,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 80065.62135028573,
-      "totalDamage": 4803937.281017143,
+      "dps": 80508.07399262383,
+      "totalDamage": 4830484.439557429,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4519,8 +4693,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 83764.51995220278,
-      "totalDamage": 5025871.1971321665,
+      "dps": 84207.40283645997,
+      "totalDamage": 5052444.170187597,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4548,8 +4722,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 76870.51229612214,
-      "totalDamage": 4612230.737767328,
+      "dps": 77281.25348310023,
+      "totalDamage": 4636875.208986013,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4577,8 +4751,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 81271.47413425178,
-      "totalDamage": 4876288.448055106,
+      "dps": 81660.11894772638,
+      "totalDamage": 4899607.136863583,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4606,8 +4780,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 79935.35281300134,
-      "totalDamage": 4796121.16878008,
+      "dps": 80374.17811972581,
+      "totalDamage": 4822450.687183548,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4635,8 +4809,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 83958.06676344982,
-      "totalDamage": 5037484.005806989,
+      "dps": 84375.96392768026,
+      "totalDamage": 5062557.835660815,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4664,8 +4838,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 54767.57420089618,
-      "totalDamage": 3286054.4520537704,
+      "dps": 54612.46939854146,
+      "totalDamage": 3276748.163912487,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4693,8 +4867,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 57218.07976539175,
-      "totalDamage": 3433084.7859235043,
+      "dps": 57045.9934965457,
+      "totalDamage": 3422759.6097927415,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4722,8 +4896,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 51185.804439823856,
-      "totalDamage": 3071148.266389431,
+      "dps": 51042.033971848316,
+      "totalDamage": 3062522.0383108985,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4751,8 +4925,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 54327.86841267301,
-      "totalDamage": 3259672.10476038,
+      "dps": 54164.68863224158,
+      "totalDamage": 3249881.3179344945,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4780,8 +4954,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 52639.66764409673,
-      "totalDamage": 3158380.0586458035,
+      "dps": 52493.39954659864,
+      "totalDamage": 3149603.9727959177,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4809,8 +4983,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 55450.31597067135,
-      "totalDamage": 3327018.9582402804,
+      "dps": 55284.67482869581,
+      "totalDamage": 3317080.489721748,
       "hps": 0,
       "totalHealing": 0,
       "duration": 59.99999999999999
@@ -4838,8 +5012,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 83553.5962516165,
-      "totalDamage": 5013215.77509699,
+      "dps": 83496.96156463119,
+      "totalDamage": 5009817.693877871,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -4867,8 +5041,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 87640.3186069428,
-      "totalDamage": 5258419.116416568,
+      "dps": 87580.53906814677,
+      "totalDamage": 5254832.344088806,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -4896,8 +5070,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 80553.95332133086,
-      "totalDamage": 4833237.199279851,
+      "dps": 80499.73130652249,
+      "totalDamage": 4829983.87839135,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -4925,8 +5099,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 84250.95812610062,
-      "totalDamage": 5055057.487566037,
+      "dps": 84194.22899525762,
+      "totalDamage": 5051653.739715458,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -4954,8 +5128,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 77318.24596100434,
-      "totalDamage": 4639094.75766026,
+      "dps": 77268.15093599499,
+      "totalDamage": 4636089.056159699,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -4983,8 +5157,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 81725.33727220888,
-      "totalDamage": 4903520.236332533,
+      "dps": 81671.95482489331,
+      "totalDamage": 4900317.289493599,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5012,8 +5186,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 80425.44049360324,
-      "totalDamage": 4825526.429616194,
+      "dps": 80371.14882924971,
+      "totalDamage": 4822268.929754983,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5041,8 +5215,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 84450.41573071938,
-      "totalDamage": 5067024.943843163,
+      "dps": 84393.04729606381,
+      "totalDamage": 5063582.837763829,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5070,8 +5244,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 54013.221450276425,
-      "totalDamage": 3240793.2870165855,
+      "dps": 53730.59615009152,
+      "totalDamage": 3223835.7690054914,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5099,8 +5273,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 56388.19551743378,
-      "totalDamage": 3383291.7310460266,
+      "dps": 56095.524328181236,
+      "totalDamage": 3365731.459690874,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5128,8 +5302,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 50494.65868751482,
-      "totalDamage": 3029679.521250889,
+      "dps": 50231.08982184123,
+      "totalDamage": 3013865.389310474,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5157,8 +5331,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 53561.545894092844,
-      "totalDamage": 3213692.7536455705,
+      "dps": 53282.64608291502,
+      "totalDamage": 3196958.764974901,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5186,8 +5360,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 51931.35600678423,
-      "totalDamage": 3115881.360407054,
+      "dps": 51660.88251341329,
+      "totalDamage": 3099652.9508047975,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60
@@ -5215,8 +5389,8 @@
           "silkbindWings": "none"
         }
       },
-      "dps": 54667.55465352597,
-      "totalDamage": 3280053.2792115584,
+      "dps": 54383.7353651663,
+      "totalDamage": 3263024.121909978,
       "hps": 0,
       "totalHealing": 0,
       "duration": 60

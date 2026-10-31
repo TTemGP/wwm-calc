@@ -159,7 +159,7 @@ old/new DPS and event counts for review before updating any accepted snapshot.
 
 ### Implemented opening-catch policy
 
-After the trials, the user requested the time-table update and 87 Resonance hits.
+The user requested the time-table update and 87 Resonance hits.
 Production data now separates creation/request timing, uses the exported normal
 and enhanced opening inputs, and resolves the deferred no-Phantom catch once.
 The existing continuation gates are retained. An already admitted throw completes
@@ -167,8 +167,7 @@ its catch even after Flower Burial expires; only admission of another throw is
 gated by that effect. This is the precise boundary behind the additional final
 catch per batch, rather than a claim that every final input falls before expiry.
 
-The implemented benchmark reproduces the opening-catch column below: 69,449.526
-DPS at breakthrough 18 for 100% PC, 87 Resonance hits, and 84 direct Scarlet hits.
+The implemented 100% PC rotation produces 87 Resonance hits and 84 direct Scarlet hits.
 Regular has 89 Resonance hits. Before/after production bundles retain identical
 throw-start timestamps and authored Qi markers. Ownership tests verify that the
 early earning catch cannot grant Fragrant Song to its current ordinary throw.
@@ -179,130 +178,3 @@ array-index-key warnings in unrelated UI files. The focused benchmark and Dust
 mechanics tests passed. The DPS guard reports twelve changed Dust cases and no
 other path failures; the exact proposed DPS/total damage values are recorded in
 `dps-snapshots.md`, without refreshing the accepted snapshot JSON.
-
-### Isolated Dust timing trial
-
-Rebuilt production calculation bundles with in-memory skill/effect variants,
-using Fully Relayed Min with the supplied benchmark overrides: 2918 effective
-minimum Physical Attack after food, Bamboocut 360–806 plus 68 Formless,
-Silkbind 44, Precision 133.8%, Critical 147.9%, Affinity 19.1%, Direct Critical
-4.6%, 45.8 Physical Penetration before Towline T5, and 25% Everspring Martial
-Art attunement. Remaining bonuses come from the preset. The four T6 Inner Ways
-are Phantom Rally, Towline Sweep, Morale Chant, and Bitter Seasons. Fire,
-Physical Attack food, and Wraithstrike are selected.
-
-Two partial timing variants were tested without changing production data:
-
-- Separate source-timed Phantom creation and Creation Resonance requests,
-  preserving the existing catch-at-close policy. A throw-local creation marker
-  ensures lower-tier cadence does not emit an unconditional every-throw pulse.
-- The same separation with accepted catches at the normal/enhanced window
-  opening. A pending catch with no Phantom resolves at the later request;
-  it does not also emit an immediate catch pulse. The existing continuation
-  gates, Fragrant Song ownership rules, and authored Qi markers are retained.
-
-| Rotation | Breakthrough | Existing DPS      | Separate creation/request, catch at close | Catch at opening with deferred alternative |
-| -------- | ------------ | ----------------- | ----------------------------------------- | ------------------------------------------ |
-| 100% PC  | 18           | 68791.58032616547 | 68794.64796949839                         | 69449.52587928498                          |
-| Regular  | 18           | 69092.6744455861  | 69098.13563287197                         | 69802.6824118557                           |
-| 100% PC  | 19           | 69251.3882334393  | 69254.45822779287                         | 69910.24194673805                          |
-| Regular  | 19           | 69553.13825402776 | 69558.61117397333                         | 70264.24212213818                          |
-
-For breakthrough-18 100% PC, separating creation/request changes DPS by
-+0.00446%; accepting early catches changes it by +0.95643%. The early-catch
-variant retains all 84 direct Scarlet hits but increases total Resonance hits
-from 84 to 87: one additional final catch fits in each batch. Regular similarly
-moves from 86 to 89 Resonance hits. These alternatives do not close the gap to
-the supplied 66,800 DPS average, and neither reproduces the screenshot's 83
-Resonance hits.
-
-The trial checked source request offsets for ordinary/enhanced throws, retained
-direct-hit counts, one accepted catch per early-policy throw, and two first-throw
-pulses at the request when the early catch had no Phantom (creation plus deferred
-catch). All checks passed. These experiments do not constitute a completed
-implementation of readiness cleanup, interruption/endpoint ordering, projectile
-contact latency, or a recalibrated Qi ramp. No snapshot was refreshed and no
-production timing edit was retained. Do not describe these values as accepted
-release DPS or as a test of every proposed lifecycle correction.
-
-### Second supplied benchmark: Song of Tang
-
-The user subsequently clarified to retain the preset's actual attribute amounts
-and replace one Max Bamboocut affix with the same amount of Min Silkbind, rather
-than infer a component split from the screenshot. That literal reconstruction
-supersedes the provisional 69.9k comparison below. The tier-100 affix swap is
-48.316 Max Bamboocut to 48.316 Min Silkbind; it leaves raw Bamboocut at
-360–1010.896, Formless at 26.4, and Silkbind at 48.316 effective minimum/maximum.
-With the same visible non-attribute overrides and Song of Tang T6, the results
-are 71,073.877 DPS for 100% PC and 71,313.418 for Regular. The former is 5.873%
-above the two-parse mean of 67,131 DPS. Its per-skill DPS is Scarlet 31,574.497,
-Resonance 18,674.797, Soulbreak 7,593.000, and Flute 3,881.988, with respective
-hit counts 84 / 87 / 4 / 12.
-
-However, this exact preset swap produces combined effective Attribute Attack
-434.716–1085.612, not the screenshot's 498–938. Thus the instructed literal
-preset reconstruction does not reproduce the pictured attribute sheet; its
-total discrepancy must not be attributed wholly to a damage-formula error.
-No additional attribute values were invented to force the ranges to agree.
-
-The next requested variant swaps a second 48.316 Max Bamboocut affix to Min
-Formless and explicitly caps the combined maximum at 938. With all other
-overrides retained, this gives raw Bamboocut 360–863.284, Formless 74.716–26.4,
-and Silkbind 48.316–0, for combined effective Attribute Attack 483.032–938.
-Formless minimum and maximum remain separate additions to the primary channel;
-do not use the raised minimum as the maximum addition. This variant calculates
-69,682.593 DPS for 100% PC (3.801% above the two-parse mean) and 69,916.362 DPS
-for Regular. The former's per-skill DPS is Scarlet 30,984.319, Resonance
-18,272.189, Soulbreak 7,444.326, and Flute 3,799.094. The remaining minimum-range
-difference from the screenshot's 498 is reported rather than silently corrected.
-
-The user supplied another setup based on Fully Relayed Min, explicitly using
-Song of Tang rather than Bitter Seasons. The screenshot has 2673 minimum
-Physical Attack **before** food, so the selected food produces 2813 effective
-minimum. Precision 129.0%, Critical 151.6%, Affinity 19.0%, and Direct Critical
-4.6% reproduce the displayed 99.6% Effective Precision and 94.5% final combined
-Critical/Affinity at breakthrough 18. Attribute penetration 23.6 agrees with
-that talent rank. Physical Penetration 52.4 already includes Towline's 5.1:
-the screenshot separates 47.3 attuning plus 5.1 non-attuning. Do not add Towline
-or weapon attuning to 52.4 again.
-
-Further overrides are All Martial Arts 6.3%, Umbrella 7.0%, skill attunement
-24.6%, and Boss damage 7.1%. Other unshown damage stats and all four T6 Inner
-Ways retain the preset values. Fire, physical-attack food, and Wraithstrike are
-retained from the prior setup. The user reports maximum Bamboocut affixes with
-one replaced by minimum Silkbind. The combined Attribute Attack screenshot
-shows 498–938 but does not show the component tooltip.
-
-Consequently, the component split is provisional: with the all-maximum setup's
-360 minimum Bamboocut, 800 maximum Bamboocut, equal minimum/maximum Formless,
-and one minimum-Silkbind affix, a Silkbind value of 48.316 (the preset affix
-magnitude) implies 89.684 Formless. This reproduces both combined endpoints.
-It is not a claim that the screenshot proves those individual component values.
-Screening a normal tier-100 minimum-Silkbind roll of 25.7–51.4, while preserving
-both displayed endpoints, gives 69,821.889–70,153.062 DPS for 100% PC. Actual
-component tooltip values are required for an exact reconstruction.
-
-| Skill        | Provisional 100% PC calculation DPS (hits) | First parse DPS (hits) | Second parse DPS (hits) |
-| ------------ | -----------------------------------------: | ---------------------: | ----------------------: |
-| Total        |                                  69861.630 |                  67157 |                   67105 |
-| Scarlet Spin |                             31061.534 (84) |             30949 (84) |              30168 (84) |
-| Resonance    |                             18324.756 (87) |             17178 (86) |              16745 (83) |
-| Soulbreak    |                               7463.463 (4) |               7170 (4) |                7137 (4) |
-| Flute        |                              3809.063 (12) |              3135 (11) |               3916 (12) |
-
-The two observed totals average 67,131 DPS; the provisional calculation is
-4.068% higher. Scarlet is close to the first parse, but the calculated mean
-damage per Resonance is 12,637.763 versus 11,984.953 and 12,104.940 in the
-parses, respectively 5.447% and 4.402% higher even after dividing by their own
-hit counts. Thus unequal pulse counts are not the whole provisional difference.
-The differing Flute and Resonance counts also establish that neither screenshot
-is an exact event-count match to the current 100% PC preset. Two individual
-parses do not establish a stable in-game expectation, and this comparison does
-not justify changing a multiplier or accepting pending snapshots.
-
-- `npm run test -- --pool threads --maxWorkers 1`: 287 test files and 1,628
-  tests passed. This is the ordinary suite, not the accepted DPS snapshot guard.
-- `npm run format` and `npm run format:check` passed.
-- No implementation or snapshot changes were made. Passing regression tests
-  validate existing behavior; they do not contradict the new source findings
-  or establish game parity for unsupported routes.

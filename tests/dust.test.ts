@@ -501,29 +501,37 @@ describe("Dust mechanics", () => {
       expect(row.actionStates[3].distance).toBe(1)
     }
   })
-  it.each(["18", "19"])("resolves 87 Resonances in the 100%% PC preset at breakthrough %s", breakthrough => {
-    const path = typedPathDefinitions.bamboocutDust
-    const input = buildPresetRotationBundle(
-      {
-        pathId: "bamboocutDust",
-        martialArts: path.lockedWeapons!,
-        rotation: dustPhantomChimeRotation as RotationRecord,
-        breakthrough,
-        food: "SimmeringFishSlices",
-        divinecraft: "Fire",
-        script: "None",
-        skillOverrides: {},
-        previewId: null,
-        globalDebuffs: { ...defaultGlobalDebuffs },
-      },
-      path.defaultBuild,
-    )!
-    const result = calculateRotationBaseline(input)
-    const rows = result.metrics.breakdown.groupedSkills
-    expect(rows.find(row => row.name === "Scarlet Spin")!.hits).toBe(84)
-    expect(rows.find(row => row.name === "Resonance")!.hits).toBe(87)
-    expect(result.duration).toBe(60)
-  })
+  it.each(
+    ["18", "19"].flatMap(breakthrough => [
+      { name: "100% PC", rotation: dustPhantomChimeRotation, expectedResonances: 84, breakthrough },
+      { name: "regular", rotation: defaultDustRotation, expectedResonances: 86, breakthrough },
+    ]),
+  )(
+    "resolves the expected Resonances in the $name preset at breakthrough $breakthrough",
+    ({ rotation, expectedResonances, breakthrough }) => {
+      const path = typedPathDefinitions.bamboocutDust
+      const input = buildPresetRotationBundle(
+        {
+          pathId: "bamboocutDust",
+          martialArts: path.lockedWeapons!,
+          rotation: rotation as RotationRecord,
+          breakthrough,
+          food: "SimmeringFishSlices",
+          divinecraft: "Fire",
+          script: "None",
+          skillOverrides: {},
+          previewId: null,
+          globalDebuffs: { ...defaultGlobalDebuffs },
+        },
+        path.defaultBuild,
+      )!
+      const result = calculateRotationBaseline(input)
+      const rows = result.metrics.breakdown.groupedSkills
+      expect(rows.find(row => row.name === "Scarlet Spin")!.hits).toBe(84)
+      expect(rows.find(row => row.name === "Resonance")!.hits).toBe(expectedResonances)
+      expect(result.duration).toBe(60)
+    },
+  )
 
   it("preserves every Burn and Bury connection and lands the closing hit before Battle End", () => {
     const path = typedPathDefinitions.bamboocutDust
@@ -845,9 +853,8 @@ describe("Dust mechanics", () => {
       "ScarletSpinStage2",
     ]
     expect(parents).toHaveLength(3)
-    // Every throw past the first is seeded by a catch, so a cast resolves at least one
-    // fewer catch than throw. A cast may also catch its final throw, which has nothing
-    // left to queue, so the count is one of those two totals.
+    // Every throw past the first is seeded by a catch; the last throw happens
+    // after Flower Burial ends and cannot be caught.
     for (const [index, parent] of parents.entries()) {
       const end = parents[index + 1]?.startTime ?? Infinity
       const throws = result.timeline.filter(
@@ -856,7 +863,7 @@ describe("Dust mechanics", () => {
       const catches = result.timeline.filter(
         row => isCatch(row) && row.startTime >= parent.startTime && row.startTime < end,
       ).length
-      expect([throws - 1, throws]).toContain(catches)
+      expect(catches).toBe(throws - 1)
     }
     const throwRows = result.timeline.filter(row => row.kind === "trigger" && isThrow(row))
     const throwRowIds = new Set(throwRows.map(row => row.id))
@@ -1007,7 +1014,14 @@ describe("Dust mechanics", () => {
       castTime: 0,
       action: [{ type: "apply", target: "self", value: "FragrantSongResonance", time: 0 }],
     }
+    input.timeline.skills.ClearSong = {
+      name: "Clear Song",
+      castTime: 0,
+      action: [{ type: "consume", target: "self", value: "FragrantSongResonance", stack: "all", time: 0 }],
+    }
     input.timeline.rotation.steps = [castStep("MarkSong"), delayStep(3), castStep("Resonance")]
+    expect(calculateRotationBaseline(input).metrics.totalDamage).toBeCloseTo(marked)
+    input.timeline.rotation.steps = [castStep("MarkSong"), castStep("ClearSong"), castStep("Resonance")]
     expect(calculateRotationBaseline(input).metrics.totalDamage).toBeCloseTo(ordinary)
   })
   it("limits Tang Melody to direct martial-art-skill contexts, including Scarlet Spin Resonance", () => {
@@ -1344,6 +1358,43 @@ describe("Phantom Umbrella summons and Resonance", () => {
     expect(average(true)).toBeGreaterThan(average(false))
   })
 
+  it.each([1, 2, 3, 4])("ends stage %s Resonance empowerment at recovery even without a following throw", stage => {
+    const input = bundle({ PhantomRally: 6 })
+    const id = `ScarletSpinStage${stage}`
+    const skill = structuredClone(umbrella[id])
+    const actions = skillActions(skill)
+    const recovery = Number(
+      actions.find(action => action.type === "trigger" && String(action.value).startsWith("ScarletSpinStage"))!.time,
+    )
+    // Probe actual damage on both sides of recovery, with no Flower Burial to
+    // start another throw. Cleanup must work independently of the next throw.
+    actions.push(
+      { type: "trigger", value: "CleanupProbeResonance", time: recovery - 0.001 },
+      { type: "trigger", value: "CleanupProbeResonance", time: recovery + 0.001 },
+    )
+    input.timeline.skills = {
+      ...input.timeline.skills,
+      [id]: skill,
+      CleanupProbeResonance: structuredClone(umbrella.Resonance),
+    }
+    input.timeline.initialBuffs = [
+      { name: "FragrantSong", stack: 1 },
+      { name: "PhantomUmbrella", stack: 1 },
+    ]
+    input.timeline.rotation.steps = [{ type: "skill", skill: id }]
+    const result = calculateRotationBaseline(input)
+    expect(result.timeline.filter(isThrow)).toHaveLength(1)
+    const probes = result.timeline.filter(row => row.step.skill === "CleanupProbeResonance")
+    expect(probes).toHaveLength(2)
+    const damage = probes.map(row => result.actionBreakdowns[`${row.id}:0`])
+    expect(damage[0].outcomeRates?.critical).toBe(1)
+    expect(probes[0].modifierEffects).toContainEqual({ GuaranteedCrit: true, hpDMGBonus: 0.2 })
+    expect(probes[1].modifierEffects).not.toContainEqual({ GuaranteedCrit: true, hpDMGBonus: 0.2 })
+    expect(damage[0].total).toBeGreaterThan(damage[1].total)
+    expect(probes[1].actionStates?.[0].buffs.has("FragrantSongResonance")).toBe(false)
+    expect(probes[1].actionStates?.[0].buffs.has("PhantomUmbrella")).toBe(true)
+  })
+
   it("creates the first phantom before its returning hit and defers the early catch pulse", () => {
     const result = run(6, [{ type: "skill", skill: "ScarletSpin", duration: 2 }])
     const first = result.timeline.find(isThrow)!
@@ -1390,9 +1441,7 @@ describe("Phantom Umbrella summons and Resonance", () => {
     expect(group.hits).toBe(flat.reduce((sum, row) => sum + row.hits, 0))
   })
 
-  it("catches each admitted throw, including the final one after Flower Burial ends", () => {
-    // An admitted throw finishes its catch independently of Flower Burial. The
-    // continuation remains gated, so that final catch does not launch another throw.
+  it("leaves the final queued throw uncaught after Flower Burial ends", () => {
     const spin = (ping: number) => {
       const input = bundle()
       input.timeline.setupEffects = martialArtEffectsForRank(
@@ -1412,8 +1461,9 @@ describe("Phantom Umbrella summons and Resonance", () => {
       const throws = rows.filter(row => row.kind === "trigger" && row.sourceRowId === parent.id && isThrow(row))
       const catches = rows.filter(isCatch)
       expect(throws.length).toBeGreaterThan(1)
-      expect(catches).toHaveLength(throws.length)
-      expect(catches.at(-1)!.startTime).toBeGreaterThan(parent.startTime + 12)
+      expect(catches).toHaveLength(throws.length - 1)
+      expect(catches.at(-1)!.startTime).toBeLessThan(parent.startTime + 12)
+      expect(throws.at(-1)!.startTime).toBeGreaterThan(parent.startTime + 12)
       expect(throws).toHaveLength(14)
     }
   })

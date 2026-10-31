@@ -48,6 +48,18 @@ Non-DOT indefinite periodic effects retain their single-successor wakeup, while
 finite non-DOT periodic effects retain their bounded schedule. Periodic resource
 amounts can increase by a data-defined amount each tick, as used by Hellfire.
 
+Active self buffs may declare blocksSkillTags to hold ordered skills with a
+matching tag. These use the existing requirement wait rows and retry after
+queued events or buff expiry, resolving all tied actions before accepting the
+cast. Resource depletion can therefore unlock a cast before natural expiry.
+Triggered skills bypass this ordered-input restriction.
+
+Skills may use sequential charge recovery: each spent charge queues a full
+recharge after the preceding one. Cooldown reductions shorten only the active
+recharge, capped at its remaining time. Restoring charges removes the earliest
+pending charges and starts the next recharge immediately. Existing independent
+charge recovery and shared-window behavior remain available for other skills.
+
 ## Readiness after charging
 
 A composite reference can set `waitForRequirement: true` after an unconditional

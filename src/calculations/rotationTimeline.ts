@@ -37,6 +37,15 @@ import {
 } from "./unconditionalDamageEffects"
 
 export type EditableObject = Record<string, unknown>
+export type EffectResourceRate = {
+  resource: string
+  regeneration?: number
+  consumption?: number
+  /** Live self/target state controls which rates apply. */
+  requirement?: unknown
+  /** Actions at zero resource, relative to the depletion instant. */
+  onDepleted?: unknown[]
+}
 export type PeriodicEffect = {
   interval?: number
   firstTick?: number
@@ -98,7 +107,7 @@ export type SkillRecord = {
   cooldown?: number
   cooldownGroup?: string
   cooldownUses?: number
-  cooldownRecovery?: "window" | "independent"
+  cooldownRecovery?: "window" | "independent" | "sequential"
   duration?: number
   collectBoostDamage?: string
   subAction?: Array<string | SubActionReference>
@@ -121,7 +130,7 @@ type RotationEventStep =
   | { event: "SelfHP"; startTime: number; currentHP: number; currentHPRatio?: number }
   | { event: "SelfHP"; startTime: number; currentHPRatio: number; currentHP?: number }
   | { event: "TakeDamage"; startTime: number; damage: number; automatic?: "targetAttack" }
-  | { event: "Hellfire"; startTime: number; amount: number }
+  | { event: "Hellfire" | "Blossoms"; startTime: number; amount: number }
   // Accepted only at persistence/import boundaries and migrated to startTime.
   | { event: "TakeDamage"; before: AttachedEventTarget; damage: number; startTime?: number }
   | { event: "HP"; before: AttachedEventTarget; targetHPRatio: number; startTime?: number }
@@ -145,7 +154,7 @@ type RotationEventStep =
   | { event: "Controlled" | "BattleEnd" | "ShieldBroken"; startTime: number; duration?: number }
   | { event: "Exhausted"; startTime: number; duration?: number }
   | { event: "Move"; startTime: number; distance: number }
-  | { event: "Hellfire"; before: AttachedEventTarget; amount: number; startTime?: number }
+  | { event: "Hellfire" | "Blossoms"; before: AttachedEventTarget; amount: number; startTime?: number }
 export type RotationStep =
   | { type: "skill"; skill?: string; event?: undefined; duration?: number; causesBreak?: boolean; condition?: string }
   | ({ type: "event"; skill?: undefined } & RotationEventStep)
@@ -508,6 +517,8 @@ export function mergeCalculatedTimelineState(structuralTimeline: TimelineRow[], 
 }
 
 export type EffectDefinition = {
+  /** Prevent ordered skills with any matching tag from starting while this buff is active. */
+  blocksSkillTags?: string[]
   badgeColor?: "red"
   damageGroup?: { id: string; name: string }
   onMaxStack?: MaxStackAction
@@ -535,6 +546,8 @@ export type EffectDefinition = {
   stackEffects?: unknown[][]
   action?: unknown[]
   periodic?: PeriodicEffect
+  /** Rates owned by this buff, independent of the currently casting skill. */
+  resourceRates?: EffectResourceRate[]
   recording?: { event: "damage"; requirement?: unknown; action: { type: "trigger"; value: string } }
   incomingDamageReduction?: { chance: number; reduction: number }
   accumulator?: {
@@ -1099,11 +1112,15 @@ export function buildRotationTimeline(
       | "nextOrdered"
       | "orderedReady"
       | "targetAttack"
+      | "resourceBoundary"
     row: TimelineRow
     actionIndex?: number
     pattern?: TargetAttackPattern
     subActionIndex?: number
     selectedSubAction?: { skillId: string | undefined }
+    /** Shared completion effects run after the ending cast's same-time actions. */
+    castEndEffects?: boolean
+    castEndEffectOrder?: number[]
     expiresEffect?: { target: "self" | "target" | "player"; name: string; expiresAt: number; scheduleId: number }
     expectedWakeup?: { name: string; active: ActivePeriodicEffect }
     periodicWakeup?: { name: string; active: ActivePeriodicEffect }
@@ -1227,7 +1244,9 @@ export function buildRotationTimeline(
         step.type === "event" && step.event === "TakeDamage" && action.type === "takeDamage"
           ? { damage: step.damage }
           : {},
-        step.type === "event" && step.event === "Hellfire" && action.type === "addResource"
+        step.type === "event" &&
+          (step.event === "Hellfire" || step.event === "Blossoms") &&
+          action.type === "addResource"
           ? { type: step.amount < 0 ? "consumeResource" : "addResource", amount: Math.abs(step.amount) }
           : {},
         step.type === "event" && step.event === "HP" && action.type === "setTargetHP"
@@ -1716,6 +1735,29 @@ export function buildRotationTimeline(
     regeneration?: number
     consumption?: number
   }> = []
+  const resourceRateEffectNames = new Set(
+    Object.entries(effectDefinitions)
+      .filter(([, definition]) => definition.resourceRates?.length)
+      .map(([name]) => name),
+  )
+  const depletedRateEffects = new WeakSet<TrackedEffect>()
+  const activeEffectResourceRates = (time: number) => {
+    if (!resourceRateEffectNames.size) return []
+    const activeBuffs = prune(buffs, time)
+    const activeDebuffs = prune(debuffs, time)
+    return [...activeBuffs.values()].flatMap(tracked => {
+      if (!resourceRateEffectNames.has(tracked.name)) return []
+      const definition = getModifiedEffectDefinition(tracked.name, activeBuffs, activeDebuffs, [])
+      return (definition.resourceRates ?? [])
+        .filter(rate =>
+          requirementsPass(rate.requirement, activeBuffs, activeDebuffs, [], innerWayConditions, weapons, resources, {
+            ...requirementState(),
+            currentTime: time,
+          }),
+        )
+        .map(rate => Object.assign({}, rate, { tracked, definition }))
+    })
+  }
   /** Resource regeneration stays at zero until this time after a direct spend. */
   const regenSuppressedUntil = new Map<string, number>()
   const resourceEventParameters = Object.fromEntries([...innerWayConditions].map(condition => [condition, true]))
@@ -1911,13 +1953,14 @@ export function buildRotationTimeline(
   const regenerateResources = (time: number) => {
     const from = lastResourceRegenerationTime
     if (from !== Infinity && time > from) {
+      const effectRates = activeEffectResourceRates(from)
       // Split the span at every window boundary so a rate change lands exactly
       // where it is authored rather than being smeared across the gap. A spend's
       // suppression deadline is an event time, so it splits too and the
       // suppression test below is exact within each piece.
       const boundaries = new Set<number>()
       if (battleStartTime > from && battleStartTime < time) boundaries.add(battleStartTime)
-      for (const buff of buffs.values()) {
+      for (const buff of [...buffs.values(), ...(effectRates.length ? debuffs.values() : [])]) {
         if (buff.expiresAt !== undefined && buff.expiresAt > from && buff.expiresAt < time)
           boundaries.add(buff.expiresAt)
       }
@@ -1930,6 +1973,7 @@ export function buildRotationTimeline(
       const names = new Set([
         ...Object.keys(resourceRegeneration),
         ...resourceRateWindows.map(window => window.resource),
+        ...effectRates.map(rate => rate.resource),
       ])
       const stops = [from, ...[...boundaries].toSorted((a, b) => a - b), time]
       for (let index = 0; index < stops.length - 1; index += 1) {
@@ -1941,6 +1985,11 @@ export function buildRotationTimeline(
             if (infiniteResources.has(name)) return next
             const active = resourceRateWindows.filter(
               window => window.resource === name && window.from <= spanStart && spanStart < window.to,
+            )
+            active.push(
+              ...activeEffectResourceRates(spanStart)
+                .filter(rate => rate.resource === name)
+                .map(rate => Object.assign({}, rate, { from: spanStart, to: stops[index + 1] })),
             )
             const override = active.findLast(window => window.regeneration !== undefined)?.regeneration
             const drain = active.reduce((total, window) => total + (window.consumption ?? 0), 0)
@@ -1975,7 +2024,8 @@ export function buildRotationTimeline(
   const listenerCooldowns = new Map<InnerWayEffectRule, number>()
   const skillCooldownStates: Record<
     string,
-    { recovery: "window"; expiresAt: number; uses: number } | { recovery: "independent"; readyTimes: number[] }
+    | { recovery: "window"; expiresAt: number; uses: number }
+    | { recovery: "independent" | "sequential"; readyTimes: number[] }
   > = {}
   const effectTriggerCooldowns = new Map<number, number>()
   const buffDurationRules = setupEffects.filter(effect => typeof effect.buffDurationBonus === "number")
@@ -2145,6 +2195,14 @@ export function buildRotationTimeline(
     }
     return skill.cooldown
   }
+  const skillCooldownUses = (skill: SkillRecord | undefined, time = currentTimelineTime) => {
+    const modifiers = modifiersFor(skill, time)
+    for (let index = modifiers.length - 1; index >= 0; index -= 1) {
+      const uses = modifiers[index]?.cooldownUses
+      if (typeof uses === "number") return Math.max(1, Math.floor(uses))
+    }
+    return Math.max(1, Math.floor(skill?.cooldownUses ?? 1))
+  }
   const skillCooldownReadyAt = (key: string, time: number, uses: number) => {
     const state = skillCooldownStates[key]
     if (!state) return time
@@ -2152,6 +2210,7 @@ export function buildRotationTimeline(
       case "window":
         if (compareTimelineTime(time, state.expiresAt) >= 0 || state.uses < uses) return time
         return state.expiresAt
+      case "sequential":
       case "independent": {
         const pending = state.readyTimes.filter(readyAt => compareTimelineTime(readyAt, time) > 0)
         return pending.length < uses ? time : pending[0]
@@ -2182,6 +2241,14 @@ export function buildRotationTimeline(
         }
         break
       }
+      case "sequential": {
+        const pending =
+          state?.recovery === "sequential"
+            ? state.readyTimes.filter(readyAt => compareTimelineTime(readyAt, time) > 0)
+            : []
+        skillCooldownStates[key] = { recovery, readyTimes: [...pending, (pending.at(-1) ?? time) + duration] }
+        break
+      }
     }
     cooldowns[key] = skillCooldownReadyAt(key, time, uses)
   }
@@ -2199,6 +2266,14 @@ export function buildRotationTimeline(
           case "independent":
             state.readyTimes = state.readyTimes.map(readyAt => Math.max(time, readyAt - seconds))
             break
+          case "sequential": {
+            const pending = state.readyTimes.filter(readyAt => compareTimelineTime(readyAt, time) > 0)
+            // Only the active recharge is reduced. Later charges start earlier,
+            // but each still takes its full duration; excess reduction is discarded.
+            const reduction = Math.min(seconds, Math.max(0, (pending[0] ?? time) - time))
+            state.readyTimes = pending.map(readyAt => readyAt - reduction)
+            break
+          }
         }
       }
     } else if (charges === undefined) delete skillCooldownStates[key]
@@ -2213,9 +2288,16 @@ export function buildRotationTimeline(
           // Restore the next recovering charge; all other recovery timestamps stay intact.
           state.readyTimes = state.readyTimes.filter(readyAt => compareTimelineTime(readyAt, time) > 0).slice(restored)
           break
+        case "sequential": {
+          const pending = state.readyTimes.filter(readyAt => compareTimelineTime(readyAt, time) > 0)
+          const removed = Math.min(restored, pending.length)
+          const shift = removed > 0 ? pending[removed - 1] - time : 0
+          state.readyTimes = pending.slice(removed).map(readyAt => readyAt - shift)
+          break
+        }
       }
     }
-    const readyAt = skillCooldownReadyAt(key, time, Math.max(1, Math.floor(skills[skillId]?.cooldownUses ?? 1)))
+    const readyAt = skillCooldownReadyAt(key, time, skillCooldownUses(skills[skillId], time))
     cooldowns[key] = readyAt
     if (
       waitingCast &&
@@ -3094,8 +3176,73 @@ export function buildRotationTimeline(
   if (!hasUsableStart || !ordered.length) startBattle(0)
   const nextTimedEvent = () =>
     rotation.eventTimeReference === "battleStart" && battleStartTime < 0 ? undefined : timed[timedCursor]
+  let resourceBoundaryQueued = false
+  const queueResourceBoundary = (until: number) => {
+    if (resourceBoundaryQueued || !Number.isFinite(lastResourceRegenerationTime)) return
+    const from = lastResourceRegenerationTime
+    const rates = activeEffectResourceRates(from)
+    if (!rates.length) return
+    let boundary = Infinity
+    for (const tracked of [...buffs.values(), ...debuffs.values()])
+      if (tracked.expiresAt !== undefined && tracked.expiresAt > from) boundary = Math.min(boundary, tracked.expiresAt)
+    for (const window of resourceRateWindows)
+      for (const time of [window.from, window.to]) if (time > from) boundary = Math.min(boundary, time)
+    for (const deadline of regenSuppressedUntil.values()) if (deadline > from) boundary = Math.min(boundary, deadline)
+    for (const rate of rates) {
+      if (!rate.onDepleted?.length || infiniteResources.has(rate.resource) || depletedRateEffects.has(rate.tracked))
+        continue
+      const value = resources[rate.resource] ?? 0
+      if (value <= 0) {
+        boundary = from
+        break
+      }
+      const active = [
+        ...resourceRateWindows.filter(
+          window => window.resource === rate.resource && window.from <= from && from < window.to,
+        ),
+        ...rates.filter(candidate => candidate.resource === rate.resource),
+      ]
+      const regenerationActive = rate.resource === "Endurance" || (battleStartTime >= 0 && from >= battleStartTime)
+      const suppressed = (regenSuppressedUntil.get(rate.resource) ?? -Infinity) > from
+      const regeneration =
+        regenerationActive && !suppressed
+          ? (active.findLast(candidate => candidate.regeneration !== undefined)?.regeneration ??
+            resourceRegeneration[rate.resource] ??
+            0)
+          : 0
+      const consumption = active.reduce((total, candidate) => total + (candidate.consumption ?? 0), 0)
+      // Use the same integrator as regeneration, including a low-resource bonus.
+      const bonus = resourceRegenerationBonuses.get(rate.resource)
+      const maximum = resourceMaximums[rate.resource]
+      const lowRate = regeneration * (1 + (bonus?.bonus ?? 0)) - consumption
+      if (regeneration - consumption >= 0 || (bonus && regeneration > 0 && lowRate >= 0)) continue
+      let duration = value / (consumption - regeneration)
+      if (bonus && maximum !== undefined && regeneration > 0) {
+        const threshold = maximum * bonus.belowRatio
+        duration = Math.max(0, value - threshold) / (consumption - regeneration) + Math.min(value, threshold) / -lowRate
+      }
+      boundary = Math.min(boundary, from + duration)
+    }
+    if (!Number.isFinite(boundary) || boundary > until) return
+    const source = rows.find(row => row.id === rates[0].tracked.sourceRowId) ?? rows[0]
+    if (!source) return
+    resourceBoundaryQueued = true
+    events.push({ kind: "resourceBoundary", row: source, time: boundary, sortOrder: [-2] })
+  }
   while ((events.length || timedCursor < timed.length || pendingCharge) && processedEvents < 5000) {
     responseContext = undefined
+    if (
+      waitingCast?.delay.reason === "requirement" &&
+      ![...prune(buffs, currentTimelineTime).values()].some(active =>
+        effectDefinitions[active.name]?.blocksSkillTags?.some(tag => waitingCast!.row.skill?.tags?.includes(tag)),
+      )
+    ) {
+      const waitingRow = waitingCast.row
+      events.mutate(queued => {
+        if (queued.kind === "orderedReady" && queued.row === waitingRow) queued.time = currentTimelineTime
+      })
+    }
+    queueResourceBoundary(Math.min(events.peek()?.time ?? Infinity, nextTimedEvent()?.time ?? Infinity))
     const anchorEvent = events.peek()
     if (
       battleStartTime < 0 &&
@@ -3156,8 +3303,9 @@ export function buildRotationTimeline(
     responseContext = responseContexts.get(event.row)
     if (import.meta.env.DEV) finishCalculationPhase("timelineQueueOrdering", queueStartedAt)
     if (pendingCharge) pendingCharge.observed = event.time
-    if (event.kind === "castEnd") {
+    if (event.kind === "castEnd" && !event.castEndEffects) {
       resolveAction?.onCastEnd?.(event.row)
+      if (event.castEndEffectOrder) events.push({ ...event, castEndEffects: true, sortOrder: event.castEndEffectOrder })
       continue
     }
     if (event.kind === "targetAttack") {
@@ -3194,13 +3342,27 @@ export function buildRotationTimeline(
     }
     if (event.kind === "orderedReady") {
       const row = event.row
+      const blockingBuffs = [...prune(buffs, event.time).values()].filter(active =>
+        effectDefinitions[active.name]?.blocksSkillTags?.some(tag => row.skill?.tags?.includes(tag)),
+      )
+      if (row.step.type === "skill" && blockingBuffs.length) {
+        const retryAt = Math.min(
+          events.peek()?.time ?? Infinity,
+          nextTimedEvent()?.time ?? Infinity,
+          ...blockingBuffs.map(active => active.expiresAt ?? Infinity),
+        )
+        // Resolve all actions at the boundary before retrying, including depletion,
+        // refunds and periodic follow-ups. Triggered skills bypass ordered readiness.
+        waitForOrdered({ ...event, sortOrder: [Infinity] }, retryAt, "requirement")
+        continue
+      }
       const skillId = row.step.type === "skill" ? (row.step.skill ?? "") : ""
       const readyAt =
         row.step.type === "skill"
           ? skillCooldownReadyAt(
               skillCooldownKey(skillId, row.skill),
               event.time,
-              Math.max(1, Math.floor(row.skill?.cooldownUses ?? 1)),
+              skillCooldownUses(row.skill, event.time),
             )
           : event.time
       if (compareTimelineTime(readyAt, event.time) > 0) {
@@ -3324,6 +3486,29 @@ export function buildRotationTimeline(
     const activeDebuffs = prune(debuffs, event.time)
     if (activeBuffs !== buffs) setBuffs(activeBuffs)
     if (activeDebuffs !== debuffs) setDebuffs(activeDebuffs)
+    if (event.kind === "resourceBoundary") {
+      resourceBoundaryQueued = false
+      for (const rate of activeEffectResourceRates(event.time)) {
+        if (
+          !rate.onDepleted?.length ||
+          infiniteResources.has(rate.resource) ||
+          (resources[rate.resource] ?? 0) > 0 ||
+          depletedRateEffects.has(rate.tracked)
+        )
+          continue
+        depletedRateEffects.add(rate.tracked)
+        enqueueEffectActions(
+          rate.tracked.name,
+          { ...rate.definition, action: rate.onDepleted },
+          event.time,
+          rate.tracked.sourceRowId ?? event.row.id,
+          event.sortOrder,
+          event.row.order,
+          "self",
+        )
+      }
+      continue
+    }
     if (event.kind === "queueTrigger") {
       const action = event.row.actions[event.actionIndex ?? -1]
       if (action?.type === "trigger") {
@@ -3454,12 +3639,14 @@ export function buildRotationTimeline(
           ? { ...selectedAction, time: segmentStartOffset + segment.localActionTimes[localIndex] }
           : { type: "inactive", time: segmentStartOffset + segment.baseCastTime }
       })
-      if (selectedId && typeof selectedSkill?.cooldown === "number")
+      // The parent charge is already spent by the cast-start event. Only
+      // subsequent components can spend an additional skill cooldown.
+      if ((event.subActionIndex ?? 0) > 0 && selectedId && typeof selectedSkill?.cooldown === "number")
         recordSkillCooldownCast(
           skillCooldownKey(selectedId, selectedSkill),
           event.time,
           selectedSkill.cooldown,
-          Math.max(1, Math.floor(selectedSkill.cooldownUses ?? 1)),
+          skillCooldownUses(selectedSkill, event.time),
           selectedSkill.cooldownRecovery,
         )
       const inactiveActionIndexes = new Set(segment.actionIndexes.slice(selectedActions.length))
@@ -3521,7 +3708,7 @@ export function buildRotationTimeline(
       if (!multiActionSegments.has(event.row.id))
         registerEnduranceRates(event.row.skill, event.time, resolveSkillCastTime(event.row.skill))
       const cooldownDuration = event.row.skill ? skillCooldownDuration(event.row.skill, skillModifiers) : undefined
-      const cooldownUses = Math.max(1, Math.floor(event.row.skill?.cooldownUses ?? 1))
+      const cooldownUses = skillCooldownUses(event.row.skill, event.time)
       const cooldownKey = skillCooldownKey(skillId, event.row.skill)
       resolvedRows.add(event.row)
       if (waitingCast?.row === event.row) waitingCast = undefined
@@ -3594,7 +3781,9 @@ export function buildRotationTimeline(
           queueAttackResponse(event.row, event.time, event.sortOrder)
       }
       if (
-        resolveAction?.onCastEnd &&
+        (resolveAction?.onCastEnd ||
+          effectTriggersByEvent.has("skillEnd") ||
+          innerWayTriggersByEvent.has("skillEnd")) &&
         event.row.step.type === "skill" &&
         !event.row.skill?.silent &&
         (event.row.kind === "rotation" || event.row.kind === "trigger")
@@ -3604,6 +3793,11 @@ export function buildRotationTimeline(
           row: event.row,
           time: event.row.startTime + event.row.effectiveCastTime,
           sortOrder: [-2, event.row.order],
+          // Keep Seasonal Edge's callback priority unchanged. Generic effects
+          // follow final hits, before the next ordered cast starts.
+          ...(effectTriggersByEvent.has("skillEnd") || innerWayTriggersByEvent.has("skillEnd")
+            ? { castEndEffectOrder: [...event.sortOrder.slice(0, -1), 1, Number.MAX_SAFE_INTEGER] }
+            : {}),
         })
       if (
         event.row.skill?.silent ||
@@ -3619,6 +3813,8 @@ export function buildRotationTimeline(
       switch (event.kind) {
         case "start":
           return { type: "skillStart" }
+        case "castEnd":
+          return { type: "skillEnd" }
         case "attackResponse":
           return { type: "attackResponse" }
         default:
@@ -3784,7 +3980,7 @@ export function buildRotationTimeline(
       if (triggeredSkill) sourceRowId = damageSource(triggeredSkill, sourceRowId ?? event.row.id)
       const key = skillCooldownKey(skillId, triggeredSkill)
       if (!triggeredSkill) return false
-      const uses = Math.max(1, Math.floor(triggeredSkill.cooldownUses ?? 1))
+      const uses = skillCooldownUses(triggeredSkill, event.time)
       if (compareTimelineTime(skillCooldownReadyAt(key, event.time, uses), event.time) > 0) return false
       const actions = Array.isArray(triggeredSkill.action) ? (triggeredSkill.action as EditableObject[]) : []
       const triggeredStartTime = event.time + (triggeredSkill.triggerPing ? skillPing(triggeredSkill) : 0)
@@ -4419,7 +4615,7 @@ export function buildRotationTimeline(
       )
     }
     const runInnerWayTriggers = (
-      triggerEvent: "damage" | "heal" | "takeDamage" | "damageOutcome",
+      triggerEvent: "damage" | "heal" | "takeDamage" | "damageOutcome" | "skillEnd",
       row?: TimelineRow,
     ) => {
       ;(innerWayTriggersByEvent.get(triggerEvent) ?? []).forEach(
@@ -4494,6 +4690,12 @@ export function buildRotationTimeline(
     if (event.kind === "start" || action.type === "skillStart") {
       runEffectTriggers("skillStart")
       runEffectTriggers("skillStart", true)
+      continue
+    }
+    if (event.kind === "castEnd") {
+      runEffectTriggers("skillEnd")
+      runInnerWayTriggers("skillEnd", event.row)
+      runEffectTriggers("skillEnd", true)
       continue
     }
     if (event.kind === "attackResponse") {

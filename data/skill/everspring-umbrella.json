@@ -104,6 +104,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.6153846153846154,
         "requirement": {
           "resolveAt": "skillStart",
@@ -111,6 +112,13 @@
             { "operator": "not", "operand": [{ "target": "self", "value": "FragrantSong", "resolveAt": "skillStart" }] }
           ]
         }
+      },
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": "all",
+        "time": 1.0769230769230769
       },
       {
         "type": "trigger",
@@ -126,6 +134,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.38461538461538464,
         "requirement": {
           "resolveAt": "skillStart",
@@ -239,6 +248,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.4166666666666667,
         "requirement": {
           "resolveAt": "skillStart",
@@ -246,6 +256,13 @@
             { "operator": "not", "operand": [{ "target": "self", "value": "FragrantSong", "resolveAt": "skillStart" }] }
           ]
         }
+      },
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": "all",
+        "time": 0.9583333333333333
       },
       {
         "type": "trigger",
@@ -261,6 +278,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.3283333333333333,
         "requirement": {
           "resolveAt": "skillStart",
@@ -374,6 +392,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.5454545454545454,
         "requirement": {
           "resolveAt": "skillStart",
@@ -381,6 +400,13 @@
             { "operator": "not", "operand": [{ "target": "self", "value": "FragrantSong", "resolveAt": "skillStart" }] }
           ]
         }
+      },
+      {
+        "type": "consume",
+        "target": "self",
+        "value": "FragrantSongResonance",
+        "stack": "all",
+        "time": 1.0909090909090908
       },
       {
         "type": "trigger",
@@ -396,6 +422,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.4545454545454546,
         "requirement": {
           "resolveAt": "skillStart",
@@ -503,6 +530,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.45454545454545453,
         "requirement": {
           "resolveAt": "skillStart",
@@ -511,6 +539,7 @@
           ]
         }
       },
+      { "type": "consume", "target": "self", "value": "FragrantSongResonance", "stack": "all", "time": 1 },
       {
         "type": "trigger",
         "value": "ScarletSpinStage2",
@@ -525,6 +554,7 @@
       {
         "type": "trigger",
         "value": "EverspringPerfectCatch",
+        "sourceEffect": "FlowerBurial",
         "time": 0.3636363636363637,
         "requirement": {
           "resolveAt": "skillStart",

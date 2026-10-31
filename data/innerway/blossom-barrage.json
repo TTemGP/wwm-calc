@@ -4,7 +4,18 @@
   "tags": ["SilkbindJade"],
   "effect": {
     "BlossomBarrageT0": {},
-    "BlossomBarrageT1": {},
+    "BlossomBarrageT1": {
+      "effect": [
+        {
+          "target": "JadeCombo",
+          "modify": {
+            "effect": [
+              { "requirement": [{ "target": "skillTag", "value": "Ballistic" }], "effect": { "hpDMGBonus": 0.2 } }
+            ]
+          }
+        }
+      ]
+    },
     "BlossomBarrageT2": {
       "effect": [
         {
@@ -39,8 +50,37 @@
         }
       ]
     },
-    "BlossomBarrageT3": {},
-    "BlossomBarrageT4": {},
+    "BlossomBarrageT3": { "effect": [{ "target": "JadeCombo", "modify": { "duration": 15 } }] },
+    "BlossomBarrageT4": {
+      "effect": [
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+            { "target": "target", "value": "JadeCombo" }
+          ],
+          "effect": { "hpDMGBonus": 0.05 }
+        },
+        {
+          "requirement": [
+            { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+            { "target": "target", "value": "JadeCombo" },
+            { "target": "target", "value": "Exhausted" }
+          ],
+          "effect": { "hpDMGBonus": 0.05 }
+        }
+      ],
+      "trigger": [
+        {
+          "cooldown": 0.5,
+          "requirement": [
+            { "target": "skillTag", "value": "UnfadingFlowerProjectile" },
+            { "target": "target", "value": "JadeCombo" },
+            { "target": "target", "value": "Exhausted" }
+          ],
+          "action": [{ "type": "trigger", "value": "JadeComboExtension" }]
+        }
+      ]
+    },
     "BlossomBarrageT5": { "effect": [{ "rawStat": { "directCrit": 0.046 } }] },
     "BlossomBarrageT6": {}
   }

@@ -787,3 +787,116 @@ Both Wings presets move their four fixed Qi threshold times earlier by 0.04,
 0.06, 0.14, and 0.16 seconds to retain proportional depletion around the earlier
 break and recovery. Wings DPS and all other snapshots are unchanged. These
 repairs resolve the three alignment failures noted in the earlier acceptance.
+
+## Strength Mixed rotation acceptance (October 27, 2026)
+
+The user accepted the revised ordinary Mixed, Double Stab, and Infinite Vitality
+rotations and their 42 build/rotation/breakthrough snapshots. Ordinary Mixed and
+Infinite Vitality place Leaping Toad, Deflect, then seven-arrow Bursting Nine in
+that order. Ordinary Mixed's third second-round charged strike now exhausts the
+boss at about 32.169 seconds. Double Stab also exhausts on its third
+second-round charged strike, at about 31.649 seconds; its second Flute stays
+after the second charge so the last VC's linked hits land by 59.5 seconds.
+
+| Rotation          | Solo |      Previous DPS |      Accepted DPS |
+| ----------------- | ---: | ----------------: | ----------------: |
+| Ordinary Mixed    |   18 | 83050.72376735933 | 83456.22794182469 |
+| Ordinary Mixed    |   19 | 87135.74937051283 | 87516.29149668838 |
+| Double Stab       |   18 | 83385.74968058772 | 83330.54058106004 |
+| Double Stab       |   19 | 87493.15847002153 | 87388.11644673634 |
+| Infinite Vitality |   18 |  83553.5962516165 | 83496.96156463119 |
+| Infinite Vitality |   19 |  87640.3186069428 | 87580.53906814677 |
+
+The table uses Mixed Full Min; the accepted snapshot matrix also includes the
+pure-build combinations. Every reviewed case retains a sixty-second duration,
+and no other preset snapshot changes.
+
+## Strength Mixed Double Stab follow-up (October 27, 2026)
+
+The user accepted the Double Stab sequence with Leaping Toad/Deflect/Bursting
+Nine, LC/VC after the first Tab/VC, Heng Q before the late Heng Special, and a
+final Tab/VC/LC. It retains fifteen charged casts and exhausts on the third
+second-round strike at about 33.791 seconds. The last direct hit lands at about
+59.851 seconds with Mixed Full Min at Solo 18 and 19.
+
+| Solo |      Previous DPS |      Accepted DPS |
+| ---: | ----------------: | ----------------: |
+|   18 | 83330.54058106004 | 83664.47808757986 |
+|   19 | 87388.11644673634 | 87742.55442362059 |
+
+The Double Stab snapshots for its mixed and pure build combinations change
+because the extra Deflect and revised filler order alter timing and damage.
+Other preset rotations retain their previous snapshots.
+
+## Dust final catch correction (October 27, 2026)
+
+The user approved removing the Perfect Catch and its Resonance from the final
+queued throw of each Scarlet Spin. Each cast retains fourteen throws and 28
+direct hits. The three-cast 100% PC preset now has 84 Resonances, and the
+regular preset has 86, including their Bubbles Resonances. The twelve Dust
+snapshots for both rotations, three builds, and breakthroughs 18 and 19 were
+updated after review. At breakthrough 18 with Dust Full Min, 100% PC changes
+from 77037.10483776833 to 76324.02843243226 DPS and regular changes from
+77418.34869882601 to 76699.5753785789 DPS. Duration remains 60 seconds.
+
+## Local snapshot reconciliation (October 28, 2026)
+
+The user accepted the 40 outstanding local Dust and Strength Mixed cases:
+both Dust presets (12 build/level combinations), Ordinary Mixed (14), and
+Mixed Infinite Vitality (14). These account for the Flower Burial catch and
+Resonance cleanup, Ordinary Mixed filler/Qi alignment, and Infinite Vitality's
+Toad/Deflect/Bursting Nine ordering described in the skill-data reference.
+
+All 40 regenerated records exactly match the already-released snapshots at
+`3da8c84`. Strength's acceptance was committed remotely in `dc310e3`, and Dust's
+final-catch acceptance in `3da8c84`. The local branch had the combat changes but
+retained older snapshots. GitHub deployment run `40541053926` passed its release
+DPS snapshot check on October 27; this reconciliation fixes local divergence,
+not a bypass of the deployment gate. The Jade resource-rate and shared cast-end
+extensions leave all 222 preset DPS results unchanged.
+
+## Jade initial release baselines (October 29, 2026)
+
+The reviewed 60-second Jade rotation spends Blossoms with Unfading Flower and
+refills to 100 before its next activation. The user selected Fully Relayed Max
+as the default and requested a matching non-relayed Graduate build for release.
+These six cases are new coverage; all existing accepted cases are unchanged.
+
+| Build             | Breakthrough 18 DPS | Breakthrough 19 DPS |
+| ----------------- | ------------------: | ------------------: |
+| Fully Relayed Min |  53510.384995774904 |  56014.237630177675 |
+| Fully Relayed Max |   54469.20256012464 |   57452.54104213089 |
+| Graduate          |  55823.534181683666 |   58770.95973991257 |
+
+Each duration is 60 seconds; total damage is DPS multiplied by 60.
+
+## Jade projectile attunement acceptance (October 29, 2026)
+
+The user approved replacing the inherited Snowparting armor attunements on all
+Jade builds with Vernal Umbrella Frequent Projectile and tagging Unfading Flower
+projectiles for that bonus. The six accepted DPS values below retain the
+60-second rotation; other paths are unchanged.
+
+| Build             | Breakthrough 18 DPS | Breakthrough 19 DPS |
+| ----------------- | ------------------: | ------------------: |
+| Fully Relayed Min |   61702.41845532281 |  64592.436968280206 |
+| Fully Relayed Max |  62790.019462148346 |   66232.75025976947 |
+| Graduate          |   64350.09308954911 |   67750.33082174494 |
+
+## Jade charge-aware rotation acceptance (October 29, 2026)
+
+The user approved the corrected Fan Q two-charge and Umbrella Q two-charge
+(three with Blossom Barrage) capacities, Star Reacher refreshes from Flower's
+Lingering Bone refresh, and the optimized Mystic filler sequence. Jadebreak
+has full coverage. The opener establishes Mistwillow with Heavy/Light VC;
+subsequent refills use Umbrella QQ and immediately activate Flower at 100 Blossoms.
+
+| Build             | Breakthrough 18 DPS | Breakthrough 19 DPS |
+| ----------------- | ------------------: | ------------------: |
+| Fully Relayed Min |   78972.27981860402 |   82575.79698052563 |
+| Fully Relayed Max |   80388.34332468435 |   84709.45536687472 |
+| Graduate          |   82377.87206481808 |   86643.52449195577 |
+
+All six cases remain 60 seconds; total damage is DPS multiplied by 60.
+Other paths retain their accepted snapshots. Fan pursuit is excluded pending
+confirmed complete cast/cancel timing.

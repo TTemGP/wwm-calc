@@ -1,0 +1,18 @@
+{
+  "LingeringBone": {
+    "name": "Lingering Bone",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "shortName": "LB"
+  },
+  "JadeCombo": {
+    "name": "Combo",
+    "duration": 10,
+    "maxStack": 1,
+    "refresh": true,
+    "showCoverage": true,
+    "effect": [{ "requirement": [{ "target": "skillTag", "value": "Ballistic" }], "effect": { "hpDMGBonus": 0.1 } }]
+  }
+}
