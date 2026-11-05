@@ -623,8 +623,12 @@ follow-up from a prepull cast can apply target effects after battle starts;
 When the anchor names one action inside a step, the fight opens on that action's
 resolved time before damage or target-effect actions sharing that instant,
 including timed encounter effects and delayed follow-ups from other rows.
-Earlier events processed before the anchor remain prepull. Prepull damage and
-unconditional self effects are unaffected; only the target is unreachable.
+Earlier events processed before the anchor remain prepull. Prepull damage markers
+remain in the timeline, but do not dispatch hit listeners, damage-outcome triggers,
+hit counters, damage recordings, or on-hit recovery and resource rewards. This
+includes weapon-set buffs and Morale Chant's damage-triggered stacks. Direct skill
+self effects still apply. Each damage action reads the live battle state, so a
+delayed hit from a prepull cast can trigger these effects after the anchor opens combat.
 A self effect can require `battleStarted` to exclude prepull, such as an
 in-combat hit counter. A release selected before its anchored first hit can
 choose an out-of-combat route and retain it once the hit opens combat.
@@ -1400,6 +1404,14 @@ its next generated hits dynamically and needs no preliminary duration pass.
 Fight-start detection activates its dependent clocks in the same traversal.
 
 ### Input latency (ping)
+
+An attack response may supply `successRecovery` as a number or dynamic switch.
+When success resolves while its source cast still owns the next ordered event,
+the timeline replaces that cast's end with success time plus the selected
+recovery and reschedules its pending continuation and cast-end callbacks. This
+can shorten or extend recovery; it neither changes the captured defensive
+window nor reopens an already-finished/canceled cast. The grounded Dual Blades
+dodge uses this mechanism for its 0.1s reaction. No next-skill lookahead is used.
 
 Settings persists a non-negative finite ping in milliseconds in the existing
 user-settings record, defaulting to 40 ms for new and legacy settings. Rotations
