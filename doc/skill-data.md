@@ -599,6 +599,9 @@ At its authored 40ms ping, this moves the cast past the original Intoxicated
 expiry so Dragon's Breath grants a fresh buff rather than leaving one that
 expires mid-cast. The following Drunken Poet therefore skips its drink and
 avoids an extra 10 Vitality cost (7 after Turnaround's refund).
+Strategy Enhancement (export level 5, entry 305) refunds 4 Vitality on the
+fifth Poet hit. The refund resolves at impact, separately from the shared
+damage-event payout and Turnaround's cast-time refund.
 
 Consuming/removing the last stack cancels future periodic actions. A DOT deals
 one copy per active tick, independent of stack count, and ignores flat bonuses.
@@ -782,8 +785,8 @@ Ordinary Dodge refreshes Mystic damage at 17.5s. The hold places the 23.5s
 attack inside Fan Q's defensive window. The first Umbrella Q hit anchors battle time.
 BP builds use relayed All Mystic damage rolls on tier-100 helmet and chestpiece;
 the affix is not available on their tier-96 gear.
-Hybrid replaces Grounded's opening QQ and its QQ before UF four with one
-Umbrella Q and a Spring Away hold (4s and 1.871s respectively). Both reach
+Hybrid refills before UF one and four with one Umbrella Q and a Spring Away
+hold (4s and 1.871s respectively). Both reach
 100 Blossoms. Peak returns to melee after each charged refill. UF five uses
 a partial single-Q refill, and UF six uses QHL.
 
@@ -2345,7 +2348,8 @@ both cycles of fixed thresholds.
 
 Golden Body [Cancel] waits 0.5 seconds for Shield before its cancel follow-up and
 applies the shared Shield effect 0.5 seconds after cast start. Its upgraded
-shield lasts ten seconds (eight base plus two from Defense Boost), with the
+shield lasts ten seconds (eight base plus two from Defense Boost), extended to
+twelve seconds with four-piece Formbend, with the
 exported twenty-second cooldown. The delayed application survives cast completion
 through the existing timed-action mechanism. This entry models shield presence
 for Rain Whisper; shield absorption, defensive bonuses, healing on expiry, and
@@ -2481,16 +2485,12 @@ The name describes the refill requirement: the accepted four-Blossom pulses
 actually grant 36 before the cap. It omits the third hit and its resource grant
 at 0.7442s. The existing two-hit variant still ends at 0.53s and grants 32.
 
-Grounded starts on the first Umbrella Q hit after Fan Q. QQ / Heavy /
-Phoenix [35 Blossoms] fills the opener. Toad enables the three-hit pursuit
+Grounded opens with Fan Q [Miss]. Fan Q grants Jadebreak and Windrider while its charge recovers normally. The first Umbrella Q hit starts the clock. The opener uses Q / Heavy / two-hit Colorful Phoenix / Q. Light VC grants 28 Blossoms by its second impact at 0.4442s and 32 after the 0.53s pulse. The second Q fills Blossoms to 100 and benefits from Mistwillow on builds using the set. Toad enables the three-hit pursuit
 in the first UF window and full Fan Q enables the five-hit pursuit in the
-second. Flute precedes the fourth UF, which breaks Qi at 28.890s. Fan Q,
-two-hit Smolder / Deflect and five-hit Poet / Deflect follow during exhaustion.
+second. Flute cancel follows Forsaken Fame in the third UF window. Q / Heavy / Phoenix refills the fourth UF, which breaks Qi at 28.331s. Saving the Q charge lets the final Umbrella Q start as soon as UF mode ends and input latency clears. Fan Q,
+two-hit Smolder, and five-hit Poet / Deflect follow during exhaustion. Smolder starts sober, so Poet can follow its second impact directly.
 Every UF cancel has an immediate Deflect. Single-Q refills start the fifth
-and seventh UFs at about 60 Blossoms. Grounded uses the attacking dummy. In UF three, full Forsaken Fame finishes
-before the timed successful Deflect catches the 23.5s attack. Fan Q dodges
-the 29.5s attack during UF four. Each response restores 3 Vitality on Max BP,
-funding both late two-hit Soaring Spins.
+and seventh UFs at about 60 Blossoms. Poet's fifth hit refunds 4 Vitality. An extra Forsaken Fame cancel / Deflect after the seventh UF fills the time before the final two-hit Soaring Spin on the passive dummy.
 
 Forsaken Fame [Cancel] ends at its 1.19-second damage hit, retaining Lingering
 Bone and the 10-Endurance grant at that same timestamp. It saves 0.44 seconds
@@ -2498,11 +2498,31 @@ over the full cast. Its immediate follow-up must be Deflect or another skill
 that is neither Forsaken Fame (including its cancel variant) nor an Umbrella
 skill. As with the other cancel variants, this is an authored-sequence contract
 checked for presets; the editor does not enforce follow-up selection.
-Grounded Dummy 1 Min BP has been removed from the bundled presets. Its historical
-video-comparison reports remain as audit evidence, not an available rotation.
 
 ### Jade one-minute filler review (2026-11-05)
 
 On Fully Relayed Max BP at BT19, Hybrid's fourth UF breaks Qi at 39.09s.
 On Fully Relayed Max TB, Flying starts its channels at 0.38s, 23.61s and
 48.02s. All three complete the full hold. The second UF breaks Qi at 35.57s.
+
+### Jade low-Qi filler review (2026-11-06)
+
+Flying sets distance to 9m before the opening Flute, Fan Q and Umbrella Q.
+Both Peak casts cancel directly into three-hit pursuit. Removing Golden Body
+from the exhausted filler window advances the third full channel and UF.
+A short automatic wait for UF expiry remains before the third Umbrella Q.
+All three channels retain their full ten-second hold.
+
+Hybrid uses FF cancel / Deflect pairs during UF three, with its final FF
+refresh moved after Umbrella Q and before the second charged-light refill.
+This preserves Lingering Bone through the fourth UF. Removing Serene Breeze
+and shortening the full FF casts advances the fourth and subsequent UFs.
+Fan Q cancel leads directly into pursuit during exhaustion.
+A final FF cancel into Fan Q refreshes Jadebreak through the cutoff.
+Pursuit follows that Fan Q at 59.319s; its first two hits land within 60 seconds.
+
+Both presets retain their second/fourth UF exhaust triggers. The 60%, 40%
+and 30% Qi events use the existing linear decline convention with the new
+break timing. These sequences were selected by comparing legal filler and
+cancel variants with finite Vitality, full intended Blossom refills, and
+normal production damage calculations.

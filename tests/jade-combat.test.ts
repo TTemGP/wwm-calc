@@ -220,7 +220,7 @@ describe("Jade combat", () => {
     expect(projectiles(boosted).damage).toBeGreaterThan(projectiles(plain).damage)
     expect(projectiles(boosted).hits).toBe(projectiles(plain).hits)
   })
-  it("funds both Grounded Soaring Spins from actual dummy attack responses", async () => {
+  it("funds both Grounded Soaring Spins on a passive dummy", async () => {
     const fixtures = (await loadDpsSnapshotCases()).filter(entry => entry.id.startsWith("silkbindJade/jade-grounded/"))
     expect(fixtures).toHaveLength(18)
     for (const fixture of fixtures) {
@@ -236,28 +236,39 @@ describe("Jade combat", () => {
           fixture.fixture.build,
         )!,
       )
+      const opener = result.timeline.find(row => row.step.skill === "SpringSorrow")!
+      expect(opener.buffs.has("Jadebreak")).toBe(true)
+      expect(opener.buffs.has("Windrider")).toBe(true)
+      const firstHit = opener.actions.findIndex(action => action.type === "damage")
+      expect(opener.startTime + Number(opener.actions[firstHit].time)).toBeCloseTo(result.anchorTime, 8)
+      expect(opener.actionStates[firstHit + 1].resources.Vitality).toBe(
+        opener.actionStates[firstHit].resources.Vitality,
+      )
+      const smolder = result.timeline.find(row => row.step.skill === "DragonsBreathSmolder2")!
+      const poet = result.timeline.find(row => row.step.skill === "DrunkenPoet5HitsCancel")!
+      expect(smolder.buffs.has("Intoxicated")).toBe(false)
+      const impacts = smolder.actions.flatMap((action, index) =>
+        action.type === "damage" && result.actionBreakdowns[`${smolder.id}:${index}`] ? [Number(action.time)] : [],
+      )
+      expect(new Set(impacts).size).toBe(2)
+      expect(poet.startTime).toBeCloseTo(smolder.startTime + Math.max(...impacts), 8)
       const vitality = result.timeline
         .flatMap(row => [row, ...Object.values(row.actionStates)])
         .map(state => state.resourceRanges?.Vitality?.minimum ?? state.resources.Vitality)
         .filter(value => typeof value === "number")
       expect(vitality.length).toBeGreaterThan(0)
       expect(Math.min(...vitality)).toBeGreaterThanOrEqual(0)
-      for (const [response, owner, time] of [
-        ["DeflectSuccess", "DeflectSuccessful", 23.5],
-        ["PerfectDodgeSuccess", "EmeraldBarrier", 29.5],
-      ] as const) {
-        const success = result.timeline.find(row => row.step.skill === response)!
-        expect(success.startTime - result.anchorTime).toBeCloseTo(time, 8)
-        expect(result.timeline.find(row => row.id === success.sourceRowId)?.step.skill).toBe(owner)
-        expect(
-          result.timeline.some(
-            row => row.step.event === "TakeDamage" && Math.abs(row.startTime - success.startTime) < 1e-8,
-          ),
-        ).toBe(true)
-      }
+      expect(result.timeline.some(row => row.step.event === "TakeDamage")).toBe(false)
       const spins = result.timeline.filter(row => row.step.skill === "SoaringSpin2")
       expect(spins).toHaveLength(2)
-      for (const spin of spins) expect(spin.resources.Vitality).toBeGreaterThanOrEqual(15)
+      for (const spin of spins) {
+        expect(spin.resources.Vitality).toBeGreaterThanOrEqual(15)
+        expect(
+          spin.actions.filter(
+            (action, index) => action.type === "damage" && result.actionBreakdowns[`${spin.id}:${index}`],
+          ),
+        ).toHaveLength(2)
+      }
     }
   })
   it.each([
@@ -378,6 +389,8 @@ describe("Jade combat", () => {
         if (row.startTime + row.effectiveCastTime >= result.anchorTime + result.duration) continue
         const next = casts[index + 1]
         expect(next).toBeDefined()
+        // Sober Smolder reaches its normal cancel window before the second impact.
+        if (row.step.skill === "DragonsBreathSmolder2" && !row.buffs.has("Intoxicated")) continue
         let legalFollowUp: boolean
         switch (row.step.skill) {
           case "ForsakenFameCancel":
@@ -390,9 +403,13 @@ describe("Jade combat", () => {
             legalFollowUp = next.step.skill === "MoonShatterSpring"
             break
           default:
-            legalFollowUp = ["Deflect", "EmeraldBarrier", "EmeraldBarrierCancel", "MoonShatterSpring"].includes(
-              next.step.skill ?? "",
-            )
+            legalFollowUp = [
+              "Deflect",
+              "EmeraldBarrier",
+              "EmeraldBarrierMiss",
+              "EmeraldBarrierCancel",
+              "MoonShatterSpring",
+            ].includes(next.step.skill ?? "")
         }
         expect(legalFollowUp).toBe(true)
         expect(next.startTime).toBeLessThanOrEqual(row.startTime + row.effectiveCastTime + 0.040001)
@@ -425,6 +442,10 @@ describe("Jade combat", () => {
         expect(channel.effectiveCastTime).toBeCloseTo(10 + 0.74 + 0.5909090909090908, 8)
         expect(flower.resources.Blossoms).toBe(100)
       }
+      const openingQ = casts.find(row => row.step.skill === "SpringSorrow")!
+      expect(casts[0].distance).toBe(9)
+      expect(openingQ.distance).toBe(9)
+      expect(openingQ.actionStates[0].distance).toBe(9)
       const qi = result.timeline.filter(row => row.step.event === "Qi")
       const exhaustion = qi.find(row => row.step.event === "Qi" && row.step.targetQiRatio === 0)!
       expect(exhaustion.sourceRowId).toBe(flowers[1].id)
@@ -433,7 +454,9 @@ describe("Jade combat", () => {
       expect(qi[1].startTime - result.anchorTime).toBeCloseTo(breakTime * 0.6, 8)
       expect(casts.filter(row => row.step.skill === "FluteOfTheTidesCancel")).toHaveLength(2)
       expect(casts.filter(row => row.step.skill?.startsWith("ForsakenFame"))).toHaveLength(0)
-      for (const peak of casts.filter(row => row.step.skill === "PeaksSpringlessSilence")) {
+      for (const peak of casts.filter(row =>
+        ["PeaksSpringlessSilence", "PeaksSpringlessSilenceCancel"].includes(row.step.skill ?? ""),
+      )) {
         expect(peak.distance).toBe(9)
         expect(peak.actionStates[0].distance).toBe(9)
         expect(peak.actionStates[0].combatOrder).toBeUndefined()
@@ -454,7 +477,11 @@ describe("Jade combat", () => {
             row.startTime >= flower.startTime &&
             row.startTime <= (nextChannel?.startTime ?? result.anchorTime + result.duration),
         )
-        expect(recovery.filter(row => row.step.skill === "PeaksSpringlessSilence")).toHaveLength(nextChannel ? 1 : 0)
+        expect(
+          recovery.filter(row =>
+            ["PeaksSpringlessSilence", "PeaksSpringlessSilenceCancel"].includes(row.step.skill ?? ""),
+          ),
+        ).toHaveLength(nextChannel ? 1 : 0)
         expect(recovery.filter(row => row.step.skill === "MoonShatterSpring")).toHaveLength(nextChannel ? 2 : 0)
         for (const row of recovery) {
           expect(row.resourceConsumption?.Endurance ?? 0).toBe(0)
@@ -471,7 +498,7 @@ describe("Jade combat", () => {
       for (const row of casts.filter(row => row.step.skill === "MoonShatterSpring")) {
         expect(row.distance).toBe(1)
         const previous = casts[casts.indexOf(row) - 1].step.skill
-        expect(["EmeraldBarrier", "PeaksSpringlessSilence"]).toContain(previous)
+        expect(["EmeraldBarrier", "PeaksSpringlessSilence", "PeaksSpringlessSilenceCancel"]).toContain(previous)
         expect(row.effectiveCastTime).toBeCloseTo(previous === "EmeraldBarrier" ? 2.433 : 1.557, 9)
       }
       for (const row of result.timeline.filter(row => row.step.skill === "SpringAwayProjectile"))
@@ -804,9 +831,13 @@ describe("Jade combat", () => {
         expect(["Deflect", "EmeraldBarrier"]).toContain(authoredSkills[index + 1]?.skill)
       for (const [index, step] of authoredSkills.entries()) {
         if (!["DragonsBreath1", "DrunkenPoet5HitsCancel"].includes(step.skill ?? "")) continue
-        expect(["Deflect", "EmeraldBarrier", "EmeraldBarrierCancel", "MoonShatterSpring"]).toContain(
-          authoredSkills[index + 1]?.skill,
-        )
+        expect([
+          "Deflect",
+          "EmeraldBarrier",
+          "EmeraldBarrierMiss",
+          "EmeraldBarrierCancel",
+          "MoonShatterSpring",
+        ]).toContain(authoredSkills[index + 1]?.skill)
       }
       const casts = result.timeline.filter(row => row.kind === "rotation" && row.step.type === "skill")
       for (const [index, row] of Array.from(casts.entries()).filter(([, row]) =>
