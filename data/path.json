@@ -112,11 +112,11 @@
   "bamboocutDraught": {
     "name": "Draught",
     "tag": "BamboocutDraught",
-    "status": "plannerOnly",
+    "status": "wip",
     "buildGroup": "bamboocut-draught",
-    "defaultBuild": "empty",
-    "graduated": ["empty"],
-    "defaultRotation": "empty",
+    "defaultBuild": "draught-fully-relayed-min-bp",
+    "graduated": ["draught-full-min-bp", "draught-full-max-bp", "draught-full-min", "draught-full-max"],
+    "defaultRotation": "draught-dummy-1-min",
     "lockedWeapons": ["skystrikeGauntlets", "rivenTwinblades"],
     "arsenal": "Bamboocut"
   },
