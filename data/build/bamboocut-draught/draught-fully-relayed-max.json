@@ -1,7 +1,7 @@
 {
   "id": "draught-fully-relayed-max",
   "name": "Fully Relayed Max Build",
-  "order": 11,
+  "order": 1,
   "martialArts": ["skystrikeGauntlets", "rivenTwinblades"],
   "relayed": true,
   "setup": {

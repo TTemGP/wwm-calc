@@ -1,7 +1,7 @@
 {
   "id": "draught-full-max",
   "name": "Full Max Build",
-  "order": 111,
+  "order": 101,
   "martialArts": ["skystrikeGauntlets", "rivenTwinblades"],
   "setup": {
     "innerWays": [
