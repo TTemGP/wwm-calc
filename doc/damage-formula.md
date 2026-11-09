@@ -1,5 +1,11 @@
 # Damage Formula Specification
 
+Equipped Art of X affixes are highest-only within each weapon family.
+Different families coexist and apply to their matching skills; All Martial
+Arts remains additive. The gear pipeline resolves this before the damage
+formula. For affix priority, each Art uses a zero-Art reference and a
+one-roll target, rather than adding another copy to the equipped bonus.
+
 This document describes the formula currently implemented by the rotation simulator. Unless stated otherwise, percentage values are stored internally as decimal ratios: `0.11` means `11%`. The UI converts between ratios and percentage points.
 
 Blood Burst is direct damage tagged `HighBleed` and `Bleed`. The latter selects
@@ -10,6 +16,14 @@ shared additive bonus bucket. Soul-Shaken's
 or ordinary `DOT` ticks excluding High Bleed. Ordinary ticks receive 5% per stack,
 plus another 5% for the current Strategic Sword or Heavenquaker Spear art. BB does not receive
 Insightful Strike's DOT-only T6 bonus; its normal direct-hit triggers remain active.
+
+The Attunement Stats inputs are raw equipment bonuses. Divide armor attunements
+by the dummy's specific-skill damage divisor, and physical or formless weapon
+penetration attunements by its correctable penetration divisor. Both are 1
+through BT21, 1.15 at BT22–23 and 1.3225 at BT24–25. The effective penetration
+readout adds the character's sheet penetration after this division. Conditional
+combat penetration is evaluated on each eligible hit. The worker receives the
+corrected equipment contribution and applies the character bonuses separately.
 
 Enemy defense, level, path resistances, Judgement Resistance, and level-derived
 character bonuses come from the selected entry in `data/breakthrough.json`.
@@ -32,6 +46,15 @@ Rank 15 raises the base-attribute conversion cap to 325, adds 114–228 attribut
 attack, and raises attribute penetration/damage caps to 25.2/12.6%. Its
 martial-art Bonus Attack increase is 15%, with a 1.5% coefficient increase for
 the supported effects without Bonus Attack.
+Solo Levels 20–25 select martial-art ranks 16–21 and equipment tiers
+105/110/115. Their progression tables include character talents,
+Enhancement, Arsenal, Inner Ways, and sets. New levels retain the fixed
+level-96 Dummy and use their exported Judgement Resistance. Solo Levels
+20–21 use 558 defense and 22–23 use 619. Solo Level 24 retains the provisional
+500 defense; Solo Level 25 uses 687 Physical Defense. These corrections were
+supplied by the user on 9 November 2026. Other missing enemy fields are not synthesized. See
+[progression provenance](solo-progression.md).
+
 Each equipped martial art contributes only its `talent[rank]` effects; ranks are
 not cumulative. Infernal Twinblades' rank-13 conversions use the interpreted
 datamine rates: 0.264 Min Physical Attack per Agility (capped at 73.92), and
@@ -119,6 +142,20 @@ those weighted windows for subsequent Vitality recovery. Its categorical buff
 choices continue to be represented by their effect-set probability mixtures.
 Timing and its interaction with later hits are approximate; simulation retains
 exact sampled timing.
+月湧方圓's expected 潮湧 uses the same whole-battle-second tick approximation as
+Weeping Blood and Poison. Each tick is weighted by active carrier probability;
+its conditional state distribution is normalized once before applying the hit's
+probability weight. The fixed timer does not imply guaranteed 月引/暗潮 uptime.
+Native sampled cadence remains one second after application with refresh preserving
+phase. This changes expected proc timing, not damage coefficients or stat formulas.
+While 月引 is active, each qualifying direct hit extends its expected expiry by
+`2 seconds × P(Affinity)`, capped at 15 seconds remaining. Initial activation and
+other conditional state transitions remain probabilistic. Expected 月相 totals
+below 1e-5 per stack count promote to the next count; four stacks convert into
+月引 using the ordinary five-stack conversion operations and 5% current-HP cost
+weighted by promoted probability. These approximations neither discard probability
+nor grant guaranteed upkeep to low-rate builds. Sampled combat keeps native
+Affinity-gated extensions and stack progression.
 
 ## Rank-14 Additional Attack
 
@@ -251,7 +288,7 @@ Twinblades, Mortal Rope Dart, Skystrike Gauntlets, and Riven Twinblades use
 Bamboocut. The primary attribute receives
 the action's attribute bonus, the 1.5 path multiplier, and Formless Penetration.
 Void/Formless Attack is therefore Stonesplit for Strength and Might, Bellstrike
-for Splendor and Umbra, Silkbind for Jade and Deluge, and Bamboocut for Dust,
+for Splendor, Umbra, and Bolt, Silkbind for Jade and Deluge, and Bamboocut for Dust,
 Kite, Wind, and Draught.
 
 ## Damage outcomes
@@ -720,6 +757,7 @@ check launches the blade and resets the complete stored amount once ready.
 ```text
 Shared Multiplier =
   (1 + Base DMG Bonus)
+  × (1 + Target Correction Bonus)
   × (1 + DMG Bonus Category 1)
   × (1 + matching Attunement DMG Bonus)
 ```
@@ -757,6 +795,20 @@ Category 1 currently contains:
 - Single-Target Mystic Skill DMG Boost for `SingleTargetMystic`, or Area Mystic Skill DMG Boost for `AreaMystic`
 - active `dmgBonus` effects
 - active `hpDMGBonus` effects whose requirements pass
+
+Bolt's 載戈 debuff adds 10% per stack to this category for 鳴戈 only.
+Its 60% NPC correction uses `targetCorrectionBonus`, while active 鋒銳's
+30% event-34 ratio remains `baseDMGBonus`: these multiply as 1.60 × 1.30,
+not 1 + 0.60 + 0.30. The CN flow-one bracket is
+`1 + TARGET_TAG_CORRECT + AA.DAMAGE_UP`; both inputs add in
+`targetCorrectionBonus`. 月湧方圓 T6's `DAMAGE_UP` therefore joins this
+bracket: 1% per complete percentage point of effective Affinity, capped at
+30%, for 潮湧/洪波萬仞. It is separate from Category 1 and Mechanism.
+載戈 retains coefficient 0.276 and receives its 50% NPC correction here.
+Enhanced primary VC uses 1.50 × 1.30 during T6 鋒銳. These definitions
+assume the supported monster targets; native predicate 8 excludes players
+and AI avatars. Existing other-path correction definitions are unchanged.
+See [Bolt combat audit](bolt-combat-audit.md) for source IDs and scope.
 
 Adaptive Steel grants its Heng Blade buff on a successful deflection while Heng
 Blade is the current weapon. The buff lasts 5 seconds with a 20-second application

@@ -23,10 +23,18 @@ import {
   typedWeaponSetDefinitions,
 } from "@/application/gameData/setup"
 import { percentageAttunementKeys } from "@/application/persistence/attunements"
+import { correctedAttunement } from "@/calculations/attunementStats"
 import { innerWayDefinitions } from "@/data/innerWayDefinitions"
 import { setupSelectionChangesTimeline } from "@/data/scriptDefinitions"
 import { allStatDefinitions } from "@/data/statDefinitions"
-import { attunementData, maxGearRoll, selectSetTier, setSelectionChangesTimeline, statRollsForLevel } from "@/gear"
+import {
+  attunementData,
+  gearData,
+  maxGearRoll,
+  selectSetTier,
+  setSelectionChangesTimeline,
+  statRollsForLevel,
+} from "@/gear"
 import type { BuildSetup } from "@/gear"
 import { globalDebuffRows } from "@/globalDebuffs"
 import type { CharacterStats } from "@/types"
@@ -129,20 +137,27 @@ export function buildRotationComparisonBundle(
     ...buildRotationCalculationBundle(subject),
     statPriority: includeDiffs
       ? Object.entries(priorityCharacter).map(([key, amount]) => {
-          const variantStats = applyPriorityStatLine(key as keyof CharacterStats, Number(amount))
+          const stat = key as keyof CharacterStats
+          const highestOnly = gearData.affixes[key]?.aggregation === "max"
+          const currentValue = subject.build.stats[stat]
+          const variantStats = applyPriorityStatLine(stat, Number(amount) - (highestOnly ? currentValue : 0))
           const definition = allStatDefinitions.find(candidate => candidate.key === key)
-          return {
+          const variant: RotationSimulationVariant = {
             label: definition?.label ?? key,
             maxRoll: Number(amount) * (definition?.unit === "%" ? 100 : 1),
             stats: variantStats,
           }
+          if (highestOnly && currentValue !== 0) variant.referenceStats = applyPriorityStatLine(stat, -currentValue)
+          return variant
         })
       : [],
     attunementPriority: includeDiffs
       ? priorityAttunement.map(([key, amount]) => {
           const variantAttunement = {
             ...attunementStats,
-            [key]: attunementStats[key as keyof AttunementStats] + Number(amount),
+            [key]:
+              attunementStats[key as keyof AttunementStats] +
+              correctedAttunement(key as keyof AttunementStats, Number(amount), breakthroughProfile(settings)),
           }
           return {
             label: attunementData[key]?.name ?? key,

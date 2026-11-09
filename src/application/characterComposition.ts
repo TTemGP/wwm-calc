@@ -74,9 +74,10 @@ export function selectableRotationSkillGroups(weapons: [WeaponId, WeaponId]) {
   ] as SkillCategory[]
   return categories.map(category => ({
     category,
-    skillIds: Object.keys(defaultSkillMaps[category]).filter(
-      skillId => !allSkillDefinitions[skillId]?.tags?.some(tag => tag === "Triggered" || tag === "SubAction"),
-    ),
+    skillIds: Object.keys(defaultSkillMaps[category]).filter(skillId => {
+      const skill = allSkillDefinitions[skillId]
+      return !skill?.hideFromRotationEditor && !skill?.tags?.some(tag => tag === "Triggered" || tag === "SubAction")
+    }),
   }))
 }
 
@@ -189,7 +190,11 @@ export function selectedSetupEffects(
   const foodEffects = foodCategories.map(({ key }) =>
     Object.assign(
       {},
-      typedFoodDefinitions[foodSelectionForPath(overrides[key] ?? selections[key], pathId, key)]?.effect,
+      effectForSoloLevel(
+        typedFoodDefinitions[foodSelectionForPath(overrides[key] ?? selections[key], pathId, key)]?.effect ?? {},
+        breakthroughProfile(settings).soloLevel,
+        "Food",
+      ),
       { statStage: "food" as const },
     ),
   )

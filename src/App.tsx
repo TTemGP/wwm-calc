@@ -8,7 +8,7 @@ import { pathIcons } from "./application/gameData/pathIcons"
 import {
   defaultBuildIdForPath,
   defaultRotationIdForPath,
-  pathRequiresDev,
+  pathIsSelectable,
   pathStatusLabel,
   typedPathDefinitions,
   type PathDefinition,
@@ -146,10 +146,7 @@ export default function App() {
     () => visibleBuilds({ buildState, scope, pathId, buildGroup: pathBuildGroup, weapons: settings.weapons, devMode }),
     [buildState, scope, pathId, pathBuildGroup, settings.weapons, devMode],
   )
-  const visibleGear = useMemo(
-    () => visibleGearItems({ buildState, scope, pathId, builds: availableBuildEntries }),
-    [buildState, scope, pathId, availableBuildEntries],
-  )
+  const visibleGear = useMemo(() => visibleGearItems({ buildState, scope, pathId }), [buildState, scope, pathId])
   const activeBuild =
     availableBuildEntries.find(entry => entry.id === activeBuildIdsByPath[pathId]) ??
     availableBuildEntries.find(entry => entry.id === defaultBuildIdForPath(pathId)) ??
@@ -221,6 +218,7 @@ export default function App() {
       rawStats: activeStatState.rawStats,
       baseStats: activeStatState.baseStats,
       attunementStats: activeStatState.attunement,
+      inputAttunementStats: activeStatState.inputAttunement,
       displayedAttunementStats: activeStatState.displayedAttunement,
       settings,
       enemy,
@@ -292,7 +290,7 @@ export default function App() {
     nextPathId: PathId,
     options: { weapons?: [WeaponId, WeaponId]; rotationId?: string } = {},
   ) => {
-    if (pathRequiresDev(typedPathDefinitions[nextPathId]) && !devMode) return
+    if (!pathIsSelectable(typedPathDefinitions[nextPathId], devMode)) return
     const nextSettings =
       nextPathId === "mixed" && options.weapons
         ? { ...settingsForPath(settings, nextPathId), weapons: [...options.weapons] as [WeaponId, WeaponId] }
@@ -342,7 +340,7 @@ export default function App() {
     const matchingPath = (Object.entries(typedPathDefinitions) as Array<[PathId, PathDefinition]>).find(
       ([candidateId, definition]) =>
         candidateId !== "mixed" &&
-        (!pathRequiresDev(definition) || devMode) &&
+        pathIsSelectable(definition, devMode) &&
         definition.lockedWeapons &&
         sameWeaponPair(definition.lockedWeapons, nextWeapons),
     )
@@ -409,7 +407,7 @@ export default function App() {
                         type="button"
                         key={value}
                         aria-pressed={pathId === value}
-                        disabled={pathRequiresDev(definition) && !devMode}
+                        disabled={!pathIsSelectable(definition, devMode)}
                         onClick={() => selectPath(value)}
                       >
                         {icon && <img src={icon} alt="" />}

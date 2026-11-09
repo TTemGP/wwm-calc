@@ -72,6 +72,8 @@ export type CharacterStats = {
 }
 
 export type EnemyProfile = {
+  specificSkillDamageDivisor?: number
+  correctablePenetrationDivisor?: number
   name: string
   level: number
   defense: number
@@ -84,6 +86,8 @@ export type EnemyProfile = {
 }
 
 export const weaponIds = [
+  "boshanQuyueSpear",
+  "jueyuXuanfengSpear",
   "snowparting",
   "phalanxbane",
   "thundercry",
@@ -109,7 +113,11 @@ export const weaponIds = [
 ] as const
 export type WeaponId = (typeof weaponIds)[number]
 const legacyUniversalWeaponIdSets: readonly (readonly WeaponId[])[] = [
-  weaponIds.filter(id => id !== "museflowWaistDrum" && id !== "willowbendFan"),
+  weaponIds.filter(id => id !== "jueyuXuanfengSpear" && id !== "boshanQuyueSpear"),
+  weaponIds.filter(
+    id =>
+      id !== "museflowWaistDrum" && id !== "willowbendFan" && id !== "jueyuXuanfengSpear" && id !== "boshanQuyueSpear",
+  ),
   ["snowparting", "phalanxbane", "thundercry", "stormbreaker", "everspring", "unfettered", "heavenwill", "skygrasp"],
   [
     "snowparting",

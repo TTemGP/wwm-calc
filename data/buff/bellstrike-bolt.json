@@ -1,0 +1,312 @@
+{
+  "BoltFengRui": {
+    "name": "鋒銳",
+    "duration": 10,
+    "maxStack": 1,
+    "refresh": false,
+    "action": [{ "type": "trigger", "value": "BoltEndFengRui", "time": "expire" }],
+    "trigger": {
+      "event": "skillEnd",
+      "requirement": [
+        { "target": "skillTag", "value": "BoltVC" },
+        { "target": "resource", "comparison": "<=", "amount": 0, "value": "SpearMomentum" }
+      ],
+      "action": [{ "type": "trigger", "value": "BoltEndFengRui", "time": 0 }]
+    },
+    "description": "15% base VC DMG (30% with 神斷青鋒 T6) and 10% Affinity DMG. The upgraded red spear talent prevents Abrasion."
+  },
+  "BoltWangXing": {
+    "name": "王行",
+    "duration": 12,
+    "maxStack": 1,
+    "refresh": true,
+    "description": "1 Spear Momentum per ordinary VC. 浮梁一夜 T4 adds 3% Direct Affinity against bosses."
+  },
+  "BoltMingGeSpent": {
+    "name": "鳴戈已引爆",
+    "maxStack": 1,
+    "hidden": true,
+    "description": "Prevents another 鳴戈 detonation during this 鋒銳."
+  },
+  "BoltMingFa": {
+    "name": "明法",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      { "requirement": [{ "target": "skillTag", "value": "BoltBlueVC" }], "effect": { "hpDMGBonus": 0.1 } },
+      {
+        "requirement": [
+          { "target": "skillTag", "value": "BoltBlueVC" },
+          { "target": "self", "value": "ShenDuanQingFengT3" },
+          { "target": "self", "value": "BoltFengRui" }
+        ],
+        "effect": { "hpDMGBonus": 0.1 }
+      }
+    ],
+    "description": "10% Blue VC HP DMG; 20% during 鋒銳 with 神斷青鋒 T3."
+  },
+  "BoltZhongDao": {
+    "name": "重道",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "effect": [
+      { "requirement": [{ "target": "skillTag", "value": "BoltRedVC" }], "effect": { "hpDMGBonus": 0.1 } },
+      {
+        "requirement": [
+          { "target": "skillTag", "value": "BoltRedVC" },
+          { "target": "self", "value": "ShenDuanQingFengT3" },
+          { "target": "self", "value": "BoltFengRui" }
+        ],
+        "effect": { "hpDMGBonus": 0.1 }
+      }
+    ],
+    "description": "10% Red VC HP DMG; 20% during 鋒銳 with 神斷青鋒 T3."
+  },
+  "BoltQieTao": {
+    "name": "竊桃",
+    "duration": 5,
+    "maxStack": 1,
+    "refresh": true,
+    "description": "Immunity to 歲星竊桃 penalties; 4% Martial Arts HP DMG at T6."
+  },
+  "BoltTongPan": {
+    "name": "通判",
+    "duration": 5,
+    "maxStack": 5,
+    "refresh": true,
+    "stackEffects": [
+      [
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT1" }] }
+          ],
+          "effect": { "physicalPenetration": 0.6 }
+        },
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "target": "self", "value": "MingFeiTongPanT1" }
+          ],
+          "effect": { "physicalPenetration": 1 }
+        },
+        {
+          "requirement": [{ "target": "self", "value": "MingFeiTongPanT3" }],
+          "effect": {
+            "physicalPenetration": 1,
+            "bellstrikePenetration": 1,
+            "stonesplitPenetration": 1,
+            "silkbindPenetration": 1,
+            "bamboocutPenetration": 1
+          }
+        },
+        {
+          "requirement": [
+            { "target": "self", "value": "MingFeiTongPanT6" },
+            { "target": "skillTag", "value": "BoltVCSeries" }
+          ],
+          "effect": {
+            "physicalPenetration": 2,
+            "bellstrikePenetration": 2,
+            "stonesplitPenetration": 2,
+            "silkbindPenetration": 2,
+            "bamboocutPenetration": 2
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT1" }] }
+          ],
+          "effect": { "physicalPenetration": 1.2 }
+        },
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "target": "self", "value": "MingFeiTongPanT1" }
+          ],
+          "effect": { "physicalPenetration": 2 }
+        },
+        {
+          "requirement": [{ "target": "self", "value": "MingFeiTongPanT3" }],
+          "effect": {
+            "physicalPenetration": 2,
+            "bellstrikePenetration": 2,
+            "stonesplitPenetration": 2,
+            "silkbindPenetration": 2,
+            "bamboocutPenetration": 2
+          }
+        },
+        {
+          "requirement": [
+            { "target": "self", "value": "MingFeiTongPanT6" },
+            { "target": "skillTag", "value": "BoltVCSeries" }
+          ],
+          "effect": {
+            "physicalPenetration": 4,
+            "bellstrikePenetration": 4,
+            "stonesplitPenetration": 4,
+            "silkbindPenetration": 4,
+            "bamboocutPenetration": 4
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT1" }] }
+          ],
+          "effect": { "physicalPenetration": 1.7999999999999998 }
+        },
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "target": "self", "value": "MingFeiTongPanT1" }
+          ],
+          "effect": { "physicalPenetration": 3 }
+        },
+        {
+          "requirement": [{ "target": "self", "value": "MingFeiTongPanT3" }],
+          "effect": {
+            "physicalPenetration": 3,
+            "bellstrikePenetration": 3,
+            "stonesplitPenetration": 3,
+            "silkbindPenetration": 3,
+            "bamboocutPenetration": 3
+          }
+        },
+        {
+          "requirement": [
+            { "target": "self", "value": "MingFeiTongPanT6" },
+            { "target": "skillTag", "value": "BoltVCSeries" }
+          ],
+          "effect": {
+            "physicalPenetration": 6,
+            "bellstrikePenetration": 6,
+            "stonesplitPenetration": 6,
+            "silkbindPenetration": 6,
+            "bamboocutPenetration": 6
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT1" }] }
+          ],
+          "effect": { "physicalPenetration": 2.4 }
+        },
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "target": "self", "value": "MingFeiTongPanT1" }
+          ],
+          "effect": { "physicalPenetration": 4 }
+        },
+        {
+          "requirement": [{ "target": "self", "value": "MingFeiTongPanT3" }],
+          "effect": {
+            "physicalPenetration": 4,
+            "bellstrikePenetration": 4,
+            "stonesplitPenetration": 4,
+            "silkbindPenetration": 4,
+            "bamboocutPenetration": 4
+          }
+        },
+        {
+          "requirement": [
+            { "target": "self", "value": "MingFeiTongPanT6" },
+            { "target": "skillTag", "value": "BoltVCSeries" }
+          ],
+          "effect": {
+            "physicalPenetration": 8,
+            "bellstrikePenetration": 8,
+            "stonesplitPenetration": 8,
+            "silkbindPenetration": 8,
+            "bamboocutPenetration": 8
+          }
+        }
+      ],
+      [
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT1" }] }
+          ],
+          "effect": { "physicalPenetration": 3.0 }
+        },
+        {
+          "requirement": [
+            { "operator": "not", "operand": [{ "target": "self", "value": "MingFeiTongPanT3" }] },
+            { "target": "self", "value": "MingFeiTongPanT1" }
+          ],
+          "effect": { "physicalPenetration": 5 }
+        },
+        {
+          "requirement": [{ "target": "self", "value": "MingFeiTongPanT3" }],
+          "effect": {
+            "physicalPenetration": 5,
+            "bellstrikePenetration": 5,
+            "stonesplitPenetration": 5,
+            "silkbindPenetration": 5,
+            "bamboocutPenetration": 5
+          }
+        },
+        {
+          "requirement": [
+            { "target": "self", "value": "MingFeiTongPanT6" },
+            { "target": "skillTag", "value": "BoltVCSeries" }
+          ],
+          "effect": {
+            "physicalPenetration": 10,
+            "bellstrikePenetration": 10,
+            "stonesplitPenetration": 10,
+            "silkbindPenetration": 10,
+            "bamboocutPenetration": 10
+          }
+        }
+      ]
+    ],
+    "outcomeStack": true,
+    "description": "0.6 Physical Penetration per stack."
+  },
+  "BoltMoonPhase": {
+    "name": "月相",
+    "duration": 5,
+    "maxStack": 5,
+    "stackEffects": [
+      [{ "hpDMGBonus": 0.01 }],
+      [{ "hpDMGBonus": 0.02 }],
+      [{ "hpDMGBonus": 0.03 }],
+      [{ "hpDMGBonus": 0.04 }],
+      [{ "hpDMGBonus": 0.05 }]
+    ],
+    "description": "1% HP DMG per stack."
+  },
+  "BoltMoonPull": {
+    "name": "月引",
+    "duration": 5,
+    "maxStack": 1,
+    "effect": [{ "hpDMGBonus": 0.05, "stat": { "directAffinity": 0.015 } }],
+    "description": "5% HP DMG and 1.5% Direct Affinity."
+  },
+  "BoltMoonDark": {
+    "name": "暗潮",
+    "duration": 5,
+    "maxStack": 5,
+    "stackEffects": [
+      [{ "stat": { "directAffinity": 0.003 } }],
+      [{ "stat": { "directAffinity": 0.006 } }],
+      [{ "stat": { "directAffinity": 0.009000000000000001 } }],
+      [{ "stat": { "directAffinity": 0.012 } }],
+      [{ "stat": { "directAffinity": 0.015 } }]
+    ],
+    "description": "0.3% Direct Affinity per stack."
+  }
+}

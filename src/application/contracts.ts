@@ -10,6 +10,7 @@ export type PathId =
   | "mixed"
   | "bellstrikeSplendor"
   | "bellstrikeUmbra"
+  | "bellstrikeBolt"
   | "stonesplitStrength"
   | "stonesplitMight"
   | "silkbindJade"
@@ -27,6 +28,7 @@ export type CharacterState = {
   rawStats: CharacterStats
   baseStats: CharacterStats
   attunementStats: AttunementStats
+  inputAttunementStats: AttunementStats
   displayedAttunementStats: AttunementStats
   settings: CalculatorSettings
   enemy: EnemyProfile

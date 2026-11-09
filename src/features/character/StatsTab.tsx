@@ -110,7 +110,14 @@ export function StatsTab({
   onInnerWayChange: () => void
   onSetupSelectionChange: (key: keyof SetupSelections, value: string) => void
 }) {
-  const { stats, derivedStats, displayedAttunementStats: attunementStats, buildSetup, settings } = character
+  const {
+    stats,
+    derivedStats,
+    inputAttunementStats: attunementStats,
+    displayedAttunementStats,
+    buildSetup,
+    settings,
+  } = character
   const showHealingStats = pathId === "silkbindDeluge"
   const breakthrough = breakthroughProfile(settings)
   const { script, divinecraft } = character.setupSelections
@@ -840,6 +847,11 @@ export function StatsTab({
                       />
                       {unit && <i>{unit}</i>}
                     </span>
+                    <small className="inline-derived">{t("ui.app.effective")}</small>
+                    <strong className="inline-derived-value">
+                      {formatNumber(displayedAttunementStats[key] * (unit ? 100 : 1))}
+                      {unit && <span className="effective-unit">{unit}</span>}
+                    </strong>
                   </label>
                 ))}
               </div>
