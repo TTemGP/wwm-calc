@@ -867,7 +867,10 @@ export function StatsTab({
                 {globalDebuffRows.map(({ key, name, path }) => (
                   <div className="setup-category-row" key={key}>
                     <span>
-                      {gameText(name)}
+                      {name
+                        .split(" + ")
+                        .map(part => gameText(part))
+                        .join(" + ")}
                       {path && <> ({gameText(path)})</>}
                     </span>
                     <ButtonGroup cellWidth="5rem">
@@ -1457,7 +1460,7 @@ export function StatsTab({
                       {
                         ...profile,
                         id,
-                        name: `${profile.name} Copy`,
+                        name: t("ui.app.copyOfName", { name: profile.name }),
                         statOverrides: { ...profile.statOverrides },
                         attunementOverrides: { ...profile.attunementOverrides },
                         innerWays: profile.innerWays.map(row => ({ ...row })),

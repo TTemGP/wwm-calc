@@ -16,7 +16,7 @@ import {
 import { combatDefinitionsFor, type PreviewId } from "./application/gameData/previews"
 import { breakthroughProfile } from "./application/gameData/setup"
 import { loadPreviewSelection, persistPreviewSelection } from "./application/persistence/previewSelection"
-import { loadRotationEntries } from "./application/persistence/rotations"
+import { initialRotationId } from "./application/persistence/rotations"
 import { loadBuildSetupOverrides, sameBuildSetupValue } from "./application/persistence/setupOverrides"
 import { hasSkillOverrides, loadSkillOverrides } from "./application/persistence/skillOverrides"
 import { rotationAvailableForWeapons } from "./application/rotationCatalog"
@@ -128,12 +128,13 @@ export default function App() {
   if (!workspaceStoresRead) {
     markWorkspaceStoresRead(true)
     useGearStore.getState().initialise(pathId)
-    useRotationStore.getState().initialise(pathId)
+    useRotationStore.getState().initialise(pathId, previewId)
   }
   const buildState = useGearStore(state => state.buildState)
   const scope = useGearStore(state => state.scope)
   const activeBuildIdsByPath = useGearStore(state => state.activeBuildIdsByPath)
   const activeRotationIdsByPath = useRotationStore(state => state.activeRotationIdsByPath)
+  const rotationEntries = useRotationStore(state => state.entries)
   const activeResult = useRotationStore(state => state.result)
   const breakthrough = breakthroughProfile(settings)
   const enemy: EnemyProfile = breakthrough
@@ -155,10 +156,14 @@ export default function App() {
     () => settings.weapons.map(weapon => martialArtDefinitions[weapon].tag),
     [settings.weapons],
   )
-  const selectedRotationId = activeRotationIdsByPath[pathId] ?? defaultRotationIdForPath(pathId)
+  const selectedRotationId = initialRotationId(
+    rotationEntries.filter(entry => devMode || !entry.test),
+    activeRotationIdsByPath[pathId] ?? defaultRotationIdForPath(pathId),
+    settings.weapons,
+  )
   const activeBuildDisplayName = activeBuild
-    ? (activeBuild.isDefault ? gameText(activeBuild.name) : activeBuild.name) || "Unnamed Build"
-    : "Unnamed Build"
+    ? (activeBuild.isDefault ? gameText(activeBuild.name) : activeBuild.name) || t("ui.app.unnamedBuild")
+    : t("ui.app.unnamedBuild")
   const activeBuildSetup = useMemo(() => resolveBuildSetup(activeBuild), [activeBuild])
   const [buildSetupOverrides, setBuildSetupOverrides] = useState<BuildSetupOverrides>(() =>
     loadBuildSetupOverrides(activeBuildSetup),
@@ -281,7 +286,11 @@ export default function App() {
     (id: string, targetPathId = pathId) => useRotationStore.getState().selectRotationForPath(id, targetPathId),
     [pathId],
   )
-  const activeRotationDisplayName = activeResult?.rotationName ?? "—"
+  const activeRotationName = activeResult?.rotationName ?? "—"
+  const activeRotationIsDefault = useRotationStore(state =>
+    state.entries.some(entry => entry.id === selectedRotationId && entry.isDefault),
+  )
+  const activeRotationDisplayName = activeRotationIsDefault ? gameText(activeRotationName) : activeRotationName
   const activateBuildForPath = useCallback(
     (id: string, targetPathId = pathId) => useGearStore.getState().selectBuildForPath(id, targetPathId),
     [pathId],
@@ -303,9 +312,9 @@ export default function App() {
       weapons: nextSettings.weapons,
       devMode,
     })
-    const nextRotationEntries = loadRotationEntries().filter(
-      entry => (devMode || !entry.test) && rotationAvailableForWeapons(entry, nextSettings.weapons),
-    )
+    const nextRotationEntries = useRotationStore
+      .getState()
+      .entries.filter(entry => (devMode || !entry.test) && rotationAvailableForWeapons(entry, nextSettings.weapons))
     const selection = resolvePathWorkspaceSelection({
       buildIds: nextBuildEntries.map(entry => entry.id),
       rotationIds: nextRotationEntries.map(entry => entry.id),
@@ -358,6 +367,7 @@ export default function App() {
     else removePersistentItem(skillStorageKey)
   }
   const changePreview = (nextPreview: PreviewId | null) => {
+    useRotationStore.getState().setPreview(nextPreview)
     setPreviewId(nextPreview)
     persistPreviewSelection(nextPreview)
   }
@@ -544,7 +554,7 @@ export default function App() {
             <FeatureLoadBoundary>
               <Suspense fallback={tabSuspenseFallback}>
                 <RotationEditorTab
-                  key={pathId}
+                  key={`${pathId}:${activeRotationIsDefault ? (previewId ?? "current") : "custom"}`}
                   character={character}
                   pathId={pathId}
                   devMode={devMode}

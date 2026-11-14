@@ -6,7 +6,15 @@
     "cooldown": 12,
     "cooldownGroup": "QiankunsLock",
     "action": [
-      { "type": "apply", "target": "self", "value": "EndlessGale", "stack": 1, "reapply": true, "time": 0 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "EndlessGale",
+        "stack": 1,
+        "reapply": true,
+        "time": 0,
+        "requirement": [{ "target": "equippedMartialArt", "value": "namelessSword" }]
+      },
       {
         "type": "addResource",
         "value": "Endurance",
@@ -29,7 +37,15 @@
     "cooldownGroup": "QiankunsLock",
     "action": [
       { "type": "damage", "phyCoef": 0.57317, "attrCoef": 0.57317, "phyBonus": 160, "attrBonus": 87, "time": 0.294 },
-      { "type": "apply", "target": "self", "value": "EndlessGale", "stack": 1, "reapply": true, "time": 0.7 },
+      {
+        "type": "apply",
+        "target": "self",
+        "value": "EndlessGale",
+        "stack": 1,
+        "reapply": true,
+        "time": 0.7,
+        "requirement": [{ "target": "equippedMartialArt", "value": "namelessSword" }]
+      },
       {
         "type": "addResource",
         "value": "Endurance",

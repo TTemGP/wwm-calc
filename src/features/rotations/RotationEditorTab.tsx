@@ -126,7 +126,7 @@ import { Button } from "@/ui/Button"
 import { CalculationStatus } from "@/ui/CalculationStatus"
 
 function rotationEntryDisplayName(entry: RotationEntry) {
-  const name = entry.rotation.name || "Unnamed Rotation"
+  const name = entry.rotation.name || t("ui.app.unnamedRotation")
   return entry.isDefault ? gameText(name) : name
 }
 import { Chip } from "@/ui/Chip"
@@ -238,7 +238,7 @@ export function RotationEditorTab({
   const persistEntries = useRotationStore(state => state.persistEntries)
   const globalDebuffs = useLoadoutStore(state => state.globalDebuffs)
   const [initialState] = useState(() =>
-    initialRotationEditorState(devMode, selectedRotationId || defaultRotationId, settings.weapons),
+    initialRotationEditorState(devMode, selectedRotationId || defaultRotationId, settings.weapons, previewId),
   )
   const savedRotationSnapshotsRef = useRef<Map<string, RotationRecord> | null>(null)
   if (savedRotationSnapshotsRef.current === null)
@@ -314,7 +314,8 @@ export function RotationEditorTab({
     resolvedActiveRotationIdRef.current = activeRotationId
   }, [activeRotationId])
   const rotationLocked = editingEntry?.isDefault === true
-  const editingRotationDisplayName = (rotationLocked ? gameText(rotation.name) : rotation.name) || "Unnamed Rotation"
+  const editingRotationDisplayName =
+    (rotationLocked ? gameText(rotation.name) : rotation.name) || t("ui.app.unnamedRotation")
   const {
     food: currentFood,
     enduranceFood: currentEnduranceFood,
@@ -940,7 +941,7 @@ export function RotationEditorTab({
     )
     const nextEntry = nextEntries.find(entry => entry.id === id)
     if (!nextEntry) return
-    const nextRotation = rotationRecordForEntry(nextEntry)
+    const nextRotation = rotationRecordForEntry(nextEntry, previewId)
     updateRotationEntries(() => nextEntries)
     onActiveRotationChange(id)
     setEditingRotationId(id)
@@ -960,7 +961,7 @@ export function RotationEditorTab({
     )
     const nextEntry = nextEntries.find(entry => entry.id === id)
     if (!nextEntry) return
-    const nextRotation = rotationRecordForEntry(nextEntry)
+    const nextRotation = rotationRecordForEntry(nextEntry, previewId)
     updateRotationEntries(() => nextEntries)
     setEditingRotationId(id)
     setRotation(JSON.parse(JSON.stringify(nextRotation)) as RotationRecord)
@@ -1009,7 +1010,7 @@ export function RotationEditorTab({
     const id = createRotationId()
     const source = migrateRotation(rotation)
     const duplicate: RotationRecord = JSON.parse(
-      JSON.stringify({ ...source, name: `${source.name || "Rotation"} Copy` }),
+      JSON.stringify({ ...source, name: t("ui.app.copyOfName", { name: editingRotationDisplayName }) }),
     ) as RotationRecord
     const sourceEntry = rotationEntries.find(entry => entry.id === editingRotationId)
     const nextEntries = [
@@ -1239,6 +1240,7 @@ export function RotationEditorTab({
     settings.weapons.includes("vernalUmbrella") ||
     rotation.steps.some(step => step.type === "event" && step.event === "Blossoms")
   const displayedResources = [
+    ...(pathId === "silkbindDeluge" ? [{ resource: "Dew", label: t("system.resource.dew") }] : []),
     ...(pathId === "bamboocutDraught" ||
     settings.weapons.includes("skystrikeGauntlets") ||
     settings.weapons.includes("rivenTwinblades")
@@ -1713,7 +1715,8 @@ export function RotationEditorTab({
       entries[0]
     if (!activeEntry) return
     if (activeEntry.id === editingRotationId && !editorTimelineReady) return
-    const activeRotation = activeEntry.id === editingRotationId ? rotation : rotationRecordForEntry(activeEntry)
+    const activeRotation =
+      activeEntry.id === editingRotationId ? rotation : rotationRecordForEntry(activeEntry, previewId)
     const prepared = prepareBaselineCalculation(activeRotation)
     void (async () => {
       const outcome = await resolveRotationForEditor(activeEntry.id, activeRotation, prepared)
@@ -1728,6 +1731,7 @@ export function RotationEditorTab({
     editorTimelineReady,
     rotation,
     rotationEntries,
+    previewId,
     settings.weapons,
   ])
   return (

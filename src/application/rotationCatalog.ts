@@ -9,6 +9,7 @@ import {
   expandedSkillActionLayout,
   isFixedTimeEvent,
   resolveSkillStepCastTime,
+  resolveActionTime,
   type AttachedEventTarget,
   type EditableObject,
   type RotationRecord,
@@ -28,6 +29,7 @@ import type { RotationEntry } from "@/rotationTransfer"
 import { migrateSkillId } from "@/skillIdMigrations"
 import { normalizeStoredWeaponIds, weaponIds as allWeaponIds, type WeaponId } from "@/types"
 
+import { rotationOverridesFor, type PreviewId } from "./gameData/previews"
 import { rotationEventDefinitions } from "./gameData/rotationEffects"
 import { allSkillDefinitions, dotDefinitions, effectDefinitions, martialArtBySkillId } from "./gameData/skills"
 
@@ -117,14 +119,16 @@ export function baseAttachedEventTime(rotation: RotationRecord, eventStepIndex: 
       if (stepIndex > eventStepIndex) {
         if (target.action === "start") return elapsed
         const actions = Array.isArray(skill?.action) ? (skill.action as EditableObject[]) : []
-        if (target.trigger === undefined) return elapsed + Number(actions[target.action]?.time ?? 0)
+        if (target.trigger === undefined) return elapsed + resolveActionTime(actions[target.action]?.time)
         const triggerAction = actions.filter(action => action.type === "trigger")[target.trigger]
         if (!triggerAction || typeof triggerAction.value !== "string") return elapsed
         const triggeredSkill = allSkillDefinitions[triggerAction.value]
         const triggeredActions = Array.isArray(triggeredSkill?.action)
           ? (triggeredSkill.action as EditableObject[])
           : []
-        return elapsed + Number(triggerAction.time ?? 0) + Number(triggeredActions[target.action]?.time ?? 0)
+        return (
+          elapsed + resolveActionTime(triggerAction.time) + resolveActionTime(triggeredActions[target.action]?.time)
+        )
       }
       elapsed += baseStepCastTime(step)
     } else if (step.event === "Delay") {
@@ -245,7 +249,7 @@ export function migrateRotation(rotation: RotationRecord): RotationRecord {
       const actions = Array.isArray(skill?.action) ? (skill.action as EditableObject[]) : []
       return [{ index, time: castStart - anchor, before: { action: "start" } as AttachedEventTarget }].concat(
         actions.flatMap((action, actionIndex) => {
-          const time = castStart + Number(action.time ?? 0) - anchor
+          const time = castStart + resolveActionTime(action.time) - anchor
           const direct = { index, time, before: { action: actionIndex } as AttachedEventTarget }
           if (action.type !== "trigger" || typeof action.value !== "string") return [direct]
           const triggered = allSkillDefinitions[action.value]
@@ -255,7 +259,7 @@ export function migrateRotation(rotation: RotationRecord): RotationRecord {
           return [direct].concat(
             triggeredActions.map((triggeredAction, triggeredActionIndex) => ({
               index,
-              time: time + Number(triggeredAction.time ?? 0),
+              time: time + resolveActionTime(triggeredAction.time),
               before: { trigger: triggerOrdinal, action: triggeredActionIndex } as AttachedEventTarget,
             })),
           )
@@ -361,10 +365,27 @@ export const defaultRotationEntries = Object.entries(rotationPresetModules)
   }))
 export const defaultRotation = defaultRotationEntries[0]?.rotation ?? { name: "Default Rotation", steps: [] }
 export const defaultRotationId = defaultRotationEntries[0]?.id ?? "default-rotation"
-export const formerDefaultRotationIds = new Set(["dummy-1-min"])
+export const formerDefaultRotationIds = new Set([
+  "dummy-1-min",
+  "mixed-dummy-1-min-double-stab",
+  "mixed-dummy-infinite-vitality-1-min",
+  "mixed-dummy-smolder-poet-1-min",
+])
 
-export function rotationRecordForEntry(entry: RotationEntry) {
+export function rotationEntriesForPreview(entries: RotationEntry[], previewId: PreviewId | null): RotationEntry[] {
+  const overrides = rotationOverridesFor(previewId)
+  if (!Object.keys(overrides).length) return entries
+  return entries.flatMap(entry => {
+    if (!entry.isDefault || !Object.hasOwn(overrides, entry.id)) return [entry]
+    const rotation = overrides[entry.id]
+    return rotation ? [{ ...entry, rotation: migrateRotation(rotation) }] : []
+  })
+}
+
+export function rotationRecordForEntry(entry: RotationEntry, previewId: PreviewId | null = null) {
   if (!entry.isDefault) return entry.rotation
+  const override = rotationOverridesFor(previewId)[entry.id]
+  if (override) return migrateRotation(override)
   return defaultRotationEntries.find(preset => preset.id === entry.id)?.rotation ?? entry.rotation
 }
 
